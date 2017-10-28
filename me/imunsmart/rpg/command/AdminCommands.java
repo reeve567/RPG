@@ -22,16 +22,31 @@ public class AdminCommands implements CommandExecutor {
 		pl.getCommand("givegems").setExecutor(this);
 		pl.getCommand("spawnmob").setExecutor(this);
 		pl.getCommand("spawner").setExecutor(this);
+		pl.getCommand("kick").setExecutor(this);
 	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (!(sender instanceof Player)) {
-			sender.sendMessage(ChatColor.RED + "You must be a player to do that.");
-			return true;
-		}
 		if (!sender.hasPermission("rpg.admin")) {
 			sender.sendMessage(ChatColor.RED + "Insufficient permissions.");
+			return true;
+		}
+		if (label.equalsIgnoreCase("kick")) {
+			if (args.length == 1) {
+				if (Bukkit.getPlayer(args[0]) != null && Bukkit.getPlayer(args[0]).isOnline()) {
+					Bukkit.getPlayer(args[0]).kickPlayer("Kicked from server.");
+					sender.sendMessage(ChatColor.GREEN + "Target has been kicked.");
+				}
+				else {
+					sender.sendMessage(ChatColor.RED + "That player is not online!");
+				}
+			}
+			else {
+				sender.sendMessage(ChatColor.RED + "Invalid usage.");
+			}
+		}
+		if (!(sender instanceof Player)) {
+			sender.sendMessage(ChatColor.RED + "You must be a player to do that.");
 			return true;
 		}
 		Player p = (Player) sender;
