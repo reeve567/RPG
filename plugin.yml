@@ -1,0 +1,15 @@
+name: RPG
+author: ImUnsmart
+main: me.imunsmart.rpg.Main
+version: 0.1
+commands:
+  giveweapon:
+    description: Give a weapon item.
+  givearmor:
+    description: Give an armor item.
+  spawnmob:
+    description: Spawn a mob.
+  givegems:
+    description: Give a player gems.
+  spawner:
+    description: Create a spawner.
