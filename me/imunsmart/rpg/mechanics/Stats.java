@@ -2,6 +2,8 @@ package me.imunsmart.rpg.mechanics;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -20,10 +22,52 @@ public class Stats {
 			dir.mkdirs();
 	}
 
-	public static int getStat(Player p, String id) {
+	//	public static Object getStat(Player p, String id) {
+	//		File f = new File(dir, p.getUniqueId() + ".yml");
+	//		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
+	//		if (!fc.contains(id))
+	//			return null;
+	//		return fc.get(id);
+	//	}
+
+	public static int getInt(Player p, String id) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
+		if (!fc.contains(id))
+			return 0;
 		return fc.getInt(id);
+	}
+
+	public static int getInt(Player p, String id, int df) {
+		File f = new File(dir, p.getUniqueId() + ".yml");
+		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
+		if (!fc.contains(id))
+			return df;
+		return fc.getInt(id);
+	}
+
+	public static double getDouble(Player p, String id) {
+		File f = new File(dir, p.getUniqueId() + ".yml");
+		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
+		if (!fc.contains(id))
+			return 0.0;
+		return fc.getDouble(id);
+	}
+
+	public static int getString(Player p, String id) {
+		File f = new File(dir, p.getUniqueId() + ".yml");
+		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
+		if (!fc.contains(id))
+			return 0;
+		return fc.getInt(id);
+	}
+
+	public static List<String> getList(Player p, String id) {
+		File f = new File(dir, p.getUniqueId() + ".yml");
+		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
+		if (!fc.contains(id))
+			return new ArrayList<String>();
+		return fc.getStringList(id);
 	}
 
 	public static void setStat(Player p, String id, Object o) {

@@ -51,12 +51,16 @@ public class MobManager implements Listener {
 	public void onDamage(EntityDamageByEntityEvent e) {
 		if (mobs.containsKey(e.getEntity()) && e.getDamager() instanceof LivingEntity) {
 			LivingEntity le = (LivingEntity) e.getDamager();
+			LivingEntity hit = (LivingEntity) e.getEntity();
 			double damage = 1;
 			if (le.getEquipment().getItemInMainHand() != null)
 				damage = Health.getAttributeI(le.getEquipment().getItemInMainHand(), "Damage");
 			String name = le.getEquipment().getItemInMainHand().getType().name();
 			if (name.contains("SWORD") || name.contains("AXE")) {
 				incDur(le.getEquipment().getItemInMainHand());
+			}
+			for(ItemStack i : hit.getEquipment().getArmorContents()) {
+				incDur(i);
 			}
 			if (damage == 0)
 				damage += 1;

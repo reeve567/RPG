@@ -15,7 +15,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import net.md_5.bungee.api.ChatColor;
 
 public class Items {
-	
+
 	public static final ItemStack gem = createItem(Material.DIAMOND, 1, 0, ChatColor.AQUA + "Gem");
 
 	public static ItemStack createItem(Material m, int amount, int durability, String name, String... lore) {
@@ -78,13 +78,13 @@ public class Items {
 			amount = 3;
 		}
 		int data = 14;
-		if(name.contains("CHAINMAIL") || name.contains("STONE"))
+		if (name.contains("CHAINMAIL") || name.contains("STONE"))
 			data = 8;
-		else if(name.contains("IRON"))
+		else if (name.contains("IRON"))
 			data = 7;
-		else if(name.contains("DIAMOND"))
+		else if (name.contains("DIAMOND"))
 			data = 12;
-		else if(name.contains("GOLD"))
+		else if (name.contains("GOLD"))
 			data = 11;
 		p.getInventory().addItem(createItem(Material.INK_SACK, amount, data, ChatColor.WHITE + "Armor Scrap", "Drag a stack onto armor", "to repair it."));
 		p.getInventory().setItemInMainHand(null);
@@ -140,21 +140,53 @@ public class Items {
 			p.updateInventory();
 		}
 	}
-	
+
 	public static int getTier(ItemStack i) {
 		String name = i.getType().name();
-		if(name.contains("CHAINMAIL") || name.contains("STONE"))
+		if (name.contains("CHAINMAIL") || name.contains("STONE"))
 			return 2;
-		else if(name.contains("IRON"))
+		else if (name.contains("IRON"))
 			return 3;
-		else if(name.contains("DIAMOND"))
+		else if (name.contains("DIAMOND"))
 			return 4;
-		else if(name.contains("GOLD"))
+		else if (name.contains("GOLD"))
 			return 5;
 		return 1;
 	}
-	
+
 	public static ItemStack createGems(int amount) {
 		return createItem(Material.DIAMOND, amount, 0, ChatColor.AQUA + "Gem");
+	}
+	public static ItemStack createGemNote(int amount) {
+		return Items.createItem(Material.EMPTY_MAP, 1, 0, ChatColor.AQUA + "Bank Note", "Value: " + amount);
+	}
+
+	public static String serialize(ItemStack i) {
+		if (i == null)
+			return "@iAIR@a0@d-1";
+		if (!i.hasItemMeta())
+			return "@i" + i.getType().name() + "@a" + i.getAmount() + "@d" + i.getDurability();
+		String lore = "";
+		if (i.getItemMeta().hasLore()) {
+			for (String s : i.getItemMeta().getLore()) {
+				lore += s + ",";
+			}
+		}
+		return "@i" + i.getType().name() + "@a" + i.getAmount() + "@d" + i.getDurability() + "@n" + i.getItemMeta().getDisplayName() + "@l" + lore;
+	}
+
+	public static ItemStack deserialize(String s) {
+		String[] tokens = s.split("@");
+		Material m = Material.valueOf(tokens[1].substring(1));
+		int amt = Integer.valueOf(tokens[2].substring(1));
+		int dur = Integer.valueOf(tokens[3].substring(1));
+		if (tokens.length > 4) {
+			String name = tokens[4].substring(1);
+			List<String> lore = new ArrayList<String>();
+			for (String t : tokens[5].substring(1).split(","))
+				lore.add(t);
+			return Items.createItem(m, amt, dur, name, lore);
+		} else
+			return new ItemStack(m, amt, (short) dur);
 	}
 }

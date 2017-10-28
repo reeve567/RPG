@@ -1,7 +1,9 @@
 package me.imunsmart.rpg.mechanics;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -12,6 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -32,12 +35,29 @@ public class Bank implements Listener {
 	}
 
 	public static void open(Player p) {
+		Inventory inv = Bukkit.createInventory(null, 9, ChatColor.GREEN + p.getName() + "'s Bank");
+		int gems = Stats.getInt(p, "gems");
+		inv.setItem(4, Items.createItem(Material.DIAMOND, 1, 0, ChatColor.AQUA + "Gems: " + gems, "Left click to withdraw.", "Shift-left to withdraw a note.", "Shift-click gems in your inventory", "to deposit them."));
+		inv.setItem(8, Items.createItem(Material.CHEST, 1, 0, ChatColor.GOLD + "Storage", "Left click to open."));
+		p.openInventory(inv);
 	}
 
 	public static void openBank(Player p) {
-		Inventory inv = Bukkit.createInventory(null, 9, ChatColor.GREEN + p.getName() + "'s Bank");
-		int gems = Stats.getStat(p, "gems");
-		inv.setItem(4, Items.createItem(Material.DIAMOND, 1, 0, ChatColor.AQUA + "Gems: " + gems, "Left click to withdraw.", "Shift-left to withdraw a note."));
+		int size = Stats.getInt(p, "bank.size", 1);
+		List<String> storage = Stats.getList(p, "bank.storage");
+		int op = size * 9 + 9;
+		if(size == 6)
+			op = 54;
+		Inventory inv = Bukkit.createInventory(null, op, ChatColor.GREEN + p.getName() + "'s Bank Storage");
+		for (int i = 0; i < storage.size(); i++) {
+			System.out.println(i);
+			inv.setItem(i, Items.deserialize(storage.get(i)));
+		}
+		if (size < 6) {
+			for (int i = 9; i > 0; i--) {
+				inv.setItem(inv.getSize() - i, Items.createItem(Material.STAINED_GLASS_PANE, 1, 13, ChatColor.GREEN + "Upgrade", "Click to upgrade your bank."));
+			}
+		}
 		p.openInventory(inv);
 	}
 
@@ -58,8 +78,20 @@ public class Bank implements Listener {
 		if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			if (e.getClickedBlock().getType() == Material.ENDER_CHEST) {
 				e.setCancelled(true);
-				openBank(p);
+				open(p);
 			}
+		}
+	}
+
+	@EventHandler
+	public void onClose(InventoryCloseEvent e) {
+		Player p = (Player) e.getPlayer();
+		if (e.getInventory().getTitle().equals(ChatColor.GREEN + p.getName() + "'s Bank Storage")) {
+			List<String> items = new ArrayList<String>();
+			for (int i = 0; i < e.getInventory().getSize() - 9; i++) {
+				items.add(Items.serialize(e.getInventory().getItem(i)));
+			}
+			Stats.setStat(p, "bank.storage", items);
 		}
 	}
 
@@ -70,7 +102,7 @@ public class Bank implements Listener {
 		if (e.getSlotType() == SlotType.OUTSIDE)
 			return;
 		Player p = (Player) e.getWhoClicked();
-		if (p.getOpenInventory().getTopInventory().getTitle().contains("Bank")) {
+		if (p.getOpenInventory().getTopInventory().getTitle().equals(ChatColor.GREEN + p.getName() + "'s Bank")) {
 			e.setCancelled(true);
 			if (!e.getCurrentItem().hasItemMeta())
 				return;
@@ -83,11 +115,44 @@ public class Bank implements Listener {
 				if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.AQUA + "Gem") || e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.AQUA + "Bank Note")) {
 					depositGems(p);
 					p.closeInventory();
+					open(p);
+				}
+			}
+			if (e.getCurrentItem().getItemMeta().getDisplayName().contains("Storage")) {
+				if (e.getClick() == ClickType.LEFT) {
 					openBank(p);
 				}
 			}
 		}
+		if (p.getOpenInventory().getTopInventory().getTitle().equals(ChatColor.GREEN + p.getName() + "'s Bank Storage")) {
+			if (!e.getCurrentItem().hasItemMeta())
+				return;
+			if (e.getClick() == ClickType.SHIFT_LEFT) {
+				if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.AQUA + "Gem") || e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.AQUA + "Bank Note")) {
+					e.setCancelled(true);
+					depositGems(p);
+					p.closeInventory();
+					open(p);
+				}
+			}
+			if (e.getCurrentItem().getItemMeta().getDisplayName().contains("Upgrade")) {
+				e.setCancelled(true);
+				p.closeInventory();
+				int gems = Stats.getInt(p, "gems");
+				int size = Stats.getInt(p, "bank.size", 1);
+				System.out.println(size);
+				int cost = upgradeCosts[size - 1];
+				if (gems >= cost) {
+					upgrade.add(p.getName());
+					p.sendMessage(ChatColor.GRAY + "A bank upgrade will cost " + ChatColor.AQUA + cost + ChatColor.GRAY + " gems. Type 'confirm' to upgrade.");
+				} else {
+					p.sendMessage(ChatColor.RED + "Insufficient gem balance. You need " + ChatColor.BOLD + cost + ChatColor.RED + " for that. Try depositing more gems.");
+				}
+			}
+		}
 	}
+
+	List<String> upgrade = new ArrayList<String>();
 
 	@EventHandler
 	public void onChat(AsyncPlayerChatEvent e) {
@@ -101,17 +166,17 @@ public class Bank implements Listener {
 			} catch (Exception e2) {
 				wd = false;
 			}
-			int pg = Stats.getStat(p, "gems");
+			int pg = Stats.getInt(p, "gems");
 			if (gems > pg) {
 				wd = false;
 			}
 			if (wd) {
-				Stats.setStat(p, "gems", pg - gems);
 				if (withdraw.get(p.getName())) {
-					ItemStack i = Items.createItem(Material.EMPTY_MAP, 1, 0, ChatColor.AQUA + "Bank Note", "Value: " + gems);
+					ItemStack i = Items.createGemNote(gems);
 					p.getInventory().addItem(i);
 					p.sendMessage(ChatColor.GRAY + "Successfully withdrew bank note with worth of " + ChatColor.AQUA + gems + " gems.");
 					p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 2);
+					Stats.setStat(p, "gems", pg - gems);
 				} else {
 					int stacks = gems / 64;
 					gems -= stacks * 64;
@@ -127,12 +192,30 @@ public class Bank implements Listener {
 					}
 					p.getInventory().addItem(Items.createGems(gems));
 					p.sendMessage(ChatColor.GRAY + "Withdrew a total of " + ChatColor.AQUA + (stacks * 64 + gems) + " gems.");
-					p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 2);
+					Sounds.play(p, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 2);
+					Stats.setStat(p, "gems", pg - gems);
 				}
 				withdraw.remove(p.getName());
 			} else {
 				p.sendMessage(ChatColor.RED + "Failed to withdraw, enter a valid gem amount or you don't have enough gems.");
-				p.playSound(p.getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 0.67f);
+				withdraw.remove(p.getName());
+				Sounds.play(p, Sound.ENTITY_ITEM_BREAK, 0.67f);
+			}
+		}
+		if (upgrade.contains(p.getName())) {
+			e.setCancelled(true);
+			upgrade.remove(p.getName());
+			if (e.getMessage().contains("confirm")) {
+				int gems = Stats.getInt(p, "gems");
+				int size = Stats.getInt(p, "bank.size", 1);
+				int cost = upgradeCosts[size - 1];
+				Stats.setStat(p, "gems", gems - cost);
+				Stats.setStat(p, "bank.size", size + 1);
+				p.sendMessage(ChatColor.GRAY + "Successfully upgrade bank by " + ChatColor.AQUA + "9" + ChatColor.GRAY + " slots.");
+				Sounds.play(p, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 2);
+			} else {
+				p.sendMessage(ChatColor.RED + "Upgrade cancelled.");
+				Sounds.play(p, Sound.ENTITY_ITEM_BREAK, 0.67f);
 			}
 		}
 	}
@@ -140,10 +223,14 @@ public class Bank implements Listener {
 	@EventHandler
 	public void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
-		if (withdraw.containsKey(p.getName())) {
-			if (e.getTo() != e.getFrom()) {
+		if (e.getTo().distanceSquared(e.getFrom()) > 1) {
+			if (withdraw.containsKey(p.getName())) {
 				p.sendMessage(ChatColor.RED + "You moved, cancelling withdrawl.");
 				withdraw.remove(p.getName());
+			}
+			if (upgrade.contains(p.getName())) {
+				p.sendMessage(ChatColor.RED + "You moved, cancelling upgrade.");
+				upgrade.remove(p.getName());
 			}
 		}
 	}
@@ -227,4 +314,6 @@ public class Bank implements Listener {
 		}
 		return free >= slots;
 	}
+
+	private int[] upgradeCosts = { 200, 500, 1000, 2500, 5000 };
 }

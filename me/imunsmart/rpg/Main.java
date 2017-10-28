@@ -1,11 +1,13 @@
 package me.imunsmart.rpg;
 
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.imunsmart.rpg.command.AdminCommands;
+import me.imunsmart.rpg.events.ChatEvents;
 import me.imunsmart.rpg.events.DamageEvents;
 import me.imunsmart.rpg.events.PlayerEvents;
 import me.imunsmart.rpg.events.Spawners;
@@ -46,6 +48,7 @@ public class Main extends JavaPlugin {
 		Bukkit.getPluginManager().registerEvents(new WorldEvents(this), this);
 		Bukkit.getPluginManager().registerEvents(new PlayerEvents(this), this);
 		Bukkit.getPluginManager().registerEvents(new DamageEvents(this), this);
+		Bukkit.getPluginManager().registerEvents(new ChatEvents(this), this);
 
 		new MobManager(this);
 		npc = new NPC(this);

@@ -168,6 +168,6 @@ public class DropManager {
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		}
-		return zt1[0];
+		return "null";
 	}
 }

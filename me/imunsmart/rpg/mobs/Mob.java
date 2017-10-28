@@ -96,7 +96,7 @@ public class Mob {
 		}
 		if (flag.contains("Rare")) {
 			min *= DropManager.SCALE_RARE_1;
-			max *= DropManager.SCALE_UNC_1;
+			max *= DropManager.SCALE_RARE_1;
 		}
 		ItemStack w = Items.randomDurability(Items.createWeapon(type, tier, min, max, flag));
 		if (Math.random() < 0.1) {

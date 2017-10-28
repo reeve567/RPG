@@ -92,7 +92,7 @@ public class AdminCommands implements CommandExecutor {
 			}
 		}
 		if (label.equalsIgnoreCase("spawnmob")) {
-			if(args.length == 2) {
+			if (args.length == 2) {
 				String type = args[0];
 				int tier = Integer.parseInt(args[1]);
 				MobManager.spawn(p.getLocation(), type, tier);
@@ -125,6 +125,13 @@ public class AdminCommands implements CommandExecutor {
 				tp.getInventory().addItem(Items.createGems(amount));
 				for (int i = 0; i < stacks; i++) {
 					tp.getInventory().addItem(Items.createGems(64));
+				}
+			} else if (args.length == 3) {
+				Player tp = Bukkit.getPlayer(args[0]);
+				int amount = Integer.parseInt(args[1]);
+				if (args[2].equalsIgnoreCase("noted")) {
+					p.sendMessage(ChatColor.AQUA + "Given " + amount + " gems to " + tp.getName());
+					tp.getInventory().addItem(Items.createGemNote(amount));
 				}
 			}
 		}

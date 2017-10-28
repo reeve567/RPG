@@ -35,6 +35,9 @@ public class Health {
 					}
 					int max = calculateMaxHealth(p);
 					int hp = health.get(p.getName());
+					
+					if(hp > max)
+						hp = max;
 
 					if (hp != max && !p.isDead()) {
 						int regen = calculateHealthRegen(p);
