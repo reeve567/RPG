@@ -1,13 +1,12 @@
-package me.imunsmart.rpg.command.admincommands.gamemode;
+package me.imunsmart.rpg.command.AdminCommands.Gamemode;
 
-
-import org.bukkit.ChatColor;
+import me.imunsmart.rpg.utility.StringUtility;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
 public class GMA {
 	public static void run(Player p) {
 		p.setGameMode(GameMode.ADVENTURE);
-		p.sendMessage(ChatColor.GRAY + "Set gamemode to " + ChatColor.AQUA + "Adventure" + ChatColor.GRAY + ".");
+		p.sendMessage(StringUtility.colorConv("&6Gamemode set to &cadventure&6."));
 	}
 }

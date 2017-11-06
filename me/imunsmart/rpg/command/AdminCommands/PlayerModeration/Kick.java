@@ -1,4 +1,4 @@
-package me.imunsmart.rpg.command.admincommands.playermoderation;
+package me.imunsmart.rpg.command.AdminCommands.PlayerModeration;
 
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;

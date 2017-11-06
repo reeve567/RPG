@@ -1,5 +1,6 @@
 package me.imunsmart.rpg.command;
 
+import me.imunsmart.rpg.command.AdminCommands.Broadcast;
 import me.imunsmart.rpg.command.AdminCommands.Gamemode.GMA;
 import me.imunsmart.rpg.command.AdminCommands.Gamemode.GMC;
 import me.imunsmart.rpg.command.AdminCommands.Gamemode.GMS;
@@ -10,8 +11,11 @@ import me.imunsmart.rpg.command.AdminCommands.PlayerModeration.Kick;
 import me.imunsmart.rpg.command.AdminCommands.InventoryManagement.GiveArmor;
 import me.imunsmart.rpg.command.AdminCommands.InventoryManagement.GiveGems;
 import me.imunsmart.rpg.command.AdminCommands.InventoryManagement.GiveWeapon;
+import me.imunsmart.rpg.command.AdminCommands.PlayerModeration.Suicide;
 import me.imunsmart.rpg.command.AdminCommands.RPG.Mobs.SpawnMob;
 import me.imunsmart.rpg.command.AdminCommands.RPG.Mobs.Spawner;
+import me.imunsmart.rpg.mechanics.Health;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -30,7 +34,7 @@ public class Admin implements CommandExecutor {
 		this.pl = pl;
 		
 		register(Arrays.asList("giveweapon", "givearmor", "givegems", "spawnmob", "spawner", "kick", "gmc", "gms", "gma", "gmsp",
-				"ci", "clearinv", "clearInventory", "cc", "chatclear"));
+				"ci", "clearinv", "clearInventory", "cc", "chatclear","suicide","bc","broadcast"));
 	}
 	
 	@Override
@@ -75,7 +79,13 @@ public class Admin implements CommandExecutor {
 				label.equalsIgnoreCase("cc")) {
 			ChatClear.run(p);
 		}
-		return false;
+		else if (label.equalsIgnoreCase("suicide")) {
+			Suicide.run(p,args);
+		}
+		else if (label.equalsIgnoreCase("broadcast") || label.equalsIgnoreCase("bc")) {
+			Broadcast.run(p,pl,args);
+		}
+		return true;
 	}
 	
 	private void register(List<String> s) {

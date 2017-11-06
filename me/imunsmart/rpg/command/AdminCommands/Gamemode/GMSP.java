@@ -1,6 +1,6 @@
-package me.imunsmart.rpg.command.admincommands.gamemode;
+package me.imunsmart.rpg.command.AdminCommands.Gamemode;
 
-import org.bukkit.ChatColor;
+import me.imunsmart.rpg.utility.StringUtility;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
@@ -8,7 +8,7 @@ public class GMSP {
 	
 	public static void run(Player p) {
 		p.setGameMode(GameMode.SPECTATOR);
-		p.sendMessage(ChatColor.GRAY + "Set gamemode to " + ChatColor.AQUA + "Spectator" + ChatColor.GRAY + ".");
+		p.sendMessage(StringUtility.colorConv("&6Gamemode set to &cspectator&6."));
 	}
 	
 }
