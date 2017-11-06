@@ -11,5 +11,9 @@ commands:
     description: Spawn a mob.
   givegems:
     description: Give a player gems.
+  givescraps:
+    description: Give a player scraps.
   spawner:
     description: Create a spawner.
+  suicide:
+    description: Kill a player.

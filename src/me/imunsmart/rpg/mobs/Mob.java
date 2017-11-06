@@ -112,6 +112,50 @@ public class Mob {
 		mob.setCustomName(name);
 	}
 
+	public Mob(LivingEntity mob, String name, String type, int min, int max, String flag, int tier, int mh, int mc, int ml, int mb, String hf, String cf, String lf, String bf) {
+		this.mob = mob;
+		this.tier = tier;
+		loc = mob.getLocation();
+		mob.getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(8.0);
+		pl = MobManager.pl;
+		ItemStack h = Items.randomDurability(Items.createArmor("helmet", tier, mh, hf));
+		if (Math.random() < 0.1) {
+			drop = h;
+		}
+		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+		mob.getEquipment().setHelmet(skull);
+		ItemStack c = Items.randomDurability(Items.createArmor("chestplate", tier, mc, cf));
+		if (Math.random() < 0.1) {
+			drop = c;
+		}
+		if (Math.random() > 0.25)
+			mob.getEquipment().setChestplate(c);
+		ItemStack l = Items.randomDurability(Items.createArmor("leggings", tier, ml, lf));
+		if (Math.random() < 0.1) {
+			drop = l;
+		}
+		if (Math.random() > 0.25)
+			mob.getEquipment().setLeggings(l);
+		ItemStack b = Items.randomDurability(Items.createArmor("boots", tier, mb, bf));
+		if (Math.random() < 0.1) {
+			drop = b;
+		}
+		if (Math.random() > 0.25)
+			mob.getEquipment().setBoots(b);
+		ItemStack w = Items.randomDurability(Items.createWeapon(type, tier, min, max, flag));
+		if (Math.random() < 0.1) {
+			drop = w;
+		}
+		mob.getEquipment().setItemInMainHand(w);
+		mob.getEquipment().setBootsDropChance(0);
+		mob.getEquipment().setHelmetDropChance(0);
+		mob.getEquipment().setChestplateDropChance(0);
+		mob.getEquipment().setLeggingsDropChance(0);
+		mob.getEquipment().setItemInMainHandDropChance(0);
+		health = Health.calculateMaxHealth(mob);
+		mob.setCustomName(name);
+	}
+
 	public void tick() {
 		if (health < 1) {
 			mob.playEffect(EntityEffect.DEATH);

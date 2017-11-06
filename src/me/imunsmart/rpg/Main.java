@@ -1,7 +1,6 @@
 package me.imunsmart.rpg;
 
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -10,11 +9,13 @@ import me.imunsmart.rpg.command.AdminCommands;
 import me.imunsmart.rpg.events.ChatEvents;
 import me.imunsmart.rpg.events.DamageEvents;
 import me.imunsmart.rpg.events.PlayerEvents;
+import me.imunsmart.rpg.events.ServerEvents;
 import me.imunsmart.rpg.events.Spawners;
 import me.imunsmart.rpg.events.WorldEvents;
 import me.imunsmart.rpg.mechanics.Bank;
 import me.imunsmart.rpg.mechanics.Health;
 import me.imunsmart.rpg.mechanics.NPC;
+import me.imunsmart.rpg.mechanics.RepairMenu;
 import me.imunsmart.rpg.mechanics.Stats;
 import me.imunsmart.rpg.mobs.MobManager;
 
@@ -36,11 +37,12 @@ public class Main extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-		super.onDisable();
-
 		Health.disable();
-		MobManager.pl = null;
 		npc.disable();
+		MobManager.disable();
+		MobManager.pl = null;
+		
+		super.onDisable();
 	}
 
 	private void registerEvents() {
@@ -49,10 +51,12 @@ public class Main extends JavaPlugin {
 		Bukkit.getPluginManager().registerEvents(new PlayerEvents(this), this);
 		Bukkit.getPluginManager().registerEvents(new DamageEvents(this), this);
 		Bukkit.getPluginManager().registerEvents(new ChatEvents(this), this);
+		Bukkit.getPluginManager().registerEvents(new ServerEvents(this), this);
 
 		new MobManager(this);
-		npc = new NPC(this);
+//		npc = new NPC(this);
 		new Bank(this);
+		new RepairMenu(this);
 		new Spawners(this);
 	}
 
