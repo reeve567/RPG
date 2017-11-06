@@ -3,6 +3,7 @@ package me.imunsmart.rpg.mobs;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import me.imunsmart.rpg.mechanics.ActionBar;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
@@ -64,8 +65,10 @@ public class MobManager implements Listener {
 			}
 			if (damage == 0)
 				damage += 1;
-			if (le instanceof Player)
-				((Player) le).sendMessage(ChatColor.GREEN + "Damage -> " + ChatColor.RED + mobs.get(e.getEntity()).getHealth() + " - " + ChatColor.BOLD + damage);
+			if (le instanceof Player) {
+				ActionBar actionBar = new ActionBar(ChatColor.GREEN + "Damage -> " + ChatColor.RED + mobs.get(e.getEntity()).getHealth() + " - " + ChatColor.BOLD + damage);
+				actionBar.sendToPlayer((Player) le);
+			}
 			mobs.get(e.getEntity()).damage(damage);
 		}
 	}

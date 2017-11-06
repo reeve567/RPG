@@ -10,24 +10,25 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.LivingEntity;
 
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mobs.Mob;
 import me.imunsmart.rpg.mobs.MobManager;
+import me.imunsmart.rpg.util.Util;
 
 public class Spawners {
 	Main pl;
 	private static File spawn;
 
 	public static List<Spawner> spawns = new ArrayList<Spawner>();
+	private static Spawners spawners;
 
 	public Spawners(Main pl) {
 		this.pl = pl;
 		spawn = new File(pl.getDataFolder(), "spawners.yml");
-		FileConfiguration fc = YamlConfiguration.loadConfiguration(spawn);
-		for (String name : fc.getKeys(false)) {
-			spawns.add(new Spawner(this, Bukkit.getWorld(fc.getString(name + ".world")), fc.getInt(name + ".x"), fc.getInt(name + ".y"), fc.getInt(name + ".z"), fc.getInt(name + ".tier")).spawn());
-		}
+		spawners = this;
+		reloadSpawners();
 	}
 
 	public static void setSpawn(Location l, int tier, String name) {
@@ -56,6 +57,20 @@ public class Spawners {
 			}
 		}
 	}
+	
+	public static void disable() {
+		for(LivingEntity le : Util.w.getLivingEntities()) {
+			if(le.getCustomName().length() != 0)
+				le.remove();
+		}
+	}
+	
+	public static void reloadSpawners() {
+		FileConfiguration fc = YamlConfiguration.loadConfiguration(spawn);
+		for (String name : fc.getKeys(false)) {
+			spawns.add(new Spawner(spawners, Bukkit.getWorld(fc.getString(name + ".world")), fc.getInt(name + ".x"), fc.getInt(name + ".y"), fc.getInt(name + ".z"), fc.getInt(name + ".tier")).spawn());
+		}
+	}
 }
 
 class Spawner {
@@ -76,7 +91,7 @@ class Spawner {
 	public Spawner spawn() {
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(s.pl, () -> {
 			if (spawned.size() < 5) {
-				spawned.add(MobManager.spawn(new Location(w, x, y, z), "zombie", tier));
+				spawned.add(MobManager.spawn(new Location(w, x, y, z), Math.random() < 0.5 ? "zombie" : "skeleton", tier));
 			}
 		}, 0, (1200 * tier));
 		return this;
