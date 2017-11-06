@@ -1,4 +1,4 @@
-package me.imunsmart.rpg.command.AdminCommands.RPG.Give;
+package me.imunsmart.rpg.command.admincommands.rpg.give;
 
 import me.imunsmart.rpg.mechanics.Items;
 import net.md_5.bungee.api.ChatColor;
@@ -6,8 +6,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class GiveWeapon {
-	
-	public static void run(Player p,String[] args) {
+
+	public static void run(Player p, String[] args) {
 		if (args.length == 3) {
 			String type = args[0].toLowerCase();
 			int tier = Integer.parseInt(args[1]);
@@ -40,5 +40,5 @@ public class GiveWeapon {
 			p.sendMessage(ChatColor.RED + "Invalid usage.");
 		}
 	}
-	
+
 }

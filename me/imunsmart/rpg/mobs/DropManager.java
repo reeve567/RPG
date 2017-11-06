@@ -170,4 +170,27 @@ public class DropManager {
 		}
 		return "null";
 	}
+
+	private static final String[] st1 = { "Crackling Skeleton", "Broken Skeleton", "Lost Skeleton", "Weak Skeleton" };
+	private static final String[] st2 = { "Creepy Skeleton", "Happy Skeleton", "Rough Skeleton", "Undead Skeleton" };
+	private static final String[] st3 = { "Strong Skeleton", "Intelligent Skeleton", "Unbroken Skeleton", "Decaying Skeleton" };
+	private static final String[] st4 = { "Horrible Skeleton", "Insane Skeleton", "Killer Skeleton", "Destructive Skeleton" };
+	private static final String[] st5 = { "Untouchable Skeleton", "Godly Skeleton", "Legendary Skeleton", "Inhuman Skeleton" };
+
+	public static String getRandomSkeletonName(int tier) {
+		try {
+			Field f = DropManager.class.getDeclaredField("st" + tier);
+			String[] name = (String[]) f.get(null);
+			return name[(int) (Math.random() * name.length)];
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		}
+		return "null";
+	}
 }

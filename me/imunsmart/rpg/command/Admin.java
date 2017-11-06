@@ -1,27 +1,21 @@
 package me.imunsmart.rpg.command;
 
-import me.imunsmart.rpg.command.AdminCommands.Gamemode.GMA;
-import me.imunsmart.rpg.command.AdminCommands.Gamemode.GMC;
-import me.imunsmart.rpg.command.AdminCommands.Gamemode.GMS;
-import me.imunsmart.rpg.command.AdminCommands.Gamemode.GMSP;
-import me.imunsmart.rpg.command.AdminCommands.PlayerModeration.Kick;
-import me.imunsmart.rpg.command.AdminCommands.RPG.Give.GiveArmor;
-import me.imunsmart.rpg.command.AdminCommands.RPG.Give.GiveGems;
-import me.imunsmart.rpg.command.AdminCommands.RPG.Give.GiveWeapon;
-import me.imunsmart.rpg.command.AdminCommands.RPG.Mobs.SpawnMob;
-import me.imunsmart.rpg.command.AdminCommands.RPG.Mobs.Spawner;
-import me.imunsmart.rpg.utility.StringUtility;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.imunsmart.rpg.Main;
-import me.imunsmart.rpg.events.Spawners;
-import me.imunsmart.rpg.mechanics.Items;
-import me.imunsmart.rpg.mobs.MobManager;
+import me.imunsmart.rpg.command.admincommands.gamemode.GMA;
+import me.imunsmart.rpg.command.admincommands.gamemode.GMC;
+import me.imunsmart.rpg.command.admincommands.gamemode.GMS;
+import me.imunsmart.rpg.command.admincommands.gamemode.GMSP;
+import me.imunsmart.rpg.command.admincommands.playermoderation.Kick;
+import me.imunsmart.rpg.command.admincommands.rpg.give.GiveArmor;
+import me.imunsmart.rpg.command.admincommands.rpg.give.GiveGems;
+import me.imunsmart.rpg.command.admincommands.rpg.give.GiveWeapon;
+import me.imunsmart.rpg.command.admincommands.rpg.mobs.SpawnMob;
+import me.imunsmart.rpg.command.admincommands.rpg.mobs.Spawner;
 import net.md_5.bungee.api.ChatColor;
 
 public class Admin implements CommandExecutor {

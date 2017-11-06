@@ -1,4 +1,4 @@
-package me.imunsmart.rpg.command.AdminCommands.RPG.Mobs;
+package me.imunsmart.rpg.command.admincommands.rpg.mobs;
 
 import me.imunsmart.rpg.events.Spawners;
 import org.bukkit.entity.Player;

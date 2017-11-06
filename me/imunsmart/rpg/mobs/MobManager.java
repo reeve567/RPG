@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Skeleton;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,6 +16,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
 import me.imunsmart.rpg.Main;
+import me.imunsmart.rpg.mechanics.ActionBar;
 import me.imunsmart.rpg.mechanics.Health;
 import net.md_5.bungee.api.ChatColor;
 
@@ -53,19 +55,36 @@ public class MobManager implements Listener {
 			LivingEntity le = (LivingEntity) e.getDamager();
 			LivingEntity hit = (LivingEntity) e.getEntity();
 			double damage = 1;
-			if (le.getEquipment().getItemInMainHand() != null)
+			ItemStack i = le.getEquipment().getItemInMainHand();
+			if (i != null)
 				damage = Health.getAttributeI(le.getEquipment().getItemInMainHand(), "Damage");
-			String name = le.getEquipment().getItemInMainHand().getType().name();
+			String name = i.getType().name();
 			if (name.contains("SWORD") || name.contains("AXE")) {
-				incDur(le.getEquipment().getItemInMainHand());
-			}
-			for(ItemStack i : hit.getEquipment().getArmorContents()) {
 				incDur(i);
+			}
+			for (ItemStack it : hit.getEquipment().getArmorContents()) {
+				incDur(it);
 			}
 			if (damage == 0)
 				damage += 1;
-			if (le instanceof Player)
-				((Player) le).sendMessage(ChatColor.GREEN + "Damage -> " + ChatColor.RED + mobs.get(e.getEntity()).getHealth() + " - " + ChatColor.BOLD + damage);
+			double cc = Health.getAttributeP(i, "Critical");
+			boolean crit = false;
+			if (Math.random() < cc) {
+				damage *= 2;
+				crit = true;
+			}
+			String message = ChatColor.GRAY + "Damage: " + ChatColor.GREEN + mobs.get(hit).getHealth() + "-" + damage + ChatColor.GRAY + " => " + ChatColor.RED + (mobs.get(hit).getHealth() - damage);
+			if (crit)
+				message = ChatColor.YELLOW.toString() + ChatColor.BOLD + "!CRIT! " + message;
+			if (le instanceof Player) {
+				ActionBar ab = new ActionBar(message);
+				ab.sendToPlayer((Player) le);
+			}
+			if (le instanceof Player) {
+				ActionBar actionBar = new ActionBar(ChatColor.GREEN + "Damage -> " + ChatColor.RED + mobs.get(e.getEntity()).getHealth() + " - " + ChatColor.BOLD + damage);
+				actionBar.sendToPlayer((Player) le);
+				le.sendMessage(ChatColor.GREEN + "Damage -> " + ChatColor.RED + mobs.get(e.getEntity()).getHealth() + " - " + ChatColor.BOLD + damage);
+			}
 			mobs.get(e.getEntity()).damage(damage);
 		}
 	}
@@ -101,10 +120,23 @@ public class MobManager implements Listener {
 	public static Mob spawn(Location l, String type, int tier) {
 		if (type.equalsIgnoreCase("zombie")) {
 			Zombie z = l.getWorld().spawn(l, Zombie.class);
+			z.setBaby(false);
 			Mob m = new Mob(z, ChatColor.GREEN + DropManager.getRandomZombieName(tier), tier);
 			z.setCustomNameVisible(true);
 			return mobs.put(z, m);
 		}
+		if (type.equalsIgnoreCase("skeleton")) {
+			Skeleton s = l.getWorld().spawn(l, Skeleton.class);
+			Mob m = new Mob(s, ChatColor.GREEN + DropManager.getRandomSkeletonName(tier), tier);
+			s.setCustomNameVisible(true);
+			return mobs.put(s, m);
+		}
 		return null;
+	}
+
+	public static void disable() {
+		for (LivingEntity le : mobs.keySet()) {
+			le.remove();
+		}
 	}
 }
