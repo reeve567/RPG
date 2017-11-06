@@ -3,6 +3,7 @@ package me.imunsmart.rpg.mobs;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import me.imunsmart.rpg.mechanics.ActionBar;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
@@ -67,6 +68,7 @@ public class MobManager implements Listener {
 			}
 			if (damage == 0)
 				damage += 1;
+<<<<<<< HEAD:src/me/imunsmart/rpg/mobs/MobManager.java
 			double cc = Health.getAttributeP(i, "Critical");
 			boolean crit = false;
 			if (Math.random() < cc) {
@@ -81,6 +83,14 @@ public class MobManager implements Listener {
 				ab.sendToPlayer((Player) le);
 			}
 			mobs.get(hit).damage(damage);
+=======
+			if (le instanceof Player) {
+				ActionBar actionBar = new ActionBar(ChatColor.GREEN + "Damage -> " + ChatColor.RED + mobs.get(e.getEntity()).getHealth() + " - " + ChatColor.BOLD + damage);
+				actionBar.sendToPlayer((Player) le);
+				le.sendMessage(ChatColor.GREEN + "Damage -> " + ChatColor.RED + mobs.get(e.getEntity()).getHealth() + " - " + ChatColor.BOLD + damage);
+			}
+			mobs.get(e.getEntity()).damage(damage);
+>>>>>>> 268b4200278d6d2179684cfda3c66919ba1994e4:me/imunsmart/rpg/mobs/MobManager.java
 		}
 	}
 
