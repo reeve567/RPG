@@ -1,5 +1,6 @@
 package me.imunsmart.rpg.events;
 
+import me.imunsmart.rpg.utility.StringUtility;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,8 +23,11 @@ public class ChatEvents implements Listener {
 		String name = p.getName();
 		if(e.getPlayer().isOp()) {
 			name = ChatColor.RED + name;
+			e.setFormat(name + ChatColor.WHITE + ": " + StringUtility.colorConv(e.getMessage()));
 		}
-		e.setFormat(name + ChatColor.WHITE + ": " + e.getMessage());
+		else {
+			e.setFormat(name + ChatColor.WHITE + ": " + e.getMessage());
+		}
 
 		if(ChatColor.stripColor(e.getMessage()).equalsIgnoreCase("..si")) {
 			e.setCancelled(true);
