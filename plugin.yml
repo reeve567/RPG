@@ -30,6 +30,9 @@ commands:
     description: Change gamemode to spectator.
   kick:
     description: Kick a player.
-  clear:
+  ci:
     description: Clear your inventory.
-    aliases: [ci, clearinv,clearinventory]
+    aliases: [clearinv,clearinventory]
+  cc:
+    description: Clear chat.
+    aliases: [chatclear]
