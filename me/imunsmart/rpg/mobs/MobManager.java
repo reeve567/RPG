@@ -3,10 +3,8 @@ package me.imunsmart.rpg.mobs;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import me.imunsmart.rpg.mechanics.ActionBar;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Zombie;
@@ -17,7 +15,6 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
 import me.imunsmart.rpg.Main;
-import me.imunsmart.rpg.mechanics.ActionBar;
 import me.imunsmart.rpg.mechanics.Health;
 import net.md_5.bungee.api.ChatColor;
 
@@ -56,41 +53,20 @@ public class MobManager implements Listener {
 			LivingEntity le = (LivingEntity) e.getDamager();
 			LivingEntity hit = (LivingEntity) e.getEntity();
 			double damage = 1;
-			ItemStack i = le.getEquipment().getItemInMainHand();
-			if (i != null)
+			if (le.getEquipment().getItemInMainHand() != null)
 				damage = Health.getAttributeI(le.getEquipment().getItemInMainHand(), "Damage");
-			String name = i.getType().name();
+			String name = le.getEquipment().getItemInMainHand().getType().name();
 			if (name.contains("SWORD") || name.contains("AXE")) {
-				incDur(i);
+				incDur(le.getEquipment().getItemInMainHand());
 			}
-			for (ItemStack it : hit.getEquipment().getArmorContents()) {
-				incDur(it);
+			for(ItemStack i : hit.getEquipment().getArmorContents()) {
+				incDur(i);
 			}
 			if (damage == 0)
 				damage += 1;
-<<<<<<< HEAD:src/me/imunsmart/rpg/mobs/MobManager.java
-			double cc = Health.getAttributeP(i, "Critical");
-			boolean crit = false;
-			if (Math.random() < cc) {
-				damage *= 2;
-				crit = true;
-			}
-			String message = ChatColor.GRAY + "Damage: " + ChatColor.GREEN + mobs.get(hit).getHealth() + "-" + damage + ChatColor.GRAY + " => " + ChatColor.RED + (mobs.get(hit).getHealth() - damage);
-			if (crit)
-				message = ChatColor.YELLOW.toString() + ChatColor.BOLD + "!CRIT! " + message;
-			if (le instanceof Player) {
-				ActionBar ab = new ActionBar(message);
-				ab.sendToPlayer((Player) le);
-			}
-			mobs.get(hit).damage(damage);
-=======
-			if (le instanceof Player) {
-				ActionBar actionBar = new ActionBar(ChatColor.GREEN + "Damage -> " + ChatColor.RED + mobs.get(e.getEntity()).getHealth() + " - " + ChatColor.BOLD + damage);
-				actionBar.sendToPlayer((Player) le);
-				le.sendMessage(ChatColor.GREEN + "Damage -> " + ChatColor.RED + mobs.get(e.getEntity()).getHealth() + " - " + ChatColor.BOLD + damage);
-			}
+			if (le instanceof Player)
+				((Player) le).sendMessage(ChatColor.GREEN + "Damage -> " + ChatColor.RED + mobs.get(e.getEntity()).getHealth() + " - " + ChatColor.BOLD + damage);
 			mobs.get(e.getEntity()).damage(damage);
->>>>>>> 268b4200278d6d2179684cfda3c66919ba1994e4:me/imunsmart/rpg/mobs/MobManager.java
 		}
 	}
 
@@ -130,11 +106,5 @@ public class MobManager implements Listener {
 			return mobs.put(z, m);
 		}
 		return null;
-	}
-
-	public static void disable() {
-		for (LivingEntity le : mobs.keySet()) {
-			le.remove();
-		}
 	}
 }

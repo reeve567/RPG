@@ -5,12 +5,10 @@ import java.util.HashMap;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -37,8 +35,8 @@ public class Health {
 					}
 					int max = calculateMaxHealth(p);
 					int hp = health.get(p.getName());
-
-					if (hp > max)
+					
+					if(hp > max)
 						hp = max;
 
 					if (hp != max && !p.isDead()) {
@@ -160,7 +158,7 @@ public class Health {
 				if (line.split(":")[0].equalsIgnoreCase(name)) {
 					String val = s.split(" ")[1];
 					if (val.contains("%"))
-						val = val.replaceAll("%", "");
+						val.replaceAll("%", "");
 					return Double.parseDouble(val) / 100.0d;
 				}
 			}
@@ -177,9 +175,6 @@ public class Health {
 			p.setHealth(0);
 		}
 		health.put(p.getName(), hp);
-		if ((double) hp / calculateMaxHealth(p) < 0.2) {
-			Sounds.play(p, Sound.ENTITY_PLAYER_BIG_FALL, 1);
-		}
 	}
 
 	public static void heal(Player p, int i) {
@@ -190,26 +185,16 @@ public class Health {
 			hp = max;
 		health.put(p.getName(), hp);
 	}
-
+	
 	public static final Location SPAWN = new Location(Bukkit.getWorld("world"), 0.5, 4.5, 0.5);
-
+	
 	public static void resetPlayer(Player p) {
 		p.teleport(SPAWN);
 		p.getInventory().clear();
-		ItemStack i = Items.createWeapon("sword", 1, 4, 8, "");
-		i.addUnsafeEnchantment(Enchantment.VANISHING_CURSE, 1);
-		p.getInventory().addItem(i);
-		i = Items.createArmor("boots", 1, DropManager.MAX_HEALTH_1B / 2, "Regen:2");
-		i.addUnsafeEnchantment(Enchantment.VANISHING_CURSE, 1);
-		p.getInventory().addItem(i);
-		i = Items.createArmor("leggings", 1, DropManager.MAX_HEALTH_1L / 2, "Regen:4");
-		i.addUnsafeEnchantment(Enchantment.VANISHING_CURSE, 1);
-		p.getInventory().addItem(i);
-		i = Items.createArmor("chestplate", 1, DropManager.MAX_HEALTH_1C / 2, "Regen:5");
-		i.addUnsafeEnchantment(Enchantment.VANISHING_CURSE, 1);
-		p.getInventory().addItem(i);
-		i = Items.createArmor("helmet", 1, DropManager.MAX_HEALTH_1H / 2, "Regen:3");
-		i.addUnsafeEnchantment(Enchantment.VANISHING_CURSE, 1);
-		p.getInventory().addItem(i);
+		p.getInventory().addItem(Items.createWeapon("sword", 1, 4, 8, ""));
+		p.getInventory().addItem(Items.createArmor("boots", 1, DropManager.MAX_HEALTH_1B / 2, "Regen:2"));
+		p.getInventory().addItem(Items.createArmor("leggings", 1, DropManager.MAX_HEALTH_1L / 2, "Regen:4"));
+		p.getInventory().addItem(Items.createArmor("chestplate", 1, DropManager.MAX_HEALTH_1C / 2, "Regen:5"));
+		p.getInventory().addItem(Items.createArmor("helmet", 1, DropManager.MAX_HEALTH_1H / 2, "Regen:3"));
 	}
 }

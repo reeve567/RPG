@@ -90,19 +90,6 @@ public class Items {
 		p.getInventory().setItemInMainHand(null);
 		p.updateInventory();
 	}
-	
-	public static ItemStack createScraps(int amount, int tier) {
-		int data = 14;
-		if (tier == 2)
-			data = 8;
-		else if (tier == 3)
-			data = 7;
-		else if (tier == 4)
-			data = 12;
-		else if (tier == 5)
-			data = 11;
-		return createItem(Material.INK_SACK, amount, data, ChatColor.WHITE + "Armor Scrap", "Drag a stack onto armor", "to repair it.");
-	}
 
 	private static String[] armor = { "LEATHER", "CHAINMAIL", "IRON", "DIAMOND", "GOLD" };
 	private static String[] armors = { "Old", "Rusted", "Great", "Magical", "Godly" };
