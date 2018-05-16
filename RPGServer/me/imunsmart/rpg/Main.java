@@ -62,12 +62,12 @@ public class Main extends JavaPlugin {
 		Bukkit.getPluginManager().registerEvents(new ChatEvents(this), this);
 		Bukkit.getPluginManager().registerEvents(new ServerEvents(this), this);
 		Bukkit.getPluginManager().registerEvents(new SignEvents(this), this);
+		Bukkit.getPluginManager().registerEvents(new Repairing(this), this);
 
 		new EntityManager(this);
 		// npc = new NPC(this);
 		new Bank(this);
 		new RepairMenu(this);
-		new Repairing(this);
 		new Spawners(this);
 		lc = new LootChests(this);
 	}

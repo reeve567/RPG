@@ -31,16 +31,16 @@ public class Mob {
 		loc = mob.getLocation();
 		mob.getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(8.0);
 		pl = EntityManager.pl;
-		int mh = ItemManager.getMaxHealth(tier, "H") / 2 + (int) (Math.random() * (ItemManager.getMaxHealth(tier, "H") / 2));
-		int mc = ItemManager.getMaxHealth(tier, "C") / 2 + (int) (Math.random() * (ItemManager.getMaxHealth(tier, "C") / 2));
-		int ml = ItemManager.getMaxHealth(tier, "L") / 2 + (int) (Math.random() * (ItemManager.getMaxHealth(tier, "L") / 2));
-		int mb = ItemManager.getMaxHealth(tier, "B") / 2 + (int) (Math.random() * (ItemManager.getMaxHealth(tier, "B") / 2));
-		String flag = ItemManager.randomArmorFlag(mh, tier);
+		int mh = Constants.getMaxHealth(tier, "H") / 2 + (int) (Math.random() * (Constants.getMaxHealth(tier, "H") / 2));
+		int mc = Constants.getMaxHealth(tier, "C") / 2 + (int) (Math.random() * (Constants.getMaxHealth(tier, "C") / 2));
+		int ml = Constants.getMaxHealth(tier, "L") / 2 + (int) (Math.random() * (Constants.getMaxHealth(tier, "L") / 2));
+		int mb = Constants.getMaxHealth(tier, "B") / 2 + (int) (Math.random() * (Constants.getMaxHealth(tier, "B") / 2));
+		String flag = Constants.randomArmorFlag(mh, tier);
 		if (flag.contains("Uncommon")) {
-			mh *= ItemManager.SCALE_UNC;
+			mh *= Constants.SCALE_UNC;
 		}
 		if (flag.contains("Rare")) {
-			mh *= ItemManager.SCALE_RARE;
+			mh *= Constants.SCALE_RARE;
 		}
 		ItemStack h = Items.randomDurability(Items.createArmor("helmet", tier, mh, flag));
 		if (Math.random() < 0.1) {
@@ -48,12 +48,12 @@ public class Mob {
 		}
 		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
 		mob.getEquipment().setHelmet(skull);
-		flag = ItemManager.randomArmorFlag(mc, tier);
+		flag = Constants.randomArmorFlag(mc, tier);
 		if (flag.contains("Uncommon")) {
-			mc *= ItemManager.SCALE_UNC;
+			mc *= Constants.SCALE_UNC;
 		}
 		if (flag.contains("Rare")) {
-			mc *= ItemManager.SCALE_RARE;
+			mc *= Constants.SCALE_RARE;
 		}
 		ItemStack c = Items.randomDurability(Items.createArmor("chestplate", tier, mc, flag));
 		if (Math.random() < 0.1) {
@@ -61,12 +61,12 @@ public class Mob {
 		}
 		if (Math.random() > 0.25)
 			mob.getEquipment().setChestplate(c);
-		flag = ItemManager.randomArmorFlag(ml, tier);
+		flag = Constants.randomArmorFlag(ml, tier);
 		if (flag.contains("Uncommon")) {
-			ml *= ItemManager.SCALE_UNC;
+			ml *= Constants.SCALE_UNC;
 		}
 		if (flag.contains("Rare")) {
-			ml *= ItemManager.SCALE_RARE;
+			ml *= Constants.SCALE_RARE;
 		}
 		ItemStack l = Items.randomDurability(Items.createArmor("leggings", tier, ml, flag));
 		if (Math.random() < 0.1) {
@@ -74,12 +74,12 @@ public class Mob {
 		}
 		if (Math.random() > 0.25)
 			mob.getEquipment().setLeggings(l);
-		flag = ItemManager.randomArmorFlag(mb, tier);
+		flag = Constants.randomArmorFlag(mb, tier);
 		if (flag.contains("Uncommon")) {
-			mb *= ItemManager.SCALE_UNC;
+			mb *= Constants.SCALE_UNC;
 		}
 		if (flag.contains("Rare")) {
-			mb *= ItemManager.SCALE_RARE;
+			mb *= Constants.SCALE_RARE;
 		}
 		ItemStack b = Items.randomDurability(Items.createArmor("boots", tier, mb, flag));
 		if (Math.random() < 0.1) {
@@ -87,22 +87,22 @@ public class Mob {
 		}
 		if (Math.random() > 0.25)
 			mob.getEquipment().setBoots(b);
-		flag = ItemManager.randomWeaponFlag(tier);
+		flag = Constants.randomWeaponFlag(tier);
 		String type = Math.random() < 0.5 ? "sword" : "axe";
-		int max = (int) (Math.random() * ItemManager.getMaxDamage(tier));
-		int min = ItemManager.getMinDamage(tier) + (int) (Math.random() * ((max - ItemManager.getMinDamage(tier))));
+		int max = (int) (Math.random() * Constants.getMaxDamage(tier));
+		int min = Constants.getMinDamage(tier) + (int) (Math.random() * ((max - Constants.getMinDamage(tier))));
 		if (max < min)
 			max = min;
 		if (flag.contains("Uncommon")) {
-			max += ItemManager.getMaxDamage(tier) / 4;
-			min *= ItemManager.SCALE_UNC;
-			max *= ItemManager.SCALE_UNC;
+			max += Constants.getMaxDamage(tier) / 4;
+			min *= Constants.SCALE_UNC;
+			max *= Constants.SCALE_UNC;
 		}
 		if (flag.contains("Rare")) {
-			max += ItemManager.getMaxDamage(tier) / 4;
-			min += ItemManager.getMaxDamage(tier) / 4;
-			min *= ItemManager.SCALE_RARE;
-			max *= ItemManager.SCALE_RARE;
+			max += Constants.getMaxDamage(tier) / 4;
+			min += Constants.getMaxDamage(tier) / 4;
+			min *= Constants.SCALE_RARE;
+			max *= Constants.SCALE_RARE;
 		}
 		ItemStack w = Items.randomDurability(Items.createWeapon(type, tier, min, max, flag));
 		if (Math.random() < 0.1) {
@@ -179,13 +179,12 @@ public class Mob {
 			mob.getWorld().dropItemNaturally(mob.getLocation(), drop);
 		}
 		if (Math.random() < 0.75) {
-			int gd = (int) (Math.random() * ItemManager.getMaxDrops(tier));
+			int gd = (int) (Math.random() * Constants.getMaxDrops(tier));
 			mob.getWorld().dropItemNaturally(mob.getLocation(), Items.createGems(gd));
 		}
 		for (String s : hits.keySet()) {
 			Player p = Bukkit.getPlayer(s);
 			if (p != null) {
-				System.out.println(p + ", " + (hits.get(s)));
 				Stats.addXP(p, 1 + (int) (((double) hits.get(s) / hitsTaken) * (Math.random() * (24 * tier))));
 			}
 		}
@@ -208,15 +207,15 @@ public class Mob {
 			health = 0;
 		double perc = (health / (double) maxHP);
 		String bar = ChatColor.GREEN.toString();
-		int x = 10;
-		for (int h = 0; h < (perc * 10); h++) {
-			bar += "♥";
-			x--;
-		}
-		bar += ChatColor.WHITE.toString();
-		for (int h = 0; h < x; h++) {
-			bar += "♥";
-		}
-		mob.setCustomName(ChatColor.GRAY + "[" + bar + ChatColor.GRAY + "]");
+//		int x = 10;
+//		for (int h = 0; h < (perc * 10); h++) {
+//			bar += "♥";
+//			x--;
+//		}
+//		bar += ChatColor.WHITE.toString();
+//		for (int h = 0; h < x; h++) {
+//			bar += "♥";
+//		}
+		mob.setCustomName(ChatColor.WHITE.toString() + ChatColor.BOLD + (int) health + ChatColor.RED.toString() + ChatColor.BOLD + "HP");
 	}
 }

@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Skeleton;
@@ -19,6 +20,7 @@ import org.bukkit.inventory.ItemStack;
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.ActionBar;
 import me.imunsmart.rpg.mechanics.Health;
+import me.imunsmart.rpg.mechanics.Sounds;
 import net.md_5.bungee.api.ChatColor;
 
 public class EntityManager implements Listener {
@@ -72,11 +74,13 @@ public class EntityManager implements Listener {
 				crit = true;
 			}
 			if (le instanceof Player) {
-				double hp = mobs.containsKey(e.getEntity()) ? mobs.get(e.getEntity()).getHealth() : Health.health.containsKey(e.getEntity().getName()) ? Health.health.get(e.getEntity().getName()) : 0;
-				String message = ChatColor.GRAY + "Damage: " + ChatColor.GREEN + hp + "-" + damage + ChatColor.GRAY + " => " + ChatColor.RED + (hp - damage);
-				if (crit)
-					message = ChatColor.YELLOW.toString() + ChatColor.BOLD + "!CRIT! " + message;
 				Player p = (Player) le;
+				double hp = mobs.containsKey(e.getEntity()) ? mobs.get(e.getEntity()).getHealth() : Health.health.containsKey(e.getEntity().getName()) ? Health.health.get(e.getEntity().getName()) : 0;
+				String message = ChatColor.GRAY + "Damage: [" + ChatColor.GREEN + (int) hp + " - " + (int) damage + ChatColor.GRAY + "] => " + ChatColor.RED + (int) (hp - damage);
+				if (crit) {
+					message = ChatColor.YELLOW.toString() + ChatColor.BOLD + "!CRIT! " + message;
+					Sounds.play(p, Sound.BLOCK_ANVIL_PLACE, 1);
+				}
 				ActionBar ab = new ActionBar(message);
 				ab.sendToPlayer(p);
 				Health.combat.put(p.getName(), 16);
@@ -153,13 +157,13 @@ public class EntityManager implements Listener {
 		if (type.equalsIgnoreCase("zombie")) {
 			Zombie z = l.getWorld().spawn(l, Zombie.class);
 			z.setBaby(false);
-			Mob m = new Mob(z, ChatColor.GREEN + ItemManager.getRandomZombieName(tier), tier);
+			Mob m = new Mob(z, ChatColor.GREEN + Constants.getRandomZombieName(tier), tier);
 			z.setCustomNameVisible(true);
 			return mobs.put(z, m);
 		}
 		if (type.equalsIgnoreCase("skeleton")) {
 			Skeleton s = l.getWorld().spawn(l, Skeleton.class);
-			Mob m = new Mob(s, ChatColor.GREEN + ItemManager.getRandomSkeletonName(tier), tier);
+			Mob m = new Mob(s, ChatColor.GREEN + Constants.getRandomSkeletonName(tier), tier);
 			s.setCustomNameVisible(true);
 			return mobs.put(s, m);
 		}

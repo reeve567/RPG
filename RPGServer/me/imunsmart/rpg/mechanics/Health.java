@@ -17,7 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 import me.imunsmart.rpg.Main;
-import me.imunsmart.rpg.mobs.ItemManager;
+import me.imunsmart.rpg.mobs.Constants;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
 
@@ -145,16 +145,16 @@ public class Health {
 		ItemStack i = Items.createWeapon("sword", 1, 4, 8, "");
 		i.addUnsafeEnchantment(Enchantment.VANISHING_CURSE, 1);
 		p.getInventory().addItem(i);
-		i = Items.createArmor("boots", 1, ItemManager.MAX_HEALTH_1B / 2, "Regen:2");
+		i = Items.createArmor("boots", 1, Constants.MAX_HEALTH_1B / 2, "Regen:2");
 		i.addUnsafeEnchantment(Enchantment.VANISHING_CURSE, 1);
 		p.getInventory().addItem(i);
-		i = Items.createArmor("leggings", 1, ItemManager.MAX_HEALTH_1L / 2, "Regen:4");
+		i = Items.createArmor("leggings", 1, Constants.MAX_HEALTH_1L / 2, "Regen:4");
 		i.addUnsafeEnchantment(Enchantment.VANISHING_CURSE, 1);
 		p.getInventory().addItem(i);
-		i = Items.createArmor("chestplate", 1, ItemManager.MAX_HEALTH_1C / 2, "Regen:5");
+		i = Items.createArmor("chestplate", 1, Constants.MAX_HEALTH_1C / 2, "Regen:5");
 		i.addUnsafeEnchantment(Enchantment.VANISHING_CURSE, 1);
 		p.getInventory().addItem(i);
-		i = Items.createArmor("helmet", 1, ItemManager.MAX_HEALTH_1H / 2, "Regen:3");
+		i = Items.createArmor("helmet", 1, Constants.MAX_HEALTH_1H / 2, "Regen:3");
 		i.addUnsafeEnchantment(Enchantment.VANISHING_CURSE, 1);
 		p.getInventory().addItem(i);
 		combat.remove(p.getName());
