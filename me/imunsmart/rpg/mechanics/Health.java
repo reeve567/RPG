@@ -5,17 +5,20 @@ import java.util.HashMap;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 import me.imunsmart.rpg.Main;
-import me.imunsmart.rpg.mobs.DropManager;
+import me.imunsmart.rpg.mobs.ItemManager;
+import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
 
 public class Health {
@@ -23,60 +26,6 @@ public class Health {
 	public static HashMap<String, Integer> health = new HashMap<String, Integer>();
 	public static HashMap<String, BossBar> bar = new HashMap<String, BossBar>();
 	public static HashMap<String, Integer> combat = new HashMap<String, Integer>();
-
-	public static void task(Main pl) {
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(pl, new Runnable() {
-			@Override
-			public void run() {
-				for (Player p : Bukkit.getOnlinePlayers()) {
-					p.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(Double.MAX_VALUE);
-					if (!health.containsKey(p.getName())) {
-						health.put(p.getName(), calculateMaxHealth(p));
-					}
-					int max = calculateMaxHealth(p);
-					int hp = health.get(p.getName());
-					
-					if(hp > max)
-						hp = max;
-
-					if (hp != max && !p.isDead()) {
-						int regen = calculateHealthRegen(p);
-						if (combat.containsKey(p.getName())) {
-							if (combat.get(p.getName()) == 0) {
-								heal(p, regen);
-							} else {
-								combat.put(p.getName(), combat.get(p.getName()) - 1);
-							}
-						} else {
-							heal(p, regen);
-						}
-					}
-
-					if (!p.isDead()) {
-						double per = ((double) hp / (double) max);
-						if (per > 1)
-							per = 1;
-						p.setHealth(1 + (19 * per));
-						BossBar b = null;
-						if (!bar.containsKey(p.getName()))
-							b = Bukkit.createBossBar("health", BarColor.GREEN, BarStyle.SOLID);
-						else
-							b = bar.get(p.getName());
-						b.setTitle(ChatColor.DARK_GREEN.toString() + ChatColor.BOLD + "Health: " + hp + " / " + max);
-						b.setProgress(per);
-						b.setVisible(true);
-						if (!bar.containsKey(p.getName())) {
-							b.addPlayer(p);
-							bar.put(p.getName(), b);
-						} else {
-							b.removeAll();
-							b.addPlayer(p);
-						}
-					}
-				}
-			}
-		}, 0, 10);
-	}
 
 	public static void disable() {
 		for (Player p : Bukkit.getOnlinePlayers()) {
@@ -158,7 +107,7 @@ public class Health {
 				if (line.split(":")[0].equalsIgnoreCase(name)) {
 					String val = s.split(" ")[1];
 					if (val.contains("%"))
-						val.replaceAll("%", "");
+						val = val.replaceAll("%", "");
 					return Double.parseDouble(val) / 100.0d;
 				}
 			}
@@ -167,6 +116,8 @@ public class Health {
 	}
 
 	public static void damage(Player p, int i) {
+		if (Util.inSafeZone(p))
+			return;
 		int hp = health.get(p.getName());
 		hp -= i;
 		if (hp < 0)
@@ -175,6 +126,9 @@ public class Health {
 			p.setHealth(0);
 		}
 		health.put(p.getName(), hp);
+		if ((double) hp / calculateMaxHealth(p) < 0.2) {
+			Sounds.play(p, Sound.ENTITY_PLAYER_BIG_FALL, 1);
+		}
 	}
 
 	public static void heal(Player p, int i) {
@@ -185,16 +139,104 @@ public class Health {
 			hp = max;
 		health.put(p.getName(), hp);
 	}
-	
-	public static final Location SPAWN = new Location(Bukkit.getWorld("world"), 0.5, 4.5, 0.5);
-	
+
 	public static void resetPlayer(Player p) {
-		p.teleport(SPAWN);
-		p.getInventory().clear();
-		p.getInventory().addItem(Items.createWeapon("sword", 1, 4, 8, ""));
-		p.getInventory().addItem(Items.createArmor("boots", 1, DropManager.MAX_HEALTH_1B / 2, "Regen:2"));
-		p.getInventory().addItem(Items.createArmor("leggings", 1, DropManager.MAX_HEALTH_1L / 2, "Regen:4"));
-		p.getInventory().addItem(Items.createArmor("chestplate", 1, DropManager.MAX_HEALTH_1C / 2, "Regen:5"));
-		p.getInventory().addItem(Items.createArmor("helmet", 1, DropManager.MAX_HEALTH_1H / 2, "Regen:3"));
+		p.teleport(Util.spawn);
+		ItemStack i = Items.createWeapon("sword", 1, 4, 8, "");
+		i.addUnsafeEnchantment(Enchantment.VANISHING_CURSE, 1);
+		p.getInventory().addItem(i);
+		i = Items.createArmor("boots", 1, ItemManager.MAX_HEALTH_1B / 2, "Regen:2");
+		i.addUnsafeEnchantment(Enchantment.VANISHING_CURSE, 1);
+		p.getInventory().addItem(i);
+		i = Items.createArmor("leggings", 1, ItemManager.MAX_HEALTH_1L / 2, "Regen:4");
+		i.addUnsafeEnchantment(Enchantment.VANISHING_CURSE, 1);
+		p.getInventory().addItem(i);
+		i = Items.createArmor("chestplate", 1, ItemManager.MAX_HEALTH_1C / 2, "Regen:5");
+		i.addUnsafeEnchantment(Enchantment.VANISHING_CURSE, 1);
+		p.getInventory().addItem(i);
+		i = Items.createArmor("helmet", 1, ItemManager.MAX_HEALTH_1H / 2, "Regen:3");
+		i.addUnsafeEnchantment(Enchantment.VANISHING_CURSE, 1);
+		p.getInventory().addItem(i);
+		combat.remove(p.getName());
+		heal(p, 50);
+	}
+
+	public static void task(Main pl) {
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(pl, new Runnable() {
+			@Override
+			public void run() {
+				for (Player p : Bukkit.getOnlinePlayers()) {
+					p.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(Double.MAX_VALUE);
+					p.setLevel(Stats.getInt(p, "level", 1));
+					p.setExp((float) Stats.getInt(p, "xp", 0) / (Util.neededXP(p)));
+					if (!health.containsKey(p.getName())) {
+						health.put(p.getName(), calculateMaxHealth(p));
+					}
+					int max = calculateMaxHealth(p);
+					int hp = health.get(p.getName());
+
+					if (hp > max)
+						hp = max;
+
+					if (hp != max && !p.isDead()) {
+						int regen = calculateHealthRegen(p);
+						if (Util.inSafeZone(p))
+							regen *= 25;
+						if (combat.containsKey(p.getName())) {
+							if (combat.get(p.getName()) == 0) {
+								heal(p, regen);
+							} else {
+								combat.put(p.getName(), combat.get(p.getName()) - 1);
+							}
+						} else {
+							heal(p, regen);
+						}
+					}
+
+					if (!p.isDead()) {
+						double per = ((double) hp / (double) max);
+						if (per > 1)
+							per = 1;
+						p.setHealth(1 + (19 * per));
+						BossBar b = null;
+						if (!bar.containsKey(p.getName()))
+							b = Bukkit.createBossBar("health", BarColor.GREEN, BarStyle.SOLID);
+						else
+							b = bar.get(p.getName());
+						b.setTitle(ChatColor.DARK_GREEN.toString() + ChatColor.BOLD + "Health: " + hp + " / " + max);
+						b.setProgress(per);
+						b.setVisible(true);
+						if (!bar.containsKey(p.getName())) {
+							b.addPlayer(p);
+							bar.put(p.getName(), b);
+						} else {
+							b.removeAll();
+							b.addPlayer(p);
+						}
+					}
+
+					for (int x = 0; x < p.getInventory().getArmorContents().length; x++) {
+						ItemStack i = p.getInventory().getArmorContents()[x];
+						if (i == null)
+							continue;
+						int t = 1 + (int) (Stats.getInt(p, "level", 1) / 5.0);
+						if (t < Items.getTier(i)) {
+							ItemStack[] armor = new ItemStack[4];
+							for (int y = 0; y < p.getInventory().getArmorContents().length; y++) {
+								if (y != x)
+									armor[y] = p.getInventory().getArmorContents()[y];
+							}
+							p.getInventory().setArmorContents(armor);
+							if (p.getInventory().firstEmpty() != -1)
+								p.getInventory().addItem(i);
+							else
+								p.getWorld().dropItemNaturally(p.getEyeLocation(), i);
+							p.sendMessage(ChatColor.RED + "You are not a high enough level to wield this item.");
+							Sounds.play(p, Sound.ENTITY_ITEM_BREAK, 0.67f);
+						}
+					}
+				}
+			}
+		}, 0, 10);
 	}
 }

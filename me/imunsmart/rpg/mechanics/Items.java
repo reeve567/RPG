@@ -47,8 +47,8 @@ public class Items {
 	}
 
 	private static String[] weapons = { "WOOD", "STONE", "IRON", "DIAMOND", "GOLD" };
-	private static String[] swords = { "Shortsword", "Longsword", "Greatsword", "Magical Sword", "Godly Sword" };
-	private static String[] axes = { "Hatchet", "Tomohawk", "Great Axe", "Magical Axe", "Godly Axe" };
+	private static String[] swords = { "Shortsword", "Longsword", "Greatsword", "Mystic Sword", "Godly Sword" };
+	private static String[] axes = { "Hatchet", "Tomohawk", "Great Axe", "Mystic Axe", "Godly Axe" };
 
 	public static ItemStack createWeapon(String type, int tier, int min, int max, String flags) {
 		Material m = Material.getMaterial(weapons[tier - 1] + "_" + type.toUpperCase());
@@ -90,9 +90,22 @@ public class Items {
 		p.getInventory().setItemInMainHand(null);
 		p.updateInventory();
 	}
+	
+	public static ItemStack createScraps(int amount, int tier) {
+		int data = 14;
+		if (tier == 2)
+			data = 8;
+		else if (tier == 3)
+			data = 7;
+		else if (tier == 4)
+			data = 12;
+		else if (tier == 5)
+			data = 11;
+		return createItem(Material.INK_SACK, amount, data, ChatColor.WHITE + "Armor Scrap", "Drag a stack onto armor", "to repair it.");
+	}
 
 	private static String[] armor = { "LEATHER", "CHAINMAIL", "IRON", "DIAMOND", "GOLD" };
-	private static String[] armors = { "Old", "Rusted", "Great", "Magical", "Godly" };
+	private static String[] armors = { "Old", "Rusted", "Great", "Mystic", "Godly" };
 
 	public static ItemStack createArmor(String type, int tier, int maxhp, String flags) {
 		Material m = Material.getMaterial(armor[tier - 1] + "_" + type.toUpperCase());
