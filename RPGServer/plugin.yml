@@ -1,0 +1,37 @@
+name: RPG
+author: ImUnsmart
+main: me.imunsmart.rpg.Main
+version: 0.1
+commands:
+  giveweapon:
+    description: Give a weapon item.
+  givearmor:
+    description: Give an armor item.
+  spawnmob:
+    description: Spawn a mob.
+  givegems:
+    description: Give a player gems.
+  givescraps:
+    description: Give a player scraps.
+  spawner:
+    description: Create a spawner.
+  suicide:
+    description: Kill a player.
+  broadcast:
+    description: Yell something.
+    aliases: [bc]
+  gmc:
+    description: Change gamemode to creative.
+  gma:
+    description: Change gamemode to survival.
+  gms:
+    description: Change gamemode to adventure.
+  gmsp:
+    description: Change gamemode to spectator.
+  kick:
+    description: Kick a player.
+  stats:
+    description: Modify stats.
+  lootchest:
+    description: Add a loot chest.
+    aliases: [lc]

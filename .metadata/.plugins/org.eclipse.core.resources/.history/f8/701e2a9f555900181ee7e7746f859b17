@@ -1,0 +1,22 @@
+package me.imunsmart.rpg.mechanics.loot;
+
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+
+import me.imunsmart.rpg.mechanics.Items;
+
+public class ChestItems {
+	public static final ItemStack[] tier1 = new ItemStack[] {
+			Items.createGems(1 + (int) (Math.random() * 12)),
+			new ItemStack(Material.BREAD),
+			new ItemStack(Material.APPLE),
+			 Items.createGemNote(1 + (int) (Math.random() * 12)),
+	};
+	
+	public static final ItemStack[] tier2 = new ItemStack[] {
+			Items.createGems(1 + (int) (Math.random() * 40)),
+			new ItemStack(Material.COOKED_CHICKEN),
+			new ItemStack(Material.MUSHROOM_SOUP),
+			 Items.createGemNote(1 + (int) (Math.random() * 40)),
+	};
+}

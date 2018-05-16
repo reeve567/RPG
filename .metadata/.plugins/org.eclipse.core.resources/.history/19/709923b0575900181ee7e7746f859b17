@@ -1,0 +1,39 @@
+package me.imunsmart.rpg.mechanics.loot;
+
+import java.lang.reflect.Field;
+
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+
+import me.imunsmart.rpg.mechanics.Items;
+
+public class ChestItems {
+	public static final ItemStack[] tier1 = new ItemStack[] {
+			new ItemStack(Material.BREAD),
+			new ItemStack(Material.APPLE),
+	};
+	
+	public static final ItemStack[] tier2 = new ItemStack[] {
+			new ItemStack(Material.COOKED_CHICKEN),
+			new ItemStack(Material.MUSHROOM_SOUP)
+	};
+	
+	public static final ItemStack[] tier3 = new ItemStack[] {
+			new ItemStack(Material.PORK),
+			new ItemStack(Material.COOKED_BEEF),
+	};
+	
+	public static ItemStack[] getTier(int tier) {
+		try {
+			Field f = ChestItems.class.getField("tier" + tier);
+			return (ItemStack[]) f.get(null);
+		} catch (IllegalArgumentException | IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+}

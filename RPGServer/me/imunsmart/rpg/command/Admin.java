@@ -20,7 +20,7 @@ import me.imunsmart.rpg.command.admincommands.rpg.give.LootChest;
 import me.imunsmart.rpg.command.admincommands.rpg.give.CStats;
 import me.imunsmart.rpg.command.admincommands.rpg.mechanics.SpawnMob;
 import me.imunsmart.rpg.command.admincommands.rpg.mechanics.Spawner;
-import me.imunsmart.rpg.mechanics.LootChests;
+import me.imunsmart.rpg.mechanics.loot.LootChests;
 import net.md_5.bungee.api.ChatColor;
 
 public class Admin implements CommandExecutor {

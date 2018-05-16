@@ -15,11 +15,11 @@ import me.imunsmart.rpg.events.Spawners;
 import me.imunsmart.rpg.events.WorldEvents;
 import me.imunsmart.rpg.mechanics.Bank;
 import me.imunsmart.rpg.mechanics.Health;
-import me.imunsmart.rpg.mechanics.LootChests;
 import me.imunsmart.rpg.mechanics.NPC;
 import me.imunsmart.rpg.mechanics.RepairMenu;
 import me.imunsmart.rpg.mechanics.Repairing;
 import me.imunsmart.rpg.mechanics.Stats;
+import me.imunsmart.rpg.mechanics.loot.LootChests;
 import me.imunsmart.rpg.mobs.EntityManager;
 import me.imunsmart.rpg.util.AutoBroadcaster;
 
@@ -34,9 +34,9 @@ public class Main extends JavaPlugin {
 
 		registerEvents();
 		registerCommands();
-		
+
 		new AutoBroadcaster(this);
-		
+
 		new Stats(this);
 
 		Health.task(this);
@@ -48,9 +48,9 @@ public class Main extends JavaPlugin {
 		EntityManager.disable();
 		EntityManager.pl = null;
 		Spawners.disable();
-		
+
 		lc.disable();
-		
+
 		super.onDisable();
 	}
 
@@ -64,7 +64,7 @@ public class Main extends JavaPlugin {
 		Bukkit.getPluginManager().registerEvents(new SignEvents(this), this);
 
 		new EntityManager(this);
-//		npc = new NPC(this);
+		// npc = new NPC(this);
 		new Bank(this);
 		new RepairMenu(this);
 		new Repairing(this);
