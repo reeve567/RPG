@@ -14,7 +14,7 @@ import org.bukkit.entity.LivingEntity;
 
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mobs.Mob;
-import me.imunsmart.rpg.mobs.MobManager;
+import me.imunsmart.rpg.mobs.EntityManager;
 import me.imunsmart.rpg.util.Util;
 
 public class Spawners {
@@ -110,7 +110,7 @@ class Spawner {
 	public Spawner spawn() {
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(s.pl, () -> {
 			if (spawned.size() < max) {
-				spawned.add(MobManager.spawn(new Location(w, x, y, z), Math.random() < 0.5 ? "zombie" : "skeleton", tier));
+				spawned.add(EntityManager.spawn(new Location(w, x, y, z), Math.random() < 0.5 ? "zombie" : "skeleton", tier));
 			}
 		}, 0, (1200 * tier));
 		return this;

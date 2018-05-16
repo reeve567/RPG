@@ -30,7 +30,7 @@ public class Mob {
 		this.tier = tier;
 		loc = mob.getLocation();
 		mob.getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(8.0);
-		pl = MobManager.pl;
+		pl = EntityManager.pl;
 		int mh = ItemManager.getMaxHealth(tier, "H") / 2 + (int) (Math.random() * (ItemManager.getMaxHealth(tier, "H") / 2));
 		int mc = ItemManager.getMaxHealth(tier, "C") / 2 + (int) (Math.random() * (ItemManager.getMaxHealth(tier, "C") / 2));
 		int ml = ItemManager.getMaxHealth(tier, "L") / 2 + (int) (Math.random() * (ItemManager.getMaxHealth(tier, "L") / 2));
@@ -124,7 +124,7 @@ public class Mob {
 		this.tier = tier;
 		loc = mob.getLocation();
 		mob.getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(8.0);
-		pl = MobManager.pl;
+		pl = EntityManager.pl;
 		ItemStack h = Items.randomDurability(Items.createArmor("helmet", tier, mh, hf));
 		if (Math.random() < 0.1) {
 			drop = h;

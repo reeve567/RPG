@@ -193,7 +193,7 @@ public class ItemManager {
 		}
 		return "null";
 	}
-	
+
 	public static String randomArmorFlag(int max, int tier) {
 		String flag = "";
 		if (Math.random() < 0.6) {
@@ -214,6 +214,9 @@ public class ItemManager {
 			flag += ",§eUncommon";
 		else if (perc < 0.1)
 			flag += ",§aRare";
+		if(Math.random() < 0.1) {
+			flag += "Critical: " + (int) (Math.random() * 50 + 1) + "%";
+		}
 		return flag;
 	}
 }

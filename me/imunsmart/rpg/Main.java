@@ -20,7 +20,7 @@ import me.imunsmart.rpg.mechanics.NPC;
 import me.imunsmart.rpg.mechanics.RepairMenu;
 import me.imunsmart.rpg.mechanics.Repairing;
 import me.imunsmart.rpg.mechanics.Stats;
-import me.imunsmart.rpg.mobs.MobManager;
+import me.imunsmart.rpg.mobs.EntityManager;
 import me.imunsmart.rpg.util.AutoBroadcaster;
 
 public class Main extends JavaPlugin {
@@ -45,8 +45,8 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		Health.disable();
-		MobManager.disable();
-		MobManager.pl = null;
+		EntityManager.disable();
+		EntityManager.pl = null;
 		Spawners.disable();
 		
 		lc.disable();
@@ -63,7 +63,7 @@ public class Main extends JavaPlugin {
 		Bukkit.getPluginManager().registerEvents(new ServerEvents(this), this);
 		Bukkit.getPluginManager().registerEvents(new SignEvents(this), this);
 
-		new MobManager(this);
+		new EntityManager(this);
 //		npc = new NPC(this);
 		new Bank(this);
 		new RepairMenu(this);

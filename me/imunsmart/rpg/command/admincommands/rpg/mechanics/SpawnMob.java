@@ -1,6 +1,6 @@
 package me.imunsmart.rpg.command.admincommands.rpg.mechanics;
 
-import me.imunsmart.rpg.mobs.MobManager;
+import me.imunsmart.rpg.mobs.EntityManager;
 import org.bukkit.entity.Player;
 
 public class SpawnMob {
@@ -8,7 +8,7 @@ public class SpawnMob {
 		if (args.length == 2) {
 			String type = args[0];
 			int tier = Integer.parseInt(args[1]);
-			MobManager.spawn(p.getLocation(), type, tier);
+			EntityManager.spawn(p.getLocation(), type, tier);
 		}
 	}
 }
