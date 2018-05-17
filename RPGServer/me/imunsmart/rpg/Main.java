@@ -1,8 +1,10 @@
 package me.imunsmart.rpg;
 
+import java.lang.reflect.Field;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.imunsmart.rpg.command.Admin;
@@ -23,6 +25,7 @@ import me.imunsmart.rpg.mechanics.Stats;
 import me.imunsmart.rpg.mechanics.loot.LootChests;
 import me.imunsmart.rpg.mobs.EntityManager;
 import me.imunsmart.rpg.util.AutoBroadcaster;
+import me.imunsmart.rpg.util.Glow;
 
 public class Main extends JavaPlugin {
 

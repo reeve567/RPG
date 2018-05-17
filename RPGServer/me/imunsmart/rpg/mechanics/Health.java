@@ -50,6 +50,11 @@ public class Health {
 		}
 		return maxhp;
 	}
+	
+	public static boolean atMaxHealth(Player p) {
+		if(!health.containsKey(p.getName())) return true;
+		return health.get(p.getName()) == calculateMaxHealth(p);
+	}
 
 	public static int calculateHealthRegen(Player p) {
 		PlayerInventory pi = p.getInventory();
@@ -132,6 +137,8 @@ public class Health {
 	}
 
 	public static void heal(Player p, int i) {
+		if(!health.containsKey(p.getName()))
+			return;
 		int hp = health.get(p.getName());
 		int max = calculateMaxHealth(p);
 		hp += i;

@@ -210,7 +210,6 @@ public class Items {
 		return Items.createItem(Material.EMPTY_MAP, 1, 0, ChatColor.AQUA + "Bank Note", "Value: " + amount);
 	}
 	
-<<<<<<< HEAD
 	public static ItemStack createPotion(int tier) {
 		ItemStack i = Items.createItem(Material.POTION, 1, 0, Items.nameColor[tier - 1] + Potions.names[tier - 1] + " Potion of Healing", Arrays.asList("Restores: " + Potions.amounts[tier - 1]));
 		PotionMeta pm = (PotionMeta) i.getItemMeta();
@@ -219,8 +218,6 @@ public class Items {
 		return i;
 	}
 
-=======
->>>>>>> 959b23d81b377f67eac1e41f368bea7337f75e51
 	public static String serialize(ItemStack i) {
 		if (i == null)
 			return "@iAIR@a0@d-1";

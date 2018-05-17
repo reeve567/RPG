@@ -32,6 +32,10 @@ public class Potions implements Listener {
 					if(e.getItem().getItemMeta().getDisplayName().contains("Potion of Healing")) {
 						if(Health.hasAttribute(e.getItem(), "restores")) {
 							e.setCancelled(true);
+							if(Health.atMaxHealth(p)) {
+								p.sendMessage(ChatColor.RED + "You are already healthy.");
+								return;
+							}
 							int restore = Health.getAttributeI(e.getItem(), "restores");
 							Health.heal(p, restore);
 							Sounds.play(p, Sound.ENTITY_GENERIC_DRINK, 1);

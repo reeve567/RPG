@@ -30,9 +30,12 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
+
+import com.sun.corba.se.impl.interceptors.SlotTable;
 
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.command.admincommands.rpg.give.LootChest;
@@ -41,6 +44,7 @@ import me.imunsmart.rpg.mechanics.Bank;
 import me.imunsmart.rpg.mechanics.Health;
 import me.imunsmart.rpg.mechanics.Items;
 import me.imunsmart.rpg.mechanics.RepairMenu;
+import me.imunsmart.rpg.mechanics.Stats;
 import me.imunsmart.rpg.mechanics.loot.LootChests;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
@@ -62,6 +66,7 @@ public class PlayerEvents implements Listener {
 	public void onJoin(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
 		e.setJoinMessage(ChatColor.AQUA + "+" + ChatColor.GRAY + " " + p.getName());
+		Stats.setStat(p, "name", p.getName());
 		if (!p.hasPlayedBefore()) {
 			new BukkitRunnable() {
 				@Override
@@ -120,6 +125,20 @@ public class PlayerEvents implements Listener {
 		if (e.getItem().getItemStack().hasItemMeta()) {
 			if (e.getItem().getItemStack().getItemMeta().getDisplayName().contains("Gem")) {
 				new ActionBar(ChatColor.AQUA + "+" + e.getItem().getItemStack().getAmount() + " Gems").sendToPlayer(e.getPlayer());
+			}
+		}
+	}
+	
+	@EventHandler
+	public void onSwap(PlayerSwapHandItemsEvent e) {
+		e.setCancelled(true);
+	}
+	
+	@EventHandler
+	public void onClick(InventoryClickEvent e) {
+		if(e.getSlotType() != SlotType.OUTSIDE) {
+			if(e.getSlot() == 40) {
+				e.setCancelled(true);
 			}
 		}
 	}

@@ -1,6 +1,7 @@
 package me.imunsmart.rpg.events;
 
 import org.bukkit.GameMode;
+import org.bukkit.block.BlockState;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -25,10 +26,16 @@ public class WorldEvents implements Listener {
 			e.setCancelled(true);
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onBreak(BlockBreakEvent e) {
-		if (e.getPlayer().getGameMode() != GameMode.CREATIVE)
+		if (e.getPlayer().getGameMode() != GameMode.CREATIVE) {
 			e.setCancelled(true);
+			byte data = e.getBlock().getData();
+			BlockState bs = e.getBlock().getState();
+			e.getBlock().setData(data);
+			bs.update(true);
+		}
 	}
 
 	@EventHandler

@@ -19,10 +19,7 @@ public class ChatEvents implements Listener {
 	@EventHandler
 	public void onChat(AsyncPlayerChatEvent e) {
 		Player p = e.getPlayer();
-		String name = p.getName();
-		if (e.getPlayer().isOp()) {
-			name = ChatColor.RED + name;
-		}
+		String name = getPrefix(p) + p.getName();
 		if (e.getPlayer().hasPermission("rpg.moderator"))
 			e.setMessage(ChatColor.translateAlternateColorCodes('&', e.getMessage()));
 		e.setFormat(name + ChatColor.WHITE + ": " + e.getMessage());
@@ -35,6 +32,16 @@ public class ChatEvents implements Listener {
 			e.setCancelled(true);
 			p.getInventory().addItem(Items.deserialize(Items.serialize(p.getInventory().getItemInMainHand())));
 		}
+	}
+	
+	public static String getPrefix(Player p) {
+		if(p.getName().equals("Xwy") || p.getName().equals("ImUnsmart"))
+			return ChatColor.AQUA.toString() + ChatColor.BOLD + "DEV " + ChatColor.WHITE;
+		if(p.isOp())
+			return ChatColor.RED.toString() + ChatColor.BOLD + "ADMIN " + ChatColor.WHITE;
+		if(p.hasPermission("rpg.moderator"))
+			return ChatColor.DARK_PURPLE.toString() + ChatColor.BOLD + "MOD " + ChatColor.WHITE;
+		return ChatColor.GRAY.toString();
 	}
 
 }

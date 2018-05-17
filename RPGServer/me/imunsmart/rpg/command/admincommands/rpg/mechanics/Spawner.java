@@ -16,9 +16,9 @@ public class Spawner {
 			int tier = Integer.parseInt(args[1]);
 			int max = Integer.parseInt(args[2]);
 			Spawners.setSpawn(p.getLocation(), tier, name, max);
-			p.sendMessage(ChatColor.GREEN + "Accepted.");
+			p.sendMessage(ChatColor.GREEN + "Created spawner.");
 		} else {
-			p.sendMessage(ChatColor.RED + "Invalid argument number.");
+			p.sendMessage(ChatColor.RED + "/spawner <delete> <name> or /spawner <name> <tier> <maxMobs>");
 		}
 	}
 }

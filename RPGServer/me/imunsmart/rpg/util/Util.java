@@ -15,7 +15,7 @@ public class Util {
 	public static final String logo = ChatColor.AQUA.toString() + ChatColor.BOLD + "InfernoRealms";
 
 	public static final World w = Bukkit.getWorld("world");
-	public static final Location spawn = new Location(w, 0, 74, 0);
+	public static final Location spawn = new Location(w, 0, 86, 0);
 
 	public static final int[] s_radi = { 25, };
 	public static final Location[] safeZones = { spawn };
