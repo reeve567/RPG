@@ -33,7 +33,6 @@ public class Items {
 		i.setItemMeta(im);
 		return i;
 	}
-
 	
 	public static ItemStack createItem(Material m, int amount, int durability, String name, List<String> lore) {
 		ItemStack i = new ItemStack(m, amount, (short) durability);
