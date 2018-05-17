@@ -1,12 +1,1 @@
-.idea/misc.xml
-.idea/modules.xml
-.idea/RPG.iml
-.idea/vcs.xml
-.idea/workspace.xml
-<<<<<<< HEAD
-.recommenders
-.metadata
-=======
-.metadata/*
-.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi
->>>>>>> dd9ec301380c5b77fe840f75cb2b632162ef6a43
+/Main.class
