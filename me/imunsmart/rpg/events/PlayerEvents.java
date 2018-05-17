@@ -16,6 +16,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import me.imunsmart.rpg.Main;
+import me.imunsmart.rpg.mechanics.ActionBar;
 import me.imunsmart.rpg.mechanics.Health;
 import me.imunsmart.rpg.mechanics.Stats;
 import me.imunsmart.rpg.util.PacketUtil;
