@@ -14,6 +14,7 @@ import org.bukkit.inventory.meta.PotionMeta;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Items {
@@ -58,28 +59,7 @@ public class Items {
 		if (maxhp < 1)
 			maxhp++;
 		lore.add("Health: +" + maxhp);
-		if (flags.length() > 0) {
-			for (String s : flag) {
-				if (s.contains(":")) {
-					if (s.contains("name")) {
-						name = StringUtility.colorConv(s.split(":")[1]);
-					} else
-						lore.add(s.split(":")[0] + ": " + s.split(":")[1]);
-				} else {
-					if (s.contains("uncommon")) {
-						lore.add(" ");
-						lore.add(ChatColor.YELLOW + "Uncommon");
-					} else if (s.contains("rare")) {
-						lore.add(" ");
-						lore.add(ChatColor.DARK_PURPLE + "Rare");
-					} else if (s.contains("exclusive")) {
-						lore.add(" ");
-						lore.add(ChatColor.AQUA.toString() + ChatColor.BOLD + "Exclusive");
-					} else
-						lore.add(s);
-				}
-			}
-		}
+		name = getString(flags, name, flag, lore);
 		return createItem(m, 1, 0, name, lore);
 	}
 	
@@ -147,6 +127,11 @@ public class Items {
 		String[] flag = flags.split(",");
 		List<String> lore = new ArrayList<String>();
 		lore.add("Damage: " + min + "-" + max);
+		name = getString(flags, name, flag, lore);
+		return createItem(m, 1, 0, name, lore);
+	}
+	
+	private static String getString(String flags, String name, String[] flag, List<String> lore) {
 		if (flags.length() > 0) {
 			for (String s : flag) {
 				if (s.contains(":")) {
@@ -169,7 +154,7 @@ public class Items {
 				}
 			}
 		}
-		return createItem(m, 1, 0, name, lore);
+		return name;
 	}
 	
 	public static ItemStack deserialize(String s) {
@@ -180,8 +165,7 @@ public class Items {
 		if (tokens.length > 4) {
 			String name = tokens[4].substring(1);
 			List<String> lore = new ArrayList<String>();
-			for (String t : tokens[5].substring(1).split(","))
-				lore.add(t);
+			Collections.addAll(lore, tokens[5].substring(1).split(","));
 			return Items.createItem(m, amt, dur, name, lore);
 		} else
 			return new ItemStack(m, amt, (short) dur);

@@ -26,6 +26,11 @@ public class Util {
 	public static float mult = 1.3f;
 	
 	public static boolean inPvPZone(Player p) {
+		if (inZone(p, pvpZones, p_radi)) return true;
+		return false;
+	}
+	
+	private static boolean inZone(Player p, Location[] pvpZones, int[] p_radi) {
 		for (int i = 0; i < pvpZones.length; i++) {
 			Location l = pvpZones[i];
 			int r = p_radi[i] * s_radi[i];
@@ -36,12 +41,7 @@ public class Util {
 	}
 	
 	public static boolean inSafeZone(Player p) {
-		for (int i = 0; i < safeZones.length; i++) {
-			Location l = safeZones[i];
-			int r = s_radi[i] * s_radi[i];
-			if (p.getLocation().distanceSquared(l) <= r)
-				return true;
-		}
+		if (inZone(p, safeZones, s_radi)) return true;
 		return false;
 	}
 	

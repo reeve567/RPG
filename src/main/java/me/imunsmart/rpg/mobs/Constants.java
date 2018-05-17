@@ -85,13 +85,7 @@ public class Constants {
 		try {
 			Field f = Constants.class.getDeclaredField("MAX_DAMAGE_" + tier);
 			return f.getInt(null);
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
+		} catch (IllegalArgumentException | IllegalAccessException | SecurityException | NoSuchFieldException e) {
 			e.printStackTrace();
 		}
 		return 1;
@@ -101,95 +95,59 @@ public class Constants {
 		try {
 			Field f = Constants.class.getDeclaredField("MAX_T" + tier + "_GEMS");
 			return f.getDouble(null);
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
+		} catch (IllegalArgumentException | IllegalAccessException | SecurityException | NoSuchFieldException e) {
 			e.printStackTrace();
 		}
 		return 1;
 	}
-
+	
 	public static int getMaxHealth(int tier, String i) {
 		try {
 			Field f = Constants.class.getDeclaredField("MAX_HEALTH_" + tier + i);
 			return f.getInt(null);
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
+		} catch (IllegalArgumentException | IllegalAccessException | SecurityException | NoSuchFieldException e) {
 			e.printStackTrace();
 		}
 		return 1;
 	}
-
+	
 	public static double getMaxRegen(int tier) {
 		try {
 			Field f = Constants.class.getDeclaredField("MAX_REGEN_" + tier);
 			return f.getDouble(null);
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
+		} catch (IllegalArgumentException | SecurityException | NoSuchFieldException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
 		return 1;
 	}
-
+	
 	public static int getMinDamage(int tier) {
 		try {
 			Field f = Constants.class.getDeclaredField("MIN_DAMAGE_" + tier);
 			return f.getInt(null);
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
+		} catch (IllegalArgumentException | IllegalAccessException | SecurityException | NoSuchFieldException e) {
 			e.printStackTrace();
 		}
 		return 1;
 	}
-
+	
 	public static String getRandomSkeletonName(int tier) {
 		try {
 			Field f = Constants.class.getDeclaredField("st" + tier);
 			String[] name = (String[]) f.get(null);
 			return name[(int) (Math.random() * name.length)];
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
+		} catch (IllegalArgumentException | IllegalAccessException | SecurityException | NoSuchFieldException e) {
 			e.printStackTrace();
 		}
 		return "null";
 	}
 	
-	public static String getRandomZombieName(int tier) {
+	public static String getRandomZombieName(int tier) throws NoSuchFieldException {
 		try {
 			Field f = Constants.class.getDeclaredField("zt" + tier);
 			String[] name = (String[]) f.get(null);
 			return name[(int) (Math.random() * name.length)];
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
+		} catch (IllegalArgumentException | IllegalAccessException | SecurityException e) {
 			e.printStackTrace();
 		}
 		return "null";

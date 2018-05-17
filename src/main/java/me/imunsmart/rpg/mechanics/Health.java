@@ -21,9 +21,9 @@ import java.util.HashMap;
 
 public class Health {
 	
-	public static HashMap<String, Integer> health = new HashMap<String, Integer>();
-	public static HashMap<String, BossBar> bar = new HashMap<String, BossBar>();
-	public static HashMap<String, Integer> combat = new HashMap<String, Integer>();
+	public static HashMap<String, Integer> health = new HashMap<>();
+	public static HashMap<String, BossBar> bar = new HashMap<>();
+	public static HashMap<String, Integer> combat = new HashMap<>();
 	
 	public static boolean atMaxHealth(Player p) {
 		if (!health.containsKey(p.getName())) return true;

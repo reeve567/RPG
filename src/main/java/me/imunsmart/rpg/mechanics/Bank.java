@@ -27,8 +27,8 @@ import java.util.List;
 
 public class Bank implements Listener {
 	private static int[] upgradeCosts = {200, 500, 1000, 2500, 5000};
-	HashMap<String, Boolean> withdraw = new HashMap<String, Boolean>();
-	List<String> upgrade = new ArrayList<String>();
+	private HashMap<String, Boolean> withdraw = new HashMap<String, Boolean>();
+	private List<String> upgrade = new ArrayList<>();
 	private Main pl;
 	
 	public Bank(Main pl) {

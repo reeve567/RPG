@@ -22,17 +22,17 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 public class EntityManager implements Listener {
-	public static HashMap<LivingEntity, Mob> mobs = new HashMap<LivingEntity, Mob>();
+	public static HashMap<LivingEntity, Mob> mobs = new HashMap<>();
 	public static Main pl;
-	public HashMap<String, Integer> weapon = new HashMap<>();
-	public HashMap<String, int[]> armor = new HashMap<>();
+	private HashMap<String, Integer> weapon = new HashMap<>();
+	private HashMap<String, int[]> armor = new HashMap<>();
 	
 	public EntityManager(Main m) {
 		pl = m;
 		task();
 		Bukkit.getPluginManager().registerEvents(this, m);
 	}
-
+	
 	public static void disable() {
 		for (LivingEntity le : mobs.keySet()) {
 			le.remove();
@@ -106,17 +106,14 @@ public class EntityManager implements Listener {
 	}
 	
 	private void task() {
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(pl, new Runnable() {
-			@Override
-			public void run() {
-				Iterator<LivingEntity> it = mobs.keySet().iterator();
-				while (it.hasNext()) {
-					LivingEntity le = it.next();
-					Mob m = mobs.get(le);
-					m.tick();
-					if (m.getHealth() < 1) {
-						it.remove();
-					}
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(pl, () -> {
+			Iterator<LivingEntity> it = mobs.keySet().iterator();
+			while (it.hasNext()) {
+				LivingEntity le = it.next();
+				Mob m = mobs.get(le);
+				m.tick();
+				if (m.getHealth() < 1) {
+					it.remove();
 				}
 			}
 		}, 0, 2);
@@ -146,6 +143,7 @@ public class EntityManager implements Listener {
 			ItemStack i = le.getEquipment().getItemInMainHand();
 			if (i != null)
 				damage = Health.getAttributeI(le.getEquipment().getItemInMainHand(), "Damage");
+			assert i != null;
 			String name = i.getType().name();
 			if (name.contains("SWORD") || name.contains("AXE")) {
 				if (le instanceof Player) {

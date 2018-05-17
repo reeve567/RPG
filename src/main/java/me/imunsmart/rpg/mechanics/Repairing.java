@@ -19,11 +19,12 @@ import org.bukkit.util.Vector;
 import java.util.HashMap;
 
 public class Repairing implements Listener {
-	HashMap<String, ItemStack> cancel = new HashMap<>();
-	HashMap<String, Item> remove = new HashMap<>();
-	HashMap<String, Block> anvil = new HashMap<>();
+	private HashMap<String, ItemStack> cancel = new HashMap<>();
+	private HashMap<String, Item> remove = new HashMap<>();
+	private HashMap<String, Block> anvil = new HashMap<>();
 	private Main pl;
 	private int[] costs = {64, 128, 256, 384, 512};
+	
 	public Repairing(Main pl) {
 		this.pl = pl;
 	}
@@ -41,7 +42,6 @@ public class Repairing implements Listener {
 				if (Bank.getGems(p) < cost) {
 					p.sendMessage(ChatColor.RED + "Insufficient gems. That costs " + ChatColor.UNDERLINE + cost + ChatColor.RED + " gems.");
 					p.playSound(p.getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 0.67f);
-					return;
 				} else {
 					Bank.pay(p, cost);
 					p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_USE, 1, 1f);

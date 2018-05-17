@@ -12,6 +12,7 @@ import net.minecraft.server.v1_12_R1.EntityPlayer;
 import net.minecraft.server.v1_12_R1.Packet;
 import net.minecraft.server.v1_12_R1.PacketPlayOutScoreboardTeam;
 
+@Deprecated
 public class PacketUtil {
 
 	// -------------------------------------------- //

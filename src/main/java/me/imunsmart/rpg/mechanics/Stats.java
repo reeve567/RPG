@@ -102,7 +102,7 @@ public class Stats {
 		File f = new File(dir, p.getUniqueId() + ".yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
 		if (!fc.contains(id))
-			return new ArrayList<String>();
+			return new ArrayList<>();
 		return fc.getStringList(id);
 	}
 	

@@ -200,9 +200,9 @@ public class Mob {
 //		for (int h = 0; h < x; h++) {
 //			bar += "♥";
 //		}
-		mob.setCustomName(ChatColor.WHITE.toString() + ChatColor.BOLD + (int) health + ChatColor.RED.toString() + ChatColor.BOLD + "HP");
+		mob.setCustomName(ChatColor.WHITE.toString() + (int) health + " " + ChatColor.RED.toString() + ChatColor.BOLD + "HP");
 	}
-
+	
 	public double getHealth() {
 		return health;
 	}

@@ -12,14 +12,12 @@ public class ActionBar {
 	private PacketPlayOutChat packet;
 	
 	public ActionBar(String text) {
-		PacketPlayOutChat packet = new PacketPlayOutChat(ChatSerializer.a("{\"text\":\"" + text + "\"}"), ChatMessageType.a((byte) 2));
-		this.packet = packet;
+		this.packet = new PacketPlayOutChat(ChatSerializer.a("{\"text\":\"" + text + "\"}"), ChatMessageType.a((byte) 2));
 	}
 	
 	public void sendToAll() {
 		for (Player p : Bukkit.getServer().getOnlinePlayers()) {
 			((CraftPlayer) p).getHandle().playerConnection.sendPacket(packet);
-			;
 		}
 	}
 	

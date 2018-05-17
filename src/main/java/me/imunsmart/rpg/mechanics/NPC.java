@@ -45,7 +45,7 @@ public class NPC implements Listener {
 		npc.put(le, new Data(le.getLocation(), texts));
 	}
 	
-	public void init() {
+	private void init() {
 		createNPC(w.spawn(new Location(w, 2.5, 4, 8.5), IronGolem.class), ChatColor.WHITE.toString() + ChatColor.BOLD + "Bank Guard", guard);
 		createNPC(w.spawn(new Location(w, -1.5, 4, 8.5), IronGolem.class), ChatColor.WHITE.toString() + ChatColor.BOLD + "Bank Guard", guard);
 		
@@ -58,9 +58,7 @@ public class NPC implements Listener {
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(pl, new Runnable() {
 			@Override
 			public void run() {
-				Iterator<LivingEntity> it = npc.keySet().iterator();
-				while (it.hasNext()) {
-					LivingEntity le = it.next();
+				for (LivingEntity le : npc.keySet()) {
 					le.removePotionEffect(PotionEffectType.SLOW);
 					le.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 200, 255));
 					if (le.getLocation().getX() != npc.get(le).l.getX() || le.getLocation().getY() != npc.get(le).l.getY() || le.getLocation().getZ() != npc.get(le).l.getZ())
@@ -77,7 +75,7 @@ public class NPC implements Listener {
 			e.setDamage(0);
 		}
 	}
-
+	
 	@EventHandler
 	public void onInteract(PlayerInteractEntityEvent e) {
 		if (npc.containsKey(e.getRightClicked())) {
@@ -86,7 +84,7 @@ public class NPC implements Listener {
 			e.getPlayer().sendMessage(e.getRightClicked().getCustomName() + ChatColor.WHITE + ": " + npc.get(e.getRightClicked()).texts[r]);
 		}
 	}
-
+	
 	@EventHandler
 	public void onTarget(EntityTargetEvent e) {
 		if (npc.containsKey(e.getEntity())) {

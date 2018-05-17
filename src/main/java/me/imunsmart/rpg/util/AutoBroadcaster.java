@@ -33,7 +33,7 @@ public class AutoBroadcaster {
 		}, 0, 1200L);
 	}
 	
-	public static void initMessages(Main pl) {
+	private static void initMessages(Main pl) {
 		messages = new ArrayList<>();
 		File f = new File(pl.getDataFolder(), "broadcasts.yml");
 		if (!f.exists()) {
