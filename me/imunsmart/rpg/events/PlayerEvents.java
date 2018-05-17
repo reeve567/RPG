@@ -1,59 +1,29 @@
 package me.imunsmart.rpg.events;
 
-import static me.imunsmart.rpg.mechanics.Health.calculateMaxHealth;
-import static me.imunsmart.rpg.mechanics.Health.damage;
-import static me.imunsmart.rpg.mechanics.Health.health;
-
-import java.util.HashMap;
-
-import org.bukkit.Effect;
-import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
-
-import com.sun.corba.se.impl.interceptors.SlotTable;
-
 import me.imunsmart.rpg.Main;
-import me.imunsmart.rpg.command.admincommands.rpg.give.LootChest;
 import me.imunsmart.rpg.mechanics.ActionBar;
-import me.imunsmart.rpg.mechanics.Bank;
 import me.imunsmart.rpg.mechanics.Health;
-import me.imunsmart.rpg.mechanics.Items;
-import me.imunsmart.rpg.mechanics.RepairMenu;
 import me.imunsmart.rpg.mechanics.Stats;
-import me.imunsmart.rpg.mechanics.loot.LootChests;
+import me.imunsmart.rpg.util.PacketUtil;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.v1_12_R1.PacketPlayInEntityAction.EnumPlayerAction;
 import net.minecraft.server.v1_12_R1.PacketPlayInClientCommand;
-import net.minecraft.server.v1_12_R1.PacketPlayOutPlayerInfo;
-import net.minecraft.server.v1_12_R1.ChatClickable.EnumClickAction;
 import net.minecraft.server.v1_12_R1.PacketPlayInClientCommand.EnumClientCommand;
-import net.minecraft.server.v1_12_R1.PacketPlayOutPlayerInfo.EnumPlayerInfoAction;
 
 public class PlayerEvents implements Listener {
 	private Main pl;
@@ -67,6 +37,7 @@ public class PlayerEvents implements Listener {
 		Player p = e.getPlayer();
 		e.setJoinMessage(ChatColor.AQUA + "+" + ChatColor.GRAY + " " + p.getName());
 		Stats.setStat(p, "name", p.getName());
+		PacketUtil.sendPacket(e.getPlayer(), PacketUtil.constructTeamCreatePacket(e.getPlayer().getName(), "prefix", "suffix", e.getPlayer()));
 		if (!p.hasPlayedBefore()) {
 			new BukkitRunnable() {
 				@Override
@@ -124,20 +95,21 @@ public class PlayerEvents implements Listener {
 	public void onPickup(PlayerPickupItemEvent e) {
 		if (e.getItem().getItemStack().hasItemMeta()) {
 			if (e.getItem().getItemStack().getItemMeta().getDisplayName().contains("Gem")) {
-				new ActionBar(ChatColor.AQUA + "+" + e.getItem().getItemStack().getAmount() + " Gems").sendToPlayer(e.getPlayer());
+				new ActionBar(ChatColor.AQUA + "+" + e.getItem().getItemStack().getAmount() + " Gems")
+						.sendToPlayer(e.getPlayer());
 			}
 		}
 	}
-	
+
 	@EventHandler
 	public void onSwap(PlayerSwapHandItemsEvent e) {
 		e.setCancelled(true);
 	}
-	
+
 	@EventHandler
 	public void onClick(InventoryClickEvent e) {
-		if(e.getSlotType() != SlotType.OUTSIDE) {
-			if(e.getSlot() == 40) {
+		if (e.getSlotType() != SlotType.OUTSIDE) {
+			if (e.getSlot() == 40) {
 				e.setCancelled(true);
 			}
 		}

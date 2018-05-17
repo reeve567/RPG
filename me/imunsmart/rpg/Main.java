@@ -38,11 +38,12 @@ public class Main extends JavaPlugin {
 
 		registerEvents();
 		registerCommands();
-
+		registerGlow();
+		
 		new AutoBroadcaster(this);
 
 		new Stats(this);
-
+		
 		Health.task(this);
 	}
 
