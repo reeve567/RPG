@@ -17,8 +17,11 @@ public class Util {
 	public static final World w = Bukkit.getWorld("world");
 	public static final Location spawn = new Location(w, 0, 74, 0);
 
-	public static final int[] radi = { 25, };
+	public static final int[] s_radi = { 25, };
 	public static final Location[] safeZones = { spawn };
+
+	public static final int[] p_radi = {};
+	public static final Location[] pvpZones = {};
 
 	public static float baseXP = 100;
 	public static float mult = 1.3f;
@@ -30,13 +33,23 @@ public class Util {
 	public static boolean inSafeZone(Player p) {
 		for (int i = 0; i < safeZones.length; i++) {
 			Location l = safeZones[i];
-			int r = radi[i] * radi[i];
+			int r = s_radi[i] * s_radi[i];
 			if (p.getLocation().distanceSquared(l) <= r)
 				return true;
 		}
 		return false;
 	}
-	
+
+	public static boolean inPvPZone(Player p) {
+		for (int i = 0; i < pvpZones.length; i++) {
+			Location l = pvpZones[i];
+			int r = p_radi[i] * s_radi[i];
+			if (p.getLocation().distanceSquared(l) <= r)
+				return true;
+		}
+		return false;
+	}
+
 	public static boolean validClick(PlayerInteractEvent e) {
 		return e.getItem() != null && (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK);
 	}

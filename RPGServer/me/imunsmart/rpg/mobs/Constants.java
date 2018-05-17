@@ -67,6 +67,9 @@ public class Constants {
 	public static final int MAX_HEALTH_5H = 4 * MAX_HEALTH_4H;
 
 	public static final int MAX_T5_GEMS = 64;
+	
+	// Levels
+	public static final int[] LEVEL_REQ = { 0, 5, 10, 20, 30 };
 
 	public static int getMinDamage(int tier) {
 		try {

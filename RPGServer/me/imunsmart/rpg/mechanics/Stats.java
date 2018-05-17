@@ -12,6 +12,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import me.imunsmart.rpg.Main;
+import me.imunsmart.rpg.mobs.Constants;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
 
@@ -26,13 +27,13 @@ public class Stats {
 			dir.mkdirs();
 	}
 
-	//	public static Object getStat(Player p, String id) {
-	//		File f = new File(dir, p.getUniqueId() + ".yml");
-	//		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
-	//		if (!fc.contains(id))
-	//			return null;
-	//		return fc.get(id);
-	//	}
+	// public static Object getStat(Player p, String id) {
+	// File f = new File(dir, p.getUniqueId() + ".yml");
+	// FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
+	// if (!fc.contains(id))
+	// return null;
+	// return fc.get(id);
+	// }
 
 	public static int getInt(OfflinePlayer p, String id) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
@@ -127,28 +128,28 @@ public class Stats {
 	}
 
 	public static void levelUp(OfflinePlayer p) {
-		int l = getLevel(p);
+		int l = getLevel(p) + 1;
 		addStat(p, "level", 1);
 		setStat(p, "xp", 0);
 		if (p.isOnline()) {
 			Player op = (Player) p;
 			op.sendMessage(ChatColor.AQUA + "You have leveled up!" + ChatColor.GRAY);
-			op.sendMessage(ChatColor.GRAY + "You are now level " + ChatColor.AQUA + (l + 1) + ChatColor.GRAY + "!");
+			op.sendMessage(ChatColor.GRAY + "You are now level " + ChatColor.AQUA + l + ChatColor.GRAY + "!");
 			op.playSound(op.getLocation(), Sound.BLOCK_ANVIL_USE, 1, 2);
-			if (l == 5) {
-				op.sendMessage(ChatColor.GRAY + "You can now wear " + ChatColor.DARK_GRAY + "Tier 2" + ChatColor.GRAY + " armor.");
-				op.playSound(op.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1.1f);
-			} else if (l == 10) {
-				op.sendMessage(ChatColor.GRAY + "You can now wear " + ChatColor.WHITE + "Tier 3" + ChatColor.GRAY + " armor.");
-				op.playSound(op.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1.1f);
-			} else if (l == 20) {
-				op.sendMessage(ChatColor.GRAY + "You can now wear " + ChatColor.AQUA + "Tier 4" + ChatColor.GRAY + " armor.");
-				op.playSound(op.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1.1f);
-			} else if (l == 30) {
-				op.sendMessage(ChatColor.GRAY + "You can now wear " + ChatColor.YELLOW + "Tier 5" + ChatColor.GRAY + " armor.");
-				op.playSound(op.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1.1f);
+			for (int i = 0; i < Constants.LEVEL_REQ.length; i++) {
+				int x = Constants.LEVEL_REQ[i];
+				int tier = i + 1;
+				if (l == x) {
+					op.sendMessage(ChatColor.GREEN.toString() + ChatColor.BOLD + "You can now wield " + Items.nameColor[i].toString() + ChatColor.BOLD + "Tier " + tier + ChatColor.GREEN.toString() + ChatColor.BOLD + " items.");
+					break;
+				}
 			}
 		}
+	}
+
+	public static boolean canWield(Player p, int tier) {
+		int level = getLevel(p);
+		return level > Constants.LEVEL_REQ[tier - 1];
 	}
 
 }

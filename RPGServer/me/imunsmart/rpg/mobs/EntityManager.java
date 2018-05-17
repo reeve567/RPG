@@ -20,7 +20,10 @@ import org.bukkit.inventory.ItemStack;
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.ActionBar;
 import me.imunsmart.rpg.mechanics.Health;
+import me.imunsmart.rpg.mechanics.Items;
 import me.imunsmart.rpg.mechanics.Sounds;
+import me.imunsmart.rpg.mechanics.Stats;
+import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
 
 public class EntityManager implements Listener {
@@ -47,15 +50,33 @@ public class EntityManager implements Listener {
 		if (e.getEntity() instanceof LivingEntity && e.getDamager() instanceof LivingEntity) {
 			LivingEntity le = (LivingEntity) e.getDamager();
 			LivingEntity hit = (LivingEntity) e.getEntity();
+			if (le instanceof Player && hit instanceof Player) {
+				Player p = (Player) le;
+				Player pp = (Player) hit;
+				if (!Util.inPvPZone(p) || !Util.inPvPZone(pp)) {
+					e.setCancelled(true);
+					e.setDamage(0);
+					return;
+				}
+			}
 			double damage = 1;
 			ItemStack i = le.getEquipment().getItemInMainHand();
 			if (i != null)
 				damage = Health.getAttributeI(le.getEquipment().getItemInMainHand(), "Damage");
 			String name = i.getType().name();
 			if (name.contains("SWORD") || name.contains("AXE")) {
-				if (le instanceof Player)
+				if (le instanceof Player) {
+					Player p = (Player) le;
+					int tier = Items.getTier(i);
+					if (!Stats.canWield(p, tier)) {
+						e.setCancelled(true);
+						p.sendMessage(ChatColor.RED + "You cannot use that item yet.");
+						Sounds.play(p, Sound.ENTITY_ITEM_BREAK, 0.67f);
+						e.setDamage(0);
+						return;
+					}
 					incWep((Player) le, i);
-				else
+				} else
 					incDur(i);
 			}
 			if (hit instanceof Player)
@@ -175,7 +196,7 @@ public class EntityManager implements Listener {
 			le.remove();
 		}
 	}
-	
+
 	private void task() {
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(pl, new Runnable() {
 			@Override

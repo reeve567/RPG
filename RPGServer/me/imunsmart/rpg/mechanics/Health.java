@@ -219,8 +219,8 @@ public class Health {
 						ItemStack i = p.getInventory().getArmorContents()[x];
 						if (i == null)
 							continue;
-						int t = 1 + (int) (Stats.getInt(p, "level", 1) / 5.0);
-						if (t < Items.getTier(i)) {
+						int tier = Items.getTier(i);
+						if(!Stats.canWield(p, tier)) {
 							ItemStack[] armor = new ItemStack[4];
 							for (int y = 0; y < p.getInventory().getArmorContents().length; y++) {
 								if (y != x)
