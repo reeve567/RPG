@@ -1,0 +1,14 @@
+package me.imunsmart.rpg.command.admincommands.rpg.give;
+
+import me.imunsmart.rpg.mechanics.Items;
+import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
+public class GiveItem {
+
+	public static void run(Player p, String[] args) {
+		
+	}
+
+}

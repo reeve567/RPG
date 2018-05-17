@@ -16,6 +16,7 @@ import me.imunsmart.rpg.events.WorldEvents;
 import me.imunsmart.rpg.mechanics.Bank;
 import me.imunsmart.rpg.mechanics.Health;
 import me.imunsmart.rpg.mechanics.NPC;
+import me.imunsmart.rpg.mechanics.Potions;
 import me.imunsmart.rpg.mechanics.RepairMenu;
 import me.imunsmart.rpg.mechanics.Repairing;
 import me.imunsmart.rpg.mechanics.Stats;
@@ -63,6 +64,7 @@ public class Main extends JavaPlugin {
 		Bukkit.getPluginManager().registerEvents(new ServerEvents(this), this);
 		Bukkit.getPluginManager().registerEvents(new SignEvents(this), this);
 		Bukkit.getPluginManager().registerEvents(new Repairing(this), this);
+		Bukkit.getPluginManager().registerEvents(new Potions(this), this);
 
 		new EntityManager(this);
 		// npc = new NPC(this);

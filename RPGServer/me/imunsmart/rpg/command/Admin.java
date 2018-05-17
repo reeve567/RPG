@@ -11,16 +11,18 @@ import me.imunsmart.rpg.command.admincommands.gamemode.GMA;
 import me.imunsmart.rpg.command.admincommands.gamemode.GMC;
 import me.imunsmart.rpg.command.admincommands.gamemode.GMS;
 import me.imunsmart.rpg.command.admincommands.gamemode.GMSP;
+import me.imunsmart.rpg.command.admincommands.playermoderation.InventoryC;
 import me.imunsmart.rpg.command.admincommands.playermoderation.Kick;
 import me.imunsmart.rpg.command.admincommands.playermoderation.Suicide;
+import me.imunsmart.rpg.command.admincommands.rpg.give.CStats;
 import me.imunsmart.rpg.command.admincommands.rpg.give.GiveArmor;
 import me.imunsmart.rpg.command.admincommands.rpg.give.GiveGems;
+import me.imunsmart.rpg.command.admincommands.rpg.give.GiveItem;
+import me.imunsmart.rpg.command.admincommands.rpg.give.GiveScraps;
 import me.imunsmart.rpg.command.admincommands.rpg.give.GiveWeapon;
 import me.imunsmart.rpg.command.admincommands.rpg.give.LootChest;
-import me.imunsmart.rpg.command.admincommands.rpg.give.CStats;
 import me.imunsmart.rpg.command.admincommands.rpg.mechanics.SpawnMob;
 import me.imunsmart.rpg.command.admincommands.rpg.mechanics.Spawner;
-import me.imunsmart.rpg.mechanics.loot.LootChests;
 import net.md_5.bungee.api.ChatColor;
 
 public class Admin implements CommandExecutor {
@@ -31,6 +33,8 @@ public class Admin implements CommandExecutor {
 		pl.getCommand("giveweapon").setExecutor(this);
 		pl.getCommand("givearmor").setExecutor(this);
 		pl.getCommand("givegems").setExecutor(this);
+		pl.getCommand("givescraps").setExecutor(this);
+		pl.getCommand("giveitem").setExecutor(this);
 		pl.getCommand("spawnmob").setExecutor(this);
 		pl.getCommand("spawner").setExecutor(this);
 		pl.getCommand("kick").setExecutor(this);
@@ -42,6 +46,8 @@ public class Admin implements CommandExecutor {
 		pl.getCommand("stats").setExecutor(this);
 		pl.getCommand("lootchest").setExecutor(this);
 		pl.getCommand("lc").setExecutor(this);
+		pl.getCommand("inventory").setExecutor(this);
+		pl.getCommand("inv").setExecutor(this);
 	}
 
 	@Override
@@ -70,6 +76,10 @@ public class Admin implements CommandExecutor {
 			Spawner.run(p, args);
 		} else if (label.equalsIgnoreCase("givegems")) {
 			GiveGems.run(p, args);
+		} else if (label.equalsIgnoreCase("givescraps")) {
+			GiveScraps.run(p, args);
+		} else if (label.equalsIgnoreCase("giveitem")) {
+			GiveItem.run(p, args);
 		} else if (label.equalsIgnoreCase("gmc")) {
 			Player tp = p;
 			if (args.length == 1) {
@@ -119,6 +129,8 @@ public class Admin implements CommandExecutor {
 			CStats.run(p, args);
 		} else if (label.equalsIgnoreCase("lootchest") || label.equalsIgnoreCase("lc")) {
 			LootChest.run(p, args);
+		} else if (label.equalsIgnoreCase("inventory") || label.equalsIgnoreCase("inv")) {
+			InventoryC.run(p, args);
 		}
 		return false;
 	}

@@ -12,6 +12,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import io.netty.util.internal.StringUtil;
+import me.imunsmart.rpg.util.StringUtility;
 import net.md_5.bungee.api.ChatColor;
 
 public class Items {
@@ -49,22 +51,38 @@ public class Items {
 	private static String[] weapons = { "WOOD", "STONE", "IRON", "DIAMOND", "GOLD" };
 	private static String[] swords = { "Shortsword", "Longsword", "Greatsword", "Mystic Sword", "Godly Sword" };
 	private static String[] axes = { "Hatchet", "Tomohawk", "Great Axe", "Mystic Axe", "Godly Axe" };
+	public static ChatColor[] nameColor = { ChatColor.GOLD, ChatColor.GRAY, ChatColor.WHITE, ChatColor.AQUA, ChatColor.YELLOW };
 
 	public static ItemStack createWeapon(String type, int tier, int min, int max, String flags) {
 		Material m = Material.getMaterial(weapons[tier - 1] + "_" + type.toUpperCase());
 		String[] names = type.equals("sword") ? swords : axes;
+		String name = ChatColor.WHITE + names[tier - 1];
 		String[] flag = flags.split(",");
 		List<String> lore = new ArrayList<String>();
 		lore.add("Damage: " + min + "-" + max);
 		if (flags.length() > 0) {
 			for (String s : flag) {
-				if (s.contains(":"))
-					lore.add(s.split(":")[0] + ": " + s.split(":")[1]);
-				else
-					lore.add(s);
+				if (s.contains(":")) {
+					if (s.contains("name")) {
+						name = StringUtility.colorConv(s.split(":")[1]);
+					} else
+						lore.add(s.split(":")[0] + ": " + s.split(":")[1]);
+				} else {
+					if (s.contains("uncommon")) {
+						lore.add(" ");
+						lore.add(ChatColor.YELLOW + "Uncommon");
+					} else if (s.contains("rare")) {
+						lore.add(" ");
+						lore.add(ChatColor.DARK_PURPLE + "Rare");
+					} else if (s.contains("exclusive")) {
+						lore.add(" ");
+						lore.add(ChatColor.AQUA.toString() + ChatColor.BOLD + "Exclusive");
+					} else
+						lore.add(s);
+				}
 			}
 		}
-		return createItem(m, 1, 0, ChatColor.WHITE + names[tier - 1], lore);
+		return createItem(m, 1, 0, name, lore);
 	}
 
 	public static void convertToScraps(Player p) {
@@ -77,20 +95,20 @@ public class Items {
 		if (name.contains("LEGGINGS") || name.contains("AXE") || name.contains("SWORD")) {
 			amount = 3;
 		}
-		int data = 14;
+		int tier = 1;
 		if (name.contains("CHAINMAIL") || name.contains("STONE"))
-			data = 8;
+			tier = 2;
 		else if (name.contains("IRON"))
-			data = 7;
+			tier = 3;
 		else if (name.contains("DIAMOND"))
-			data = 12;
+			tier = 4;
 		else if (name.contains("GOLD"))
-			data = 11;
-		p.getInventory().addItem(createItem(Material.INK_SACK, amount, data, ChatColor.WHITE + "Armor Scrap", "Drag a stack onto armor", "to repair it."));
+			tier = 5;
+		p.getInventory().addItem(createScraps(amount, tier));
 		p.getInventory().setItemInMainHand(null);
 		p.updateInventory();
 	}
-	
+
 	public static ItemStack createScraps(int amount, int tier) {
 		int data = 14;
 		if (tier == 2)
@@ -101,7 +119,7 @@ public class Items {
 			data = 12;
 		else if (tier == 5)
 			data = 11;
-		return createItem(Material.INK_SACK, amount, data, ChatColor.WHITE + "Armor Scrap", "Drag a stack onto armor", "to repair it.");
+		return createItem(Material.INK_SACK, amount, data, nameColor[tier - 1] + "Armor Scrap", "Drag a stack onto armor", "to repair it.");
 	}
 
 	private static String[] armor = { "LEATHER", "CHAINMAIL", "IRON", "DIAMOND", "GOLD" };
@@ -110,19 +128,34 @@ public class Items {
 	public static ItemStack createArmor(String type, int tier, int maxhp, String flags) {
 		Material m = Material.getMaterial(armor[tier - 1] + "_" + type.toUpperCase());
 		String[] flag = flags.split(",");
+		String name = ChatColor.WHITE + armors[tier - 1] + " " + type.substring(0, 1).toUpperCase() + type.substring(1).toLowerCase();
 		List<String> lore = new ArrayList<String>();
 		if (maxhp < 1)
 			maxhp++;
-		lore.add("Health: " + maxhp);
+		lore.add("Health: +" + maxhp);
 		if (flags.length() > 0) {
 			for (String s : flag) {
-				if (s.contains(":"))
-					lore.add(s.split(":")[0] + ": " + s.split(":")[1]);
-				else
-					lore.add(s);
+				if (s.contains(":")) {
+					if (s.contains("name")) {
+						name = StringUtility.colorConv(s.split(":")[1]);
+					} else
+						lore.add(s.split(":")[0] + ": " + s.split(":")[1]);
+				} else {
+					if (s.contains("uncommon")) {
+						lore.add(" ");
+						lore.add(ChatColor.YELLOW + "Uncommon");
+					} else if (s.contains("rare")) {
+						lore.add(" ");
+						lore.add(ChatColor.DARK_PURPLE + "Rare");
+					} else if (s.contains("exclusive")) {
+						lore.add(" ");
+						lore.add(ChatColor.AQUA.toString() + ChatColor.BOLD + "Exclusive");
+					} else
+						lore.add(s);
+				}
 			}
 		}
-		return createItem(m, 1, 0, ChatColor.WHITE + armors[tier - 1] + " " + type.substring(0, 1).toUpperCase() + type.substring(1).toLowerCase(), lore);
+		return createItem(m, 1, 0, name, lore);
 	}
 
 	public static ItemStack randomEnchant(ItemStack i) {
@@ -170,6 +203,7 @@ public class Items {
 	public static ItemStack createGems(int amount) {
 		return createItem(Material.DIAMOND, amount, 0, ChatColor.AQUA + "Gem");
 	}
+
 	public static ItemStack createGemNote(int amount) {
 		return Items.createItem(Material.EMPTY_MAP, 1, 0, ChatColor.AQUA + "Bank Note", "Value: " + amount);
 	}

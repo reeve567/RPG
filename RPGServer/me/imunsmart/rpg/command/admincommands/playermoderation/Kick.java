@@ -25,6 +25,8 @@ public class Kick {
 		} else if (args.length > 1) {
 			String reason = StringUtility.colorConv(StringUtility.join(args, 1));
 			target.kickPlayer(ChatColor.RED + "Kicked for: " + ChatColor.WHITE + reason);
+		} else {
+			sender.sendMessage(ChatColor.RED + "Usage: /kick <player> [reason]");
 		}
 	}
 

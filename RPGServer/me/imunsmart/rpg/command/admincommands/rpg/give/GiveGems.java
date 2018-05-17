@@ -33,6 +33,8 @@ public class GiveGems {
 				p.sendMessage(ChatColor.AQUA + "Given " + amount + " gems to " + tp.getName());
 				tp.getInventory().addItem(Items.createGemNote(amount));
 			}
+		} else {
+			p.sendMessage(ChatColor.RED + "Usage: /givegems [player] <amount> [noted]");
 		}
 	}
 }

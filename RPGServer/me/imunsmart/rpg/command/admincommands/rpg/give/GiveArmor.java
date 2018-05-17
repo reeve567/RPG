@@ -6,9 +6,16 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class GiveArmor {
-	
-	public static void run(Player p,String[] args) {
-		if (args.length == 4) {
+
+	public static void run(Player p, String[] args) {
+		if (args.length == 3) {
+			String type = args[0].toLowerCase();
+			int tier = Integer.parseInt(args[1]);
+			int maxhp = Integer.valueOf(args[2]);
+			p.getInventory().addItem(Items.createArmor(type, tier, maxhp, ""));
+			p.updateInventory();
+			p.sendMessage(ChatColor.GREEN + "Item created.");
+		} else if (args.length == 4) {
 			Player tp = Bukkit.getPlayer(args[0]);
 			String type = args[1].toLowerCase();
 			int tier = Integer.parseInt(args[2]);
@@ -27,7 +34,7 @@ public class GiveArmor {
 			p.sendMessage(ChatColor.GREEN + "Item created.");
 			tp.sendMessage(ChatColor.GREEN + "Item created.");
 		} else {
-			p.sendMessage(ChatColor.RED + "Invalid usage.");
+			p.sendMessage(ChatColor.RED + "Usage: /givearmor [name] <type> <tier> <maxhp> [flags]");
 		}
 	}
 }

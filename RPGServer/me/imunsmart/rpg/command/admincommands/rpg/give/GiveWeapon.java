@@ -37,7 +37,7 @@ public class GiveWeapon {
 			p.sendMessage(ChatColor.GREEN + "Item created.");
 			tp.sendMessage(ChatColor.GREEN + "Item created.");
 		} else {
-			p.sendMessage(ChatColor.RED + "Invalid usage.");
+			p.sendMessage(ChatColor.RED + "Usage: /giveweapon [name] <type> <tier> <min-max> [flags]");
 		}
 	}
 

@@ -36,10 +36,10 @@ public class Mob {
 		int ml = Constants.getMaxHealth(tier, "L") / 2 + (int) (Math.random() * (Constants.getMaxHealth(tier, "L") / 2));
 		int mb = Constants.getMaxHealth(tier, "B") / 2 + (int) (Math.random() * (Constants.getMaxHealth(tier, "B") / 2));
 		String flag = Constants.randomArmorFlag(mh, tier);
-		if (flag.contains("Uncommon")) {
+		if (flag.contains("uncommon")) {
 			mh *= Constants.SCALE_UNC;
 		}
-		if (flag.contains("Rare")) {
+		if (flag.contains("rare")) {
 			mh *= Constants.SCALE_RARE;
 		}
 		ItemStack h = Items.randomDurability(Items.createArmor("helmet", tier, mh, flag));
@@ -49,10 +49,10 @@ public class Mob {
 		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
 		mob.getEquipment().setHelmet(skull);
 		flag = Constants.randomArmorFlag(mc, tier);
-		if (flag.contains("Uncommon")) {
+		if (flag.contains("uncommon")) {
 			mc *= Constants.SCALE_UNC;
 		}
-		if (flag.contains("Rare")) {
+		if (flag.contains("rare")) {
 			mc *= Constants.SCALE_RARE;
 		}
 		ItemStack c = Items.randomDurability(Items.createArmor("chestplate", tier, mc, flag));
@@ -62,10 +62,10 @@ public class Mob {
 		if (Math.random() > 0.25)
 			mob.getEquipment().setChestplate(c);
 		flag = Constants.randomArmorFlag(ml, tier);
-		if (flag.contains("Uncommon")) {
+		if (flag.contains("uncommon")) {
 			ml *= Constants.SCALE_UNC;
 		}
-		if (flag.contains("Rare")) {
+		if (flag.contains("rare")) {
 			ml *= Constants.SCALE_RARE;
 		}
 		ItemStack l = Items.randomDurability(Items.createArmor("leggings", tier, ml, flag));
@@ -75,10 +75,10 @@ public class Mob {
 		if (Math.random() > 0.25)
 			mob.getEquipment().setLeggings(l);
 		flag = Constants.randomArmorFlag(mb, tier);
-		if (flag.contains("Uncommon")) {
+		if (flag.contains("uncommon")) {
 			mb *= Constants.SCALE_UNC;
 		}
-		if (flag.contains("Rare")) {
+		if (flag.contains("rare")) {
 			mb *= Constants.SCALE_RARE;
 		}
 		ItemStack b = Items.randomDurability(Items.createArmor("boots", tier, mb, flag));
@@ -93,12 +93,12 @@ public class Mob {
 		int min = Constants.getMinDamage(tier) + (int) (Math.random() * ((max - Constants.getMinDamage(tier))));
 		if (max < min)
 			max = min;
-		if (flag.contains("Uncommon")) {
+		if (flag.contains("uncommon")) {
 			max += Constants.getMaxDamage(tier) / 4;
 			min *= Constants.SCALE_UNC;
 			max *= Constants.SCALE_UNC;
 		}
-		if (flag.contains("Rare")) {
+		if (flag.contains("rare")) {
 			max += Constants.getMaxDamage(tier) / 4;
 			min += Constants.getMaxDamage(tier) / 4;
 			min *= Constants.SCALE_RARE;

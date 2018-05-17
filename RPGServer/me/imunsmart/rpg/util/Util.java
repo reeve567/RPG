@@ -5,6 +5,8 @@ import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 import me.imunsmart.rpg.mechanics.Stats;
 import net.md_5.bungee.api.ChatColor;
@@ -33,6 +35,10 @@ public class Util {
 				return true;
 		}
 		return false;
+	}
+	
+	public static boolean validClick(PlayerInteractEvent e) {
+		return e.getItem() != null && (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK);
 	}
 
 }

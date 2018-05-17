@@ -86,7 +86,7 @@ public class Health {
 				if (line.split(":")[0].equalsIgnoreCase(name)) {
 					String val = line.split(" ")[1];
 					if (val.contains("+"))
-						val.substring(1);
+						val = val.substring(1);
 					if (val.contains("-")) {
 						int min = Integer.parseInt(val.split("-")[0]);
 						return (min + (int) Math.round(Math.random() * (Integer.parseInt(val.split("-")[1]) - min)));
