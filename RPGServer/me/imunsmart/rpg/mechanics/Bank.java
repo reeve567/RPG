@@ -47,7 +47,7 @@ public class Bank implements Listener {
 		int size = Stats.getInt(p, "bank.size", 1);
 		List<String> storage = Stats.getList(p, "bank.storage");
 		int op = size * 9 + 9;
-		if(size == 6)
+		if (size == 6)
 			op = 54;
 		Inventory inv = Bukkit.createInventory(null, op, ChatColor.GREEN + p.getName() + "'s Bank Storage");
 		for (int i = 0; i < storage.size(); i++) {
@@ -224,12 +224,11 @@ public class Bank implements Listener {
 	@EventHandler
 	public void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
-		if (e.getTo().distanceSquared(e.getFrom()) > 1) {
+		if (e.getTo().getX() != e.getFrom().getX() || e.getTo().getY() != e.getFrom().getY() || e.getTo().getZ() != e.getFrom().getZ()) {
 			if (withdraw.containsKey(p.getName())) {
 				p.sendMessage(ChatColor.RED + "You moved, cancelling withdrawl.");
 				withdraw.remove(p.getName());
-			}
-			if (upgrade.contains(p.getName())) {
+			} else if (upgrade.contains(p.getName())) {
 				p.sendMessage(ChatColor.RED + "You moved, cancelling upgrade.");
 				upgrade.remove(p.getName());
 			}

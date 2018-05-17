@@ -80,7 +80,7 @@ public class PlayerEvents implements Listener {
 	}
 
 	@EventHandler
-	public void onSpawn(FoodLevelChangeEvent e) {
+	public void onHunger(FoodLevelChangeEvent e) {
 		e.setFoodLevel(20);
 	}
 
@@ -114,8 +114,6 @@ public class PlayerEvents implements Listener {
 		e.setAmount(0);
 		e.setCancelled(true);
 	}
-
-
 
 	@EventHandler
 	public void onPickup(PlayerPickupItemEvent e) {
