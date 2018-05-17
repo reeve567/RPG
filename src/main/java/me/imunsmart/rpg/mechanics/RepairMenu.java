@@ -1,12 +1,13 @@
 package me.imunsmart.rpg.mechanics;
 
+import me.imunsmart.rpg.Main;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
@@ -14,17 +15,14 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import me.imunsmart.rpg.Main;
-import net.md_5.bungee.api.ChatColor;
-
 public class RepairMenu implements Listener {
 	private Main pl;
-
+	
 	public RepairMenu(Main pl) {
 		this.pl = pl;
 		Bukkit.getPluginManager().registerEvents(this, pl);
 	}
-
+	
 	public static void open(Player p) {
 		Inventory inv = Bukkit.createInventory(null, 27, ChatColor.DARK_AQUA + "Repair");
 		for (int i = 0; i < inv.getSize(); i++) {
@@ -38,22 +36,7 @@ public class RepairMenu implements Listener {
 		inv.setItem(25, Items.createItem(Material.STAINED_GLASS_PANE, 1, 3, ChatColor.GRAY + "Result"));
 		p.openInventory(inv);
 	}
-
-	@EventHandler
-	public void onClose(InventoryCloseEvent e) {
-		Player p = (Player) e.getPlayer();
-		Inventory top = p.getOpenInventory().getTopInventory();
-		if (top.getName().equals(ChatColor.DARK_AQUA + "Repair") && e.getInventory().firstEmpty() != 0) {
-			p.sendMessage(ChatColor.RED + "Cancelling repair.");
-			if (top.getItem(10) != null) {
-				p.getInventory().addItem(top.getItem(10));
-			}
-			if (top.getItem(12) != null) {
-				p.getInventory().addItem(top.getItem(12));
-			}
-		}
-	}
-
+	
 	@EventHandler
 	public void onClick(InventoryClickEvent e) {
 		if (e.getSlotType() == SlotType.OUTSIDE)
@@ -84,7 +67,7 @@ public class RepairMenu implements Listener {
 							if (scraps.getType() != Material.INK_SACK)
 								rp = 0;
 						}
-						if(dur == 0) {
+						if (dur == 0) {
 							p.sendMessage(ChatColor.RED + "That item cannot be repaired.");
 							Sounds.play(p, Sound.ENTITY_ITEM_BREAK, 0.67f);
 							return;
@@ -125,6 +108,21 @@ public class RepairMenu implements Listener {
 					p.updateInventory();
 				}
 			}.runTaskLater(pl, 2);
+		}
+	}
+	
+	@EventHandler
+	public void onClose(InventoryCloseEvent e) {
+		Player p = (Player) e.getPlayer();
+		Inventory top = p.getOpenInventory().getTopInventory();
+		if (top.getName().equals(ChatColor.DARK_AQUA + "Repair") && e.getInventory().firstEmpty() != 0) {
+			p.sendMessage(ChatColor.RED + "Cancelling repair.");
+			if (top.getItem(10) != null) {
+				p.getInventory().addItem(top.getItem(10));
+			}
+			if (top.getItem(12) != null) {
+				p.getInventory().addItem(top.getItem(12));
+			}
 		}
 	}
 }

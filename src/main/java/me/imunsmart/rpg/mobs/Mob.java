@@ -1,7 +1,11 @@
 package me.imunsmart.rpg.mobs;
 
-import java.util.HashMap;
-
+import me.imunsmart.rpg.Main;
+import me.imunsmart.rpg.events.Spawners;
+import me.imunsmart.rpg.mechanics.Health;
+import me.imunsmart.rpg.mechanics.Items;
+import me.imunsmart.rpg.mechanics.Stats;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -10,12 +14,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import me.imunsmart.rpg.Main;
-import me.imunsmart.rpg.events.Spawners;
-import me.imunsmart.rpg.mechanics.Health;
-import me.imunsmart.rpg.mechanics.Items;
-import me.imunsmart.rpg.mechanics.Stats;
-import net.md_5.bungee.api.ChatColor;
+import java.util.HashMap;
 
 public class Mob {
 	public LivingEntity mob;
@@ -24,7 +23,9 @@ public class Mob {
 	private Main pl;
 	private int tier;
 	private Location loc;
-
+	private HashMap<String, Integer> hits = new HashMap<>();
+	private int hitsTaken = 0;
+	
 	public Mob(LivingEntity mob, String name, int tier) {
 		this.mob = mob;
 		this.tier = tier;
@@ -118,7 +119,7 @@ public class Mob {
 		mob.setCustomName(name);
 		mob.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(mob.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue() * (4.0 / 3.0));
 	}
-
+	
 	public Mob(LivingEntity mob, String name, String type, int min, int max, String flag, int tier, int mh, int mc, int ml, int mb, String hf, String cf, String lf, String bf) {
 		this.mob = mob;
 		this.tier = tier;
@@ -162,16 +163,6 @@ public class Mob {
 		health = Health.calculateMaxHealth(mob);
 		mob.setCustomName(name);
 	}
-
-	public void tick() {
-		if (health < 1) {
-			die();
-		}
-		if (loc.distanceSquared(mob.getLocation()) >= 625) {
-			mob.teleport(loc);
-		}
-		Spawners.die(this);
-	}
 	
 	private void die() {
 		mob.setHealth(0);
@@ -190,14 +181,7 @@ public class Mob {
 		}
 		hits.clear();
 	}
-
-	public double getHealth() {
-		return health;
-	}
-
-	private HashMap<String, Integer> hits = new HashMap<>();
-	private int hitsTaken = 0;
-
+	
 	public void damage(double i, Player p) {
 		hitsTaken++;
 		if (p != null)
@@ -217,5 +201,19 @@ public class Mob {
 //			bar += "♥";
 //		}
 		mob.setCustomName(ChatColor.WHITE.toString() + ChatColor.BOLD + (int) health + ChatColor.RED.toString() + ChatColor.BOLD + "HP");
+	}
+
+	public double getHealth() {
+		return health;
+	}
+	
+	public void tick() {
+		if (health < 1) {
+			die();
+		}
+		if (loc.distanceSquared(mob.getLocation()) >= 625) {
+			mob.teleport(loc);
+		}
+		Spawners.die(this);
 	}
 }

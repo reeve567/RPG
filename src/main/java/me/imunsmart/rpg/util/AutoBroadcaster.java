@@ -1,25 +1,26 @@
 package me.imunsmart.rpg.util;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
+import me.imunsmart.rpg.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import me.imunsmart.rpg.Main;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AutoBroadcaster {
 	private static List<String> messages;
-
+	
 	public AutoBroadcaster(Main pl) {
+		File folder = pl.getDataFolder();
+		folder.mkdir();
 		initMessages(pl);
 		pl.getServer().getScheduler().scheduleSyncRepeatingTask(pl, new Runnable() {
 			int id = 0;
-
+			
 			@Override
 			public void run() {
 				if (messages.size() > 0) {
@@ -31,9 +32,9 @@ public class AutoBroadcaster {
 			}
 		}, 0, 1200L);
 	}
-
+	
 	public static void initMessages(Main pl) {
-		messages = new ArrayList<String>();
+		messages = new ArrayList<>();
 		File f = new File(pl.getDataFolder(), "broadcasts.yml");
 		if (!f.exists()) {
 			try {
@@ -43,7 +44,6 @@ public class AutoBroadcaster {
 			}
 		}
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
-		for (String s : fc.getStringList("broadcasts"))
-			messages.add(s);
+		messages.addAll(fc.getStringList("broadcasts"));
 	}
 }

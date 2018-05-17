@@ -1,7 +1,7 @@
 package me.imunsmart.rpg.mechanics;
 
-import java.util.HashMap;
-
+import me.imunsmart.rpg.Main;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -16,21 +16,47 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
-import me.imunsmart.rpg.Main;
-import net.md_5.bungee.api.ChatColor;
+import java.util.HashMap;
 
 public class Repairing implements Listener {
-	private Main pl;
-	private int[] costs = { 64, 128, 256, 384, 512 };
-
-	public Repairing(Main pl) {
-		this.pl = pl;
-	}
-
 	HashMap<String, ItemStack> cancel = new HashMap<>();
 	HashMap<String, Item> remove = new HashMap<>();
 	HashMap<String, Block> anvil = new HashMap<>();
-
+	private Main pl;
+	private int[] costs = {64, 128, 256, 384, 512};
+	public Repairing(Main pl) {
+		this.pl = pl;
+	}
+	
+	@EventHandler
+	public void onChat(AsyncPlayerChatEvent e) {
+		Player p = e.getPlayer();
+		if (cancel.containsKey(p.getName())) {
+			e.setCancelled(true);
+			ItemStack i = cancel.remove(p.getName());
+			double perc = (double) i.getDurability() / i.getType().getMaxDurability();
+			int cost = (int) (costs[Items.getTier(i) - 1] * perc);
+			remove.remove(p.getName()).remove();
+			if (e.getMessage().equalsIgnoreCase("y")) {
+				if (Bank.getGems(p) < cost) {
+					p.sendMessage(ChatColor.RED + "Insufficient gems. That costs " + ChatColor.UNDERLINE + cost + ChatColor.RED + " gems.");
+					p.playSound(p.getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 0.67f);
+					return;
+				} else {
+					Bank.pay(p, cost);
+					p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_USE, 1, 1f);
+					i.setDurability((short) 0);
+					p.getInventory().addItem(i);
+					p.getWorld().playEffect(anvil.remove(p.getName()).getLocation(), Effect.STEP_SOUND, Material.ANVIL);
+				}
+			} else {
+				p.sendMessage(ChatColor.RED + "Cancelled repair.");
+				p.getInventory().addItem(i);
+				p.playSound(p.getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 0.67f);
+			}
+		}
+	}
+	
 	@EventHandler
 	public void onClick(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
@@ -81,35 +107,6 @@ public class Repairing implements Listener {
 						}
 					}
 				}
-			}
-		}
-	}
-
-	@EventHandler
-	public void onChat(AsyncPlayerChatEvent e) {
-		Player p = e.getPlayer();
-		if (cancel.containsKey(p.getName())) {
-			e.setCancelled(true);
-			ItemStack i = cancel.remove(p.getName());
-			double perc = (double) i.getDurability() / i.getType().getMaxDurability();
-			int cost = (int) (costs[Items.getTier(i) - 1] * perc);
-			remove.remove(p.getName()).remove();
-			if (e.getMessage().equalsIgnoreCase("y")) {
-				if (Bank.getGems(p) < cost) {
-					p.sendMessage(ChatColor.RED + "Insufficient gems. That costs " + ChatColor.UNDERLINE + cost + ChatColor.RED + " gems.");
-					p.playSound(p.getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 0.67f);
-					return;
-				} else {
-					Bank.pay(p, cost);
-					p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_USE, 1, 1f);
-					i.setDurability((short) 0);
-					p.getInventory().addItem(i);
-					p.getWorld().playEffect(anvil.remove(p.getName()).getLocation(), Effect.STEP_SOUND, Material.ANVIL);
-				}
-			} else {
-				p.sendMessage(ChatColor.RED + "Cancelled repair.");
-				p.getInventory().addItem(i);
-				p.playSound(p.getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 0.67f);
 			}
 		}
 	}

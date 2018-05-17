@@ -1,9 +1,10 @@
 package me.imunsmart.rpg.mechanics;
 
-import java.util.HashMap;
-
+import me.imunsmart.rpg.Main;
+import me.imunsmart.rpg.mobs.Constants;
+import me.imunsmart.rpg.util.Util;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
@@ -16,26 +17,33 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
-import me.imunsmart.rpg.Main;
-import me.imunsmart.rpg.mobs.Constants;
-import me.imunsmart.rpg.util.Util;
-import net.md_5.bungee.api.ChatColor;
+import java.util.HashMap;
 
 public class Health {
-
+	
 	public static HashMap<String, Integer> health = new HashMap<String, Integer>();
 	public static HashMap<String, BossBar> bar = new HashMap<String, BossBar>();
 	public static HashMap<String, Integer> combat = new HashMap<String, Integer>();
-
-	public static void disable() {
-		for (Player p : Bukkit.getOnlinePlayers()) {
-			if (bar.containsKey(p.getName())) {
-				BossBar b = bar.remove(p.getName());
-				b.removeAll();
+	
+	public static boolean atMaxHealth(Player p) {
+		if (!health.containsKey(p.getName())) return true;
+		return health.get(p.getName()) == calculateMaxHealth(p);
+	}
+	
+	public static int calculateHealthRegen(Player p) {
+		PlayerInventory pi = p.getInventory();
+		int regen = 2;
+		for (int i = 0; i < pi.getArmorContents().length; i++) {
+			ItemStack it = pi.getArmorContents()[i];
+			if (it != null) {
+				if (it.hasItemMeta()) {
+					regen += getAttributeI(it, "Regen");
+				}
 			}
 		}
+		return regen;
 	}
-
+	
 	public static int calculateMaxHealth(LivingEntity e) {
 		int maxhp = e instanceof Player ? 50 : 20;
 		for (int i = 0; i < e.getEquipment().getArmorContents().length; i++) {
@@ -51,37 +59,32 @@ public class Health {
 		return maxhp;
 	}
 	
-	public static boolean atMaxHealth(Player p) {
-		if(!health.containsKey(p.getName())) return true;
-		return health.get(p.getName()) == calculateMaxHealth(p);
+	public static void damage(Player p, int i) {
+		if (Util.inSafeZone(p))
+			return;
+		int hp = health.get(p.getName());
+		hp -= i;
+		if (hp < 0)
+			hp = 0;
+		if (hp == 0) {
+			p.setHealth(0);
+		}
+		health.put(p.getName(), hp);
+		if ((double) hp / calculateMaxHealth(p) < 0.2) {
+			Sounds.play(p, Sound.ENTITY_PLAYER_BIG_FALL, 1);
+		}
+		BelowName.setScore(p, health.get(p.getName()));
 	}
-
-	public static int calculateHealthRegen(Player p) {
-		PlayerInventory pi = p.getInventory();
-		int regen = 2;
-		for (int i = 0; i < pi.getArmorContents().length; i++) {
-			ItemStack it = pi.getArmorContents()[i];
-			if (it != null) {
-				if (it.hasItemMeta()) {
-					regen += getAttributeI(it, "Regen");
-				}
+	
+	public static void disable() {
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			if (bar.containsKey(p.getName())) {
+				BossBar b = bar.remove(p.getName());
+				b.removeAll();
 			}
 		}
-		return regen;
 	}
-
-	public static boolean hasAttribute(ItemStack i, String name) {
-		if (!i.hasItemMeta()) {
-			return false;
-		}
-		for (String s : i.getItemMeta().getLore()) {
-			String l = ChatColor.stripColor(s);
-			if (l.split(":")[0].equalsIgnoreCase(name))
-				return true;
-		}
-		return false;
-	}
-
+	
 	public static int getAttributeI(ItemStack i, String name) {
 		if (!hasAttribute(i, name)) {
 			return 0;
@@ -102,7 +105,7 @@ public class Health {
 		}
 		return 0;
 	}
-
+	
 	public static double getAttributeP(ItemStack i, String name) {
 		if (!hasAttribute(i, name)) {
 			return 0;
@@ -119,25 +122,21 @@ public class Health {
 		}
 		return 0;
 	}
-
-	public static void damage(Player p, int i) {
-		if (Util.inSafeZone(p))
-			return;
-		int hp = health.get(p.getName());
-		hp -= i;
-		if (hp < 0)
-			hp = 0;
-		if (hp == 0) {
-			p.setHealth(0);
+	
+	public static boolean hasAttribute(ItemStack i, String name) {
+		if (!i.hasItemMeta()) {
+			return false;
 		}
-		health.put(p.getName(), hp);
-		if ((double) hp / calculateMaxHealth(p) < 0.2) {
-			Sounds.play(p, Sound.ENTITY_PLAYER_BIG_FALL, 1);
+		for (String s : i.getItemMeta().getLore()) {
+			String l = ChatColor.stripColor(s);
+			if (l.split(":")[0].equalsIgnoreCase(name))
+				return true;
 		}
+		return false;
 	}
-
+	
 	public static void heal(Player p, int i) {
-		if(!health.containsKey(p.getName()))
+		if (!health.containsKey(p.getName()))
 			return;
 		int hp = health.get(p.getName());
 		int max = calculateMaxHealth(p);
@@ -145,8 +144,10 @@ public class Health {
 		if (hp > max)
 			hp = max;
 		health.put(p.getName(), hp);
+		BelowName.setScore(p, health.get(p.getName()));
+		
 	}
-
+	
 	public static void resetPlayer(Player p) {
 		p.teleport(Util.spawn);
 		ItemStack i = Items.createWeapon("sword", 1, 4, 8, "");
@@ -167,7 +168,7 @@ public class Health {
 		combat.remove(p.getName());
 		heal(p, 50);
 	}
-
+	
 	public static void task(Main pl) {
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(pl, new Runnable() {
 			@Override
@@ -181,10 +182,10 @@ public class Health {
 					}
 					int max = calculateMaxHealth(p);
 					int hp = health.get(p.getName());
-
+					
 					if (hp > max)
 						hp = max;
-
+					
 					if (hp != max && !p.isDead()) {
 						int regen = calculateHealthRegen(p);
 						if (Util.inSafeZone(p))
@@ -199,7 +200,7 @@ public class Health {
 							heal(p, regen);
 						}
 					}
-
+					
 					if (!p.isDead()) {
 						double per = ((double) hp / (double) max);
 						if (per > 1)
@@ -221,13 +222,13 @@ public class Health {
 							b.addPlayer(p);
 						}
 					}
-
+					
 					for (int x = 0; x < p.getInventory().getArmorContents().length; x++) {
 						ItemStack i = p.getInventory().getArmorContents()[x];
 						if (i == null)
 							continue;
 						int tier = Items.getTier(i);
-						if(!Stats.canWield(p, tier)) {
+						if (!Stats.canWield(p, tier)) {
 							ItemStack[] armor = new ItemStack[4];
 							for (int y = 0; y < p.getInventory().getArmorContents().length; y++) {
 								if (y != x)

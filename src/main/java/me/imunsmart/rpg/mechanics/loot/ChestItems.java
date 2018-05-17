@@ -1,21 +1,20 @@
 package me.imunsmart.rpg.mechanics.loot;
 
-import java.lang.reflect.Field;
-
+import me.imunsmart.rpg.mechanics.Items;
 import org.bukkit.inventory.ItemStack;
 
-import me.imunsmart.rpg.mechanics.Items;
+import java.lang.reflect.Field;
 
 public class ChestItems {
-	public static final ItemStack[] tier1 = new ItemStack[] {
+	public static final ItemStack[] tier1 = new ItemStack[]{
 			Items.createPotion(1),
 	};
 	
-	public static final ItemStack[] tier2 = new ItemStack[] {
+	public static final ItemStack[] tier2 = new ItemStack[]{
 			Items.createPotion(2),
 	};
 	
-	public static final ItemStack[] tier3 = new ItemStack[] {
+	public static final ItemStack[] tier3 = new ItemStack[]{
 			Items.createPotion(3),
 	};
 	

@@ -1,12 +1,9 @@
 package me.imunsmart.rpg.mechanics.loot;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
+import me.imunsmart.rpg.Main;
+import me.imunsmart.rpg.mechanics.Items;
+import me.imunsmart.rpg.util.Util;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
@@ -24,16 +21,16 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import me.imunsmart.rpg.Main;
-import me.imunsmart.rpg.mechanics.Items;
-import me.imunsmart.rpg.util.Util;
-import net.md_5.bungee.api.ChatColor;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class LootChests implements Listener {
-	private Main pl;
-
 	public static List<LootChest> chests = new ArrayList<>();
-
+	private Main pl;
+	
 	public LootChests(Main pl) {
 		this.pl = pl;
 		Bukkit.getPluginManager().registerEvents(this, pl);
@@ -50,7 +47,59 @@ public class LootChests implements Listener {
 			lc.spawn();
 		}
 	}
-
+	
+	class LootChest {
+		private int tier;
+		private Location l;
+		
+		public LootChest(int tier, Location l) {
+			this.tier = tier;
+			this.l = l;
+			spawn();
+		}
+		
+		public void loot() {
+			l.getWorld().playEffect(l, Effect.STEP_SOUND, Material.CHEST);
+			l.getBlock().setType(Material.AIR);
+			new BukkitRunnable() {
+				@Override
+				public void run() {
+					spawn();
+				}
+			}.runTaskLater(pl, 3600);
+		}
+		
+		public void spawn() {
+			l.getBlock().setType(Material.CHEST);
+			Chest c = (Chest) l.getBlock().getState();
+			c.getBlockInventory().clear();
+			int possible = 1 + tier;
+			int added = 0;
+			while (added < possible) {
+				int i = (int) (Math.random() * c.getBlockInventory().getSize());
+				ItemStack[] items = ChestItems.getTier(tier);
+				if (Math.random() < 0.1) {
+					c.getBlockInventory().setItem(i, items[(int) (Math.random() * items.length)]);
+					added++;
+				} else if (Math.random() >= 0.9) {
+					int maxGems = (int) (Math.pow(2, tier) * 4) - 1;
+					if (maxGems > 64) maxGems = 64;
+					c.getBlockInventory().setItem(i, Items.createGems(1 + (int) (Math.random() * maxGems)));
+					added++;
+				} else if (Math.random() >= 0.8) {
+					int maxGems = (int) (Math.pow(2, tier) * 4) - 1;
+					c.getBlockInventory().setItem(i, Items.createGemNote(1 + (int) (Math.random() * maxGems)));
+					added++;
+				}
+			}
+		}
+	}
+	
+	public void addChest(Location l, int tier) {
+		LootChest lc = new LootChest(tier, l);
+		chests.add(lc);
+	}
+	
 	public void disable() {
 		File f = new File(pl.getDataFolder(), "lootchests.yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
@@ -65,12 +114,7 @@ public class LootChests implements Listener {
 			e.printStackTrace();
 		}
 	}
-
-	public void addChest(Location l, int tier) {
-		LootChest lc = new LootChest(tier, l);
-		chests.add(lc);
-	}
-
+	
 	@EventHandler
 	public void onClose(InventoryCloseEvent e) {
 		if (e.getInventory().getType() == InventoryType.CHEST) {
@@ -88,7 +132,7 @@ public class LootChests implements Listener {
 			}
 		}
 	}
-
+	
 	@EventHandler
 	public void onInteract(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
@@ -119,53 +163,6 @@ public class LootChests implements Listener {
 						lc.spawn();
 						p.sendMessage(ChatColor.GRAY + "Successfully created a tier " + ChatColor.AQUA + tier + ChatColor.GRAY + " loot chest.");
 					}
-				}
-			}
-		}
-	}
-
-	class LootChest {
-		private int tier;
-		private Location l;
-
-		public LootChest(int tier, Location l) {
-			this.tier = tier;
-			this.l = l;
-			spawn();
-		}
-
-		public void loot() {
-			l.getWorld().playEffect(l, Effect.STEP_SOUND, Material.CHEST);
-			l.getBlock().setType(Material.AIR);
-			new BukkitRunnable() {
-				@Override
-				public void run() {
-					spawn();
-				}
-			}.runTaskLater(pl, 3600);
-		}
-
-		public void spawn() {
-			l.getBlock().setType(Material.CHEST);
-			Chest c = (Chest) l.getBlock().getState();
-			c.getBlockInventory().clear();
-			int possible = 1 + tier;
-			int added = 0;
-			while (added < possible) {
-				int i = (int) (Math.random() * c.getBlockInventory().getSize());
-				ItemStack[] items = ChestItems.getTier(tier);
-				if (Math.random() < 0.1) {
-					c.getBlockInventory().setItem(i, items[(int) (Math.random() * items.length)]);
-					added++;
-				} else if (Math.random() >= 0.9) {
-					int maxGems = (int) (Math.pow(2, tier) * 4) - 1;
-					if(maxGems > 64) maxGems = 64;
-					c.getBlockInventory().setItem(i, Items.createGems(1 + (int) (Math.random() * maxGems)));
-					added++;
-				} else if (Math.random() >= 0.8) {
-					int maxGems = (int) (Math.pow(2, tier) * 4) - 1;
-					c.getBlockInventory().setItem(i, Items.createGemNote(1 + (int) (Math.random() * maxGems)));
-					added++;
 				}
 			}
 		}

@@ -12,7 +12,19 @@ public class Glow extends Enchantment {
 	}
 	
 	@Override
-	public String getName() {
+	public boolean canEnchantItem(ItemStack itemStack) {
+		
+		return false;
+	}
+	
+	@Override
+	public boolean conflictsWith(Enchantment enchantment) {
+		
+		return false;
+	}
+	
+	@Override
+	public EnchantmentTarget getItemTarget() {
 		
 		return null;
 	}
@@ -24,38 +36,25 @@ public class Glow extends Enchantment {
 	}
 	
 	@Override
+	public String getName() {
+		
+		return null;
+	}
+	
+	@Override
 	public int getStartLevel() {
 		
 		return 0;
 	}
 	
 	@Override
-	public EnchantmentTarget getItemTarget() {
-		
-		return null;
-	}
-	
-	@Override
-	public boolean conflictsWith(Enchantment enchantment) {
-		
-		return false;
-	}
-	
-	@Override
-	public boolean canEnchantItem(ItemStack itemStack) {
-		
-		return false;
-	}
-
-	@Override
 	public boolean isCursed() {
 		return false;
 	}
-
+	
 	@Override
 	public boolean isTreasure() {
 		return false;
 	}
-	
 	
 }
