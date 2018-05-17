@@ -86,7 +86,7 @@ public class Items {
 			data = 12;
 		else if (name.contains("GOLD"))
 			data = 11;
-		p.getInventory().addItem(createItem(Material.INK_SACK, amount, data, ChatColor.WHITE + "Armor Scrap", "Drag a stack onto armor", "to repair it."));
+		p.getInventory().addItem(createItem(Material.INK_SACK, amount, data, ChatColor.WHITE + "Scrap", "Drag a stack onto armor", "to repair it."));
 		p.getInventory().setItemInMainHand(null);
 		p.updateInventory();
 	}
@@ -101,7 +101,7 @@ public class Items {
 			data = 12;
 		else if (tier == 5)
 			data = 11;
-		return createItem(Material.INK_SACK, amount, data, ChatColor.WHITE + "Armor Scrap", "Drag a stack onto armor", "to repair it.");
+		return createItem(Material.INK_SACK, amount, data, ChatColor.WHITE + "Scrap", "Drag a stack onto armor", "to repair it.");
 	}
 
 	private static String[] armor = { "LEATHER", "CHAINMAIL", "IRON", "DIAMOND", "GOLD" };

@@ -40,7 +40,7 @@ public class Repairing implements Listener {
 				if (e.getItem() != null) {
 					if (e.getItem().getType().name().contains("HELMET") || e.getItem().getType().name().contains("CHESTPLATE") || e.getItem().getType().name().contains("LEGGINGS") || e.getItem().getType().name().contains("BOOTS") || e.getItem().getType().name().contains("SWORD") || e.getItem().getType().name().contains("AXE")) {
 						if (!p.isSneaking()) {
-							p.sendMessage(ChatColor.RED + "Shift-click a furnace with armor to smelt it into scraps (WARNING: CANNOT BE UNDONE).");
+							p.sendMessage(ChatColor.RED + "Shift-click a furnace with armor or weapons to smelt it into scraps (WARNING: CANNOT BE UNDONE).");
 						} else {
 							p.playSound(p.getLocation(), Sound.BLOCK_LAVA_EXTINGUISH, 1, 0.67f);
 							Items.convertToScraps(p);
