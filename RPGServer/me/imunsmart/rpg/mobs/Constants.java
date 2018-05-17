@@ -197,13 +197,13 @@ public class Constants {
 	public static String randomArmorFlag(int max, int tier) {
 		String flag = "";
 		if (Math.random() < 0.6) {
-			flag += "Regen:" + (int) (max * Constants.getMaxRegen(tier));
+			flag += "Regen:" + (int) (max * Constants.getMaxRegen(tier)) + ",";
 		}
 		double perc = Math.random();
 		if (perc >= 0.1 && perc < 0.2)
-			flag += ",§eUncommon";
+			flag += "uncommon";
 		else if (perc < 0.1)
-			flag += ",§aRare";
+			flag += "rare";
 		return flag;
 	}
 
@@ -214,9 +214,9 @@ public class Constants {
 			flag += "Critical: " + (int) (Math.random() * 50 + 1) + "%";
 		}
 		if (perc >= 0.1 && perc < 0.2)
-			flag += ",§eUncommon";
+			flag += "uncommon";
 		else if (perc < 0.1)
-			flag += ",§aRare";
+			flag += "rare";
 		return flag;
 	}
 }

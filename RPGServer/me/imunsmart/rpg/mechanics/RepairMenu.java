@@ -84,6 +84,11 @@ public class RepairMenu implements Listener {
 							if (scraps.getType() != Material.INK_SACK)
 								rp = 0;
 						}
+						if(dur == 0) {
+							p.sendMessage(ChatColor.RED + "That item cannot be repaired.");
+							Sounds.play(p, Sound.ENTITY_ITEM_BREAK, 0.67f);
+							return;
+						}
 						p.sendMessage(ChatColor.GREEN + "Repaired.");
 						Sounds.play(p, Sound.BLOCK_ANVIL_USE, 0.67f);
 						ItemStack i = top.getItem(10);

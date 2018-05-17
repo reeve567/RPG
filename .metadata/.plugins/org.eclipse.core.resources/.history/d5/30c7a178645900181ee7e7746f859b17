@@ -1,0 +1,32 @@
+package me.imunsmart.rpg.mechanics;
+
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerInteractEvent;
+
+import me.imunsmart.rpg.Main;
+import me.imunsmart.rpg.util.Util;
+
+public class Potions implements Listener {
+	private Main pl;
+	
+	public static String[] names = { "Lesser", "Standard", "Greater", "Mystic", "Godly" };
+
+	public Potions(Main pl) {
+		this.pl = pl;
+	}
+
+	@EventHandler
+	public void onClick(PlayerInteractEvent e) {
+		Player p = e.getPlayer();
+		if(Util.validClick(e)) {
+			if(e.getItem().getType() == Material.POTION) {
+				if(e.getItem().hasItemMeta()) {
+					if(e.getItem().getItemMeta().getDisplayName())
+				}
+			}
+		}
+	}
+}
