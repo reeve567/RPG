@@ -4,4 +4,5 @@
 .idea/RPG.iml
 .idea/vcs.xml
 .idea/workspace.xml
+.metadata/*
 .metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi
