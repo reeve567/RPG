@@ -78,4 +78,22 @@ public class Main extends JavaPlugin {
 		getLogger().log(Level.INFO, "Registered commands.");
 		new Admin(this);
 	}
+	
+	private void registerGlow() {
+		try {
+			Field f = Enchantment.class.getDeclaredField("acceptingNew");
+			f.setAccessible(true);
+			f.set(null, true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			Glow glow = new Glow(70);
+			Enchantment.registerEnchantment(glow);
+		} catch (IllegalArgumentException ignored) {
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
