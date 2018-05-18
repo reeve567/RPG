@@ -40,6 +40,7 @@ public class NPC implements Listener {
 		le.setCollidable(false);
 		le.setCustomNameVisible(true);
 		le.setCustomName(name);
+		le.addScoreboardTag("npc");
 		if (le instanceof Villager)
 			((Villager) le).setProfession((Profession) data[0]);
 		npc.put(le, new Data(le.getLocation(), texts));
@@ -55,7 +56,7 @@ public class NPC implements Listener {
 		
 		//createNPC(w.spawn(new Location(w, -10.5, 4, 19.5), Villager.class), ChatColor.GOLD.toString() + ChatColor.BOLD + "Blacksmith", smither, Profession.BLACKSMITH);
 		
-		
+		createNPC(w.spawn(new Location(w,6,63,-11),Villager.class), "market-man",new String[0],Profession.LIBRARIAN);
 		
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(pl, () -> {
 			for (LivingEntity le : npc.keySet()) {
@@ -81,6 +82,9 @@ public class NPC implements Listener {
 			e.setCancelled(true);
 			int r = (int) (Math.random() * npc.get(e.getRightClicked()).texts.length);
 			e.getPlayer().sendMessage(e.getRightClicked().getCustomName() + ChatColor.WHITE + ": " + npc.get(e.getRightClicked()).texts[r]);
+			if (e.getRightClicked().getScoreboardTags().contains("npc")) {
+				GlobalMarket.open(e.getPlayer());
+			}
 		}
 	}
 	

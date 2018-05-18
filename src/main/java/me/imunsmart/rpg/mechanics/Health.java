@@ -73,7 +73,6 @@ public class Health {
 		if ((double) hp / calculateMaxHealth(p) < 0.2) {
 			Sounds.play(p, Sound.ENTITY_PLAYER_BIG_FALL, 1);
 		}
-		BelowName.setScore(p, health.get(p.getName()));
 	}
 	
 	public static void disable() {
@@ -144,8 +143,6 @@ public class Health {
 		if (hp > max)
 			hp = max;
 		health.put(p.getName(), hp);
-		BelowName.setScore(p, health.get(p.getName()));
-		
 	}
 	
 	public static void resetPlayer(Player p) {
@@ -177,7 +174,6 @@ public class Health {
 				p.setExp((float) Stats.getInt(p, "xp", 0) / (Util.neededXP(p)));
 				if (!health.containsKey(p.getName())) {
 					health.put(p.getName(), calculateMaxHealth(p));
-					BelowName.setScore(p, health.get(p.getName()));
 				}
 				int max = calculateMaxHealth(p);
 				int hp = health.get(p.getName());
@@ -220,6 +216,7 @@ public class Health {
 						b.removeAll();
 						b.addPlayer(p);
 					}
+					BelowName.setScore(p, hp);
 				}
 				
 				for (int x = 0; x < p.getInventory().getArmorContents().length; x++) {
