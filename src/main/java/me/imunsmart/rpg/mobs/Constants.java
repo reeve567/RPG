@@ -142,12 +142,12 @@ public class Constants {
 		return "null";
 	}
 	
-	public static String getRandomZombieName(int tier) throws NoSuchFieldException {
+	public static String getRandomZombieName(int tier) {
 		try {
 			Field f = Constants.class.getDeclaredField("zt" + tier);
 			String[] name = (String[]) f.get(null);
 			return name[(int) (Math.random() * name.length)];
-		} catch (IllegalArgumentException | IllegalAccessException | SecurityException e) {
+		} catch (IllegalArgumentException | IllegalAccessException | SecurityException | NoSuchFieldException e) {
 			e.printStackTrace();
 		}
 		return "null";

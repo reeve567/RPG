@@ -26,8 +26,7 @@ public class Util {
 	public static float mult = 1.3f;
 	
 	public static boolean inPvPZone(Player p) {
-		if (inZone(p, pvpZones, p_radi)) return true;
-		return false;
+		return inZone(p, pvpZones, p_radi);
 	}
 	
 	private static boolean inZone(Player p, Location[] pvpZones, int[] p_radi) {
@@ -41,8 +40,7 @@ public class Util {
 	}
 	
 	public static boolean inSafeZone(Player p) {
-		if (inZone(p, safeZones, s_radi)) return true;
-		return false;
+		return inZone(p, safeZones, s_radi);
 	}
 	
 	public static float neededXP(OfflinePlayer p) {
