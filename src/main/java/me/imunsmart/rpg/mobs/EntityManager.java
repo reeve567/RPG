@@ -45,12 +45,14 @@ public class EntityManager implements Listener {
 			z.setBaby(false);
 			Mob m = new Mob(z, ChatColor.GREEN + Constants.getRandomZombieName(tier), tier);
 			z.setCustomNameVisible(true);
+			m = BelowName.addName(m);
 			return mobs.put(z, m);
 		}
 		if (type.equalsIgnoreCase("skeleton")) {
 			Skeleton s = l.getWorld().spawn(l, Skeleton.class);
 			Mob m = new Mob(s, ChatColor.GREEN + Constants.getRandomSkeletonName(tier), tier);
 			s.setCustomNameVisible(true);
+			m = BelowName.addName(m);
 			return mobs.put(s, m);
 		}
 		return null;
