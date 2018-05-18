@@ -5,7 +5,6 @@ R:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\util\PlayerSku
 R:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\events\WorldEvents.java
 R:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mobs\EntityManager.java
 R:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\admincommands\rpg\give\GiveScraps.java
-R:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\Classes.java
 R:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\ActionBar.java
 R:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\admincommands\playermoderation\Kick.java
 R:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\util\Glow.java
@@ -35,6 +34,7 @@ R:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\Glob
 R:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\admincommands\rpg\give\GiveArmor.java
 R:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\Repairing.java
 R:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\util\PacketUtil.java
+R:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\classes\ClassManager.java
 R:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\Default.java
 R:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\Bank.java
 R:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\Items.java
@@ -52,5 +52,6 @@ R:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\util\StringUti
 R:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\NPC.java
 R:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\RepairMenu.java
 R:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\admincommands\rpg\give\LootChest.java
+R:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\util\InventoryUtility.java
 R:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\admincommands\playermoderation\Suicide.java
 R:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\admincommands\rpg\mechanics\SpawnMob.java

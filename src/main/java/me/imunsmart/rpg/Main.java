@@ -47,7 +47,7 @@ public class Main extends JavaPlugin {
 				new SignEvents(this),
 				new Repairing(this),
 				new Potions(this),
-				new ClassManager());
+				new ClassManager(this));
 		
 		new EntityManager(this);
 		npc = new NPC(this);

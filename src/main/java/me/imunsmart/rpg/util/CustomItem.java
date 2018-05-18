@@ -2,6 +2,7 @@ package me.imunsmart.rpg.util;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -52,6 +53,13 @@ public class CustomItem extends ItemStack {
 		return this;
 	}
 	
+	public CustomItem hideAttributes() {
+		ItemMeta meta = meta();
+		meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+		setMeta(meta);
+		return this;
+	}
+	
 	public CustomItem removeGlow() {
 		ItemMeta meta = meta();
 		meta.removeEnchant(new Glow(999));
@@ -64,16 +72,17 @@ public class CustomItem extends ItemStack {
 		return this;
 	}
 	
-	public CustomItem setLore(List<String> lore) {
-		ItemMeta meta = meta();
-		meta.setLore(lore);
-		setMeta(meta);
-		return this;
+	public CustomItem setLore(String... lore) {
+		return setLore(Arrays.asList(lore));
 	}
 	
-	public CustomItem setLore(String... lore) {
+	public CustomItem setLore(List<String> lore) {
 		ItemMeta meta = meta();
-		meta.setLore(Arrays.asList(lore));
+		List<String> lores = new ArrayList<>();
+		for (String s : lore) {
+			lores.add(ChatColor.translateAlternateColorCodes('&', s));
+		}
+		meta.setLore(lores);
 		setMeta(meta);
 		return this;
 	}
