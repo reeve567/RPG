@@ -65,4 +65,5 @@ me\imunsmart\rpg\events\WorldEvents.class
 me\imunsmart\rpg\util\PlayerSkull.class
 me\imunsmart\rpg\command\admincommands\gamemode\GMSP.class
 me\imunsmart\rpg\mechanics\Potions.class
+me\imunsmart\rpg\mechanics\TitleMessage.class
 me\imunsmart\rpg\mechanics\Items.class

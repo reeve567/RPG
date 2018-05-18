@@ -33,7 +33,7 @@ public class ClassManager implements Listener {
 				public void run() {
 					e.getPlayer().openInventory(ClassSelector.get((Player) e.getPlayer()));
 				}
-			}.runTaskLater(main, 10);
+			}.runTaskLater(main, 30);
 		}
 	}
 	
@@ -48,10 +48,9 @@ public class ClassManager implements Listener {
 			new BukkitRunnable() {
 				@Override
 				public void run() {
-					System.out.println("asdf");
 					player.openInventory(ClassSelector.get(player));
 				}
-			}.runTaskLater(main, 10);
+			}.runTaskLater(main, 20);
 		}
 	}
 }
