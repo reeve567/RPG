@@ -2,17 +2,18 @@ package me.imunsmart.rpg.mechanics.classes;
 
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.Stats;
-import me.imunsmart.rpg.util.Glow;
-import me.imunsmart.rpg.util.ItemUtility;
+import me.imunsmart.rpg.util.CustomItem;
+import me.imunsmart.rpg.util.InventoryUtility;
+import me.imunsmart.rpg.util.MessagesUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 public class ClassSelector implements Listener {
 	
@@ -23,23 +24,18 @@ public class ClassSelector implements Listener {
 	}
 	
 	public static Inventory get(Player p) {
-		Inventory inv = Bukkit.createInventory(null, 36);
+		Inventory inv = Bukkit.createInventory(null, 36,MessagesUtil.classMenuTitle);
 		
-		for (int i = 0; i < 36; i++) {
-			inv.setItem(i, ItemUtility.addGlow(ItemUtility.setName(new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 7), "&8&lChoose a class", true)));
-		}
+		inv = InventoryUtility.setBackground(inv, new CustomItem(Material.STAINED_GLASS_PANE).setDurability(7).setName("&8&lChoose a class").addGlow());
 		
-		Glow glow = new Glow(999);
+		inv.setItem(11, new CustomItem(Material.DIAMOND_SWORD).addGlow().setName("&4&lWarrior").setLore("&2The warriors are skilled in warface in warfare.", "&2They are great in athletics and have great melee strength."));
 		
-		inv.setItem(11, ItemUtility.addLore(ItemUtility.addLore(ItemUtility.setName(ItemUtility.addEnchant(new ItemStack(Material.DIAMOND_SWORD), glow, 1), "&4&lWarrior", true), "&2The warriors are skilled in warface in warfare.", true), "&2They are great in athletics and have great melee strength.", true));
+		inv.setItem(13, new CustomItem(Material.FIREBALL).addGlow().setName("&Wizard").setLore("&1The wizard has an amazing skill called Magic.  Magic is their weapon, way of life, and way of survival.", "&1They are very skilled in the Art of magic."));
 		
-		inv.setItem(13, ItemUtility.addLore(ItemUtility.addLore(ItemUtility.setName(ItemUtility.addEnchant(new ItemStack(Material.FIREBALL), glow, 1), "&1&lWarrior", true), "&1The wizard hols the amazing skill called Magic.  Magic is their weapon, way of life, and way of survival.", true), "&1They are very skilled in the Art of magic.", true));
-		
-		inv.setItem(15, ItemUtility.addLore(ItemUtility.addLore(ItemUtility.addEnchant(ItemUtility.setName(new ItemStack(Material.BOW), "&f&lArcher", true), glow, 1), "&fArcher is an Art, the Art of range.", true), "&fThe archers are skilled in the art of archery and ranged weapons.", true));
-		
+		inv.setItem(15, new CustomItem(Material.BOW).addGlow().setName("&f&lArcher").setLore("&fArcher is an Art, the Art of range.", "&fThe archers are skilled in the art of archery and ranged weapons."));
 		if (!p.hasPermission("classes.donator")) {
 			for (int i = 19; i < 26; i++) {
-				inv.setItem(i, ItemUtility.addLore(ItemUtility.addEnchant(ItemUtility.setName(new ItemStack(Material.BEACON), "&aVIP Classes", true), glow, 1), "&ePurchase a rank on the store to have access to the &aVIP &eClasses!", true));
+				inv.setItem(i, new CustomItem(Material.BEACON).setName("&aVIP Classes").addGlow().setLore("&ePurchase a rank on the store to have access to the &aVIP &eClasses!"));
 			}
 		}
 		
@@ -54,13 +50,17 @@ public class ClassSelector implements Listener {
 				
 				if (e.getSlot() == 15) {
 					e.getWhoClicked().closeInventory();
-					Stats.setClassType((Player) e.getWhoClicked(), Class.ARCHER);
+					Stats.setClassType((OfflinePlayer) e.getWhoClicked(), Class.ARCHER);
 					return;
 				}
 				if (e.getSlot() == 13) {
 					e.getWhoClicked().closeInventory();
-					Stats.setClassType((Player) e.getWhoClicked(), Class.WIZARD);
+					Stats.setClassType((OfflinePlayer) e.getWhoClicked(), Class.WIZARD);
 					return;
+				}
+				if (e.getSlot() == 11) {
+					e.getWhoClicked().closeInventory();
+					Stats.setClassType((OfflinePlayer) e.getWhoClicked(),Class.WARRIOR);
 				}
 			}
 		}

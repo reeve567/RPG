@@ -6,6 +6,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CustomItem extends ItemStack {
@@ -66,6 +67,13 @@ public class CustomItem extends ItemStack {
 	public CustomItem setLore(List<String> lore) {
 		ItemMeta meta = meta();
 		meta.setLore(lore);
+		setMeta(meta);
+		return this;
+	}
+	
+	public CustomItem setLore(String... lore) {
+		ItemMeta meta = meta();
+		meta.setLore(Arrays.asList(lore));
 		setMeta(meta);
 		return this;
 	}

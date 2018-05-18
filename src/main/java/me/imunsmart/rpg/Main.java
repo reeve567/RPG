@@ -3,6 +3,7 @@ package me.imunsmart.rpg;
 import me.imunsmart.rpg.command.Admin;
 import me.imunsmart.rpg.events.*;
 import me.imunsmart.rpg.mechanics.*;
+import me.imunsmart.rpg.mechanics.classes.ClassManager;
 import me.imunsmart.rpg.mechanics.classes.ClassSelector;
 import me.imunsmart.rpg.mechanics.loot.LootChests;
 import me.imunsmart.rpg.mobs.EntityManager;
@@ -73,11 +74,13 @@ public class Main extends JavaPlugin {
 				new ServerEvents(this),
 				new SignEvents(this),
 				new Repairing(this),
-				new Potions(this));
+				new Potions(this),
+				new ClassManager());
 		
 		new EntityManager(this);
 		npc = new NPC(this);
 		new Bank(this);
+		new ClassSelector(this);
 		new RepairMenu(this);
 		new Spawners(this);
 		new GlobalMarket(this);

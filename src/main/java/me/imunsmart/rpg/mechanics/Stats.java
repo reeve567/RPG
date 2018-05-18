@@ -10,7 +10,6 @@ import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.yaml.snakeyaml.error.YAMLException;
 
 import java.io.File;
 import java.io.IOException;
@@ -70,16 +69,17 @@ public class Stats {
 		return new File(dir, p.getUniqueId() + ".yml").exists();
 	}
 	
+	public static Class getClass(OfflinePlayer p) {
+		String v = getString(p, "class");
+		return v.equals("") ? null : Class.valueOf(v);
+	}
+	
 	public static double getDouble(OfflinePlayer p, String id) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
 		if (!fc.contains(id))
 			return 0.0;
 		return fc.getDouble(id);
-	}
-	
-	public static Class getClass(OfflinePlayer p) {
-		return Class.valueOf(getString(p,"class"));
 	}
 	
 	public static int getInt(OfflinePlayer p, String id) {
@@ -147,7 +147,7 @@ public class Stats {
 	}
 	
 	public static void setClassType(OfflinePlayer player, Class clazz) {
-		setStat(player,"class",clazz.toString());
+		setStat(player, "class", clazz.toString());
 		
 	}
 	
