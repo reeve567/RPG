@@ -1,16 +1,8 @@
 package me.imunsmart.rpg.mechanics;
 
-<<<<<<< HEAD
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-
-=======
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.util.MessagesUtil;
 import net.md_5.bungee.api.ChatColor;
->>>>>>> 4831395077b38f5ab443c9c674be3d4d1c8df5d7
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -27,8 +19,10 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import me.imunsmart.rpg.Main;
-import net.md_5.bungee.api.ChatColor;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 public class Bank implements Listener {
 	private static int[] upgradeCosts = {200, 500, 1000, 2500, 5000};
@@ -41,7 +35,6 @@ public class Bank implements Listener {
 		Bukkit.getPluginManager().registerEvents(this, pl);
 	}
 	
-<<<<<<< HEAD
 	public static void depositGems(Player p) {
 		int gems = getGems(p);
 		for (int i = 0; i < p.getInventory().getSize(); i++) {
@@ -116,11 +109,8 @@ public class Bank implements Listener {
 	}
 	
 	public static boolean pay(Player p, int gems) {
-		if(getGems(p) < gems)
+		if (getGems(p) < gems)
 			return false;
-=======
-	public static void pay(Player p, int gems) {
->>>>>>> 4831395077b38f5ab443c9c674be3d4d1c8df5d7
 		for (int i = 0; i < p.getInventory().getSize(); i++) {
 			if (gems == 0)
 				break;
@@ -188,12 +178,8 @@ public class Bank implements Listener {
 					if (gems > 0)
 						space++;
 					if (!hasSpace(p, space)) {
-<<<<<<< HEAD
-						p.sendMessage(ChatColor.RED + "You don't have space for that. Try emptying space or using a gem note.");
-						withdraw.remove(p.getName());
-=======
 						p.sendMessage(MessagesUtil.notEnoughSpace);
->>>>>>> 4831395077b38f5ab443c9c674be3d4d1c8df5d7
+						withdraw.remove(p.getName());
 						return;
 					}
 					for (int i = 0; i < stacks; i++) {
@@ -229,15 +215,6 @@ public class Bank implements Listener {
 		}
 	}
 	
-	public static boolean hasSpace(Player p, int slots) {
-		int free = 0;
-		for (int i = 0; i < p.getInventory().getSize(); i++) {
-			if (p.getInventory().getItem(i) == null)
-				free++;
-		}
-		return free >= slots;
-	}
-	
 	@EventHandler
 	public void onClick(InventoryClickEvent e) {
 		if (e.getSlotType() == SlotType.OUTSIDE)
@@ -248,11 +225,7 @@ public class Bank implements Listener {
 			if (!e.getCurrentItem().hasItemMeta())
 				return;
 			if (e.getCurrentItem().getItemMeta().getDisplayName().contains("Gems: ")) {
-<<<<<<< HEAD
-				p.sendMessage(ChatColor.GRAY + "Enter the amount you'd like to withdraw or move to cancel.");
-=======
 				p.sendMessage(MessagesUtil.bankEnterAmount);
->>>>>>> 4831395077b38f5ab443c9c674be3d4d1c8df5d7
 				withdraw.put(p.getName(), e.getClick() == ClickType.SHIFT_LEFT);
 				p.closeInventory();
 			}
@@ -294,70 +267,6 @@ public class Bank implements Listener {
 				}
 			}
 		}
-	}
-	
-	public static void depositGems(Player p) {
-		int gems = getGems(p);
-		for (int i = 0; i < p.getInventory().getSize(); i++) {
-			if (p.getInventory().getItem(i) != null) {
-				ItemStack it = p.getInventory().getItem(i);
-				if (it.getType() == Material.DIAMOND) {
-					p.getInventory().remove(it);
-				} else if (it.getType() == Material.EMPTY_MAP) {
-					if (it.hasItemMeta() && it.getItemMeta().getDisplayName().contains("Bank Note")) {
-						p.getInventory().remove(it);
-					}
-				}
-			}
-		}
-		p.sendMessage(ChatColor.GRAY + "Deposited " + ChatColor.AQUA + gems + ChatColor.GRAY + " gems.");
-		p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 2);
-		p.updateInventory();
-		Stats.addStat(p, "gems", gems);
-	}
-	
-	public static void open(Player p) {
-		Inventory inv = Bukkit.createInventory(null, 9, ChatColor.GREEN + p.getName() + "'s Bank");
-		int gems = Stats.getInt(p, "gems");
-		inv.setItem(4, Items.createItem(Material.DIAMOND, 1, 0, ChatColor.AQUA + "Gems: " + gems, "Left click to withdraw.", "Shift-left to withdraw a note.", "Shift-click gems in your inventory", "to deposit them."));
-		inv.setItem(8, Items.createItem(Material.CHEST, 1, 0, ChatColor.GOLD + "Storage", "Left click to open."));
-		p.openInventory(inv);
-	}
-	
-	public static void openBank(Player p) {
-		int size = Stats.getInt(p, "bank.size", 1);
-		List<String> storage = Stats.getList(p, "bank.storage");
-		int op = size * 9 + 9;
-		if (size == 6)
-			op = 54;
-		Inventory inv = Bukkit.createInventory(null, op, ChatColor.GREEN + p.getName() + "'s Bank Storage");
-		for (int i = 0; i < storage.size(); i++) {
-			System.out.println(i);
-			inv.setItem(i, Items.deserialize(storage.get(i)));
-		}
-		if (size < 6) {
-			for (int i = 9; i > 0; i--) {
-				inv.setItem(inv.getSize() - i, Items.createItem(Material.STAINED_GLASS_PANE, 1, 13, ChatColor.GREEN + "Upgrade (Gems: " + upgradeCosts[size - 1] + ")", "Click to upgrade your bank."));
-			}
-		}
-		p.openInventory(inv);
-	}
-	
-	public static int getGems(Player p) {
-		int gems = 0;
-		for (int i = 0; i < p.getInventory().getSize(); i++) {
-			if (p.getInventory().getItem(i) != null) {
-				ItemStack it = p.getInventory().getItem(i);
-				if (it.getType() == Material.DIAMOND) {
-					gems += p.getInventory().getItem(i).getAmount();
-				} else if (it.getType() == Material.EMPTY_MAP) {
-					if (it.hasItemMeta() && it.getItemMeta().getDisplayName().contains("Bank Note")) {
-						gems += Integer.valueOf(ChatColor.stripColor(it.getItemMeta().getLore().get(0).split(" ")[1].trim()));
-					}
-				}
-			}
-		}
-		return gems;
 	}
 	
 	@EventHandler
