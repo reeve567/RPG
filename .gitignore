@@ -11,3 +11,4 @@ ser/world_the_end/*
 *.gz
 *.class
 *.class
+*.json

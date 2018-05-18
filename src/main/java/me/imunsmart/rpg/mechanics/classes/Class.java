@@ -1,5 +1,5 @@
 package me.imunsmart.rpg.mechanics.classes;
 
-public enum  Class {
-	ARCHER,WIZARD,WARRIOR,TANK,NONE
+public enum Class {
+	ARCHER, WIZARD, WARRIOR, TANK, NONE
 }
