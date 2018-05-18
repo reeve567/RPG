@@ -145,7 +145,11 @@ public class Constants {
 		}
 		return "null";
 	}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> 4831395077b38f5ab443c9c674be3d4d1c8df5d7
 	public static String getRandomZombieName(int tier) {
 		try {
 			Field f = Constants.class.getDeclaredField("zt" + tier);

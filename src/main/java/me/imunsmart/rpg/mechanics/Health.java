@@ -179,6 +179,7 @@ public class Health {
 					p.setExp((float) Stats.getInt(p, "xp", 0) / (Util.neededXP(p)));
 					if (!health.containsKey(p.getName())) {
 						health.put(p.getName(), calculateMaxHealth(p));
+						BelowName.setScore(p, health.get(p.getName()));
 					}
 					int max = calculateMaxHealth(p);
 					int hp = health.get(p.getName());
@@ -206,7 +207,7 @@ public class Health {
 						if (per > 1)
 							per = 1;
 						p.setHealth(1 + (19 * per));
-						BossBar b = null;
+						BossBar b;
 						if (!bar.containsKey(p.getName()))
 							b = Bukkit.createBossBar("health", BarColor.GREEN, BarStyle.SOLID);
 						else
