@@ -15,7 +15,7 @@ public class BelowName {
 		Scoreboard scoreboard = manager.getNewScoreboard();
 		Objective objective = scoreboard.registerNewObjective("health", "dummy");
 		objective.setDisplaySlot(DisplaySlot.BELOW_NAME);
-		Score score = objective.getScore("health");
+		Score score = objective.getScore("hp");
 		score.setScore(5);
 		objective.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&c&lHP"));
 		p.setScoreboard(scoreboard);
@@ -34,7 +34,7 @@ public class BelowName {
 	static void setScore(Player p, int i) {
 		Scoreboard scoreboard = p.getScoreboard();
 		Objective objective = scoreboard.getObjective("health");
-		Score score = objective.getScore("health");
+		Score score = objective.getScore("hp");
 		score.setScore(i);
 		p.setScoreboard(scoreboard);
 	}

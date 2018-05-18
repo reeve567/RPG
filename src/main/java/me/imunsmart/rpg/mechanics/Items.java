@@ -18,15 +18,15 @@ import java.util.Collections;
 import java.util.List;
 
 public class Items {
-	
+
 	public static final ItemStack gem = createItem(Material.DIAMOND, 1, 0, ChatColor.AQUA + "Gem");
-	public static ChatColor[] nameColor = {ChatColor.GOLD, ChatColor.GRAY, ChatColor.WHITE, ChatColor.AQUA, ChatColor.YELLOW};
-	private static String[] weapons = {"WOOD", "STONE", "IRON", "DIAMOND", "GOLD"};
-	private static String[] swords = {"Shortsword", "Longsword", "Greatsword", "Mystic Sword", "Godly Sword"};
-	private static String[] axes = {"Hatchet", "Tomohawk", "Great Axe", "Mystic Axe", "Godly Axe"};
-	private static String[] armor = {"LEATHER", "CHAINMAIL", "IRON", "DIAMOND", "GOLD"};
-	private static String[] armors = {"Old", "Rusted", "Great", "Mystic", "Godly"};
-	
+	public static ChatColor[] nameColor = { ChatColor.GOLD, ChatColor.GRAY, ChatColor.WHITE, ChatColor.AQUA, ChatColor.YELLOW };
+	private static String[] weapons = { "WOOD", "STONE", "IRON", "DIAMOND", "GOLD" };
+	private static String[] swords = { "Shortsword", "Longsword", "Greatsword", "Mystic Sword", "Godly Sword" };
+	private static String[] axes = { "Hatchet", "Tomohawk", "Great Axe", "Mystic Axe", "Godly Axe" };
+	private static String[] armor = { "LEATHER", "CHAINMAIL", "IRON", "DIAMOND", "GOLD" };
+	private static String[] armors = { "Old", "Rusted", "Great", "Mystic", "Godly" };
+
 	public static void convertToScraps(Player p) {
 		ItemStack i = p.getInventory().getItemInMainHand();
 		String name = i.getType().name();
@@ -50,7 +50,7 @@ public class Items {
 		p.getInventory().setItemInMainHand(null);
 		p.updateInventory();
 	}
-	
+
 	public static ItemStack createArmor(String type, int tier, int maxhp, String flags) {
 		Material m = Material.getMaterial(armor[tier - 1] + "_" + type.toUpperCase());
 		String[] flag = flags.split(",");
@@ -62,11 +62,11 @@ public class Items {
 		name = getString(flags, name, flag, lore);
 		return createItem(m, 1, 0, name, lore);
 	}
-	
+
 	public static ItemStack createGemNote(int amount) {
 		return Items.createItem(Material.EMPTY_MAP, 1, 0, ChatColor.AQUA + "Bank Note", "Value: " + amount);
 	}
-	
+
 	public static ItemStack createGems(int amount) {
 		return createItem(Material.DIAMOND, amount, 0, ChatColor.AQUA + "Gem");
 	}
@@ -84,7 +84,7 @@ public class Items {
 		i.setItemMeta(im);
 		return i;
 	}
-	
+
 	public static ItemStack createItem(Material m, int amount, int durability, String name, List<String> lore) {
 		ItemStack i = new ItemStack(m, amount, (short) durability);
 		ItemMeta im = i.getItemMeta();
@@ -98,7 +98,7 @@ public class Items {
 		i.setItemMeta(im);
 		return i;
 	}
-	
+
 	public static ItemStack createPotion(int tier) {
 		ItemStack i = Items.createItem(Material.POTION, 1, 0, Items.nameColor[tier - 1] + Potions.names[tier - 1] + " Potion of Healing", Arrays.asList("Restores: " + Potions.amounts[tier - 1]));
 		PotionMeta pm = (PotionMeta) i.getItemMeta();
@@ -106,7 +106,7 @@ public class Items {
 		i.setItemMeta(pm);
 		return i;
 	}
-	
+
 	public static ItemStack createScraps(int amount, int tier) {
 		int data = 14;
 		if (tier == 2)
@@ -119,7 +119,7 @@ public class Items {
 			data = 11;
 		return createItem(Material.INK_SACK, amount, data, nameColor[tier - 1] + "Scrap", "Drag a stack onto armor", "to repair it.");
 	}
-	
+
 	public static ItemStack createWeapon(String type, int tier, int min, int max, String flags) {
 		Material m = Material.getMaterial(weapons[tier - 1] + "_" + type.toUpperCase());
 		String[] names = type.equals("sword") ? swords : axes;
@@ -130,7 +130,7 @@ public class Items {
 		name = getString(flags, name, flag, lore);
 		return createItem(m, 1, 0, name, lore);
 	}
-	
+
 	private static String getString(String flags, String name, String[] flag, List<String> lore) {
 		if (flags.length() > 0) {
 			for (String s : flag) {
@@ -156,21 +156,22 @@ public class Items {
 		}
 		return name;
 	}
-	
+
 	public static ItemStack deserialize(String s) {
 		String[] tokens = s.split("@");
 		Material m = Material.valueOf(tokens[1].substring(1));
 		int amt = Integer.valueOf(tokens[2].substring(1));
 		int dur = Integer.valueOf(tokens[3].substring(1));
 		if (tokens.length > 4) {
-			String name = tokens[4].substring(1);
+			String name = ChatColor.translateAlternateColorCodes('&', tokens[4].substring(1));
 			List<String> lore = new ArrayList<String>();
-			Collections.addAll(lore, tokens[5].substring(1).split(","));
+			if (tokens.length > 5)
+				Collections.addAll(lore, tokens[5].substring(1).split(","));
 			return Items.createItem(m, amt, dur, name, lore);
 		} else
 			return new ItemStack(m, amt, (short) dur);
 	}
-	
+
 	public static int getTier(ItemStack i) {
 		String name = i.getType().name();
 		if (name.contains("CHAINMAIL") || name.contains("STONE"))
@@ -183,13 +184,13 @@ public class Items {
 			return 5;
 		return 1;
 	}
-	
+
 	public static ItemStack randomDurability(ItemStack i) {
 		int max = i.getType().getMaxDurability() - 1;
 		i.setDurability((short) ((max / 4) + Math.random() * (max - (max / 4))));
 		return i;
 	}
-	
+
 	public static ItemStack randomEnchant(ItemStack i) {
 		for (Enchantment e : Enchantment.values()) {
 			if (e.canEnchantItem(i)) {
@@ -200,21 +201,26 @@ public class Items {
 		}
 		return i;
 	}
-	
+
 	public static String serialize(ItemStack i) {
 		if (i == null)
 			return "@iAIR@a0@d-1";
 		if (!i.hasItemMeta())
 			return "@i" + i.getType().name() + "@a" + i.getAmount() + "@d" + i.getDurability();
 		String lore = "";
+		int x = 0;
 		if (i.getItemMeta().hasLore()) {
 			for (String s : i.getItemMeta().getLore()) {
-				lore += s + ",";
+				if (x != i.getItemMeta().getLore().size() - 1)
+					lore += s + ",";
+				else
+					lore += s;
+				x++;
 			}
 		}
 		return "@i" + i.getType().name() + "@a" + i.getAmount() + "@d" + i.getDurability() + "@n" + i.getItemMeta().getDisplayName() + "@l" + lore;
 	}
-	
+
 	public static void useItem(Player p) {
 		PlayerInventory pi = p.getInventory();
 		if (p.getGameMode() != GameMode.CREATIVE) {
