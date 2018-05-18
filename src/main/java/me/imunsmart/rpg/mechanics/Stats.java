@@ -1,6 +1,7 @@
 package me.imunsmart.rpg.mechanics;
 
 import me.imunsmart.rpg.Main;
+import me.imunsmart.rpg.mechanics.classes.Class;
 import me.imunsmart.rpg.mobs.Constants;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
@@ -9,6 +10,7 @@ import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.yaml.snakeyaml.error.YAMLException;
 
 import java.io.File;
 import java.io.IOException;
@@ -76,6 +78,10 @@ public class Stats {
 		return fc.getDouble(id);
 	}
 	
+	public static Class getClass(OfflinePlayer p) {
+		return Class.valueOf(getString(p,"class"));
+	}
+	
 	public static int getInt(OfflinePlayer p, String id) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
@@ -106,12 +112,12 @@ public class Stats {
 		return fc.getStringList(id);
 	}
 	
-	public static int getString(OfflinePlayer p, String id) {
+	public static String getString(OfflinePlayer p, String id) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
 		if (!fc.contains(id))
-			return 0;
-		return fc.getInt(id);
+			return "";
+		return fc.getString(id);
 	}
 	
 	public static void levelUp(OfflinePlayer p) {
@@ -138,6 +144,11 @@ public class Stats {
 		File f = new File(dir, p.getUniqueId() + ".yml");
 		if (f.exists())
 			f.delete();
+	}
+	
+	public static void setClassType(OfflinePlayer player, Class clazz) {
+		setStat(player,"class",clazz.toString());
+		
 	}
 	
 	public static void setStat(OfflinePlayer p, String id, Object o) {

@@ -3,6 +3,7 @@ package me.imunsmart.rpg;
 import me.imunsmart.rpg.command.Admin;
 import me.imunsmart.rpg.events.*;
 import me.imunsmart.rpg.mechanics.*;
+import me.imunsmart.rpg.mechanics.classes.ClassSelector;
 import me.imunsmart.rpg.mechanics.loot.LootChests;
 import me.imunsmart.rpg.mobs.EntityManager;
 import me.imunsmart.rpg.util.AutoBroadcaster;
@@ -47,6 +48,7 @@ public class Main extends JavaPlugin {
 		new AutoBroadcaster(this);
 		
 		new Stats(this);
+		new ClassSelector(this);
 		
 		Health.task(this);
 	}
