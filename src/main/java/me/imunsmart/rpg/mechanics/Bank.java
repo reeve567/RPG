@@ -1,29 +1,28 @@
 package me.imunsmart.rpg.mechanics;
 
-import me.imunsmart.rpg.Main;
-import net.md_5.bungee.api.ChatColor;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import me.imunsmart.rpg.Main;
+import net.md_5.bungee.api.ChatColor;
 
 public class Bank implements Listener {
 	private static int[] upgradeCosts = {200, 500, 1000, 2500, 5000};
@@ -109,7 +108,9 @@ public class Bank implements Listener {
 		p.openInventory(inv);
 	}
 	
-	public static void pay(Player p, int gems) {
+	public static boolean pay(Player p, int gems) {
+		if(getGems(p) < gems)
+			return false;
 		for (int i = 0; i < p.getInventory().getSize(); i++) {
 			if (gems == 0)
 				break;
@@ -141,6 +142,7 @@ public class Bank implements Listener {
 			}
 		}
 		p.updateInventory();
+		return true;
 	}
 	
 	public static void saveBank() {
@@ -177,6 +179,7 @@ public class Bank implements Listener {
 						space++;
 					if (!hasSpace(p, space)) {
 						p.sendMessage(ChatColor.RED + "You don't have space for that. Try emptying space or using a gem note.");
+						withdraw.remove(p.getName());
 						return;
 					}
 					for (int i = 0; i < stacks; i++) {
@@ -217,13 +220,13 @@ public class Bank implements Listener {
 		if (e.getSlotType() == SlotType.OUTSIDE)
 			return;
 		Player p = (Player) e.getWhoClicked();
-		if (p.getOpenInventory().getTopInventory().getTitle().equals(ChatColor.GREEN + p.getName() + "'s Bank")) {
+		if (e.getInventory().getTitle().equals(ChatColor.GREEN + p.getName() + "'s Bank")) {
 			e.setCancelled(true);
 			if (!e.getCurrentItem().hasItemMeta())
 				return;
 			if (e.getCurrentItem().getItemMeta().getDisplayName().contains("Gems: ")) {
 				p.sendMessage(ChatColor.GRAY + "Enter the amount you'd like to withdraw or move to cancel.");
-				withdraw.put(p.getName(), (e.getClick() == ClickType.SHIFT_LEFT) ? true : false);
+				withdraw.put(p.getName(), e.getClick() == ClickType.SHIFT_LEFT);
 				p.closeInventory();
 			}
 			if (e.getClick() == ClickType.SHIFT_LEFT) {
@@ -239,7 +242,7 @@ public class Bank implements Listener {
 				}
 			}
 		}
-		if (p.getOpenInventory().getTopInventory().getTitle().equals(ChatColor.GREEN + p.getName() + "'s Bank Storage")) {
+		if (e.getInventory().getTitle().equals(ChatColor.GREEN + p.getName() + "'s Bank Storage")) {
 			if (!e.getCurrentItem().hasItemMeta())
 				return;
 			if (e.getClick() == ClickType.SHIFT_LEFT) {
@@ -255,7 +258,6 @@ public class Bank implements Listener {
 				p.closeInventory();
 				int gems = Stats.getInt(p, "gems");
 				int size = Stats.getInt(p, "bank.size", 1);
-				System.out.println(size);
 				int cost = upgradeCosts[size - 1];
 				if (gems >= cost) {
 					upgrade.add(p.getName());
@@ -276,25 +278,6 @@ public class Bank implements Listener {
 				items.add(Items.serialize(e.getInventory().getItem(i)));
 			}
 			Stats.setStat(p, "bank.storage", items);
-		}
-	}
-	
-	@EventHandler
-	public void onInteract(PlayerInteractEvent e) {
-		Player p = e.getPlayer();
-		if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-			if (e.getItem() != null) {
-				if (e.getItem().getType() == Material.EMPTY_MAP) {
-					if (e.getItem().hasItemMeta())
-						e.setCancelled(true);
-				}
-			}
-		}
-		if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-			if (e.getClickedBlock().getType() == Material.ENDER_CHEST) {
-				e.setCancelled(true);
-				open(p);
-			}
 		}
 	}
 	

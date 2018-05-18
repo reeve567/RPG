@@ -118,6 +118,9 @@ public class LootChests implements Listener {
 	@EventHandler
 	public void onClose(InventoryCloseEvent e) {
 		if (e.getInventory().getType() == InventoryType.CHEST) {
+			System.out.println(e.getInventory().getTitle());
+			if(!e.getInventory().getTitle().equals("container.chest"))
+				return;
 			boolean empty = true;
 			for (ItemStack i : e.getInventory().getContents()) {
 				if (i != null)

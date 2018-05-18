@@ -20,6 +20,33 @@ public class Main extends JavaPlugin {
 	public LootChests lc;
 	private NPC npc;
 	
+	@Override
+	public void onDisable() {
+		Health.disable();
+		EntityManager.disable();
+		EntityManager.pl = null;
+		Spawners.disable();
+		
+		lc.disable();
+		
+		super.onDisable();
+	}
+	
+	@Override
+	public void onEnable() {
+		super.onEnable();
+		
+		registerEvents();
+		registerCommands();
+		registerGlow();
+		
+		new AutoBroadcaster(this);
+		
+		new Stats(this);
+		
+		Health.task(this);
+	}
+	
 	private void register(Listener... listeners) {
 		for (Listener l : listeners) {
 			Bukkit.getPluginManager().registerEvents(l, this);
@@ -47,6 +74,7 @@ public class Main extends JavaPlugin {
 		new Bank(this);
 		new RepairMenu(this);
 		new Spawners(this);
+		new GlobalMarket(this);
 		lc = new LootChests(this);
 	}
 	
@@ -65,33 +93,6 @@ public class Main extends JavaPlugin {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
-	@Override
-	public void onDisable() {
-		Health.disable();
-		EntityManager.disable();
-		EntityManager.pl = null;
-		Spawners.disable();
-		
-		lc.disable();
-		
-		super.onDisable();
-	}
-	
-	@Override
-	public void onEnable() {
-		super.onEnable();
-		
-		registerEvents();
-		registerCommands();
-		registerGlow();
-		
-		new AutoBroadcaster(this);
-		
-		new Stats(this);
-		
-		Health.task(this);
 	}
 	
 }
