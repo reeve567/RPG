@@ -41,11 +41,6 @@
             <systemPath>${pom.basedir}/lib/spigot.jar</systemPath>
             <type>jar</type>
         </dependency>
-        <dependency>
-            <groupId>com.comphenix.protocol</groupId>
-            <artifactId>ProtocolLib-API</artifactId>
-            <version>4.3.0</version>
-        </dependency>
     </dependencies>
 
 </project>

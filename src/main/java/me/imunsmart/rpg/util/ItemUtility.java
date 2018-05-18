@@ -5,7 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import pw.xwy.Classes.utility.misc.Class;
+import me.imunsmart.rpg.mechanics.classes.Class;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,7 +84,7 @@ public class ItemUtility {
 	}
 	
 	public static ItemStack addGlow(ItemStack it) {
-		pw.xwy.Classes.utility.Glow glow = new pw.xwy.Classes.utility.Glow(999);
+		Glow glow = new Glow(999);
 		addEnchant(it, glow, 1);
 		return it;
 	}
