@@ -17,8 +17,12 @@ import java.util.logging.Level;
 
 public class Main extends JavaPlugin {
 	
+	private static NPC npc;
 	public LootChests lc;
-	private NPC npc;
+	
+	public static NPC getNpc() {
+		return npc;
+	}
 	
 	private void register(Listener... listeners) {
 		for (Listener l : listeners) {
@@ -43,7 +47,7 @@ public class Main extends JavaPlugin {
 				new Potions(this));
 		
 		new EntityManager(this);
-		// npc = new NPC(this);
+		npc = new NPC(this);
 		new Bank(this);
 		new RepairMenu(this);
 		new Spawners(this);
