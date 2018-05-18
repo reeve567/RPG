@@ -1,6 +1,12 @@
-/Main.class
+
 *.dat
 *.dat_old
 *.mca
 *.lock
 *.gz
+*.mca
+*.lock
+ser/world/*
+ser/world_the_end/*
+*.gz
+*.class

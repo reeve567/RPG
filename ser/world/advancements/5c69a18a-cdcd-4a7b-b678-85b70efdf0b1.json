@@ -29,6 +29,12 @@
     },
     "done": true
   },
+  "minecraft:recipes/food/cake": {
+    "criteria": {
+      "has_egg": "2018-05-17 22:29:20 -0400"
+    },
+    "done": true
+  },
   "minecraft:recipes/transportation/spruce_boat": {
     "criteria": {
       "entered_water": "2018-05-17 11:51:47 -0400"
@@ -38,6 +44,7 @@
   "minecraft:adventure/adventuring_time": {
     "criteria": {
       "plains": "2018-05-17 11:51:33 -0400",
+      "savanna": "2018-05-17 22:12:01 -0400",
       "river": "2018-05-17 11:51:48 -0400"
     },
     "done": false

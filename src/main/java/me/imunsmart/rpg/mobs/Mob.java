@@ -29,7 +29,6 @@ public class Mob {
 	
 	public Mob(LivingEntity mob, String name, int tier) {
 		this.mob = mob;
-		mob.addScoreboardTag("test");
 		this.tier = tier;
 		loc = mob.getLocation();
 		mob.getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(8.0);
@@ -124,7 +123,6 @@ public class Mob {
 	
 	public Mob(LivingEntity mob, String name, String type, int min, int max, String flag, int tier, int mh, int mc, int ml, int mb, String hf, String cf, String lf, String bf) {
 		this.mob = mob;
-		mob.addScoreboardTag("test");
 		this.tier = tier;
 		loc = mob.getLocation();
 		mob.getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(8.0);
