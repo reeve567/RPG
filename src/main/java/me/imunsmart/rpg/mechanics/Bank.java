@@ -195,6 +195,7 @@ public class Bank implements Listener {
 			e.setCancelled(true);
 			if (!e.getCurrentItem().hasItemMeta())
 				return;
+			if (!e.getCurrentItem().getItemMeta().hasDisplayName()) return;
 			if (e.getCurrentItem().getItemMeta().getDisplayName().contains("Gems: ")) {
 				p.sendMessage(MessagesUtil.bankEnterAmount);
 				withdraw.put(p.getName(), e.getClick() == ClickType.SHIFT_LEFT);

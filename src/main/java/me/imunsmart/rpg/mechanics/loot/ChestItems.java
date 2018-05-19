@@ -18,15 +18,19 @@ public class ChestItems {
 			Items.createPotion(3),
 	};
 	
+	public static final ItemStack[] tier4 = new ItemStack[]{
+		Items.createPotion(4),
+	};
+	
+	public static final ItemStack[] tier5 = new ItemStack[]{
+			Items.createPotion(5),
+	};
+	
 	public static ItemStack[] getTier(int tier) {
 		try {
 			Field f = ChestItems.class.getField("tier" + tier);
 			return (ItemStack[]) f.get(null);
-		} catch (IllegalArgumentException | IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
+		} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
 			e.printStackTrace();
 		}
 		return tier1;
