@@ -152,5 +152,13 @@ public class Stats {
 			e.printStackTrace();
 		}
 	}
-
+	
+	public static Class getClass(Player player) {
+		String v = getString(player, "class");
+		return v.equals("") ? null : Class.valueOf(v);
+	}
+	
+	public static void setClassType(OfflinePlayer player, Class clazz) {
+		setStat(player, "class", clazz.toString());
+	}
 }

@@ -27,6 +27,7 @@ public class Nametags {
 			team.setPrefix("§b§lDEV §f");
 			team.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.ALWAYS);
 			team.addPlayer(Bukkit.getOfflinePlayer("Xwy"));
+			team.addPlayer(Bukkit.getOfflinePlayer("ImUnsmart"));
 			setScoreboard(scoreboard);
 		} catch (Exception ignored) {
 		

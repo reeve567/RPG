@@ -215,6 +215,8 @@ public class Health {
 						b.setTitle(ChatColor.DARK_GREEN.toString() + ChatColor.BOLD + "Health: " + hp + " / " + max);
 						b.setProgress(per);
 						b.setVisible(true);
+						Nametags.setScore(p,hp);
+						
 						if (!bar.containsKey(p.getName())) {
 							b.addPlayer(p);
 							bar.put(p.getName(), b);
