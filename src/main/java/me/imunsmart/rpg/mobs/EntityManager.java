@@ -151,7 +151,7 @@ public class EntityManager implements Listener {
 					int tier = Items.getTier(i);
 					if (!Stats.canWield(p, tier)) {
 						e.setCancelled(true);
-						p.sendMessage(ChatColor.RED + "You cannot use that item yet.");
+						p.sendMessage(ChatColor.RED + "You must be level " + ChatColor.UNDERLINE + Constants.LEVEL_REQ[tier - 1] + ChatColor.RED + " to wield Tier " + tier + " weapons.");
 						Sounds.play(p, Sound.ENTITY_ITEM_BREAK, 0.67f);
 						e.setDamage(0);
 						return;

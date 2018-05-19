@@ -17,22 +17,26 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import me.imunsmart.rpg.Main;
 import net.md_5.bungee.api.ChatColor;
 
 public class GlobalMarket implements Listener {
-	private Main pl;
+	private static Main pl;
 	private static File f;
 	private static FileConfiguration fc;
 	private ArrayList<String> selling = new ArrayList<String>();
 	private HashMap<String, ItemStack> sell = new HashMap<String, ItemStack>();
+	private static HashMap<String, Integer> page = new HashMap<String, Integer>();
+	private static int maxPages = 1;
 
 	public GlobalMarket(Main pl) {
 		this.pl = pl;
@@ -48,6 +52,7 @@ public class GlobalMarket implements Listener {
 				e.printStackTrace();
 			}
 		}
+		maxPages = (int) Math.floor(fc.getStringList("items").size() / 45.0d) + 1;
 	}
 
 	public void disable() {
@@ -57,21 +62,35 @@ public class GlobalMarket implements Listener {
 
 	public static void open(Player p) {
 		Inventory inv = Bukkit.createInventory(null, 27, ChatColor.DARK_GREEN + "Global Exchange");
+		for (int i = 0; i < inv.getSize(); i++) {
+			inv.setItem(i, Items.createItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
+		}
 		inv.setItem(12, Items.createItem(Material.EMERALD_BLOCK, 1, 0, ChatColor.GREEN + "Buy Items", "Click to purchase items", "on the market."));
 		inv.setItem(14, Items.createItem(Material.DIAMOND_BLOCK, 1, 0, ChatColor.AQUA + "Sell Items", "Click to sell items", "on the market."));
 		p.openInventory(inv);
 	}
 
-	public static void openBuy(Player p, int page) {
-		Inventory inv = Bukkit.createInventory(null, 54, ChatColor.DARK_GREEN + "Global Exchange - Buy Page:" + (page + 1) + "");
+	public static void openBuy(Player p, Inventory inv) {
+		if (inv == null) {
+			inv = Bukkit.createInventory(null, 54, ChatColor.DARK_GREEN + "Global Exchange - Buy");
+			GlobalMarket.page.put(p.getName(), 0);
+		} else {
+			inv.clear();
+		}
+		int page = GlobalMarket.page.get(p.getName());
+		for (int i = 0; i < 9; i++) {
+			inv.setItem(i + 45, Items.createItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
+		}
 		inv.setItem(45, Items.createItem(Material.CARPET, 1, 14, ChatColor.RED + "<- Prev"));
+		inv.setItem(49, Items.createItem(Material.COMPASS, 1, 0, ChatColor.GRAY + "Page: " + (page + 1) + " / " + maxPages, "Click to return to page 1."));
 		inv.setItem(53, Items.createItem(Material.CARPET, 1, 13, ChatColor.DARK_GREEN + "Next ->"));
-		List<String> items = new ArrayList<>();
-		for (int x = (page * 52); x < (page * 52) + 52; x++) {
-			if(x >= items.size())
+		File f = new File(pl.getDataFolder(), "market.yml");
+		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
+		List<String> items = fc.getStringList("items");
+		for (int x = (page * 45); x < (page * 45) + 45; x++) {
+			if (x >= items.size())
 				break;
 			String s = items.get(x);
-			System.out.println(Arrays.toString(s.split("^")));
 			ItemStack i = Items.deserialize(s.split(";")[0]);
 			String seller = s.split(";")[1];
 			int cost = Integer.valueOf(s.split(";")[2]);
@@ -82,7 +101,7 @@ public class GlobalMarket implements Listener {
 			lore.add(ChatColor.GRAY + "Cost: " + ChatColor.AQUA + cost);
 			im.setLore(lore);
 			i.setItemMeta(im);
-			inv.addItem(i);
+			inv.setItem(x - (page * 45), i);
 		}
 		p.openInventory(inv);
 	}
@@ -100,34 +119,41 @@ public class GlobalMarket implements Listener {
 			if (e.getCurrentItem().getItemMeta().getDisplayName().contains("Buy Items")) {
 				p.closeInventory();
 				Sounds.play(p, Sound.BLOCK_STONE_BUTTON_CLICK_ON, 1);
-				openBuy(p, 0);
+				openBuy(p, null);
 			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains("Sell Items")) {
 				selling.add(p.getName());
 				p.sendMessage(ChatColor.GREEN + "Click an item in your inventory to sell it.");
 				p.closeInventory();
+				p.openInventory(p.getInventory());
 			}
 		} else if (e.getInventory().getTitle().contains("Global Exchange - Buy")) {
 			e.setCancelled(true);
-			int page = Integer.valueOf(e.getInventory().getTitle().split(":")[1]);
-			if(e.getCurrentItem().getItemMeta().getDisplayName().contains("<- Prev")) {
-				p.closeInventory();
+			int pg = page.get(p.getName());
+			if (e.getCurrentItem().getItemMeta().getDisplayName().contains("<- Prev")) {
 				Sounds.play(p, Sound.BLOCK_STONE_BUTTON_CLICK_ON, 1);
-				int pg = page - 2;
-				if(pg < 0)
+				pg--;
+				if (pg <= 0)
 					pg = 0;
-				openBuy(p, pg);
+				page.put(p.getName(), pg);
+				openBuy(p, e.getInventory());
 				return;
 			}
-			if(e.getCurrentItem().getItemMeta().getDisplayName().contains("Next ->")) {
-				p.closeInventory();
+			if (e.getCurrentItem().getItemMeta().getDisplayName().contains("Page: " + (pg + 1))) {
 				Sounds.play(p, Sound.BLOCK_STONE_BUTTON_CLICK_ON, 1);
-				int pg = page;
-				if(pg > 100)
-					pg = 100;
-				openBuy(p, pg);
+				page.put(p.getName(), 0);
+				openBuy(p, e.getInventory());
 				return;
 			}
-			int index = e.getSlot() + (54 * (page - 1));
+			if (e.getCurrentItem().getItemMeta().getDisplayName().contains("Next ->")) {
+				Sounds.play(p, Sound.BLOCK_STONE_BUTTON_CLICK_ON, 1);
+				pg++;
+				if (pg > maxPages - 1)
+					pg = maxPages - 1;
+				page.put(p.getName(), pg);
+				openBuy(p, e.getInventory());
+				return;
+			}
+			int index = e.getSlot() + (45 * pg);
 			ItemStack i = e.getCurrentItem();
 			ItemMeta im = i.getItemMeta();
 			List<String> lore = im.getLore();
@@ -140,6 +166,7 @@ public class GlobalMarket implements Listener {
 				return;
 			}
 			if (p.getName().equals(seller)) {
+				Sounds.play(p, Sound.BLOCK_STONE_BUTTON_CLICK_ON, 1);
 				e.getInventory().setItem(e.getSlot(), null);
 				lore.remove(lore.size() - 3);
 				lore.remove(lore.size() - 2);
@@ -150,14 +177,11 @@ public class GlobalMarket implements Listener {
 				p.sendMessage(ChatColor.GREEN + "Removed item from the market.");
 				items.remove(index);
 				fc.set("items", items);
-				try {
-					fc.save(f);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+				updateMarket();
 				return;
 			}
 			if (Bank.pay(p, cost)) {
+				System.out.println(index + ", " + items.size());
 				e.getInventory().setItem(e.getSlot(), null);
 				lore.remove(lore.size() - 3);
 				lore.remove(lore.size() - 2);
@@ -168,11 +192,10 @@ public class GlobalMarket implements Listener {
 				Stats.addStat(Bukkit.getOfflinePlayer(seller), "gems", cost);
 				items.remove(index);
 				fc.set("items", items);
-				try {
-					fc.save(f);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+				updateMarket();
+				p.sendMessage(ChatColor.GRAY + "You made a purchase for " + ChatColor.AQUA + cost + " gems.");
+				Sounds.play(p, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 2);
+				return;
 			} else {
 				p.sendMessage(ChatColor.RED + "You cannot afford that.");
 				Sounds.play(p, Sound.ENTITY_ITEM_BREAK, 0.67f);
@@ -190,8 +213,8 @@ public class GlobalMarket implements Listener {
 				e.setCancelled(true);
 				selling.remove(p.getName());
 				if (e.getCurrentItem().hasItemMeta()) {
-					if (e.getCurrentItem().getItemMeta().getDisplayName().contains("Gem")) {
-						p.sendMessage(ChatColor.RED + "You cannot sell a Gem!");
+					if (e.getCurrentItem().getItemMeta().getDisplayName().contains("Gem") || e.getCurrentItem().getItemMeta().getDisplayName().contains("Bank Note")) {
+						p.sendMessage(ChatColor.RED + "You cannot sell Gems!");
 						Sounds.play(p, Sound.ENTITY_ITEM_BREAK, 0.67f);
 						p.closeInventory();
 						return;
@@ -214,19 +237,34 @@ public class GlobalMarket implements Listener {
 	public void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 		if (selling.contains(p.getName())) {
-			if (e.getTo().getX() != e.getFrom().getX() || e.getTo().getY() != e.getFrom().getY() || e.getTo().getZ() != e.getFrom().getZ()) {
+			System.out.println(e.getTo().distanceSquared(e.getFrom()));
+			if (e.getTo().distanceSquared(e.getFrom()) >= 0.01) {
 				p.sendMessage(ChatColor.RED + "You moved, cancelling sell.");
 				Sounds.play(p, Sound.ENTITY_ITEM_BREAK, 0.67f);
 				selling.remove(p.getName());
 			}
 		}
 		if (sell.containsKey(p.getName())) {
-			if (e.getTo().getX() != e.getFrom().getX() || e.getTo().getY() != e.getFrom().getY() || e.getTo().getZ() != e.getFrom().getZ()) {
+			if (e.getTo().distanceSquared(e.getFrom()) >= 0.01) {
 				p.sendMessage(ChatColor.RED + "You moved, cancelling sell.");
 				Sounds.play(p, Sound.ENTITY_ITEM_BREAK, 0.67f);
 				sell.remove(p.getName());
 			}
 		}
+	}
+
+	@EventHandler
+	public void onClose(InventoryCloseEvent e) {
+		Player p = (Player) e.getPlayer();
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				if (p.getOpenInventory() == null) {
+					if (page.containsKey(p.getName()))
+						page.remove(p.getName());
+				}
+			}
+		}.runTaskLater(pl, 2);
 	}
 
 	@EventHandler
@@ -236,10 +274,10 @@ public class GlobalMarket implements Listener {
 			e.setCancelled(true);
 			int cost = -1;
 			try {
-				cost =  Integer.parseInt(e.getMessage());
+				cost = Integer.parseInt(e.getMessage());
 			} catch (Exception e2) {
 			}
-			if(cost == -1) {
+			if (cost == -1) {
 				p.sendMessage(ChatColor.GRAY + "Cost not entered. Cancelling...");
 				Sounds.play(p, Sound.ENTITY_ITEM_BREAK, 0.67f);
 				return;
@@ -249,14 +287,19 @@ public class GlobalMarket implements Listener {
 			String s = Items.serialize(i) + ";" + p.getName() + ";" + cost;
 			items.add(s);
 			fc.set("items", items);
-			try {
-				fc.save(f);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
+			updateMarket();
 			p.getInventory().remove(i);
 			p.sendMessage(ChatColor.GRAY + "Successfully placed item on market for " + ChatColor.AQUA + cost + " gems.");
 			Sounds.play(p, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 2);
 		}
+	}
+
+	private void updateMarket() {
+		try {
+			fc.save(f);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		maxPages = fc.getStringList("items").size() / 45 + 1;
 	}
 }

@@ -20,16 +20,17 @@ import org.bukkit.inventory.PlayerInventory;
 import java.util.HashMap;
 
 public class Health {
-	
+
 	public static HashMap<String, Integer> health = new HashMap<>();
 	public static HashMap<String, BossBar> bar = new HashMap<>();
 	public static HashMap<String, Integer> combat = new HashMap<>();
-	
+
 	public static boolean atMaxHealth(Player p) {
-		if (!health.containsKey(p.getName())) return true;
+		if (!health.containsKey(p.getName()))
+			return true;
 		return health.get(p.getName()) == calculateMaxHealth(p);
 	}
-	
+
 	public static int calculateHealthRegen(Player p) {
 		PlayerInventory pi = p.getInventory();
 		int regen = 2;
@@ -43,7 +44,7 @@ public class Health {
 		}
 		return regen;
 	}
-	
+
 	public static int calculateMaxHealth(LivingEntity e) {
 		int maxhp = e instanceof Player ? 50 : 20;
 		for (int i = 0; i < e.getEquipment().getArmorContents().length; i++) {
@@ -52,13 +53,15 @@ public class Health {
 				if (!it.hasItemMeta()) {
 					e.getEquipment().getArmorContents()[i].setType(Material.AIR);
 				} else {
+					if (it.getType() == Material.SKULL_ITEM)
+						continue;
 					maxhp += Integer.parseInt(ChatColor.stripColor(it.getItemMeta().getLore().get(0).split(" ")[1]));
 				}
 			}
 		}
 		return maxhp;
 	}
-	
+
 	public static void damage(Player p, int i) {
 		if (Util.inSafeZone(p))
 			return;
@@ -75,7 +78,7 @@ public class Health {
 		}
 		BelowName.setScore(p, health.get(p.getName()));
 	}
-	
+
 	public static void disable() {
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			if (bar.containsKey(p.getName())) {
@@ -84,7 +87,7 @@ public class Health {
 			}
 		}
 	}
-	
+
 	public static int getAttributeI(ItemStack i, String name) {
 		if (!hasAttribute(i, name)) {
 			return 0;
@@ -105,7 +108,7 @@ public class Health {
 		}
 		return 0;
 	}
-	
+
 	public static double getAttributeP(ItemStack i, String name) {
 		if (!hasAttribute(i, name)) {
 			return 0;
@@ -122,7 +125,7 @@ public class Health {
 		}
 		return 0;
 	}
-	
+
 	public static boolean hasAttribute(ItemStack i, String name) {
 		if (!i.hasItemMeta()) {
 			return false;
@@ -134,7 +137,7 @@ public class Health {
 		}
 		return false;
 	}
-	
+
 	public static void heal(Player p, int i) {
 		if (!health.containsKey(p.getName()))
 			return;
@@ -145,9 +148,9 @@ public class Health {
 			hp = max;
 		health.put(p.getName(), hp);
 		BelowName.setScore(p, health.get(p.getName()));
-		
+
 	}
-	
+
 	public static void resetPlayer(Player p) {
 		p.teleport(Util.spawn);
 		ItemStack i = Items.createWeapon("sword", 1, 4, 8, "");
@@ -168,7 +171,7 @@ public class Health {
 		combat.remove(p.getName());
 		heal(p, 50);
 	}
-	
+
 	public static void task(Main pl) {
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(pl, new Runnable() {
 			@Override
@@ -183,10 +186,12 @@ public class Health {
 					}
 					int max = calculateMaxHealth(p);
 					int hp = health.get(p.getName());
-					
-					if (hp > max)
+
+					if (hp > max) {
 						hp = max;
-					
+						health.put(p.getName(), max);
+					}
+
 					if (hp != max && !p.isDead()) {
 						int regen = calculateHealthRegen(p);
 						if (Util.inSafeZone(p))
@@ -201,7 +206,7 @@ public class Health {
 							heal(p, regen);
 						}
 					}
-					
+
 					if (!p.isDead()) {
 						double per = ((double) hp / (double) max);
 						if (per > 1)
@@ -223,7 +228,7 @@ public class Health {
 							b.addPlayer(p);
 						}
 					}
-					
+
 					for (int x = 0; x < p.getInventory().getArmorContents().length; x++) {
 						ItemStack i = p.getInventory().getArmorContents()[x];
 						if (i == null)
@@ -240,7 +245,7 @@ public class Health {
 								p.getInventory().addItem(i);
 							else
 								p.getWorld().dropItemNaturally(p.getEyeLocation(), i);
-							p.sendMessage(ChatColor.RED + "You are not a high enough level to wield this item.");
+							p.sendMessage(ChatColor.RED + "You must be level " + ChatColor.UNDERLINE + Constants.LEVEL_REQ[tier - 1] + ChatColor.RED + " to wield Tier " + tier + " armor.");
 							Sounds.play(p, Sound.ENTITY_ITEM_BREAK, 0.67f);
 						}
 					}

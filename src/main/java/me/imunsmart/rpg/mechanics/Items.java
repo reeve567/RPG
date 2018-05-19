@@ -1,5 +1,6 @@
 package me.imunsmart.rpg.mechanics;
 
+import me.imunsmart.rpg.mobs.Constants;
 import me.imunsmart.rpg.util.StringUtility;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.GameMode;
@@ -26,6 +27,7 @@ public class Items {
 	private static String[] axes = { "Hatchet", "Tomohawk", "Great Axe", "Mystic Axe", "Godly Axe" };
 	private static String[] armor = { "LEATHER", "CHAINMAIL", "IRON", "DIAMOND", "GOLD" };
 	private static String[] armors = { "Old", "Rusted", "Great", "Mystic", "Godly" };
+	private static String[] types = { "axe", "sword", "helmet", "chestplate", "leggings", "boots" };
 
 	public static void convertToScraps(Player p) {
 		ItemStack i = p.getInventory().getItemInMainHand();
@@ -230,6 +232,50 @@ public class Items {
 				pi.setItemInMainHand(null);
 			}
 			p.updateInventory();
+		}
+	}
+	
+	public static ItemStack getRandomArmorPiece(int tier, String type) {
+		String s = type.substring(0, 1).toUpperCase();
+		System.out.println(tier);
+		int m = Constants.getMaxHealth(tier, s) / 2 + (int) (Math.random() * (Constants.getMaxHealth(tier, s) / 2));
+		String flag = Constants.randomArmorFlag(m, tier);
+		if (flag.contains("uncommon")) {
+			m *= Constants.SCALE_UNC;
+		}
+		if (flag.contains("rare")) {
+			m *= Constants.SCALE_RARE;
+		}
+		return Items.randomDurability(Items.createArmor(type, tier, m, flag));
+	}
+	
+	public static ItemStack getRandomWeapon(int tier, String type) {
+		String flag = Constants.randomWeaponFlag(tier);
+		int max = (int) (Math.random() * Constants.getMaxDamage(tier));
+		int min = Constants.getMinDamage(tier) + (int) (Math.random() * ((max - Constants.getMinDamage(tier))));
+		if (max < min)
+			max = min;
+		if (flag.contains("uncommon")) {
+			max += Constants.getMaxDamage(tier) / 4;
+			min *= Constants.SCALE_UNC;
+			max *= Constants.SCALE_UNC;
+		}
+		if (flag.contains("rare")) {
+			max += Constants.getMaxDamage(tier) / 4;
+			min += Constants.getMaxDamage(tier) / 4;
+			min *= Constants.SCALE_RARE;
+			max *= Constants.SCALE_RARE;
+		}
+		return Items.randomDurability(Items.createWeapon(type, tier, min, max, flag));
+	}
+	
+	
+	public static ItemStack getRandomItem(int tier) {
+		int r = (int) (Math.random() * types.length);
+		if(r <= 1) {
+			return Items.getRandomWeapon(tier, types[r]);
+		} else {
+			return Items.getRandomArmorPiece(tier, types[r]);
 		}
 	}
 }

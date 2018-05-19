@@ -11,8 +11,20 @@ public class SpawnMob {
 			String type = args[0];
 			int tier = Integer.parseInt(args[1]);
 			EntityManager.spawn(p.getLocation(), type, tier);
+		} else if (args.length == 3) {
+			String type = args[0];
+			int tier = Integer.parseInt(args[1]);
+			int amount = 0;
+			try {
+				amount = Integer.valueOf(args[2]);
+			} catch (Exception e) {
+				p.sendMessage(ChatColor.RED + "Usage: /spawnmob <type> <tier> [amount]");
+				return;
+			}
+			for (int i = 0; i < amount; i++)
+				EntityManager.spawn(p.getLocation(), type, tier);
 		} else {
-			p.sendMessage(ChatColor.RED + "Usage: /spawnmob <type> <tier>");
+			p.sendMessage(ChatColor.RED + "Usage: /spawnmob <type> <tier> [amount]");
 		}
 	}
 }

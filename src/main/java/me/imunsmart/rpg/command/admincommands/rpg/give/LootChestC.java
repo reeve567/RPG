@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.ChatColor;
 
-public class LootChest {
+public class LootChestC {
 	public static HashMap<String, Integer> lc = new HashMap<>();
 
 	public static void run(Player p, String[] args) {

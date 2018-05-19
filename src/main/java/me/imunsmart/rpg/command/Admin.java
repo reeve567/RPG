@@ -20,7 +20,7 @@ import me.imunsmart.rpg.command.admincommands.rpg.give.GiveGems;
 import me.imunsmart.rpg.command.admincommands.rpg.give.GiveItem;
 import me.imunsmart.rpg.command.admincommands.rpg.give.GiveScraps;
 import me.imunsmart.rpg.command.admincommands.rpg.give.GiveWeapon;
-import me.imunsmart.rpg.command.admincommands.rpg.give.LootChest;
+import me.imunsmart.rpg.command.admincommands.rpg.give.LootChestC;
 import me.imunsmart.rpg.command.admincommands.rpg.mechanics.SpawnMob;
 import me.imunsmart.rpg.command.admincommands.rpg.mechanics.Spawner;
 import net.md_5.bungee.api.ChatColor;
@@ -128,7 +128,7 @@ public class Admin implements CommandExecutor {
 		} else if (label.equalsIgnoreCase("stats")) {
 			CStats.run(p, args);
 		} else if (label.equalsIgnoreCase("lootchest") || label.equalsIgnoreCase("lc")) {
-			LootChest.run(p, args);
+			LootChestC.run(p, args);
 		} else if (label.equalsIgnoreCase("inventory") || label.equalsIgnoreCase("inv")) {
 			InventoryC.run(p, args);
 		}
