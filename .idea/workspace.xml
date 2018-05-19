@@ -2,26 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="92737b64-0c38-4149-a781-1628c710ce8e" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ser/plugins/RPG.jar" beforeDir="false" afterPath="$PROJECT_DIR$/ser/plugins/RPG.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ser/server.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ser/server.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ser/spigot.yml" beforeDir="false" afterPath="$PROJECT_DIR$/ser/spigot.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ser/usercache.json" beforeDir="false" afterPath="$PROJECT_DIR$/ser/usercache.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ser/world/region/r.-1.0.mca" beforeDir="false" afterPath="$PROJECT_DIR$/ser/world/region/r.-1.0.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ser/world/region/r.0.0.mca" beforeDir="false" afterPath="$PROJECT_DIR$/ser/world/region/r.0.0.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ser/world/session.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ser/world/session.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ser/world/stats/5c69a18a-cdcd-4a7b-b678-85b70efdf0b1.json" beforeDir="false" afterPath="$PROJECT_DIR$/ser/world/stats/5c69a18a-cdcd-4a7b-b678-85b70efdf0b1.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ser/world/stats/e17b9519-a0de-4913-9e35-9341dec23cc5.json" beforeDir="false" afterPath="$PROJECT_DIR$/ser/world/stats/e17b9519-a0de-4913-9e35-9341dec23cc5.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ser/world_nether/DIM-1/region/r.-1.-1.mca" beforeDir="false" afterPath="$PROJECT_DIR$/ser/world_nether/DIM-1/region/r.-1.-1.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ser/world_nether/DIM-1/region/r.-1.0.mca" beforeDir="false" afterPath="$PROJECT_DIR$/ser/world_nether/DIM-1/region/r.-1.0.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ser/world_nether/DIM-1/region/r.0.-1.mca" beforeDir="false" afterPath="$PROJECT_DIR$/ser/world_nether/DIM-1/region/r.0.-1.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ser/world_nether/DIM-1/region/r.0.0.mca" beforeDir="false" afterPath="$PROJECT_DIR$/ser/world_nether/DIM-1/region/r.0.0.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ser/world_nether/session.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ser/world_nether/session.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ser/world_the_end/DIM1/region/r.-1.-1.mca" beforeDir="false" afterPath="$PROJECT_DIR$/ser/world_the_end/DIM1/region/r.-1.-1.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ser/world_the_end/DIM1/region/r.-1.0.mca" beforeDir="false" afterPath="$PROJECT_DIR$/ser/world_the_end/DIM1/region/r.-1.0.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ser/world_the_end/DIM1/region/r.0.-1.mca" beforeDir="false" afterPath="$PROJECT_DIR$/ser/world_the_end/DIM1/region/r.0.-1.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ser/world_the_end/DIM1/region/r.0.0.mca" beforeDir="false" afterPath="$PROJECT_DIR$/ser/world_the_end/DIM1/region/r.0.0.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ser/world_the_end/session.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ser/world_the_end/session.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Health.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Health.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ser/plugins/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/ser/plugins/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/command/admincommands/rpg/give/GiveItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/command/admincommands/rpg/give/GiveItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/events/PlayerEvents.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/events/PlayerEvents.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Items.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Items.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/util/CustomItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/util/CustomItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/util/MessagesUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/util/MessagesUtil.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -38,11 +26,60 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Health.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Health.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Health.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="217" column="48" selection-start-line="217" selection-start-column="48" selection-end-line="217" selection-end-column="48" />
+            <state relative-caret-position="425">
+              <caret line="227" lean-forward="true" selection-start-line="227" selection-end-line="227" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MessagesUtil.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/util/MessagesUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="49" lean-forward="true" selection-start-line="4" selection-start-column="49" selection-end-line="4" selection-end-column="49" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Items.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Items.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="320">
+              <caret line="177" column="34" lean-forward="true" selection-start-line="177" selection-start-column="34" selection-end-line="177" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CustomItem.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/util/CustomItem.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="30" lean-forward="true" selection-start-column="30" selection-end-column="30" />
+              <folding>
+                <element signature="e#773#774#0" expanded="true" />
+                <element signature="e#803#804#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PlayerEvents.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/events/PlayerEvents.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="595">
+              <caret line="138" column="132" lean-forward="true" selection-start-line="138" selection-start-column="132" selection-end-line="138" selection-end-column="132" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GiveItem.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/command/admincommands/rpg/give/GiveItem.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="18" column="99" lean-forward="true" selection-start-line="18" selection-start-column="99" selection-end-line="18" selection-end-column="99" />
             </state>
           </provider>
         </entry>
@@ -65,6 +102,9 @@
       <find>System</find>
       <find>stand</find>
       <find>setScore</find>
+      <find>bank note</find>
+      <find>shift</find>
+      <find>use</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -79,7 +119,6 @@
         <option value="$PROJECT_DIR$/src/main/resources/plugin.yml" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/events/DamageEvents.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/ActionBar.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Items.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Potions.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Repairing.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/util/AutoBroadcaster.java" />
@@ -97,22 +136,24 @@
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/util/InventoryUtility.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/util/ClassCheckTask.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/classes/Class.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/events/PlayerEvents.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/util/CustomItem.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/classes/ClassManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/TitleMessage.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/classes/ClassSelector.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mobs/Mob.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mobs/EntityManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/NPC.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/BelowName.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mobs/Constants.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Bank.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Nametags.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Stats.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/util/MessagesUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Health.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/NPC.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/util/MessagesUtil.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/util/CustomItem.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Items.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/command/admincommands/rpg/give/GiveItem.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/events/PlayerEvents.java" />
       </list>
     </option>
   </component>
@@ -210,6 +251,48 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="rpg" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RPG" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RPG" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="rpg" type="462c0819:PsiDirectoryNode" />
+              <item name="command" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RPG" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RPG" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="rpg" type="462c0819:PsiDirectoryNode" />
+              <item name="command" type="462c0819:PsiDirectoryNode" />
+              <item name="admincommands" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RPG" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RPG" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="rpg" type="462c0819:PsiDirectoryNode" />
+              <item name="command" type="462c0819:PsiDirectoryNode" />
+              <item name="admincommands" type="462c0819:PsiDirectoryNode" />
+              <item name="rpg" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RPG" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RPG" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="rpg" type="462c0819:PsiDirectoryNode" />
+              <item name="command" type="462c0819:PsiDirectoryNode" />
+              <item name="admincommands" type="462c0819:PsiDirectoryNode" />
+              <item name="rpg" type="462c0819:PsiDirectoryNode" />
+              <item name="give" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="RPG" type="b2602c69:ProjectViewProjectNode" />
@@ -400,10 +483,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34506000" />
+    <option name="totallyTimeSpent" value="38730000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -411,10 +495,10 @@
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50104165" side_tool="true" weight="0.19604146" />
-      <window_info anchor="right" id="Maven Projects" order="3" visible="true" weight="0.15052083" />
+      <window_info active="true" anchor="right" id="Maven Projects" order="3" visible="true" weight="0.15052083" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32923833" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49895832" visible="true" weight="0.19604146" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49895832" weight="0.19604146" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
@@ -471,8 +555,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/classes/ClassManager.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/classes/Class.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1173">
@@ -554,7 +636,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Classes.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/classes/Class.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Repairing.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -562,14 +643,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Items.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1241">
-          <caret line="130" column="19" lean-forward="true" selection-start-line="130" selection-start-column="19" selection-end-line="130" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/util/CustomItem.java" />
     <entry file="jar://$PROJECT_DIR$/lib/spigot.jar!/net/minecraft/server/v1_12_R1/ChatMessageType.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="239">
@@ -641,13 +714,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/NPC.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="54" column="31" selection-start-line="54" selection-start-column="31" selection-end-line="54" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/GlobalMarket.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-493">
@@ -659,13 +725,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/util/MessagesUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="46" selection-start-line="21" selection-start-column="46" selection-end-line="21" selection-end-column="46" />
         </state>
       </provider>
     </entry>
@@ -709,24 +768,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/classes/ClassManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="42" column="29" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/events/PlayerEvents.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="75" column="8" selection-start-line="75" selection-start-column="8" selection-end-line="75" selection-end-column="25" />
-          <folding>
-            <element signature="e#2485#2647#0" expanded="true" />
-            <element signature="e#2646#2647#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="623">
@@ -734,17 +775,88 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Health.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="227" lean-forward="true" selection-start-line="227" selection-end-line="227" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/NPC.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1921">
+          <caret line="135" column="6" selection-start-line="135" selection-start-column="6" selection-end-line="135" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/classes/Class.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/classes/ClassManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="42" column="29" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/classes/ClassSelector.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
+        <state relative-caret-position="697">
           <caret line="55" column="26" selection-start-line="55" selection-start-column="26" selection-end-line="55" selection-end-column="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Health.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/util/MessagesUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="217" column="48" selection-start-line="217" selection-start-column="48" selection-end-line="217" selection-end-column="48" />
+        <state relative-caret-position="68">
+          <caret line="4" column="49" lean-forward="true" selection-start-line="4" selection-start-column="49" selection-end-line="4" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/spigot.jar!/org/bukkit/inventory/ItemStack.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="148" column="16" selection-start-line="148" selection-start-column="16" selection-end-line="148" selection-end-column="16" />
+          <folding>
+            <element signature="e#3802#3803#0" expanded="true" />
+            <element signature="e#3838#3839#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/util/CustomItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="30" lean-forward="true" selection-start-column="30" selection-end-column="30" />
+          <folding>
+            <element signature="e#773#774#0" expanded="true" />
+            <element signature="e#803#804#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/command/admincommands/rpg/give/GiveItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="18" column="99" lean-forward="true" selection-start-line="18" selection-start-column="99" selection-end-line="18" selection-end-column="99" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/events/PlayerEvents.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="595">
+          <caret line="138" column="132" lean-forward="true" selection-start-line="138" selection-start-column="132" selection-end-line="138" selection-end-column="132" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Items.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="177" column="34" lean-forward="true" selection-start-line="177" selection-start-column="34" selection-end-line="177" selection-end-column="34" />
         </state>
       </provider>
     </entry>

@@ -15,6 +15,10 @@ public class GiveItem {
 				tp.getInventory().addItem(Items.createPotion(tier));
 				p.sendMessage(ChatColor.GREEN + "Item created successfully.");
 			}
+			else if (args[0].equalsIgnoreCase("scroll") || args[0].equalsIgnoreCase("teleportscroll")) {
+				tp.getInventory().addItem(Items.createTeleportationScroll(Integer.parseInt(args[1])));
+				p.sendMessage(ChatColor.GREEN + "Item created successfully.");
+			}
 		} else {
 			p.sendMessage(ChatColor.RED + "Usage: /giveitem <type> <data>");
 		}

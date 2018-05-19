@@ -4,7 +4,6 @@ me\imunsmart\rpg\mechanics\Health$1.class
 me\imunsmart\rpg\command\admincommands\rpg\give\GiveArmor.class
 me\imunsmart\rpg\mobs\EntityManager.class
 me\imunsmart\rpg\events\PlayerEvents$3.class
-me\imunsmart\rpg\mechanics\classes\ClassManager$1.class
 me\imunsmart\rpg\mechanics\classes\ClassManager.class
 me\imunsmart\rpg\mechanics\RepairMenu.class
 me\imunsmart\rpg\events\Spawner.class
@@ -45,7 +44,6 @@ me\imunsmart\rpg\util\AutoBroadcaster.class
 me\imunsmart\rpg\util\PacketUtil.class
 me\imunsmart\rpg\mechanics\Data.class
 me\imunsmart\rpg\events\PlayerEvents$2.class
-me\imunsmart\rpg\mechanics\classes\ClassManager$2.class
 me\imunsmart\rpg\command\admincommands\playermoderation\Kick.class
 me\imunsmart\rpg\mechanics\Repairing.class
 me\imunsmart\rpg\command\admincommands\rpg\mechanics\SpawnMob.class
@@ -57,6 +55,7 @@ me\imunsmart\rpg\mechanics\GlobalMarket.class
 me\imunsmart\rpg\util\InventoryUtility.class
 me\imunsmart\rpg\command\admincommands\rpg\give\GiveItem.class
 me\imunsmart\rpg\Main.class
+me\imunsmart\rpg\mechanics\NPCEntity.class
 me\imunsmart\rpg\command\Admin.class
 me\imunsmart\rpg\command\admincommands\rpg\give\CStats.class
 me\imunsmart\rpg\util\StringUtility.class

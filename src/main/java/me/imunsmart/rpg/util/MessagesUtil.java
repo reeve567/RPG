@@ -2,7 +2,7 @@ package me.imunsmart.rpg.util;
 
 public class MessagesUtil {
 	
-	public static final String classMenuTitle = "Â§7Class Selector";
+	public static final String classMenuTitle = "§7Class Selector";
 	
 	//bank ones with no variables
 	public static final String notEnoughSpace = prefix('c') + "§cYou don't have space for that. Try emptying space or using a gem note.";
@@ -19,7 +19,7 @@ public class MessagesUtil {
 	}
 	
 	private static String prefix(char color) {
-		return "§8(§" + color + "§li§8) §7»»";
+		return "§8(§" + color + "§li§8) §7»» ";
 	}
 	
 	public static String bankUpgradeNotEnoughGems(int amount) {

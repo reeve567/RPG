@@ -1,5 +1,7 @@
 package me.imunsmart.rpg.events;
 
+import me.imunsmart.rpg.mechanics.*;
+import me.imunsmart.rpg.mobs.Constants;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
@@ -22,12 +24,6 @@ import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import me.imunsmart.rpg.Main;
-import me.imunsmart.rpg.mechanics.ActionBar;
-import me.imunsmart.rpg.mechanics.Bank;
-import me.imunsmart.rpg.mechanics.Nametags;
-import me.imunsmart.rpg.mechanics.GlobalMarket;
-import me.imunsmart.rpg.mechanics.Health;
-import me.imunsmart.rpg.mechanics.Stats;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
 import net.minecraft.server.v1_12_R1.PacketPlayInClientCommand;
@@ -137,7 +133,17 @@ public class PlayerEvents implements Listener {
 				if (e.getItem().getType() == Material.EMPTY_MAP) {
 					if (e.getItem().hasItemMeta())
 						e.setCancelled(true);
+					return;
 				}
+				if (e.getItem().getType() == Material.BOOK && e.getPlayer().isSneaking()) {
+					if (e.getItem().hasItemMeta() && e.getItem().getItemMeta().hasLore() && e.getItem().getItemMeta().getLore().size() == 4) {
+						Items.useItem(e.getPlayer());
+						e.getPlayer().teleport(Util.spawn);
+						new TitleMessage("§aTeleported to spawn").sendToPlayer(e.getPlayer());
+						e.setCancelled(true);
+					}
+				}
+				
 			}
 		}
 		if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
