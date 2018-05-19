@@ -48,7 +48,6 @@ me\imunsmart\rpg\command\admincommands\playermoderation\Kick.class
 me\imunsmart\rpg\mechanics\Repairing.class
 me\imunsmart\rpg\command\admincommands\rpg\mechanics\SpawnMob.class
 me\imunsmart\rpg\mechanics\classes\Class.class
-me\imunsmart\rpg\mechanics\BelowName.class
 me\imunsmart\rpg\util\AutoBroadcaster$1.class
 me\imunsmart\rpg\util\Glow.class
 me\imunsmart\rpg\command\admincommands\playermoderation\Suicide.class
@@ -61,6 +60,7 @@ me\imunsmart\rpg\command\admincommands\rpg\give\CStats.class
 me\imunsmart\rpg\util\StringUtility.class
 me\imunsmart\rpg\mechanics\RepairMenu$1.class
 me\imunsmart\rpg\events\DamageEvents.class
+me\imunsmart\rpg\mechanics\Nametags.class
 me\imunsmart\rpg\events\WorldEvents.class
 me\imunsmart\rpg\util\PlayerSkull.class
 me\imunsmart\rpg\mechanics\Potions.class
