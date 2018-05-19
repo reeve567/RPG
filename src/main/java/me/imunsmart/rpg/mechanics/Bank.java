@@ -1,13 +1,10 @@
 package me.imunsmart.rpg.mechanics;
 
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-=======
->>>>>>> da949db469740a478dae16ae147d2523df00f688
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.util.MessagesUtil;
 import net.md_5.bungee.api.ChatColor;
@@ -42,11 +39,6 @@ public class Bank implements Listener {
 		this.pl = pl;
 		Bukkit.getPluginManager().registerEvents(this, pl);
 	}
-<<<<<<< HEAD
-
-=======
-	
->>>>>>> da949db469740a478dae16ae147d2523df00f688
 	public static void depositGems(Player p) {
 		int gems = getGems(p);
 		for (int i = 0; i < p.getInventory().getSize(); i++) {
@@ -205,15 +197,9 @@ public class Bank implements Listener {
 					int space = stacks;
 					if (gems > 0)
 						space++;
-<<<<<<< HEAD
 					if (!hasSpaceGems(p, total)) {
 						withdraw.remove(p.getName());
 						p.sendMessage(MessagesUtil.notEnoughSpace);
-=======
-					if (!hasSpace(p, space)) {
-						p.sendMessage(MessagesUtil.notEnoughSpace);
-						withdraw.remove(p.getName());
->>>>>>> da949db469740a478dae16ae147d2523df00f688
 						return;
 					}
 					for (int i = 0; i < stacks; i++) {
