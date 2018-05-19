@@ -11,13 +11,9 @@ public class Constants {
 	// T1
 	public static final int MIN_DAMAGE_1 = 1;
 	public static final int MAX_DAMAGE_1 = 8;
-<<<<<<< HEAD
+	
 	public static final double MAX_REGEN_1 = 0.19;
 
-=======
-	public static final double MAX_REGEN_1 = 0.1;
-	
->>>>>>> da949db469740a478dae16ae147d2523df00f688
 	public static final int MAX_HEALTH_1B = 12;
 	public static final int MAX_HEALTH_1L = 25;
 	public static final int MAX_HEALTH_1C = 30;
@@ -28,13 +24,9 @@ public class Constants {
 	// T2
 	public static final int MIN_DAMAGE_2 = 4 * MIN_DAMAGE_1;
 	public static final int MAX_DAMAGE_2 = 4 * MAX_DAMAGE_1;
-<<<<<<< HEAD
+	
 	public static final double MAX_REGEN_2 = 0.2;
 
-=======
-	public static final double MAX_REGEN_2 = 0.11;
-	
->>>>>>> da949db469740a478dae16ae147d2523df00f688
 	public static final int MAX_HEALTH_2B = 4 * MAX_HEALTH_1B;
 	public static final int MAX_HEALTH_2L = 4 * MAX_HEALTH_1L;
 	public static final int MAX_HEALTH_2C = 4 * MAX_HEALTH_1C;
@@ -45,13 +37,9 @@ public class Constants {
 	// T3
 	public static final int MIN_DAMAGE_3 = 4 * MIN_DAMAGE_2;
 	public static final int MAX_DAMAGE_3 = 4 * MAX_DAMAGE_2;
-<<<<<<< HEAD
+	
 	public static final double MAX_REGEN_3 = 0.21;
 
-=======
-	public static final double MAX_REGEN_3 = 0.12;
-	
->>>>>>> da949db469740a478dae16ae147d2523df00f688
 	public static final int MAX_HEALTH_3B = 4 * MAX_HEALTH_2B;
 	public static final int MAX_HEALTH_3L = 4 * MAX_HEALTH_2L;
 	public static final int MAX_HEALTH_3C = 4 * MAX_HEALTH_2C;
@@ -62,13 +50,9 @@ public class Constants {
 	// T4
 	public static final int MIN_DAMAGE_4 = 4 * MIN_DAMAGE_3;
 	public static final int MAX_DAMAGE_4 = 4 * MAX_DAMAGE_3;
-<<<<<<< HEAD
-	public static final double MAX_REGEN_4 = 0.22;
-
-=======
-	public static final double MAX_REGEN_4 = 0.14;
 	
->>>>>>> da949db469740a478dae16ae147d2523df00f688
+	public static final double MAX_REGEN_4 = 0.22;
+	
 	public static final int MAX_HEALTH_4B = 4 * MAX_HEALTH_3B;
 	public static final int MAX_HEALTH_4L = 4 * MAX_HEALTH_3L;
 	public static final int MAX_HEALTH_4C = 4 * MAX_HEALTH_3C;
@@ -79,13 +63,9 @@ public class Constants {
 	// T5
 	public static final int MIN_DAMAGE_5 = 4 * MIN_DAMAGE_4;
 	public static final int MAX_DAMAGE_5 = 4 * MAX_DAMAGE_4;
-<<<<<<< HEAD
+	
 	public static final double MAX_REGEN_5 = 0.23;
 
-=======
-	public static final double MAX_REGEN_5 = 0.16;
-	
->>>>>>> da949db469740a478dae16ae147d2523df00f688
 	public static final int MAX_HEALTH_5B = 4 * MAX_HEALTH_4B;
 	public static final int MAX_HEALTH_5L = 4 * MAX_HEALTH_4L;
 	public static final int MAX_HEALTH_5C = 4 * MAX_HEALTH_4C;
@@ -94,13 +74,8 @@ public class Constants {
 	public static final int MAX_T5_GEMS = 64;
 	
 	// Levels
-<<<<<<< HEAD
 	public static final int[] LEVEL_REQ = { 0, 10, 20, 30, 50 };
 
-=======
-	public static final int[] LEVEL_REQ = {0, 5, 10, 20, 30};
-	
->>>>>>> da949db469740a478dae16ae147d2523df00f688
 	// Zombies
 	private static final String[] zt1 = {"Rotting Zombie", "Dying Zombie", "Scattered Zombie", "Weak Zombie"};
 	private static final String[] zt2 = {"Creepy Zombie", "Smart Zombie", "Cool Zombie", "Undead Zombie"};

@@ -46,9 +46,8 @@ public class Main extends JavaPlugin {
 				new ServerEvents(this),
 				new SignEvents(this),
 				new Repairing(this),
-				new Potions(this),
-				new ClassManager(this),
-				new ClassSelector());
+				new Potions(this)
+				);
 		
 		new EntityManager(this);
 		npc = new NPC(this);
@@ -100,7 +99,6 @@ public class Main extends JavaPlugin {
 		new AutoBroadcaster(this);
 		
 		new Stats(this);
-		new ClassSelector();
 		
 		Health.task(this);
 	}

@@ -68,16 +68,7 @@ public class Stats {
 	public static boolean exists(OfflinePlayer p) {
 		return new File(dir, p.getUniqueId() + ".yml").exists();
 	}
-<<<<<<< HEAD
-
-=======
 	
-	public static Class getClass(OfflinePlayer p) {
-		String v = getString(p, "class");
-		return v.equals("") ? null : Class.valueOf(v);
-	}
-	
->>>>>>> da949db469740a478dae16ae147d2523df00f688
 	public static double getDouble(OfflinePlayer p, String id) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
@@ -115,9 +106,6 @@ public class Stats {
 			return new ArrayList<>();
 		return fc.getStringList(id);
 	}
-<<<<<<< HEAD
-
-=======
 	
 	public static String getString(OfflinePlayer p, String id) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
@@ -127,7 +115,6 @@ public class Stats {
 		return fc.getString(id);
 	}
 	
->>>>>>> da949db469740a478dae16ae147d2523df00f688
 	public static void levelUp(OfflinePlayer p) {
 		int l = getLevel(p) + 1;
 		addStat(p, "level", 1);
@@ -154,16 +141,7 @@ public class Stats {
 		if (f.exists())
 			f.delete();
 	}
-<<<<<<< HEAD
-
-=======
 	
-	public static void setClassType(OfflinePlayer player, Class clazz) {
-		setStat(player, "class", clazz.toString());
-		
-	}
-	
->>>>>>> da949db469740a478dae16ae147d2523df00f688
 	public static void setStat(OfflinePlayer p, String id, Object o) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
