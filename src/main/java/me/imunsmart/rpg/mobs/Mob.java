@@ -135,7 +135,11 @@ public class Mob {
 		for (String s : hits.keySet()) {
 			Player p = Bukkit.getPlayer(s);
 			if (p != null) {
-				Stats.addXP(p, 1 + (int) (((double) hits.get(s) / hitsTaken) * (Math.random() * (24 * tier))));
+				double perc = (double) hits.get(s) / hitsTaken;
+				double xp = Math.pow(1.75, tier) * 6;
+				double bonus = 1 + ((double) Constants.LEVEL_REQ[tier - 1] / Stats.getLevel(p)) / 100.0;
+				double totalXP = perc * Math.random() * xp * bonus;
+				Stats.addXP(p, (int) totalXP);
 			}
 		}
 		hits.clear();

@@ -56,13 +56,13 @@ public class RepairMenu implements Listener {
 						if (scraps != null) {
 							short data = scraps.getDurability();
 							if (data == 8)
-								rp = 0.02;
-							if (data == 7)
 								rp = 0.03;
-							if (data == 12)
-								rp = 0.04;
-							if (data == 11)
+							if (data == 7)
 								rp = 0.05;
+							if (data == 12)
+								rp = 0.08;
+							if (data == 11)
+								rp = 0.14;
 							rp *= scraps.getAmount();
 							if (scraps.getType() != Material.INK_SACK)
 								rp = 0;

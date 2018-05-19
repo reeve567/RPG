@@ -177,7 +177,8 @@ public class Health {
 				for (Player p : Bukkit.getOnlinePlayers()) {
 					p.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(Double.MAX_VALUE);
 					p.setLevel(Stats.getInt(p, "level", 1));
-					p.setExp((float) Stats.getInt(p, "xp", 0) / (Util.neededXP(p)));
+					float xp = Math.min((float) Stats.getInt(p, "xp", 0) / (Util.neededXP(p)), 1);
+					p.setExp(xp);
 					if (!health.containsKey(p.getName())) {
 						health.put(p.getName(), calculateMaxHealth(p));
 					}

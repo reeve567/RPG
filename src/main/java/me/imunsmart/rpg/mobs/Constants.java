@@ -10,7 +10,7 @@ public class Constants {
 	
 	// T1
 	public static final int MIN_DAMAGE_1 = 1;
-	public static final int MAX_DAMAGE_1 = 8;
+	public static final int MAX_DAMAGE_1 = 6;
 	
 	public static final double MAX_REGEN_1 = 0.19;
 
@@ -179,7 +179,7 @@ public class Constants {
 		String flag = "";
 		double perc = Math.random();
 		if (Math.random() < 0.1) {
-			flag += "Critical:" + (int) (Math.random() * 25 + 1) + "%";
+			flag += "Critical:" + (int) (Math.random() * 25 + 1) + "%,";
 		}
 		if (perc >= 0.1 && perc < 0.2)
 			flag += "uncommon";

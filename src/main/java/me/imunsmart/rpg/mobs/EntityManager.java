@@ -92,7 +92,8 @@ public class EntityManager implements Listener {
 	private void incWep(Player p, ItemStack i) {
 		if (i == null)
 			return;
-		weapon.put(p.getName(), weapon.containsKey(p.getName()) ? weapon.get(p.getName()) + 1 : 1);
+		int w = weapon.containsKey(p.getName()) ? weapon.get(p.getName()) + 1 : 1;
+		weapon.put(p.getName(), w);
 		int v = i.getType().name().contains("AXE") ? 2 : 1;
 		i.setDurability((short) (i.getDurability() - v));
 		if (i.getType().name().contains("GOLD") && weapon.get(p.getName()) >= 100) {

@@ -19,8 +19,8 @@ public class Util {
 	public static final int[] s_radi = { 25, };
 	public static final Location[] safeZones = { spawn };
 
-	public static final int[] p_radi = {};
-	public static final Location[] pvpZones = {};
+	public static final int[] p_radi = { 25 };
+	public static final Location[] pvpZones = { new Location(w, 88, 64, -27) }  ;
 
 	public static float baseXP = 200;
 	public static float mult = 1.095f;

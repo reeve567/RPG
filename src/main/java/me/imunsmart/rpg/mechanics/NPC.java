@@ -65,8 +65,8 @@ public class NPC implements Listener {
 
 	@EventHandler
 	public void onDamage(EntityDamageEvent e) {
-		if (e instanceof LivingEntity) {
-			LivingEntity le = (LivingEntity) e;
+		if (e.getEntity() instanceof LivingEntity) {
+			LivingEntity le = (LivingEntity) e.getEntity();
 			if (le.getScoreboardTags().contains("npc")) {
 				e.setCancelled(true);
 				e.setDamage(0);
@@ -76,11 +76,9 @@ public class NPC implements Listener {
 
 	@EventHandler
 	public void onInteract(PlayerInteractEntityEvent e) {
-		if (e instanceof LivingEntity) {
-			System.out.println(1);
-			LivingEntity le = (LivingEntity) e;
+		if (e.getRightClicked() instanceof LivingEntity) {
+			LivingEntity le = (LivingEntity) e.getRightClicked();
 			if (le.getScoreboardTags().contains("npc")) {
-				System.out.println(2);
 				NPCEntity npe = null;
 				for (NPCEntity n : npc) {
 					if (n.getNpc() == le) {
@@ -88,7 +86,6 @@ public class NPC implements Listener {
 						break;
 					}
 				}
-				System.out.println(npe);
 				if (npe == null)
 					return;
 				e.setCancelled(true);
@@ -103,8 +100,8 @@ public class NPC implements Listener {
 
 	@EventHandler
 	public void onTarget(EntityTargetEvent e) {
-		if (e instanceof LivingEntity) {
-			LivingEntity le = (LivingEntity) e;
+		if (e.getEntity() instanceof LivingEntity) {
+			LivingEntity le = (LivingEntity) e.getEntity();
 			if (le.getScoreboardTags().contains("npc")) {
 				e.setCancelled(true);
 				e.setTarget(null);
