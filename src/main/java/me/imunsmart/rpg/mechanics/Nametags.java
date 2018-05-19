@@ -14,7 +14,6 @@ public class Nametags {
 		return mob;
 	}
 	
-	
 	public static void init(Monster p) {
 	
 	}
