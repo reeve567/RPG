@@ -2,7 +2,6 @@ package me.imunsmart.rpg.mobs;
 
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.events.Spawners;
-import me.imunsmart.rpg.mechanics.BelowName;
 import me.imunsmart.rpg.mechanics.Health;
 import me.imunsmart.rpg.mechanics.Items;
 import me.imunsmart.rpg.mechanics.Stats;
@@ -12,7 +11,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 

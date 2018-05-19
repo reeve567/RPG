@@ -216,7 +216,7 @@ public class Health {
 						b.removeAll();
 						b.addPlayer(p);
 					}
-					BelowName.setScore(p, hp);
+					Nametags.setScore(p, hp);
 				}
 				
 				for (int x = 0; x < p.getInventory().getArmorContents().length; x++) {

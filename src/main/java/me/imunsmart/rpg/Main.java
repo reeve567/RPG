@@ -95,7 +95,7 @@ public class Main extends JavaPlugin {
 		registerEvents();
 		registerCommands();
 		registerGlow();
-		BelowName.setupDevTeam();
+		Nametags.setupDevTeam();
 		
 		new AutoBroadcaster(this);
 		

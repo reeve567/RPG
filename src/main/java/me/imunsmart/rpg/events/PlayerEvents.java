@@ -24,7 +24,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.ActionBar;
 import me.imunsmart.rpg.mechanics.Bank;
-import me.imunsmart.rpg.mechanics.BelowName;
+import me.imunsmart.rpg.mechanics.Nametags;
 import me.imunsmart.rpg.mechanics.GlobalMarket;
 import me.imunsmart.rpg.mechanics.Health;
 import me.imunsmart.rpg.mechanics.Stats;
@@ -73,7 +73,7 @@ public class PlayerEvents implements Listener {
 		Player p = e.getPlayer();
 		e.setJoinMessage(ChatColor.AQUA + "+" + ChatColor.GRAY + " " + p.getName());
 		Stats.setStat(p, "name", p.getName());
-		BelowName.init(p);
+		Nametags.init(p);
 		new BukkitRunnable() {
 			@Override
 			public void run() {
