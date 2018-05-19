@@ -7,7 +7,7 @@ import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
 
-public class BelowName {
+public class Nametags {
 	
 	public static Mob addName(Mob mob) {
 		

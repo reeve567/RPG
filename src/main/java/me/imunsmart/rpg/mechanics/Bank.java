@@ -1,10 +1,13 @@
 package me.imunsmart.rpg.mechanics;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+=======
+>>>>>>> da949db469740a478dae16ae147d2523df00f688
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.util.MessagesUtil;
 import net.md_5.bungee.api.ChatColor;
@@ -24,8 +27,10 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import me.imunsmart.rpg.Main;
-import net.md_5.bungee.api.ChatColor;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 public class Bank implements Listener {
 	private static int[] upgradeCosts = { 200, 500, 1000, 2500, 5000 };
@@ -37,7 +42,11 @@ public class Bank implements Listener {
 		this.pl = pl;
 		Bukkit.getPluginManager().registerEvents(this, pl);
 	}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> da949db469740a478dae16ae147d2523df00f688
 	public static void depositGems(Player p) {
 		int gems = getGems(p);
 		for (int i = 0; i < p.getInventory().getSize(); i++) {
@@ -196,9 +205,15 @@ public class Bank implements Listener {
 					int space = stacks;
 					if (gems > 0)
 						space++;
+<<<<<<< HEAD
 					if (!hasSpaceGems(p, total)) {
 						withdraw.remove(p.getName());
 						p.sendMessage(MessagesUtil.notEnoughSpace);
+=======
+					if (!hasSpace(p, space)) {
+						p.sendMessage(MessagesUtil.notEnoughSpace);
+						withdraw.remove(p.getName());
+>>>>>>> da949db469740a478dae16ae147d2523df00f688
 						return;
 					}
 					for (int i = 0; i < stacks; i++) {
@@ -233,7 +248,11 @@ public class Bank implements Listener {
 			}
 		}
 	}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> da949db469740a478dae16ae147d2523df00f688
 	@EventHandler
 	public void onClick(InventoryClickEvent e) {
 		if (e.getSlotType() == SlotType.OUTSIDE)
@@ -246,7 +265,10 @@ public class Bank implements Listener {
 			if (!e.getCurrentItem().hasItemMeta())
 				return;
 			if (e.getCurrentItem().getItemMeta().getDisplayName().contains("Gems: ")) {
+<<<<<<< HEAD
 				p.sendMessage(ChatColor.GRAY + "Enter the amount you'd like to withdraw or move to cancel.");
+=======
+>>>>>>> da949db469740a478dae16ae147d2523df00f688
 				p.sendMessage(MessagesUtil.bankEnterAmount);
 				withdraw.put(p.getName(), e.getClick() == ClickType.SHIFT_LEFT);
 				p.closeInventory();
@@ -290,7 +312,11 @@ public class Bank implements Listener {
 			}
 		}
 	}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> da949db469740a478dae16ae147d2523df00f688
 	@EventHandler
 	public void onClose(InventoryCloseEvent e) {
 		Player p = (Player) e.getPlayer();

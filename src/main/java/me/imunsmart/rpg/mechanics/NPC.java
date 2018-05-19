@@ -36,34 +36,34 @@ public class NPC implements Listener {
 		init();
 	}
 	
-	private void createNPC(LivingEntity le, String name, String[] texts, Object... data) {
+	public void createNPC(LivingEntity le, String name, String[] texts, Object... data) {
 		le.setCollidable(false);
 		le.setCustomNameVisible(true);
 		le.setCustomName(name);
+		le.addScoreboardTag("npc");
 		if (le instanceof Villager)
 			((Villager) le).setProfession((Profession) data[0]);
 		npc.put(le, new Data(le.getLocation(), texts));
 	}
 	
 	private void init() {
-		createNPC(w.spawn(new Location(w, 2.5, 4, 8.5), IronGolem.class), ChatColor.WHITE.toString() + ChatColor.BOLD + "Bank Guard", guard);
-		createNPC(w.spawn(new Location(w, -1.5, 4, 8.5), IronGolem.class), ChatColor.WHITE.toString() + ChatColor.BOLD + "Bank Guard", guard);
+		//createNPC(w.spawn(new Location(w, 2.5, 4, 8.5), IronGolem.class), ChatColor.WHITE.toString() + ChatColor.BOLD + "Bank Guard", guard);
+		//createNPC(w.spawn(new Location(w, -1.5, 4, 8.5), IronGolem.class), ChatColor.WHITE.toString() + ChatColor.BOLD + "Bank Guard", guard);
 		
-		createNPC(w.spawn(new Location(w, -7.5, 4, -0.5), Villager.class), ChatColor.GREEN.toString() + ChatColor.BOLD + "Banker", banker, Profession.LIBRARIAN);
-		createNPC(w.spawn(new Location(w, 8.5, 4, -0.5), Villager.class), ChatColor.GREEN.toString() + ChatColor.BOLD + "Banker", banker, Profession.LIBRARIAN);
-		createNPC(w.spawn(new Location(w, 0.5, 4, -8.5), Villager.class), ChatColor.GREEN.toString() + ChatColor.BOLD + "Banker", banker, Profession.LIBRARIAN);
+		//createNPC(w.spawn(new Location(w, -7.5, 4, -0.5), Villager.class), ChatColor.GREEN.toString() + ChatColor.BOLD + "Banker", banker, Profession.LIBRARIAN);
+		//createNPC(w.spawn(new Location(w, 8.5, 4, -0.5), Villager.class), ChatColor.GREEN.toString() + ChatColor.BOLD + "Banker", banker, Profession.LIBRARIAN);
+		//createNPC(w.spawn(new Location(w, 0.5, 4, -8.5), Villager.class), ChatColor.GREEN.toString() + ChatColor.BOLD + "Banker", banker, Profession.LIBRARIAN);
 		
-		createNPC(w.spawn(new Location(w, -10.5, 4, 19.5), Villager.class), ChatColor.GOLD.toString() + ChatColor.BOLD + "Blacksmith", smither, Profession.BLACKSMITH);
+		//createNPC(w.spawn(new Location(w, -10.5, 4, 19.5), Villager.class), ChatColor.GOLD.toString() + ChatColor.BOLD + "Blacksmith", smither, Profession.BLACKSMITH);
 		
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(pl, new Runnable() {
-			@Override
-			public void run() {
-				for (LivingEntity le : npc.keySet()) {
-					le.removePotionEffect(PotionEffectType.SLOW);
-					le.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 200, 255));
-					if (le.getLocation().getX() != npc.get(le).l.getX() || le.getLocation().getY() != npc.get(le).l.getY() || le.getLocation().getZ() != npc.get(le).l.getZ())
-						le.teleport(npc.get(le).l);
-				}
+		createNPC(w.spawn(new Location(w,6,63,-11),Villager.class), "market-man",new String[0],Profession.LIBRARIAN);
+		
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(pl, () -> {
+			for (LivingEntity le : npc.keySet()) {
+				le.removePotionEffect(PotionEffectType.SLOW);
+				le.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 200, 255));
+				if (le.getLocation().getX() != npc.get(le).l.getX() || le.getLocation().getY() != npc.get(le).l.getY() || le.getLocation().getZ() != npc.get(le).l.getZ())
+					le.teleport(npc.get(le).l);
 			}
 		}, 0, 5);
 	}
@@ -82,6 +82,9 @@ public class NPC implements Listener {
 			e.setCancelled(true);
 			int r = (int) (Math.random() * npc.get(e.getRightClicked()).texts.length);
 			e.getPlayer().sendMessage(e.getRightClicked().getCustomName() + ChatColor.WHITE + ": " + npc.get(e.getRightClicked()).texts[r]);
+			if (e.getRightClicked().getScoreboardTags().contains("npc")) {
+				GlobalMarket.open(e.getPlayer());
+			}
 		}
 	}
 	

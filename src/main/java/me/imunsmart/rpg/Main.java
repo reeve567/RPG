@@ -3,6 +3,8 @@ package me.imunsmart.rpg;
 import me.imunsmart.rpg.command.Admin;
 import me.imunsmart.rpg.events.*;
 import me.imunsmart.rpg.mechanics.*;
+import me.imunsmart.rpg.mechanics.classes.ClassManager;
+import me.imunsmart.rpg.mechanics.classes.ClassSelector;
 import me.imunsmart.rpg.mechanics.loot.LootChests;
 import me.imunsmart.rpg.mobs.EntityManager;
 import me.imunsmart.rpg.util.AutoBroadcaster;
@@ -17,34 +19,11 @@ import java.util.logging.Level;
 
 public class Main extends JavaPlugin {
 	
+	private static NPC npc;
 	public LootChests lc;
-	private NPC npc;
 	
-	@Override
-	public void onDisable() {
-		Health.disable();
-		EntityManager.disable();
-		EntityManager.pl = null;
-		Spawners.disable();
-		
-		lc.disable();
-		
-		super.onDisable();
-	}
-	
-	@Override
-	public void onEnable() {
-		super.onEnable();
-		
-		registerEvents();
-		registerCommands();
-		registerGlow();
-		
-		new AutoBroadcaster(this);
-		
-		new Stats(this);
-		
-		Health.task(this);
+	public static NPC getNpc() {
+		return npc;
 	}
 	
 	private void register(Listener... listeners) {
@@ -67,10 +46,12 @@ public class Main extends JavaPlugin {
 				new ServerEvents(this),
 				new SignEvents(this),
 				new Repairing(this),
-				new Potions(this));
+				new Potions(this),
+				new ClassManager(this),
+				new ClassSelector());
 		
 		new EntityManager(this);
-		// npc = new NPC(this);
+		npc = new NPC(this);
 		new Bank(this);
 		new RepairMenu(this);
 		new Spawners(this);
@@ -93,6 +74,35 @@ public class Main extends JavaPlugin {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	public void onDisable() {
+		Health.disable();
+		EntityManager.disable();
+		EntityManager.pl = null;
+		Spawners.disable();
+		
+		lc.disable();
+		
+		super.onDisable();
+	}
+	
+	@Override
+	public void onEnable() {
+		super.onEnable();
+		
+		registerEvents();
+		registerCommands();
+		registerGlow();
+		Nametags.setupDevTeam();
+		
+		new AutoBroadcaster(this);
+		
+		new Stats(this);
+		new ClassSelector();
+		
+		Health.task(this);
 	}
 	
 }

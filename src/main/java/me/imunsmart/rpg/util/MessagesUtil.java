@@ -2,6 +2,8 @@ package me.imunsmart.rpg.util;
 
 public class MessagesUtil {
 	
+	public static final String classMenuTitle = "Â§7Class Selector";
+	
 	//bank ones with no variables
 	public static final String notEnoughSpace = prefix('c') + "§cYou don't have space for that. Try emptying space or using a gem note.";
 	public static final String bankUpgradeSuccess = prefix('a') + "Successfully upgraded bank by §a9§7 slots.";
