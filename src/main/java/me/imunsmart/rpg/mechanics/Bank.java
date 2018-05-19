@@ -1,5 +1,13 @@
 package me.imunsmart.rpg.mechanics;
 
+<<<<<<< HEAD
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
+=======
+>>>>>>> da949db469740a478dae16ae147d2523df00f688
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.util.MessagesUtil;
 import net.md_5.bungee.api.ChatColor;
@@ -25,16 +33,20 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Bank implements Listener {
-	private static int[] upgradeCosts = {200, 500, 1000, 2500, 5000};
+	private static int[] upgradeCosts = { 200, 500, 1000, 2500, 5000 };
 	private HashMap<String, Boolean> withdraw = new HashMap<>();
 	private List<String> upgrade = new ArrayList<>();
 	private Main pl;
-	
+
 	public Bank(Main pl) {
 		this.pl = pl;
 		Bukkit.getPluginManager().registerEvents(this, pl);
 	}
+<<<<<<< HEAD
+
+=======
 	
+>>>>>>> da949db469740a478dae16ae147d2523df00f688
 	public static void depositGems(Player p) {
 		int gems = getGems(p);
 		for (int i = 0; i < p.getInventory().getSize(); i++) {
@@ -54,7 +66,7 @@ public class Bank implements Listener {
 		p.updateInventory();
 		Stats.addStat(p, "gems", gems);
 	}
-	
+
 	public static int getGems(Player p) {
 		int gems = 0;
 		for (int i = 0; i < p.getInventory().getSize(); i++) {
@@ -71,16 +83,29 @@ public class Bank implements Listener {
 		}
 		return gems;
 	}
-	
+
 	public static boolean hasSpace(Player p, int slots) {
-		int free = 0;
-		for (int i = 0; i < p.getInventory().getSize(); i++) {
+		int free = 0; // account for 5 slots always empty
+		for (int i = 0; i < 36; i++) {
 			if (p.getInventory().getItem(i) == null)
 				free++;
 		}
 		return free >= slots;
 	}
-	
+
+	public static boolean hasSpaceGems(Player p, int gems) {
+		int free = 0;
+		for (int i = 0; i < 36; i++) {
+			if (p.getInventory().getItem(i) == null)
+				free += 64;
+			else if (p.getInventory().getItem(i).getType() == Material.DIAMOND) {
+				if (p.getInventory().getItem(i).hasItemMeta() && p.getInventory().getItem(i).getItemMeta().getDisplayName().contains("Gem"))
+					free += 64 - p.getInventory().getItem(i).getAmount();
+			}
+		}
+		return free >= gems;
+	}
+
 	public static void open(Player p) {
 		Inventory inv = Bukkit.createInventory(null, 9, ChatColor.GREEN + p.getName() + "'s Bank");
 		int gems = Stats.getInt(p, "gems");
@@ -88,7 +113,7 @@ public class Bank implements Listener {
 		inv.setItem(8, Items.createItem(Material.CHEST, 1, 0, ChatColor.GOLD + "Storage", "Left click to open."));
 		p.openInventory(inv);
 	}
-	
+
 	public static void openBank(Player p) {
 		int size = Stats.getInt(p, "bank.size", 1);
 		List<String> storage = Stats.getList(p, "bank.storage");
@@ -107,7 +132,7 @@ public class Bank implements Listener {
 		}
 		p.openInventory(inv);
 	}
-	
+
 	public static boolean pay(Player p, int gems) {
 		if (getGems(p) < gems)
 			return false;
@@ -119,10 +144,11 @@ public class Bank implements Listener {
 				if (it.getType() == Material.DIAMOND) {
 					if (gems > it.getAmount()) {
 						gems -= it.getAmount();
-						p.getInventory().remove(it);
+						p.getInventory().setItem(i, null);
 					} else {
 						it.setAmount(it.getAmount() - gems);
 						gems = 0;
+						break;
 					}
 				} else if (it.getType() == Material.EMPTY_MAP) {
 					if (it.hasItemMeta() && it.getItemMeta().getDisplayName().contains("Bank Note")) {
@@ -133,9 +159,10 @@ public class Bank implements Listener {
 							it.setItemMeta(im);
 							p.updateInventory();
 							gems = 0;
+							break;
 						} else {
 							gems -= value;
-							p.getInventory().remove(it);
+							p.getInventory().setItem(i, null);
 						}
 					}
 				}
@@ -144,10 +171,10 @@ public class Bank implements Listener {
 		p.updateInventory();
 		return true;
 	}
-	
+
 	public static void saveBank() {
 	}
-	
+
 	@EventHandler
 	public void onChat(AsyncPlayerChatEvent e) {
 		Player p = e.getPlayer();
@@ -172,14 +199,21 @@ public class Bank implements Listener {
 					p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 2);
 					Stats.setStat(p, "gems", pg - gems);
 				} else {
+					int total = gems;
 					int stacks = gems / 64;
 					gems -= stacks * 64;
 					int space = stacks;
 					if (gems > 0)
 						space++;
+<<<<<<< HEAD
+					if (!hasSpaceGems(p, total)) {
+						withdraw.remove(p.getName());
+						p.sendMessage(MessagesUtil.notEnoughSpace);
+=======
 					if (!hasSpace(p, space)) {
 						p.sendMessage(MessagesUtil.notEnoughSpace);
 						withdraw.remove(p.getName());
+>>>>>>> da949db469740a478dae16ae147d2523df00f688
 						return;
 					}
 					for (int i = 0; i < stacks; i++) {
@@ -214,17 +248,27 @@ public class Bank implements Listener {
 			}
 		}
 	}
+<<<<<<< HEAD
+
+=======
 	
+>>>>>>> da949db469740a478dae16ae147d2523df00f688
 	@EventHandler
 	public void onClick(InventoryClickEvent e) {
 		if (e.getSlotType() == SlotType.OUTSIDE)
 			return;
 		Player p = (Player) e.getWhoClicked();
+		if (e.getCurrentItem() == null)
+			return;
 		if (e.getInventory().getTitle().equals(ChatColor.GREEN + p.getName() + "'s Bank")) {
 			e.setCancelled(true);
 			if (!e.getCurrentItem().hasItemMeta())
 				return;
 			if (e.getCurrentItem().getItemMeta().getDisplayName().contains("Gems: ")) {
+<<<<<<< HEAD
+				p.sendMessage(ChatColor.GRAY + "Enter the amount you'd like to withdraw or move to cancel.");
+=======
+>>>>>>> da949db469740a478dae16ae147d2523df00f688
 				p.sendMessage(MessagesUtil.bankEnterAmount);
 				withdraw.put(p.getName(), e.getClick() == ClickType.SHIFT_LEFT);
 				p.closeInventory();
@@ -268,7 +312,11 @@ public class Bank implements Listener {
 			}
 		}
 	}
+<<<<<<< HEAD
+
+=======
 	
+>>>>>>> da949db469740a478dae16ae147d2523df00f688
 	@EventHandler
 	public void onClose(InventoryCloseEvent e) {
 		Player p = (Player) e.getPlayer();
@@ -280,11 +328,11 @@ public class Bank implements Listener {
 			Stats.setStat(p, "bank.storage", items);
 		}
 	}
-	
+
 	@EventHandler
 	public void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
-		if (e.getTo().getX() != e.getFrom().getX() || e.getTo().getY() != e.getFrom().getY() || e.getTo().getZ() != e.getFrom().getZ()) {
+		if (e.getTo().distanceSquared(e.getFrom()) >= 0.01) {
 			if (withdraw.containsKey(p.getName())) {
 				p.sendMessage(MessagesUtil.moveCancel("withdraw"));
 				withdraw.remove(p.getName());

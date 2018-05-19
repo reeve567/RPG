@@ -18,7 +18,7 @@ import java.util.List;
 
 public class Stats {
 	private static File dir;
-	
+
 	public Stats(Main pl) {
 		dir = new File(pl.getDataFolder() + "/players");
 		if (!pl.getDataFolder().exists())
@@ -26,7 +26,7 @@ public class Stats {
 		if (!dir.exists())
 			dir.mkdirs();
 	}
-	
+
 	// public static Object getStat(Player p, String id) {
 	// File f = new File(dir, p.getUniqueId() + ".yml");
 	// FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
@@ -34,7 +34,7 @@ public class Stats {
 	// return null;
 	// return fc.get(id);
 	// }
-	
+
 	public static void addStat(OfflinePlayer p, String id, int i) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
@@ -45,7 +45,7 @@ public class Stats {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void addXP(OfflinePlayer p, int xp) {
 		int x = getInt(p, "xp", 0);
 		x += xp;
@@ -59,21 +59,25 @@ public class Stats {
 			new ActionBar(ChatColor.YELLOW + "+" + xp + " XP " + ChatColor.GRAY + "[" + ChatColor.YELLOW + x + " / " + (int) (Util.neededXP(p)) + ChatColor.GRAY + "]").sendToPlayer(op);
 		}
 	}
-	
+
 	public static boolean canWield(Player p, int tier) {
 		int level = getLevel(p);
-		return level > Constants.LEVEL_REQ[tier - 1];
+		return level >= Constants.LEVEL_REQ[tier - 1];
 	}
-	
+
 	public static boolean exists(OfflinePlayer p) {
 		return new File(dir, p.getUniqueId() + ".yml").exists();
 	}
+<<<<<<< HEAD
+
+=======
 	
 	public static Class getClass(OfflinePlayer p) {
 		String v = getString(p, "class");
 		return v.equals("") ? null : Class.valueOf(v);
 	}
 	
+>>>>>>> da949db469740a478dae16ae147d2523df00f688
 	public static double getDouble(OfflinePlayer p, String id) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
@@ -81,7 +85,7 @@ public class Stats {
 			return 0.0;
 		return fc.getDouble(id);
 	}
-	
+
 	public static int getInt(OfflinePlayer p, String id) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
@@ -89,7 +93,7 @@ public class Stats {
 			return 0;
 		return fc.getInt(id);
 	}
-	
+
 	public static int getInt(OfflinePlayer p, String id, int df) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
@@ -99,11 +103,11 @@ public class Stats {
 		}
 		return fc.getInt(id);
 	}
-	
+
 	public static int getLevel(OfflinePlayer p) {
 		return getInt(p, "level", 1);
 	}
-	
+
 	public static List<String> getList(OfflinePlayer p, String id) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
@@ -111,6 +115,9 @@ public class Stats {
 			return new ArrayList<>();
 		return fc.getStringList(id);
 	}
+<<<<<<< HEAD
+
+=======
 	
 	public static String getString(OfflinePlayer p, String id) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
@@ -120,6 +127,7 @@ public class Stats {
 		return fc.getString(id);
 	}
 	
+>>>>>>> da949db469740a478dae16ae147d2523df00f688
 	public static void levelUp(OfflinePlayer p) {
 		int l = getLevel(p) + 1;
 		addStat(p, "level", 1);
@@ -129,6 +137,7 @@ public class Stats {
 			op.sendMessage(ChatColor.AQUA + "You have leveled up!" + ChatColor.GRAY);
 			op.sendMessage(ChatColor.GRAY + "You are now level " + ChatColor.AQUA + l + ChatColor.GRAY + "!");
 			op.playSound(op.getLocation(), Sound.BLOCK_ANVIL_USE, 1, 2);
+			new ActionBar(ChatColor.AQUA + "Level up!").sendToPlayer(op);
 			for (int i = 0; i < Constants.LEVEL_REQ.length; i++) {
 				int x = Constants.LEVEL_REQ[i];
 				int tier = i + 1;
@@ -139,18 +148,22 @@ public class Stats {
 			}
 		}
 	}
-	
+
 	public static void reset(OfflinePlayer p) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
 		if (f.exists())
 			f.delete();
 	}
+<<<<<<< HEAD
+
+=======
 	
 	public static void setClassType(OfflinePlayer player, Class clazz) {
 		setStat(player, "class", clazz.toString());
 		
 	}
 	
+>>>>>>> da949db469740a478dae16ae147d2523df00f688
 	public static void setStat(OfflinePlayer p, String id, Object o) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
@@ -161,5 +174,5 @@ public class Stats {
 			e.printStackTrace();
 		}
 	}
-	
+
 }

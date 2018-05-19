@@ -20,16 +20,17 @@ import org.bukkit.inventory.PlayerInventory;
 import java.util.HashMap;
 
 public class Health {
-	
+
 	public static HashMap<String, Integer> health = new HashMap<>();
 	public static HashMap<String, BossBar> bar = new HashMap<>();
 	public static HashMap<String, Integer> combat = new HashMap<>();
-	
+
 	public static boolean atMaxHealth(Player p) {
-		if (!health.containsKey(p.getName())) return true;
+		if (!health.containsKey(p.getName()))
+			return true;
 		return health.get(p.getName()) == calculateMaxHealth(p);
 	}
-	
+
 	public static int calculateHealthRegen(Player p) {
 		PlayerInventory pi = p.getInventory();
 		int regen = 2;
@@ -43,7 +44,7 @@ public class Health {
 		}
 		return regen;
 	}
-	
+
 	public static int calculateMaxHealth(LivingEntity e) {
 		int maxhp = e instanceof Player ? 50 : 20;
 		for (int i = 0; i < e.getEquipment().getArmorContents().length; i++) {
@@ -52,13 +53,15 @@ public class Health {
 				if (!it.hasItemMeta()) {
 					e.getEquipment().getArmorContents()[i].setType(Material.AIR);
 				} else {
+					if (it.getType() == Material.SKULL_ITEM)
+						continue;
 					maxhp += Integer.parseInt(ChatColor.stripColor(it.getItemMeta().getLore().get(0).split(" ")[1]));
 				}
 			}
 		}
 		return maxhp;
 	}
-	
+
 	public static void damage(Player p, int i) {
 		if (Util.inSafeZone(p))
 			return;
@@ -74,7 +77,7 @@ public class Health {
 			Sounds.play(p, Sound.ENTITY_PLAYER_BIG_FALL, 1);
 		}
 	}
-	
+
 	public static void disable() {
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			if (bar.containsKey(p.getName())) {
@@ -83,7 +86,7 @@ public class Health {
 			}
 		}
 	}
-	
+
 	public static int getAttributeI(ItemStack i, String name) {
 		if (!hasAttribute(i, name)) {
 			return 0;
@@ -104,7 +107,7 @@ public class Health {
 		}
 		return 0;
 	}
-	
+
 	public static double getAttributeP(ItemStack i, String name) {
 		if (!hasAttribute(i, name)) {
 			return 0;
@@ -121,7 +124,7 @@ public class Health {
 		}
 		return 0;
 	}
-	
+
 	public static boolean hasAttribute(ItemStack i, String name) {
 		if (!i.hasItemMeta()) {
 			return false;
@@ -133,7 +136,7 @@ public class Health {
 		}
 		return false;
 	}
-	
+
 	public static void heal(Player p, int i) {
 		if (!health.containsKey(p.getName()))
 			return;
@@ -143,8 +146,13 @@ public class Health {
 		if (hp > max)
 			hp = max;
 		health.put(p.getName(), hp);
+<<<<<<< HEAD
+		BelowName.setScore(p, health.get(p.getName()));
+
+=======
+>>>>>>> da949db469740a478dae16ae147d2523df00f688
 	}
-	
+
 	public static void resetPlayer(Player p) {
 		p.teleport(Util.spawn);
 		ItemStack i = Items.createWeapon("sword", 1, 4, 8, "");
@@ -165,8 +173,60 @@ public class Health {
 		combat.remove(p.getName());
 		heal(p, 50);
 	}
-	
+
 	public static void task(Main pl) {
+<<<<<<< HEAD
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(pl, new Runnable() {
+			@Override
+			public void run() {
+				for (Player p : Bukkit.getOnlinePlayers()) {
+					p.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(Double.MAX_VALUE);
+					p.setLevel(Stats.getInt(p, "level", 1));
+					p.setExp((float) Stats.getInt(p, "xp", 0) / (Util.neededXP(p)));
+					if (!health.containsKey(p.getName())) {
+						health.put(p.getName(), calculateMaxHealth(p));
+						BelowName.setScore(p, health.get(p.getName()));
+					}
+					int max = calculateMaxHealth(p);
+					int hp = health.get(p.getName());
+
+					if (hp > max) {
+						hp = max;
+						health.put(p.getName(), max);
+					}
+
+					if (hp != max && !p.isDead()) {
+						int regen = calculateHealthRegen(p);
+						if (Util.inSafeZone(p))
+							regen *= 25;
+						if (combat.containsKey(p.getName())) {
+							if (combat.get(p.getName()) == 0) {
+								heal(p, regen);
+							} else {
+								combat.put(p.getName(), combat.get(p.getName()) - 1);
+							}
+						} else {
+							heal(p, regen);
+						}
+					}
+
+					if (!p.isDead()) {
+						double per = ((double) hp / (double) max);
+						if (per > 1)
+							per = 1;
+						p.setHealth(1 + (19 * per));
+						BossBar b;
+						if (!bar.containsKey(p.getName()))
+							b = Bukkit.createBossBar("health", BarColor.GREEN, BarStyle.SOLID);
+						else
+							b = bar.get(p.getName());
+						b.setTitle(ChatColor.DARK_GREEN.toString() + ChatColor.BOLD + "Health: " + hp + " / " + max);
+						b.setProgress(per);
+						b.setVisible(true);
+						if (!bar.containsKey(p.getName())) {
+							b.addPlayer(p);
+							bar.put(p.getName(), b);
+=======
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(pl, () -> {
 			for (Player p : Bukkit.getOnlinePlayers()) {
 				p.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(Double.MAX_VALUE);
@@ -188,6 +248,7 @@ public class Health {
 					if (combat.containsKey(p.getName())) {
 						if (combat.get(p.getName()) == 0) {
 							heal(p, regen);
+>>>>>>> da949db469740a478dae16ae147d2523df00f688
 						} else {
 							combat.put(p.getName(), combat.get(p.getName()) - 1);
 						}
@@ -216,6 +277,27 @@ public class Health {
 						b.removeAll();
 						b.addPlayer(p);
 					}
+<<<<<<< HEAD
+
+					for (int x = 0; x < p.getInventory().getArmorContents().length; x++) {
+						ItemStack i = p.getInventory().getArmorContents()[x];
+						if (i == null)
+							continue;
+						int tier = Items.getTier(i);
+						if (!Stats.canWield(p, tier)) {
+							ItemStack[] armor = new ItemStack[4];
+							for (int y = 0; y < p.getInventory().getArmorContents().length; y++) {
+								if (y != x)
+									armor[y] = p.getInventory().getArmorContents()[y];
+							}
+							p.getInventory().setArmorContents(armor);
+							if (p.getInventory().firstEmpty() != -1)
+								p.getInventory().addItem(i);
+							else
+								p.getWorld().dropItemNaturally(p.getEyeLocation(), i);
+							p.sendMessage(ChatColor.RED + "You must be level " + ChatColor.UNDERLINE + Constants.LEVEL_REQ[tier - 1] + ChatColor.RED + " to wield Tier " + tier + " armor.");
+							Sounds.play(p, Sound.ENTITY_ITEM_BREAK, 0.67f);
+=======
 					Nametags.setScore(p, hp);
 				}
 				
@@ -229,6 +311,7 @@ public class Health {
 						for (int y = 0; y < p.getInventory().getArmorContents().length; y++) {
 							if (y != x)
 								armor[y] = p.getInventory().getArmorContents()[y];
+>>>>>>> da949db469740a478dae16ae147d2523df00f688
 						}
 						p.getInventory().setArmorContents(armor);
 						if (p.getInventory().firstEmpty() != -1)
