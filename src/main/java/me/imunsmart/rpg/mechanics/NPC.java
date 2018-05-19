@@ -1,11 +1,11 @@
 package me.imunsmart.rpg.mechanics;
 
-import me.imunsmart.rpg.Main;
-import net.md_5.bungee.api.ChatColor;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.entity.IronGolem;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Villager;
 import org.bukkit.entity.Villager.Profession;
@@ -17,90 +17,129 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.HashMap;
-import java.util.Iterator;
+import me.imunsmart.rpg.Main;
+import net.md_5.bungee.api.ChatColor;
 
 public class NPC implements Listener {
-	public HashMap<LivingEntity, Data> npc = new HashMap<LivingEntity, Data>();
-	
+	public List<NPCEntity> npc = new ArrayList<NPCEntity>();
+
 	private World w = Bukkit.getWorld("world");
-	
+
 	private Main pl;
-	private String[] banker = {"Click the enderchest to access your storage module.", "Can I help you with anything?", "Try clicking the enderchest for bank access."};
-	private String[] guard = {"Be safe out there friend.", "Beyond these walls is a world of peril."};
-	private String[] smither = {"Feel free to use any of me stuff!", "Ya know ya c'n repa'r your things using me anvil? And conv'rt your junk to scraps with me furnaces?"};
-	
+	private String[] banker = { "Click the enderchest to access your storage module.", "Can I help you with anything?", "Try clicking the enderchest for bank access." };
+	private String[] market = { "This is the global exchange where you can buy and sell goods." };
+	private String[] guard = { "Be safe out there friend.", "Beyond these walls is a world of peril." };
+	private String[] smither = { "Feel free to use any of me stuff!", "Ya know ya c'n repa'r your things using me anvil? And conv'rt your junk to scraps with me furnaces?" };
+
 	public NPC(Main pl) {
 		this.pl = pl;
 		Bukkit.getPluginManager().registerEvents(this, pl);
 		init();
 	}
-	
-	public void createNPC(LivingEntity le, String name, String[] texts, Object... data) {
+
+	public NPCEntity createNPC(LivingEntity le, String name, String[] texts, Object... data) {
 		le.setCollidable(false);
 		le.setCustomNameVisible(true);
 		le.setCustomName(name);
 		le.addScoreboardTag("npc");
 		if (le instanceof Villager)
 			((Villager) le).setProfession((Profession) data[0]);
-		npc.put(le, new Data(le.getLocation(), texts));
+		NPCEntity npe = new NPCEntity(le, new Data(le.getLocation(), texts));
+		npc.add(npe);
+		return npe;
 	}
-	
+
 	private void init() {
-		//createNPC(w.spawn(new Location(w, 2.5, 4, 8.5), IronGolem.class), ChatColor.WHITE.toString() + ChatColor.BOLD + "Bank Guard", guard);
-		//createNPC(w.spawn(new Location(w, -1.5, 4, 8.5), IronGolem.class), ChatColor.WHITE.toString() + ChatColor.BOLD + "Bank Guard", guard);
-		
-		//createNPC(w.spawn(new Location(w, -7.5, 4, -0.5), Villager.class), ChatColor.GREEN.toString() + ChatColor.BOLD + "Banker", banker, Profession.LIBRARIAN);
-		//createNPC(w.spawn(new Location(w, 8.5, 4, -0.5), Villager.class), ChatColor.GREEN.toString() + ChatColor.BOLD + "Banker", banker, Profession.LIBRARIAN);
-		//createNPC(w.spawn(new Location(w, 0.5, 4, -8.5), Villager.class), ChatColor.GREEN.toString() + ChatColor.BOLD + "Banker", banker, Profession.LIBRARIAN);
-		
-		//createNPC(w.spawn(new Location(w, -10.5, 4, 19.5), Villager.class), ChatColor.GOLD.toString() + ChatColor.BOLD + "Blacksmith", smither, Profession.BLACKSMITH);
-		
-		createNPC(w.spawn(new Location(w,6,63,-11),Villager.class), "market-man",new String[0],Profession.LIBRARIAN);
-		
+		createNPC(w.spawn(new Location(w, 6, 63, -11), Villager.class), ChatColor.GREEN + "Merchant", market, Profession.LIBRARIAN).addTag("market");
+
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(pl, () -> {
-			for (LivingEntity le : npc.keySet()) {
+			for (NPCEntity npe : npc) {
+				LivingEntity le = npe.getNpc();
 				le.removePotionEffect(PotionEffectType.SLOW);
 				le.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 200, 255));
-				if (le.getLocation().getX() != npc.get(le).l.getX() || le.getLocation().getY() != npc.get(le).l.getY() || le.getLocation().getZ() != npc.get(le).l.getZ())
-					le.teleport(npc.get(le).l);
+				if (le.getLocation().getX() != npe.getData().l.getX() || le.getLocation().getY() != npe.getData().l.getY() || le.getLocation().getZ() != npe.getData().l.getZ())
+					le.teleport(npe.getData().l);
 			}
 		}, 0, 5);
 	}
-	
+
 	@EventHandler
 	public void onDamage(EntityDamageEvent e) {
-		if (npc.containsKey(e.getEntity())) {
-			e.setCancelled(true);
-			e.setDamage(0);
-		}
-	}
-	
-	@EventHandler
-	public void onInteract(PlayerInteractEntityEvent e) {
-		if (npc.containsKey(e.getRightClicked())) {
-			e.setCancelled(true);
-			int r = (int) (Math.random() * npc.get(e.getRightClicked()).texts.length);
-			e.getPlayer().sendMessage(e.getRightClicked().getCustomName() + ChatColor.WHITE + ": " + npc.get(e.getRightClicked()).texts[r]);
-			if (e.getRightClicked().getScoreboardTags().contains("npc")) {
-				GlobalMarket.open(e.getPlayer());
+		if (e instanceof LivingEntity) {
+			LivingEntity le = (LivingEntity) e;
+			if (le.getScoreboardTags().contains("npc")) {
+				e.setCancelled(true);
+				e.setDamage(0);
 			}
 		}
 	}
-	
+
+	@EventHandler
+	public void onInteract(PlayerInteractEntityEvent e) {
+		if (e instanceof LivingEntity) {
+			System.out.println(1);
+			LivingEntity le = (LivingEntity) e;
+			if (le.getScoreboardTags().contains("npc")) {
+				System.out.println(2);
+				NPCEntity npe = null;
+				for (NPCEntity n : npc) {
+					if (n.getNpc() == le) {
+						npe = n;
+						break;
+					}
+				}
+				System.out.println(npe);
+				if (npe == null)
+					return;
+				e.setCancelled(true);
+				int r = (int) (Math.random() * npe.getData().texts.length);
+				e.getPlayer().sendMessage(e.getRightClicked().getCustomName() + ChatColor.WHITE + ": " + npe.getData().texts[r]);
+				if (e.getRightClicked().getScoreboardTags().contains("market")) {
+					GlobalMarket.open(e.getPlayer());
+				}
+			}
+		}
+	}
+
 	@EventHandler
 	public void onTarget(EntityTargetEvent e) {
-		if (npc.containsKey(e.getEntity())) {
-			e.setCancelled(true);
-			e.setTarget(null);
+		if (e instanceof LivingEntity) {
+			LivingEntity le = (LivingEntity) e;
+			if (le.getScoreboardTags().contains("npc")) {
+				e.setCancelled(true);
+				e.setTarget(null);
+			}
 		}
+	}
+}
+
+class NPCEntity {
+	private LivingEntity npc;
+	private Data data;
+
+	public NPCEntity(LivingEntity npc, Data data) {
+		this.npc = npc;
+		this.data = data;
+	}
+
+	public LivingEntity getNpc() {
+		return npc;
+	}
+
+	public Data getData() {
+		return data;
+	}
+
+	public NPCEntity addTag(String tag) {
+		npc.addScoreboardTag(tag);
+		return this;
 	}
 }
 
 class Data {
 	Location l;
 	String[] texts;
-	
+
 	public Data(Location l, String[] texts) {
 		this.l = l;
 		this.texts = texts;

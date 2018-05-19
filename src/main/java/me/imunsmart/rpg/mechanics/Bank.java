@@ -276,7 +276,6 @@ public class Bank implements Listener {
 			op = 54;
 		Inventory inv = Bukkit.createInventory(null, op, ChatColor.GREEN + p.getName() + "'s Bank Storage");
 		for (int i = 0; i < storage.size(); i++) {
-			System.out.println(i);
 			inv.setItem(i, Items.deserialize(storage.get(i)));
 		}
 		if (size < 6) {

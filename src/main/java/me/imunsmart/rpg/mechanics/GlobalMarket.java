@@ -181,7 +181,6 @@ public class GlobalMarket implements Listener {
 				return;
 			}
 			if (Bank.pay(p, cost)) {
-				System.out.println(index + ", " + items.size());
 				e.getInventory().setItem(e.getSlot(), null);
 				lore.remove(lore.size() - 3);
 				lore.remove(lore.size() - 2);
@@ -237,7 +236,6 @@ public class GlobalMarket implements Listener {
 	public void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 		if (selling.contains(p.getName())) {
-			System.out.println(e.getTo().distanceSquared(e.getFrom()));
 			if (e.getTo().distanceSquared(e.getFrom()) >= 0.01) {
 				p.sendMessage(ChatColor.RED + "You moved, cancelling sell.");
 				Sounds.play(p, Sound.ENTITY_ITEM_BREAK, 0.67f);
