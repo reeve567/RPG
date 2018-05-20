@@ -27,71 +27,18 @@ public class Main extends JavaPlugin {
 		return npc;
 	}
 	
-	private void register(Listener... listeners) {
-		for (Listener l : listeners) {
-			Bukkit.getPluginManager().registerEvents(l, this);
-		}
-	}
-	
-	private void registerCommands() {
-		getLogger().log(Level.INFO, "Registered commands.");
-		new Admin(this);
-	}
-	
-	private void registerEvents() {
-		getLogger().log(Level.INFO, "Registered events.");
-		register(new WorldEvents(this),
-				new PlayerEvents(this),
-				new DamageEvents(this),
-				new ChatEvents(this),
-				new ServerEvents(this),
-				new SignEvents(this),
-				new Repairing(this),
-				new Potions(this)
-				);
-		
-		new EntityManager(this);
-		npc = new NPC(this);
-		new Bank(this);
-		new RepairMenu(this);
-		new Spawners(this);
-		new GlobalMarket(this);
-		lc = new LootChests(this);
-	}
-	
-	private void registerGlow() {
-		try {
-			Field f = Enchantment.class.getDeclaredField("acceptingNew");
-			f.setAccessible(true);
-			f.set(null, true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		try {
-			Glow glow = new Glow(70);
-			Enchantment.registerEnchantment(glow);
-		} catch (IllegalArgumentException ignored) {
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
 	@Override
 	public void onDisable() {
 		Health.disable();
 		EntityManager.disable();
 		EntityManager.pl = null;
 		Spawners.disable();
-		
 		lc.disable();
 		
-		super.onDisable();
 	}
 	
 	@Override
 	public void onEnable() {
-		super.onEnable();
-		
 		registerEvents();
 		registerCommands();
 		registerGlow();
@@ -106,6 +53,55 @@ public class Main extends JavaPlugin {
 		new Stats(this);
 		
 		Health.task(this);
+	}
+	
+	private void registerEvents() {
+		getLogger().log(Level.INFO, "Registered events.");
+		register(new WorldEvents(this),
+				new PlayerEvents(this),
+				new DamageEvents(this),
+				new ChatEvents(this),
+				new ServerEvents(this),
+				new SignEvents(this),
+				new Repairing(this),
+				new Potions(this),
+				npc = new NPC(this)
+		);
+		
+		new EntityManager(this);
+		new Bank(this);
+		new RepairMenu(this);
+		new Spawners(this);
+		new GlobalMarket(this);
+		lc = new LootChests(this);
+	}
+	
+	private void registerCommands() {
+		getLogger().log(Level.INFO, "Registered commands.");
+		new Admin(this);
+	}
+	
+	private void registerGlow() {
+		try {
+			Field f = Enchantment.class.getDeclaredField("acceptingNew");
+			f.setAccessible(true);
+			f.set(null, true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			Glow glow = new Glow(74);
+			Enchantment.registerEnchantment(glow);
+		} catch (IllegalArgumentException ignored) {
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void register(Listener... listeners) {
+		for (Listener l : listeners) {
+			Bukkit.getPluginManager().registerEvents(l, this);
+		}
 	}
 	
 }

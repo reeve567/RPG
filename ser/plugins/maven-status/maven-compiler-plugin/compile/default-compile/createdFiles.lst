@@ -4,8 +4,8 @@ me\imunsmart\rpg\mechanics\Health$1.class
 me\imunsmart\rpg\command\admincommands\rpg\give\GiveArmor.class
 me\imunsmart\rpg\mobs\EntityManager.class
 me\imunsmart\rpg\events\PlayerEvents$3.class
-me\imunsmart\rpg\mechanics\classes\ClassManager.class
 me\imunsmart\rpg\mechanics\RepairMenu.class
+me\imunsmart\rpg\mechanics\classes\ClassManager.class
 me\imunsmart\rpg\events\Spawner.class
 me\imunsmart\rpg\events\SignEvents.class
 me\imunsmart\rpg\command\admincommands\rpg\give\GiveWeapon.class
