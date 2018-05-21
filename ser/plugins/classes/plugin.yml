@@ -40,3 +40,8 @@ commands:
   inventory:
     description: Open an inventory.
     aliases: [inv]
+  gemspawner:
+    description: Add a gem spawner.
+    aliases: [gs]
+  givetools:
+    description: Give tools for setting up the RPG map

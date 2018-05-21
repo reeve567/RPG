@@ -6,6 +6,8 @@ F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\Name
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\admincommands\rpg\give\GiveArmor.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\admincommands\rpg\give\GiveGems.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mobs\Constants.java
+F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\admincommands\rpg\give\GemSpawnerC.java
+F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\util\LocationUtility.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\Admin.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\Sounds.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\util\RomanNumerals.java
@@ -15,6 +17,7 @@ F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\util\Glow.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\admincommands\rpg\give\CStats.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\admincommands\playermoderation\InventoryC.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\NPC.java
+F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\AdminTools.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\admincommands\rpg\give\LootChestC.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\events\WorldEvents.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mobs\EntityManager.java
@@ -23,6 +26,7 @@ F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\events\ServerE
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\classes\Class.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\loot\LootChests.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\util\InventoryUtility.java
+F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\admincommands\rpg\give\GiveTools.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\admincommands\playermoderation\Suicide.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\util\CustomItem.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\GlobalMarket.java
@@ -50,6 +54,7 @@ F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\loot
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\ActionBar.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\admincommands\gamemode\GMS.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\Default.java
+F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\GemSpawners.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\util\PacketUtil.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\RepairMenu.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\util\Util.java

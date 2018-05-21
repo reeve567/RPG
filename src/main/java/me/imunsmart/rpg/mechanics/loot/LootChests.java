@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import me.imunsmart.rpg.util.MessagesUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
@@ -31,10 +32,10 @@ import net.md_5.bungee.api.ChatColor;
 
 public class LootChests implements Listener {
 	public static List<LootChest> chests = new ArrayList<>();
-	private Main pl;
+	private static Main pl;
 	
 	public LootChests(Main pl) {
-		this.pl = pl;
+		LootChests.pl = pl;
 		Bukkit.getPluginManager().registerEvents(this, pl);
 		File f = new File(pl.getDataFolder(), "lootchests.yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
@@ -50,7 +51,7 @@ public class LootChests implements Listener {
 		}
 	}
 	
-	class LootChest {
+	static class LootChest {
 		private int tier;
 		private Location l;
 		
@@ -100,9 +101,18 @@ public class LootChests implements Listener {
 		}
 	}
 	
-	public void addChest(Location l, int tier) {
+	public static void addChest(Location l, int tier) {
 		LootChest lc = new LootChest(tier, l);
 		chests.add(lc);
+	}
+	
+	public static void removeChest(Location l) {
+		for (LootChest c : chests) {
+			if (c.l.equals(l)) {
+				chests.remove(c);
+				c.l.getBlock().setType(Material.AIR);
+			}
+		}
 	}
 	
 	public void disable() {
@@ -161,7 +171,7 @@ public class LootChests implements Listener {
 							if (l.getBlockX() == lc.l.getBlockX() && l.getBlockY() == lc.l.getBlockY() && l.getBlockZ() == lc.l.getBlockZ()) {
 								it.remove();
 								e.getClickedBlock().setType(Material.AIR);
-								p.sendMessage(ChatColor.RED + "Removed loot chest.");
+								p.sendMessage(MessagesUtil.lootchestRemoved());
 								return;
 							}
 						}
@@ -169,7 +179,7 @@ public class LootChests implements Listener {
 						LootChest lc = new LootChest(tier, e.getClickedBlock().getLocation());
 						chests.add(lc);
 						lc.spawn();
-						p.sendMessage(ChatColor.GRAY + "Successfully created a tier " + ChatColor.AQUA + tier + ChatColor.GRAY + " loot chest.");
+						p.sendMessage(MessagesUtil.lootChestCreated(tier));
 					}
 				}
 			}

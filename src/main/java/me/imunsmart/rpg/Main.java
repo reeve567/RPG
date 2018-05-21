@@ -31,6 +31,7 @@ public class Main extends JavaPlugin {
 	public void onDisable() {
 		Health.disable();
 		EntityManager.disable();
+		GemSpawners.disable();
 		EntityManager.pl = null;
 		Spawners.disable();
 		lc.disable();
@@ -43,6 +44,7 @@ public class Main extends JavaPlugin {
 		registerCommands();
 		registerGlow();
 		Nametags.setupDevTeam();
+		Nametags.setupTesterTeam();
 		
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			Nametags.init(p);
@@ -65,9 +67,10 @@ public class Main extends JavaPlugin {
 				new SignEvents(this),
 				new Repairing(this),
 				new Potions(this),
-				npc = new NPC(this)
+				npc = new NPC(this),
+				new AdminTools()
 		);
-		
+		new GemSpawners(this);
 		new EntityManager(this);
 		new Bank(this);
 		new RepairMenu(this);

@@ -1,5 +1,6 @@
 package me.imunsmart.rpg.command;
 
+import me.imunsmart.rpg.command.admincommands.rpg.give.*;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,20 +15,13 @@ import me.imunsmart.rpg.command.admincommands.gamemode.GMSP;
 import me.imunsmart.rpg.command.admincommands.playermoderation.InventoryC;
 import me.imunsmart.rpg.command.admincommands.playermoderation.Kick;
 import me.imunsmart.rpg.command.admincommands.playermoderation.Suicide;
-import me.imunsmart.rpg.command.admincommands.rpg.give.CStats;
-import me.imunsmart.rpg.command.admincommands.rpg.give.GiveArmor;
-import me.imunsmart.rpg.command.admincommands.rpg.give.GiveGems;
-import me.imunsmart.rpg.command.admincommands.rpg.give.GiveItem;
-import me.imunsmart.rpg.command.admincommands.rpg.give.GiveScraps;
-import me.imunsmart.rpg.command.admincommands.rpg.give.GiveWeapon;
-import me.imunsmart.rpg.command.admincommands.rpg.give.LootChestC;
 import me.imunsmart.rpg.command.admincommands.rpg.mechanics.SpawnMob;
 import me.imunsmart.rpg.command.admincommands.rpg.mechanics.Spawner;
 import net.md_5.bungee.api.ChatColor;
 
 public class Admin implements CommandExecutor {
 	private Main pl;
-
+	
 	public Admin(Main pl) {
 		this.pl = pl;
 		pl.getCommand("giveweapon").setExecutor(this);
@@ -48,8 +42,11 @@ public class Admin implements CommandExecutor {
 		pl.getCommand("lc").setExecutor(this);
 		pl.getCommand("inventory").setExecutor(this);
 		pl.getCommand("inv").setExecutor(this);
+		pl.getCommand("gemspawner").setExecutor(this);
+		pl.getCommand("gs").setExecutor(this);
+		pl.getCommand("givetools").setExecutor(this);
 	}
-
+	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (!sender.hasPermission("rpg.admin")) {
@@ -65,7 +62,7 @@ public class Admin implements CommandExecutor {
 			return true;
 		}
 		Player p = (Player) sender;
-
+		
 		if (label.equalsIgnoreCase("giveweapon")) {
 			GiveWeapon.run(p, args);
 		} else if (label.equalsIgnoreCase("givearmor")) {
@@ -88,7 +85,8 @@ public class Admin implements CommandExecutor {
 					p.sendMessage(ChatColor.RED + "Player not online.");
 				}
 			}
-			GMC.run(tp);
+			if (tp != null)
+				GMC.run(tp);
 		} else if (label.equalsIgnoreCase("gms")) {
 			Player tp = p;
 			if (args.length == 1) {
@@ -97,7 +95,8 @@ public class Admin implements CommandExecutor {
 					p.sendMessage(ChatColor.RED + "Player not online.");
 				}
 			}
-			GMS.run(tp);
+			if (tp != null)
+				GMS.run(tp);
 		} else if (label.equalsIgnoreCase("gmsp")) {
 			Player tp = p;
 			if (args.length == 1) {
@@ -106,7 +105,8 @@ public class Admin implements CommandExecutor {
 					p.sendMessage(ChatColor.RED + "Player not online.");
 				}
 			}
-			GMSP.run(tp);
+			if (tp != null)
+				GMSP.run(tp);
 		} else if (label.equalsIgnoreCase("gma")) {
 			Player tp = p;
 			if (args.length == 1) {
@@ -115,7 +115,8 @@ public class Admin implements CommandExecutor {
 					p.sendMessage(ChatColor.RED + "Player not online.");
 				}
 			}
-			GMA.run(tp);
+			if (tp != null)
+				GMA.run(tp);
 		} else if (label.equalsIgnoreCase("suicide")) {
 			Player tp = p;
 			if (args.length == 1) {
@@ -124,13 +125,18 @@ public class Admin implements CommandExecutor {
 					p.sendMessage(ChatColor.RED + "Player not online.");
 				}
 			}
-			Suicide.run(tp);
+			if (tp != null)
+				Suicide.run(tp);
 		} else if (label.equalsIgnoreCase("stats")) {
 			CStats.run(p, args);
 		} else if (label.equalsIgnoreCase("lootchest") || label.equalsIgnoreCase("lc")) {
 			LootChestC.run(p, args);
 		} else if (label.equalsIgnoreCase("inventory") || label.equalsIgnoreCase("inv")) {
 			InventoryC.run(p, args);
+		} else if (label.equalsIgnoreCase("gemspawner") || label.equalsIgnoreCase("gs")) {
+			GemSpawnerC.run(p, args);
+		} else if (label.equalsIgnoreCase("givetools")) {
+			GiveTools.run(p);
 		}
 		return false;
 	}

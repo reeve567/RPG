@@ -1,5 +1,7 @@
 package me.imunsmart.rpg.util;
 
+import net.md_5.bungee.api.ChatColor;
+
 public class MessagesUtil {
 	
 	public static final String classMenuTitle = "§7Class Selector";
@@ -32,6 +34,14 @@ public class MessagesUtil {
 	
 	public static String moveCancel(String what) {
 		return prefix('c') + "§cYou moved, cancelling " + what + ".";
+	}
+	
+	public static String lootChestCreated(int tier) {
+		return prefix('a') + "Successfully created a tier §a" + tier + "§7 loot chest.";
+	}
+	
+	public static String lootchestRemoved() {
+		return prefix('c') + "§cRemoved loot chest.";
 	}
 	
 }

@@ -23,6 +23,11 @@ public class Nametags {
 		Scoreboard scoreboard = manager.getMainScoreboard();
 		try {
 			scoreboard.getTeams().remove(scoreboard.getTeam("devs"));
+		} catch (Exception ignored) {
+		
+		}
+		
+		try {
 			Team team = scoreboard.registerNewTeam("devs");
 			team.setPrefix("§b§lDEV §f");
 			team.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.ALWAYS);
@@ -30,6 +35,26 @@ public class Nametags {
 			team.addPlayer(Bukkit.getOfflinePlayer("ImUnsmart"));
 			setScoreboard(scoreboard);
 		} catch (Exception ignored) {
+		
+		}
+	}
+	
+	public static void setupTesterTeam() {
+		ScoreboardManager manager = Bukkit.getScoreboardManager();
+		Scoreboard scoreboard = manager.getMainScoreboard();
+		try {
+			scoreboard.getTeams().remove(scoreboard.getTeam("testers"));
+		}catch (Exception exception) {
+		
+		}
+		
+		try {
+			Team team = scoreboard.registerNewTeam("testers");
+			team.setPrefix("§c§lTESTER §f");
+			team.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.ALWAYS);
+			team.addPlayer(Bukkit.getOfflinePlayer("TeddyBe"));
+			setScoreboard(scoreboard);
+		} catch (Exception e) {
 		
 		}
 	}

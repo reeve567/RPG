@@ -18,6 +18,8 @@ public class ChatEvents implements Listener {
 	public static String getPrefix(Player p) {
 		if (p.getName().equals("Xwy") || p.getName().equals("ImUnsmart"))
 			return ChatColor.AQUA.toString() + ChatColor.BOLD + "DEV " + ChatColor.WHITE;
+		if (p.getName().equals("TeddyBe"))
+			return ChatColor.RED.toString() + ChatColor.BOLD + "TESTER " + ChatColor.WHITE;
 		if (p.isOp())
 			return ChatColor.RED.toString() + ChatColor.BOLD + "ADMIN " + ChatColor.WHITE;
 		if (p.hasPermission("rpg.moderator"))
