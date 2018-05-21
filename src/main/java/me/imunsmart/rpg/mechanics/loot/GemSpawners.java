@@ -46,6 +46,12 @@ public class GemSpawners implements Listener {
 		
 	}
 	
+	public static void addSpawner(int tier, Location location) {
+		GemSpawner spawner = new GemSpawner(tier, location);
+		spawners.add(spawner);
+		spawner.spawn();
+	}
+	
 	public static void disable() {
 		File f = new File(pl.getDataFolder(), "gemspawners.yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
@@ -61,12 +67,6 @@ public class GemSpawners implements Listener {
 		}
 	}
 	
-	public static void addSpawner(int tier, Location location) {
-		GemSpawner spawner = new GemSpawner(tier, location);
-		spawners.add(spawner);
-		spawner.spawn();
-	}
-	
 	public static boolean removeSpawner(Location l) {
 		GemSpawner spawner = null;
 		for (GemSpawner sp : spawners) {
@@ -77,6 +77,42 @@ public class GemSpawners implements Listener {
 		}
 		if (spawner != null) return spawners.remove(spawner);
 		return false;
+	}
+	
+	public static class GemSpawner {
+		private int tier;
+		private Location location;
+		
+		GemSpawner(int tier, Location location) {
+			this.tier = tier;
+			this.location = location;
+		}
+		
+		public Location getLocation() {
+			return location;
+		}
+		
+		public int getTier() {
+			return tier;
+		}
+		
+		public void loot() {
+			//location.getWorld().playEffect(LocationUtility.centerBlock(location), Effect.CLICK1, 1);
+			location.getWorld().playSound(LocationUtility.centerBlock(location), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 2);
+			location.getWorld().dropItem(LocationUtility.centerBlock(location), new CustomItem(Items.gem).setCustomAmount((int) (Math.random() * tier * 1.5) + 1));
+			location.getBlock().setType(Material.AIR);
+			new BukkitRunnable() {
+				@Override
+				public void run() {
+					spawn();
+				}
+			}.runTaskLater(pl, 600);
+		}
+		
+		public void spawn() {
+			location.getBlock().setType(Material.DIAMOND_ORE);
+		}
+		
 	}
 	
 	@EventHandler
@@ -123,43 +159,5 @@ public class GemSpawners implements Listener {
 			}
 		}
 	}
-	
-	public static class GemSpawner {
-		private int tier;
-		private Location location;
-		
-		
-		GemSpawner(int tier, Location location) {
-			this.tier = tier;
-			this.location = location;
-		}
-		
-		public void loot() {
-			//location.getWorld().playEffect(LocationUtility.centerBlock(location), Effect.CLICK1, 1);
-			location.getWorld().playSound(LocationUtility.centerBlock(location), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 2);
-			location.getWorld().dropItem(LocationUtility.centerBlock(location), new CustomItem(Items.gem).setCustomAmount((int) (Math.random() * tier * 1.5) + 1));
-			location.getBlock().setType(Material.AIR);
-			new BukkitRunnable() {
-				@Override
-				public void run() {
-					spawn();
-				}
-			}.runTaskLater(pl, 600);
-		}
-		
-		public void spawn() {
-			location.getBlock().setType(Material.DIAMOND_ORE);
-		}
-		
-		public Location getLocation() {
-			return location;
-		}
-		
-		public int getTier() {
-			return tier;
-		}
-		
-	}
-	
 	
 }
