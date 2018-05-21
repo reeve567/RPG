@@ -1,7 +1,5 @@
 package me.imunsmart.rpg.util;
 
-import net.md_5.bungee.api.ChatColor;
-
 public class MessagesUtil {
 	
 	public static final String classMenuTitle = "§7Class Selector";
@@ -13,6 +11,8 @@ public class MessagesUtil {
 	public static final String bankUpgradeFailure = prefix('c') + "§cUpgrade cancelled.";
 	public static final String bankEnterAmount = prefix('6') + "Enter the amount you'd like to withdraw or move to cancel.";
 	
+	public static final String lootChestRemoved = prefix('c') + "§cRemoved loot chest.";
+	public static final String lootChestErrorOrNotFound = prefix('c') + "§cEither this block is not a loot chest, or there was an error removing it.";
 	//just for copy-paste use
 	private static final char colorChar = '§';
 	
@@ -38,10 +38,6 @@ public class MessagesUtil {
 	
 	public static String lootChestCreated(int tier) {
 		return prefix('a') + "Successfully created a tier §a" + tier + "§7 loot chest.";
-	}
-	
-	public static String lootchestRemoved() {
-		return prefix('c') + "§cRemoved loot chest.";
 	}
 	
 }

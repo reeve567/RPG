@@ -51,68 +51,21 @@ public class LootChests implements Listener {
 		}
 	}
 	
-	static class LootChest {
-		private int tier;
-		private Location l;
-		
-		public LootChest(int tier, Location l) {
-			this.tier = tier;
-			this.l = l;
-			spawn();
-		}
-		
-		public void loot() {
-			l.getWorld().playEffect(l, Effect.STEP_SOUND, Material.CHEST);
-			l.getBlock().setType(Material.AIR);
-			new BukkitRunnable() {
-				@Override
-				public void run() {
-					spawn();
-				}
-			}.runTaskLater(pl, 3600);
-		}
-		
-		public void spawn() {
-			l.getBlock().setType(Material.CHEST);
-			Chest c = (Chest) l.getBlock().getState();
-			c.getBlockInventory().clear();
-			int possible = 1 + tier;
-			int added = 0;
-			while (added < possible) {
-				int i = (int) (Math.random() * c.getBlockInventory().getSize());
-				ItemStack[] items = ChestItems.getTier(tier);
-				if (Math.random() <= 0.1) {
-					c.getBlockInventory().setItem(i, items[(int) (Math.random() * items.length)]);
-					added++;
-				} else if (Math.random() >= 0.9) {
-					int maxGems = (int) (Math.pow(2, tier) * 4) - 1;
-					if (maxGems > 64) maxGems = 64;
-					c.getBlockInventory().setItem(i, Items.createGems(1 + (int) (Math.random() * maxGems)));
-					added++;
-				} else if (Math.random() >= 0.8) {
-					int maxGems = (int) (Math.pow(2, tier) * 4) - 1;
-					c.getBlockInventory().setItem(i, Items.createGemNote(1 + (int) (Math.random() * maxGems)));
-					added++;
-				} else if(Math.random() <= 0.05) {
-					c.getBlockInventory().setItem(i, Items.getRandomItem(tier));
-					added++;
-				}
-			}
-		}
-	}
-	
 	public static void addChest(Location l, int tier) {
 		LootChest lc = new LootChest(tier, l);
 		chests.add(lc);
 	}
 	
-	public static void removeChest(Location l) {
+	public static boolean removeChest(Location l) {
+		LootChest chest = null;
 		for (LootChest c : chests) {
 			if (c.l.equals(l)) {
-				chests.remove(c);
+				chest = c;
 				c.l.getBlock().setType(Material.AIR);
 			}
 		}
+		if (chest != null) return chests.remove(chest);
+		return false;
 	}
 	
 	public void disable() {
@@ -133,7 +86,7 @@ public class LootChests implements Listener {
 	@EventHandler
 	public void onClose(InventoryCloseEvent e) {
 		if (e.getInventory().getType() == InventoryType.CHEST) {
-			if(!e.getInventory().getTitle().equals("container.chest"))
+			if (!e.getInventory().getTitle().equals("container.chest"))
 				return;
 			boolean empty = true;
 			for (ItemStack i : e.getInventory().getContents()) {
@@ -171,7 +124,7 @@ public class LootChests implements Listener {
 							if (l.getBlockX() == lc.l.getBlockX() && l.getBlockY() == lc.l.getBlockY() && l.getBlockZ() == lc.l.getBlockZ()) {
 								it.remove();
 								e.getClickedBlock().setType(Material.AIR);
-								p.sendMessage(MessagesUtil.lootchestRemoved());
+								p.sendMessage(MessagesUtil.lootChestRemoved);
 								return;
 							}
 						}
@@ -183,6 +136,56 @@ public class LootChests implements Listener {
 					}
 				}
 			}
+		}
+	}
+	
+	static class LootChest {
+		private int tier;
+		private Location l;
+		
+		public LootChest(int tier, Location l) {
+			this.tier = tier;
+			this.l = l;
+			spawn();
+		}
+		
+		public void spawn() {
+			l.getBlock().setType(Material.CHEST);
+			Chest c = (Chest) l.getBlock().getState();
+			c.getBlockInventory().clear();
+			int possible = 1 + tier;
+			int added = 0;
+			while (added < possible) {
+				int i = (int) (Math.random() * c.getBlockInventory().getSize());
+				ItemStack[] items = ChestItems.getTier(tier);
+				if (Math.random() <= 0.1) {
+					c.getBlockInventory().setItem(i, items[(int) (Math.random() * items.length)]);
+					added++;
+				} else if (Math.random() >= 0.9) {
+					int maxGems = (int) (Math.pow(2, tier) * 4) - 1;
+					if (maxGems > 64) maxGems = 64;
+					c.getBlockInventory().setItem(i, Items.createGems(1 + (int) (Math.random() * maxGems)));
+					added++;
+				} else if (Math.random() >= 0.8) {
+					int maxGems = (int) (Math.pow(2, tier) * 4) - 1;
+					c.getBlockInventory().setItem(i, Items.createGemNote(1 + (int) (Math.random() * maxGems)));
+					added++;
+				} else if (Math.random() <= 0.05) {
+					c.getBlockInventory().setItem(i, Items.getRandomItem(tier));
+					added++;
+				}
+			}
+		}
+		
+		public void loot() {
+			l.getWorld().playEffect(l, Effect.STEP_SOUND, Material.CHEST);
+			l.getBlock().setType(Material.AIR);
+			new BukkitRunnable() {
+				@Override
+				public void run() {
+					spawn();
+				}
+			}.runTaskLater(pl, 3600);
 		}
 	}
 }

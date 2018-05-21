@@ -93,7 +93,7 @@ public class Main extends JavaPlugin {
 			e.printStackTrace();
 		}
 		try {
-			Glow glow = new Glow(74);
+			Glow glow = new Glow(999);
 			Enchantment.registerEnchantment(glow);
 		} catch (IllegalArgumentException ignored) {
 		} catch (Exception e) {

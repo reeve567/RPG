@@ -61,6 +61,24 @@ public class GemSpawners implements Listener {
 		}
 	}
 	
+	public static void addSpawner(int tier, Location location) {
+		GemSpawner spawner = new GemSpawner(tier, location);
+		spawners.add(spawner);
+		spawner.spawn();
+	}
+	
+	public static boolean removeSpawner(Location l) {
+		GemSpawner spawner = null;
+		for (GemSpawner sp : spawners) {
+			if (sp.location.equals(l)) {
+				spawner = sp;
+				sp.location.getBlock().setType(Material.AIR);
+			}
+		}
+		if (spawner != null) return spawners.remove(spawner);
+		return false;
+	}
+	
 	@EventHandler
 	public void onBreak(BlockBreakEvent e) {
 		if (e.getPlayer().getGameMode() != GameMode.CREATIVE)
@@ -106,21 +124,6 @@ public class GemSpawners implements Listener {
 		}
 	}
 	
-	public static void addSpawner(int tier, Location location) {
-		GemSpawner spawner = new GemSpawner(tier,location);
-		spawners.add(spawner);
-		spawner.spawn();
-	}
-	
-	public static void removeSpawner(Location l) {
-		for (GemSpawner sp : spawners) {
-			if (sp.location.equals(l)) {
-				spawners.remove(sp);
-				sp.location.getBlock().setType(Material.AIR);
-			}
-		}
-	}
-	
 	public static class GemSpawner {
 		private int tier;
 		private Location location;
@@ -132,7 +135,7 @@ public class GemSpawners implements Listener {
 		}
 		
 		public void loot() {
-			location.getWorld().playEffect(LocationUtility.centerBlock(location), Effect.CLICK1, 1);
+			//location.getWorld().playEffect(LocationUtility.centerBlock(location), Effect.CLICK1, 1);
 			location.getWorld().dropItem(LocationUtility.centerBlock(location), new CustomItem(Items.gem).setCustomAmount((int) (Math.random() * tier * 1.5) + 1));
 			location.getBlock().setType(Material.AIR);
 			new BukkitRunnable() {

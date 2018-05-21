@@ -43,7 +43,7 @@ public class AdminTools implements Listener {
 	public void onPlace(BlockPlaceEvent e) {
 		if (e.getPlayer().isOp()) {
 			ItemStack stack = e.getPlayer().getInventory().getItemInMainHand();
-			if (stack.hasItemMeta() && stack.getItemMeta().hasDisplayName() && stack.getItemMeta().getDisplayName().startsWith("§b§lTier ") && stack.getItemMeta().hasEnchant(new Glow(999))) {
+			if (stack.hasItemMeta() && stack.getItemMeta().hasDisplayName() && stack.getItemMeta().getDisplayName().startsWith("§b§lTier ")) {
 				e.setCancelled(true);
 				int tier = Integer.parseInt(stack.getItemMeta().getDisplayName().substring(9, 10));
 				switch (e.getBlockPlaced().getType()) {
@@ -61,20 +61,25 @@ public class AdminTools implements Listener {
 	@EventHandler
 	public void onBreak(BlockBreakEvent e) {
 		ItemStack stack = e.getPlayer().getInventory().getItemInMainHand();
-		if (stack.hasItemMeta() && stack.getItemMeta().hasDisplayName() && stack.getItemMeta().getDisplayName().startsWith("§b§lTier ") && stack.getItemMeta().hasEnchant(new Glow(999))) {
+		if (stack.hasItemMeta() && stack.getItemMeta().hasDisplayName() && stack.getItemMeta().getDisplayName().startsWith("§b§lTier ")) {
 			e.setCancelled(true);
 			switch (stack.getType()) {
 				case CHEST:
 					if (e.getBlock().getType().equals(Material.CHEST)) {
-						LootChests.removeChest(e.getBlock().getLocation());
-						e.getPlayer().sendMessage(MessagesUtil.lootchestRemoved());
-					} else e.setCancelled(false);
+						if (LootChests.removeChest(e.getBlock().getLocation())) {
+							e.getPlayer().sendMessage(MessagesUtil.lootChestRemoved);
+							return;
+						}
+					}
+					e.getPlayer().sendMessage(MessagesUtil.lootChestErrorOrNotFound);
 					break;
 				case DIAMOND_ORE:
 					if (e.getBlock().getType().equals(Material.DIAMOND_ORE)) {
-						GemSpawners.removeSpawner(e.getBlock().getLocation());
+						if (GemSpawners.removeSpawner(e.getBlock().getLocation())) {
+							e.getPlayer().sendMessage("");
+							return;
+						}
 					}
-					else e.setCancelled(false);
 					break;
 			}
 		}
