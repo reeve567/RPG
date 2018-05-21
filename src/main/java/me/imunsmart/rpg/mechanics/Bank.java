@@ -294,7 +294,7 @@ public class Bank implements Listener {
 	public void onClose(InventoryCloseEvent e) {
 		Player p = (Player) e.getPlayer();
 		if (e.getInventory().getTitle().equals(ChatColor.GREEN + p.getName() + "'s Bank Storage")) {
-			List<String> items = new ArrayList<String>();
+			List<String> items = new ArrayList<>();
 			for (int i = 0; i < e.getInventory().getSize() - 9; i++) {
 				items.add(Items.serialize(e.getInventory().getItem(i)));
 			}

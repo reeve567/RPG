@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="92737b64-0c38-4149-a781-1628c710ce8e" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/ser/plugins/RPG.jar" beforeDir="false" afterPath="$PROJECT_DIR$/ser/plugins/RPG.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Bank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Bank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/loot/GemSpawners.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/loot/GemSpawners.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -21,39 +20,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-666">
-              <caret line="32" column="5" lean-forward="true" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Bank.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Bank.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="32" column="26" lean-forward="true" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="26" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GemSpawners.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/loot/GemSpawners.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1309">
-              <caret line="103" column="12" selection-start-line="103" selection-start-column="12" selection-end-line="103" selection-end-column="12" />
-              <folding>
-                <element signature="e#4841#4926#0" expanded="true" />
-                <element signature="e#4925#4926#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="646">
+              <caret line="60" column="12" lean-forward="true" selection-start-line="60" selection-start-column="12" selection-end-line="60" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -184,8 +155,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="AndroidView" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -232,6 +203,25 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="rpg" type="462c0819:PsiDirectoryNode" />
               <item name="mechanics" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RPG" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RPG" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="rpg" type="462c0819:PsiDirectoryNode" />
+              <item name="mechanics" type="462c0819:PsiDirectoryNode" />
+              <item name="loot" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RPG" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RPG" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="rpg" type="462c0819:PsiDirectoryNode" />
+              <item name="mobs" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="RPG" type="b2602c69:ProjectViewProjectNode" />
@@ -400,15 +390,17 @@
       <workItem from="1526670742580" duration="7188000" />
       <workItem from="1526738449839" duration="5415000" />
       <workItem from="1526772522202" duration="164000" />
-      <workItem from="1526899893165" duration="3677000" />
+      <workItem from="1526899893165" duration="5525000" />
+      <workItem from="1526910287956" duration="1032000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47986000" />
+    <option name="totallyTimeSpent" value="50866000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-2" y="-2" width="1373" height="879" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -416,17 +408,16 @@
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50104165" side_tool="true" weight="0.19604146" />
-      <window_info anchor="right" id="Maven Projects" order="3" visible="true" weight="0.14996342" />
+      <window_info anchor="right" id="Maven Projects" order="3" weight="0.14996342" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32923833" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49947917" weight="0.19587629" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24871983" />
-      <window_info active="true" anchor="bottom" id="Statistic" order="7" visible="true" weight="0.3298969" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24871983" />
+      <window_info anchor="bottom" id="Statistic" order="7" weight="0.3298969" />
       <window_info anchor="right" id="Database" order="3" />
-      <window_info anchor="bottom" id="Find" order="1" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
@@ -439,6 +430,7 @@
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -711,10 +703,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="30" selection-start-column="30" selection-end-column="30" />
-          <folding>
-            <element signature="e#773#774#0" expanded="true" />
-            <element signature="e#803#804#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -759,20 +747,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1309">
           <caret line="103" column="12" selection-start-line="103" selection-start-column="12" selection-end-line="103" selection-end-column="12" />
-          <folding>
-            <element signature="e#4841#4926#0" expanded="true" />
-            <element signature="e#4925#4926#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Bank.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="32" column="26" lean-forward="true" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="646">
+          <caret line="60" column="12" lean-forward="true" selection-start-line="60" selection-start-column="12" selection-end-line="60" selection-end-column="12" />
         </state>
       </provider>
     </entry>
