@@ -3,8 +3,7 @@ package me.imunsmart.rpg;
 import me.imunsmart.rpg.command.Admin;
 import me.imunsmart.rpg.events.*;
 import me.imunsmart.rpg.mechanics.*;
-import me.imunsmart.rpg.mechanics.classes.ClassManager;
-import me.imunsmart.rpg.mechanics.classes.ClassSelector;
+import me.imunsmart.rpg.mechanics.loot.GemSpawners;
 import me.imunsmart.rpg.mechanics.loot.LootChests;
 import me.imunsmart.rpg.mobs.EntityManager;
 import me.imunsmart.rpg.util.AutoBroadcaster;
@@ -27,34 +26,15 @@ public class Main extends JavaPlugin {
 		return npc;
 	}
 	
-	@Override
-	public void onDisable() {
-		Health.disable();
-		EntityManager.disable();
-		GemSpawners.disable();
-		EntityManager.pl = null;
-		Spawners.disable();
-		lc.disable();
-		
+	private void register(Listener... listeners) {
+		for (Listener l : listeners) {
+			Bukkit.getPluginManager().registerEvents(l, this);
+		}
 	}
 	
-	@Override
-	public void onEnable() {
-		registerEvents();
-		registerCommands();
-		registerGlow();
-		Nametags.setupDevTeam();
-		Nametags.setupTesterTeam();
-		
-		for (Player p : Bukkit.getOnlinePlayers()) {
-			Nametags.init(p);
-		}
-		
-		new AutoBroadcaster(this);
-		
-		new Stats(this);
-		
-		Health.task(this);
+	private void registerCommands() {
+		getLogger().log(Level.INFO, "Registered commands.");
+		new Admin(this);
 	}
 	
 	private void registerEvents() {
@@ -79,11 +59,6 @@ public class Main extends JavaPlugin {
 		lc = new LootChests(this);
 	}
 	
-	private void registerCommands() {
-		getLogger().log(Level.INFO, "Registered commands.");
-		new Admin(this);
-	}
-	
 	private void registerGlow() {
 		try {
 			Field f = Enchantment.class.getDeclaredField("acceptingNew");
@@ -101,10 +76,33 @@ public class Main extends JavaPlugin {
 		}
 	}
 	
-	private void register(Listener... listeners) {
-		for (Listener l : listeners) {
-			Bukkit.getPluginManager().registerEvents(l, this);
+	@Override
+	public void onDisable() {
+		Health.disable();
+		EntityManager.disable();
+		GemSpawners.disable();
+		EntityManager.pl = null;
+		Spawners.disable();
+		lc.disable();
+	}
+	
+	@Override
+	public void onEnable() {
+		registerEvents();
+		registerCommands();
+		registerGlow();
+		Nametags.setupDevTeam();
+		Nametags.setupTesterTeam();
+		
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			Nametags.init(p);
 		}
+		
+		new AutoBroadcaster(this);
+		
+		new Stats(this);
+		
+		Health.task(this);
 	}
 	
 }

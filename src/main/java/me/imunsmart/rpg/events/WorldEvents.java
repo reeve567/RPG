@@ -1,10 +1,7 @@
 package me.imunsmart.rpg.events;
 
 import me.imunsmart.rpg.Main;
-import me.imunsmart.rpg.command.admincommands.rpg.give.GemSpawnerC;
-import me.imunsmart.rpg.mechanics.GemSpawners;
 import org.bukkit.GameMode;
-import org.bukkit.Material;
 import org.bukkit.block.BlockState;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

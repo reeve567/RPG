@@ -1,10 +1,13 @@
 me\imunsmart\rpg\mechanics\classes\ClassSelector.class
 me\imunsmart\rpg\command\admincommands\rpg\give\GiveScraps.class
 me\imunsmart\rpg\command\admincommands\playermoderation\InventoryC.class
+me\imunsmart\rpg\mechanics\loot\GemSpawners.class
 me\imunsmart\rpg\mechanics\Stats.class
 me\imunsmart\rpg\events\PlayerEvents.class
 me\imunsmart\rpg\mechanics\classes\Class.class
 me\imunsmart\rpg\command\admincommands\rpg\give\GemSpawnerC.class
+me\imunsmart\rpg\mechanics\loot\GemSpawners$GemSpawner.class
 me\imunsmart\rpg\util\InventoryUtility.class
+me\imunsmart\rpg\mechanics\loot\GemSpawners$GemSpawner$1.class
 me\imunsmart\rpg\events\DamageEvents.class
 me\imunsmart\rpg\mechanics\TitleMessage.class

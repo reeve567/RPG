@@ -1,8 +1,8 @@
-package me.imunsmart.rpg.mechanics;
+package me.imunsmart.rpg.mechanics.loot;
 
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.command.admincommands.rpg.give.GemSpawnerC;
-import me.imunsmart.rpg.mechanics.loot.LootChests;
+import me.imunsmart.rpg.mechanics.Items;
 import me.imunsmart.rpg.util.CustomItem;
 import me.imunsmart.rpg.util.LocationUtility;
 import me.imunsmart.rpg.util.Util;
@@ -136,6 +136,7 @@ public class GemSpawners implements Listener {
 		
 		public void loot() {
 			//location.getWorld().playEffect(LocationUtility.centerBlock(location), Effect.CLICK1, 1);
+			location.getWorld().playSound(LocationUtility.centerBlock(location), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 2);
 			location.getWorld().dropItem(LocationUtility.centerBlock(location), new CustomItem(Items.gem).setCustomAmount((int) (Math.random() * tier * 1.5) + 1));
 			location.getBlock().setType(Material.AIR);
 			new BukkitRunnable() {

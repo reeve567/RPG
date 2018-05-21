@@ -1,8 +1,8 @@
 package me.imunsmart.rpg.mechanics;
 
+import me.imunsmart.rpg.mechanics.loot.GemSpawners;
 import me.imunsmart.rpg.mechanics.loot.LootChests;
 import me.imunsmart.rpg.util.CustomItem;
-import me.imunsmart.rpg.util.Glow;
 import me.imunsmart.rpg.util.MessagesUtil;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
