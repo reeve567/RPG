@@ -43,14 +43,14 @@ public class Main extends JavaPlugin {
 				new Repairing(this),
 				new Potions(this),
 				new AdminTools(),
-				new TeleportScrolls(this)
+				new TeleportScrolls(this),
+				new NPCS()
 		);
 		new GemSpawners(this);
 		new EntityManager(this);
 		new Bank(this);
 		new RepairMenu(this);
 		new Spawners(this);
-		new NPCS(this);
 		new GlobalMarket(this);
 		lc = new LootChests(this);
 	}
