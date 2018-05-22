@@ -10,6 +10,8 @@ import org.bukkit.Location;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -24,7 +26,7 @@ public class NPCS implements Listener {
 		Bukkit.getPluginManager().registerEvents(this, main);
 		new Banker(new Location(Util.w, 21.5, 65, -4.5, 90, 0));
 		new Marketer(new Location(Util.w, 21.5, 65, -2.5, 90, 0));
-		new Talker(new Location(Util.w, 19.5, 66, 0.5, 90, 0), Villager.Profession.PRIEST, "§aKing Duncan", "Have fun on your adventures!", "Don't die!");
+		new Talker(new Location(Util.w, 19.5, 66, 0.5, 90, 0), Villager.Profession.PRIEST, "§bKing Duncan", "Have fun on your adventures!", "Don't die!");
 		
 	}
 	
@@ -58,6 +60,12 @@ public class NPCS implements Listener {
 		}
 	}
 	
+	@EventHandler
+	public void onHit(EntityDamageEvent e) {
+		if (e.getEntity().getScoreboardTags().contains("npc")) {
+			e.setCancelled(true);
+		}
+	}
 	
 	public abstract static class NPC {
 		
@@ -80,8 +88,11 @@ public class NPCS implements Listener {
 			entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 255, true));
 			entity.setInvulnerable(true);
 			entity.setSilent(true);
-			entity.setCustomName(name);
-			entity.setCustomNameVisible(true);
+			entity.setCollidable(false);
+			if (name != null && !name.equals("")) {
+				entity.setCustomName(name);
+				entity.setCustomNameVisible(true);
+			}
 		}
 		
 		protected abstract String setOther();

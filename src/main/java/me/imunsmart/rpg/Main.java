@@ -45,6 +45,7 @@ public class Main extends JavaPlugin {
 		
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			Nametags.init(p);
+			p.setCollidable(false);
 		}
 		
 		new AutoBroadcaster(this);
