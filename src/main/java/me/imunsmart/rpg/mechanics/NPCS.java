@@ -1,4 +1,4 @@
-package me.imunsmart.rpg.mechanics.test;
+package me.imunsmart.rpg.mechanics;
 
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.Bank;
@@ -6,6 +6,7 @@ import me.imunsmart.rpg.mechanics.GlobalMarket;
 import me.imunsmart.rpg.util.LocationUtility;
 import me.imunsmart.rpg.util.Util;
 import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -13,6 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.world.ChunkUnloadEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 public class NPCS implements Listener {
 	
 	private static ArrayList<NPC> npcs = new ArrayList<>();
+	private static ArrayList<Chunk> chunks = new ArrayList<>();
 	
 	public NPCS(Main main) {
 		Bukkit.getPluginManager().registerEvents(this, main);
@@ -67,6 +70,11 @@ public class NPCS implements Listener {
 		}
 	}
 	
+	@EventHandler
+	public void onUnload(ChunkUnloadEvent e) {
+		if (chunks.contains(e.getChunk())) e.setCancelled(true);
+	}
+	
 	public abstract static class NPC {
 		
 		public LivingEntity entity;
@@ -84,6 +92,11 @@ public class NPCS implements Listener {
 		private void set() {
 			entity.addScoreboardTag("npc");
 			entity.addScoreboardTag(setOther());
+			
+			Chunk c = entity.getLocation().getChunk();
+			if (!chunks.contains(c)) {
+				chunks.add(c);
+			}
 			
 			entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 255, true));
 			entity.setInvulnerable(true);

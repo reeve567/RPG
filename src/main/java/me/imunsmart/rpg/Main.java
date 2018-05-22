@@ -5,7 +5,7 @@ import me.imunsmart.rpg.events.*;
 import me.imunsmart.rpg.mechanics.*;
 import me.imunsmart.rpg.mechanics.loot.GemSpawners;
 import me.imunsmart.rpg.mechanics.loot.LootChests;
-import me.imunsmart.rpg.mechanics.test.NPCS;
+import me.imunsmart.rpg.mechanics.NPCS;
 import me.imunsmart.rpg.mobs.EntityManager;
 import me.imunsmart.rpg.util.AutoBroadcaster;
 import me.imunsmart.rpg.util.Glow;
