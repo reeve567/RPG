@@ -5,6 +5,7 @@ import me.imunsmart.rpg.events.*;
 import me.imunsmart.rpg.mechanics.*;
 import me.imunsmart.rpg.mechanics.loot.GemSpawners;
 import me.imunsmart.rpg.mechanics.loot.LootChests;
+import me.imunsmart.rpg.mechanics.test.NPCS;
 import me.imunsmart.rpg.mobs.EntityManager;
 import me.imunsmart.rpg.util.AutoBroadcaster;
 import me.imunsmart.rpg.util.Glow;
@@ -19,62 +20,7 @@ import java.util.logging.Level;
 
 public class Main extends JavaPlugin {
 	
-	private static NPC npc;
 	public LootChests lc;
-	
-	public static NPC getNpc() {
-		return npc;
-	}
-	
-	private void register(Listener... listeners) {
-		for (Listener l : listeners) {
-			Bukkit.getPluginManager().registerEvents(l, this);
-		}
-	}
-	
-	private void registerCommands() {
-		getLogger().log(Level.INFO, "Registered commands.");
-		new Admin(this);
-	}
-	
-	private void registerEvents() {
-		getLogger().log(Level.INFO, "Registered events.");
-		register(new WorldEvents(this),
-				new PlayerEvents(this),
-				new DamageEvents(this),
-				new ChatEvents(this),
-				new ServerEvents(this),
-				new SignEvents(this),
-				new Repairing(this),
-				new Potions(this),
-				npc = new NPC(this),
-				new AdminTools()
-		);
-		new GemSpawners(this);
-		new EntityManager(this);
-		new Bank(this);
-		new RepairMenu(this);
-		new Spawners(this);
-		new GlobalMarket(this);
-		lc = new LootChests(this);
-	}
-	
-	private void registerGlow() {
-		try {
-			Field f = Enchantment.class.getDeclaredField("acceptingNew");
-			f.setAccessible(true);
-			f.set(null, true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		try {
-			Glow glow = new Glow(999);
-			Enchantment.registerEnchantment(glow);
-		} catch (IllegalArgumentException ignored) {
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 	
 	@Override
 	public void onDisable() {
@@ -85,6 +31,7 @@ public class Main extends JavaPlugin {
 		Spawners.disable();
 		lc.disable();
 		Holograms.disable();
+		NPCS.disable();
 	}
 	
 	@Override
@@ -105,6 +52,57 @@ public class Main extends JavaPlugin {
 		new Stats(this);
 		
 		Health.task(this);
+	}
+	
+	private void registerEvents() {
+		getLogger().log(Level.INFO, "Registered events.");
+		register(new WorldEvents(this),
+				new PlayerEvents(this),
+				new DamageEvents(this),
+				new ChatEvents(this),
+				new ServerEvents(this),
+				new SignEvents(this),
+				new Repairing(this),
+				new Potions(this),
+				//npc = new NPC(this),
+				new AdminTools()
+		);
+		new GemSpawners(this);
+		new EntityManager(this);
+		new Bank(this);
+		new RepairMenu(this);
+		new Spawners(this);
+		new NPCS(this);
+		new GlobalMarket(this);
+		lc = new LootChests(this);
+	}
+	
+	private void registerCommands() {
+		getLogger().log(Level.INFO, "Registered commands.");
+		new Admin(this);
+	}
+	
+	private void registerGlow() {
+		try {
+			Field f = Enchantment.class.getDeclaredField("acceptingNew");
+			f.setAccessible(true);
+			f.set(null, true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			Glow glow = new Glow(999);
+			Enchantment.registerEnchantment(glow);
+		} catch (IllegalArgumentException ignored) {
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void register(Listener... listeners) {
+		for (Listener l : listeners) {
+			Bukkit.getPluginManager().registerEvents(l, this);
+		}
 	}
 	
 }
