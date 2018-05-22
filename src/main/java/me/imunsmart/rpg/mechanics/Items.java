@@ -1,7 +1,6 @@
 package me.imunsmart.rpg.mechanics;
 
 import me.imunsmart.rpg.mobs.Constants;
-import me.imunsmart.rpg.util.CustomItem;
 import me.imunsmart.rpg.util.StringUtility;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.GameMode;
@@ -111,8 +110,10 @@ public class Items {
 		return i;
 	}
 	
-	public static ItemStack createTeleportationScroll(int amount) {
-		return new CustomItem(Material.BOOK).setName("§aTeleportation Scroll").setLore("&7In a rush or in trouble?", "§7Use this scroll to teleport to spawn.", "&7Simply shift-right-click the scroll to use it.", "&7One time use.").setCustomAmount(amount);
+	public static ItemStack createTeleportScroll(int amount, String location, int delay) {
+		String name = ChatColor.GREEN + "Teleport: " + location;
+		String lore = ChatColor.GRAY + "Teleport delay: " + ChatColor.YELLOW + delay + ChatColor.GRAY + " seconds";
+		return Items.createItem(Material.BOOK, amount, 0, name, lore);
 	}
 	
 	public static ItemStack deserialize(String s) {

@@ -6,9 +6,10 @@ import org.bukkit.entity.Player;
 public class GiveTools {
 	
 	public static void run(Player p) {
-		p.getInventory().addItem(AdminTools.lootChestTools[0]);
-		p.getInventory().addItem(AdminTools.gemSpawnerTools[0]);
-		p.getInventory().addItem(AdminTools.mobSpawnerTools[0]);
+		p.getInventory().addItem(AdminTools.lootChest);
+		p.getInventory().addItem(AdminTools.gemSpawner);
+		p.getInventory().addItem(AdminTools.mobSpawner);
 		p.getInventory().addItem(AdminTools.spawnerAmountTool);
+		p.getInventory().addItem(AdminTools.spawnerTypeTool[0]);
 	}
 }

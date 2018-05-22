@@ -48,7 +48,8 @@ public class Main extends JavaPlugin {
 				new Repairing(this),
 				new Potions(this),
 				npc = new NPC(this),
-				new AdminTools()
+				new AdminTools(),
+				new TeleportScrolls(this)
 		);
 		new GemSpawners(this);
 		new EntityManager(this);

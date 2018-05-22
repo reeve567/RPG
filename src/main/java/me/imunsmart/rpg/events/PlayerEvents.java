@@ -1,7 +1,11 @@
 package me.imunsmart.rpg.events;
 
+import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.*;
-import me.imunsmart.rpg.mobs.Constants;
+import me.imunsmart.rpg.util.Util;
+import net.md_5.bungee.api.ChatColor;
+import net.minecraft.server.v1_12_R1.PacketPlayInClientCommand;
+import net.minecraft.server.v1_12_R1.PacketPlayInClientCommand.EnumClientCommand;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
@@ -15,19 +19,8 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
-import org.bukkit.event.player.PlayerSwapHandItemsEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import me.imunsmart.rpg.Main;
-import me.imunsmart.rpg.util.Util;
-import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.v1_12_R1.PacketPlayInClientCommand;
-import net.minecraft.server.v1_12_R1.PacketPlayInClientCommand.EnumClientCommand;
 
 public class PlayerEvents implements Listener {
 	private Main pl;
@@ -135,15 +128,6 @@ public class PlayerEvents implements Listener {
 						e.setCancelled(true);
 					return;
 				}
-				if (e.getItem().getType() == Material.BOOK && e.getPlayer().isSneaking()) {
-					if (e.getItem().hasItemMeta() && e.getItem().getItemMeta().hasLore() && e.getItem().getItemMeta().getLore().size() == 4) {
-						Items.useItem(e.getPlayer());
-						e.getPlayer().teleport(Util.spawn);
-						new TitleMessage("§aTeleported to spawn").sendToPlayer(e.getPlayer());
-						e.setCancelled(true);
-					}
-				}
-				
 			}
 		}
 		if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {

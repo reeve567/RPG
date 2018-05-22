@@ -11,6 +11,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -54,73 +55,87 @@ public class Mob {
 			drop = w;
 		}
 		// Wear
-		if (Math.random() > 0.25)
-			mob.getEquipment().setChestplate(c);
-		if (Math.random() > 0.25)
-			mob.getEquipment().setLeggings(l);
-		if (Math.random() > 0.25)
-			mob.getEquipment().setBoots(b);
-		mob.getEquipment().setItemInMainHand(w);
-		// Drop Chances
-		mob.getEquipment().setBootsDropChance(0);
-		mob.getEquipment().setHelmetDropChance(0);
-		mob.getEquipment().setChestplateDropChance(0);
-		mob.getEquipment().setLeggingsDropChance(0);
-		mob.getEquipment().setItemInMainHandDropChance(0);
-		// Wear Skull
-		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
-		SkullMeta sm = (SkullMeta) skull.getItemMeta();
-		sm.setOwner(Util.names[(int) (Math.random() * Util.names.length)]);
-		skull.setItemMeta(sm);
-		mob.getEquipment().setHelmet(skull);
-
+		if(mob.getType() == EntityType.ZOMBIE || mob.getType() == EntityType.SKELETON) {
+			if (Math.random() > 0.25)
+				mob.getEquipment().setChestplate(c);
+			if (Math.random() > 0.25)
+				mob.getEquipment().setLeggings(l);
+			if (Math.random() > 0.25)
+				mob.getEquipment().setBoots(b);
+			mob.getEquipment().setItemInMainHand(w);
+			// Drop Chances
+			mob.getEquipment().setBootsDropChance(0);
+			mob.getEquipment().setHelmetDropChance(0);
+			mob.getEquipment().setChestplateDropChance(0);
+			mob.getEquipment().setLeggingsDropChance(0);
+			mob.getEquipment().setItemInMainHandDropChance(0);
+			// Wear Skull
+			ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+			SkullMeta sm = (SkullMeta) skull.getItemMeta();
+			sm.setOwner(Util.names[(int) (Math.random() * Util.names.length)]);
+			skull.setItemMeta(sm);
+			mob.getEquipment().setHelmet(skull);
+		}
 		maxHP = health = Health.calculateMaxHealth(mob);
 		mob.setCustomName(name);
 		mob.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(mob.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue() * (4.0 / 3.0));
 	}
 
-	public Mob(LivingEntity mob, String name, String type, int min, int max, String flag, int tier, int mh, int mc, int ml, int mb, String hf, String cf, String lf, String bf) {
+	public Mob(LivingEntity mob, String name, int tier, int maxHP) {
+		this(mob, name, tier);
+		this.maxHP = health = maxHP;
+	}
+
+	public Mob(LivingEntity mob, String name, String type, int min, int max, String flag, int tier, int maxHelmet, int maxChestplate, int maxLeggings, int maxBoots,
+			   String helmetFlag, String chestplateFlag, String leggingsFlag, String bootsFlag, String skullName) {
 		this.mob = mob;
 		this.tier = tier;
 		loc = mob.getLocation();
 		mob.getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(8.0);
 		pl = EntityManager.pl;
-		ItemStack h = Items.randomDurability(Items.createArmor("helmet", tier, mh, hf));
+		// Create Items
+		ItemStack h = Items.createArmor("helmet", tier, maxHelmet, helmetFlag);
+		ItemStack c = Items.createArmor("chestplate", tier, maxChestplate, chestplateFlag);
+		ItemStack l = Items.createArmor("leggings", tier, maxLeggings, leggingsFlag);
+		ItemStack b = Items.createArmor("boots", tier, maxBoots, bootsFlag);
+		ItemStack w = Items.getRandomWeapon(tier, type);
+		// Drops
 		if (Math.random() < 0.1) {
 			drop = h;
-		}
-		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
-		mob.getEquipment().setHelmet(skull);
-		ItemStack c = Items.randomDurability(Items.createArmor("chestplate", tier, mc, cf));
-		if (Math.random() < 0.1) {
+		} else if (Math.random() < 0.1) {
 			drop = c;
-		}
-		if (Math.random() > 0.25)
-			mob.getEquipment().setChestplate(c);
-		ItemStack l = Items.randomDurability(Items.createArmor("leggings", tier, ml, lf));
-		if (Math.random() < 0.1) {
+		} else if (Math.random() < 0.1) {
 			drop = l;
-		}
-		if (Math.random() > 0.25)
-			mob.getEquipment().setLeggings(l);
-		ItemStack b = Items.randomDurability(Items.createArmor("boots", tier, mb, bf));
-		if (Math.random() < 0.1) {
+		} else if (Math.random() < 0.1) {
 			drop = b;
-		}
-		if (Math.random() > 0.25)
-			mob.getEquipment().setBoots(b);
-		ItemStack w = Items.randomDurability(Items.createWeapon(type, tier, min, max, flag));
-		if (Math.random() < 0.1) {
+		} else if (Math.random() < 0.1) {
 			drop = w;
 		}
-		mob.getEquipment().setItemInMainHand(w);
-		mob.getEquipment().setBootsDropChance(0);
-		mob.getEquipment().setHelmetDropChance(0);
-		mob.getEquipment().setChestplateDropChance(0);
-		mob.getEquipment().setLeggingsDropChance(0);
-		mob.getEquipment().setItemInMainHandDropChance(0);
-		health = Health.calculateMaxHealth(mob);
+		// Wear
+		if(mob.getType() == EntityType.ZOMBIE || mob.getType() == EntityType.SKELETON) {
+			if (Math.random() > 0.25)
+				mob.getEquipment().setChestplate(c);
+			if (Math.random() > 0.25)
+				mob.getEquipment().setLeggings(l);
+			if (Math.random() > 0.25)
+				mob.getEquipment().setBoots(b);
+			mob.getEquipment().setItemInMainHand(w);
+			// Drop Chances
+			mob.getEquipment().setBootsDropChance(0);
+			mob.getEquipment().setHelmetDropChance(0);
+			mob.getEquipment().setChestplateDropChance(0);
+			mob.getEquipment().setLeggingsDropChance(0);
+			mob.getEquipment().setItemInMainHandDropChance(0);
+			// Wear Skull
+			ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+			SkullMeta sm = (SkullMeta) skull.getItemMeta();
+			sm.setOwner(skullName);
+			skull.setItemMeta(sm);
+			mob.getEquipment().setHelmet(skull);
+		}
+		maxHP = health = Health.calculateMaxHealth(mob);
 		mob.setCustomName(name);
+		mob.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(mob.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue() * (4.0 / 3.0));
 	}
 
 	private void die() {

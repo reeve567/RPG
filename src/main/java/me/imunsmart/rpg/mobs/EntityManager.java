@@ -7,10 +7,7 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Skeleton;
-import org.bukkit.entity.Zombie;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -45,15 +42,19 @@ public class EntityManager implements Listener {
 			z.setBaby(false);
 			Mob m = new Mob(z, ChatColor.GREEN + Constants.getRandomZombieName(tier), tier);
 			z.setCustomNameVisible(true);
-			m = Nametags.addName(m);
-			return mobs.put(z, m);
+			return mobs.put(z, Nametags.addName(m));
 		}
 		if (type.equalsIgnoreCase("skeleton")) {
 			Skeleton s = l.getWorld().spawn(l, Skeleton.class);
 			Mob m = new Mob(s, ChatColor.GREEN + Constants.getRandomSkeletonName(tier), tier);
 			s.setCustomNameVisible(true);
-			m = Nametags.addName(m);
-			return mobs.put(s, m);
+			return mobs.put(s, Nametags.addName(m));
+		}
+		if(type.equalsIgnoreCase("spider")) {
+			Spider s = l.getWorld().spawn(l, Spider.class);
+			int maxHealth = (int) (Math.random() * (Constants.getMaxHealth(tier) / 2)) + (Constants.getMaxHealth(tier) / 2);
+			Mob m = new Mob(s, ChatColor.GREEN + Constants.getRandomSpiderName(tier), tier, maxHealth);
+			return mobs.put(s, Nametags.addName(m));
 		}
 		return null;
 	}

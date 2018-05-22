@@ -2,6 +2,7 @@ package me.imunsmart.rpg.mechanics;
 
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.util.MessagesUtil;
+import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -305,7 +306,7 @@ public class Bank implements Listener {
 	@EventHandler
 	public void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
-		if (e.getTo().distanceSquared(e.getFrom()) >= 0.01) {
+		if (Util.moved(e.getFrom(), e.getTo())) {
 			if (withdraw.containsKey(p.getName())) {
 				p.sendMessage(MessagesUtil.moveCancel("withdraw"));
 				withdraw.remove(p.getName());

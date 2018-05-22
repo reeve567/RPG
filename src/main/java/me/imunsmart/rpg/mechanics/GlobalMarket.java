@@ -1,12 +1,8 @@
 package me.imunsmart.rpg.mechanics;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-
+import me.imunsmart.rpg.Main;
+import me.imunsmart.rpg.util.Util;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -26,8 +22,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import me.imunsmart.rpg.Main;
-import net.md_5.bungee.api.ChatColor;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 public class GlobalMarket implements Listener {
 	private static Main pl;
@@ -251,14 +251,14 @@ public class GlobalMarket implements Listener {
 	public void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 		if (selling.contains(p.getName())) {
-			if (e.getTo().distanceSquared(e.getFrom()) >= 0.01) {
+			if (Util.moved(e.getFrom(), e.getTo())) {
 				p.sendMessage(ChatColor.RED + "You moved, cancelling sell.");
 				Sounds.play(p, Sound.ENTITY_ITEM_BREAK, 0.67f);
 				selling.remove(p.getName());
 			}
 		}
 		if (sell.containsKey(p.getName())) {
-			if (e.getTo().distanceSquared(e.getFrom()) >= 0.01) {
+			if (Util.moved(e.getFrom(), e.getTo())) {
 				p.sendMessage(ChatColor.RED + "You moved, cancelling sell.");
 				Sounds.play(p, Sound.ENTITY_ITEM_BREAK, 0.67f);
 				sell.remove(p.getName());
