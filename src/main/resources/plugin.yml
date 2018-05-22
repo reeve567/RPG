@@ -45,3 +45,5 @@ commands:
     aliases: [gs]
   givetools:
     description: Give tools for setting up the RPG map
+  warp:
+    description: Fast travel to specific places in the map.

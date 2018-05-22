@@ -46,6 +46,7 @@ me\imunsmart\rpg\command\admincommands\gamemode\GMC.class
 me\imunsmart\rpg\events\PlayerEvents.class
 me\imunsmart\rpg\mechanics\loot\LootChests.class
 me\imunsmart\rpg\mechanics\AdminTools.class
+me\imunsmart\rpg\command\admincommands\rpg\Warp.class
 me\imunsmart\rpg\util\AutoBroadcaster.class
 me\imunsmart\rpg\util\PacketUtil.class
 me\imunsmart\rpg\mechanics\Data.class

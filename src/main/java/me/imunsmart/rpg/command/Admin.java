@@ -1,5 +1,6 @@
 package me.imunsmart.rpg.command;
 
+import me.imunsmart.rpg.command.admincommands.rpg.Warp;
 import me.imunsmart.rpg.command.admincommands.rpg.give.*;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -45,6 +46,7 @@ public class Admin implements CommandExecutor {
 		pl.getCommand("gemspawner").setExecutor(this);
 		pl.getCommand("gs").setExecutor(this);
 		pl.getCommand("givetools").setExecutor(this);
+		pl.getCommand("warp").setExecutor(this);
 	}
 	
 	@Override
@@ -137,6 +139,8 @@ public class Admin implements CommandExecutor {
 			GemSpawnerC.run(p, args);
 		} else if (label.equalsIgnoreCase("givetools")) {
 			GiveTools.run(p);
+		} else if (label.equalsIgnoreCase("warp")) {
+			Warp.run(p,args);
 		}
 		return false;
 	}
