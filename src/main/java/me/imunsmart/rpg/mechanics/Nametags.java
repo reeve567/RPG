@@ -29,7 +29,7 @@ public class Nametags {
 		
 		try {
 			Team team = scoreboard.registerNewTeam("devs");
-			team.setPrefix("§b§lDEV §f");
+			team.setPrefix("Â§bÂ§lDEV Â§f");
 			team.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.ALWAYS);
 			team.addPlayer(Bukkit.getOfflinePlayer("Xwy"));
 			team.addPlayer(Bukkit.getOfflinePlayer("ImUnsmart"));
@@ -50,7 +50,7 @@ public class Nametags {
 		
 		try {
 			Team team = scoreboard.registerNewTeam("testers");
-			team.setPrefix("§c§lTESTER §f");
+			team.setPrefix("Â§cÂ§lTESTER Â§f");
 			team.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.ALWAYS);
 			team.addPlayer(Bukkit.getOfflinePlayer("TeddyBe"));
 			setScoreboard(scoreboard);
