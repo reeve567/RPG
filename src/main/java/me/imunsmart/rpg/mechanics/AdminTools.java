@@ -72,36 +72,49 @@ public class AdminTools implements Listener {
 	public void onInteract(PlayerInteractEvent e) {
 		ItemStack stack = e.getItem();
 		if (e.getAction() == Action.LEFT_CLICK_AIR) {
-			if (stack.hasItemMeta() && stack.getItemMeta().hasDisplayName() && stack.getItemMeta().getDisplayName().startsWith("§b§lTier ")) {
-				int tier = Integer.parseInt(stack.getItemMeta().getDisplayName().substring(9, 10));
-				if (stack.getType().equals(Material.MONSTER_EGG)) {
-					CustomItem item = new CustomItem(stack);
-					int amount = item.getAmount();
-					if (amount != 64) {
-						amount++;
+			if (stack != null) {
+				if (stack.hasItemMeta() && stack.getItemMeta().hasDisplayName()) {
+					if (stack.getType().equals(Material.MONSTER_EGG)) {
+						e.setCancelled(true);
+						CustomItem item = new CustomItem(stack);
+						int amount = item.getAmount();
+						if (amount != 64) {
+							amount++;
+						} else {
+							amount = 1;
+						}
+						item.setCustomAmount(amount);
+						e.getPlayer().setItemInHand(item);
+					} else if (stack.getItemMeta().getDisplayName().startsWith("§b§lTier ")) {
+						int tier = Integer.parseInt(stack.getItemMeta().getDisplayName().substring(9, 10));
+						if (stack.getType().equals(Material.MOB_SPAWNER)) {
+							e.setCancelled(true);
+							if (tier != 5) {
+								tier += 1;
+							} else {
+								tier = 1;
+							}
+							e.getPlayer().setItemInHand(new CustomItem(stack).setName("§b&lTier " + tier + " Mob Spawner"));
+						} else if (stack.getType().equals(Material.DIAMOND_ORE)) {
+							e.setCancelled(true);
+							if (tier != 5) {
+								tier += 1;
+							} else {
+								tier = 1;
+							}
+							e.getPlayer().setItemInHand(new CustomItem(stack).setName("§b&lTier " + tier + " Gem Spawner"));
+						} else if (stack.getType().equals(Material.CHEST)) {
+							e.setCancelled(true);
+							if (tier != 5) {
+								tier += 1;
+							} else {
+								tier = 1;
+							}
+							e.getPlayer().setItemInHand(new CustomItem(stack).setName("§b&lTier " + tier + " Lootchest"));
+						}
 					}
-					else {
-						amount = 1;
-					}
-					item.setCustomAmount(amount);
-				} else if (stack.getType().equals(Material.MOB_SPAWNER)) {
-					if (tier != 5) {
-						tier += 1;
-					}
-					else {
-						tier = 1;
-					}
-					new CustomItem(stack).setName("§b&lTier " + tier + " Mob Spawner");
-				} else if (stack.getType().equals(Material.DIAMOND_ORE)) {
-					if (tier != 5) {
-						tier += 1;
-					}
-					else {
-						tier = 1;
-					}
-					new CustomItem(stack).setName("§b&lTier " + tier + " Gem Spawner");
+					
 				}
-				
 			}
 		} else if (e.getAction() == Action.RIGHT_CLICK_AIR) {
 		
