@@ -10,6 +10,7 @@ me\imunsmart\rpg\events\Spawner.class
 me\imunsmart\rpg\events\SignEvents.class
 me\imunsmart\rpg\command\admincommands\rpg\give\GiveWeapon.class
 me\imunsmart\rpg\command\admincommands\gamemode\GMS.class
+me\imunsmart\rpg\command\defaults\CreditsC.class
 me\imunsmart\rpg\mechanics\Holograms.class
 me\imunsmart\rpg\command\admincommands\gamemode\GMA.class
 me\imunsmart\rpg\command\admincommands\rpg\give\GiveScraps.class
@@ -51,7 +52,6 @@ me\imunsmart\rpg\util\AutoBroadcaster.class
 me\imunsmart\rpg\util\PacketUtil.class
 me\imunsmart\rpg\mechanics\Data.class
 me\imunsmart\rpg\events\PlayerEvents$2.class
-me\imunsmart\rpg\command\admincommands\CreditsC.class
 me\imunsmart\rpg\command\admincommands\playermoderation\Kick.class
 me\imunsmart\rpg\mechanics\Repairing.class
 me\imunsmart\rpg\command\admincommands\rpg\mechanics\SpawnMob.class
