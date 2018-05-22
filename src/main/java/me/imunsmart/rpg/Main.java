@@ -19,12 +19,7 @@ import java.util.logging.Level;
 
 public class Main extends JavaPlugin {
 	
-	private static NPC npc;
 	public LootChests lc;
-	
-	public static NPC getNpc() {
-		return npc;
-	}
 	
 	private void register(Listener... listeners) {
 		for (Listener l : listeners) {
@@ -47,7 +42,6 @@ public class Main extends JavaPlugin {
 				new SignEvents(this),
 				new Repairing(this),
 				new Potions(this),
-				npc = new NPC(this),
 				new AdminTools(),
 				new TeleportScrolls(this)
 		);
@@ -86,6 +80,7 @@ public class Main extends JavaPlugin {
 		Spawners.disable();
 		lc.disable();
 		Holograms.disable();
+		NPCS.disable();
 	}
 	
 	@Override
@@ -99,6 +94,7 @@ public class Main extends JavaPlugin {
 		
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			Nametags.init(p);
+			p.setCollidable(false);
 		}
 		
 		new AutoBroadcaster(this);
