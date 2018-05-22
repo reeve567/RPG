@@ -50,6 +50,7 @@ public class Main extends JavaPlugin {
 		new Bank(this);
 		new RepairMenu(this);
 		new Spawners(this);
+		new NPCS(this);
 		new GlobalMarket(this);
 		lc = new LootChests(this);
 	}
