@@ -63,6 +63,7 @@ public class PlayerEvents implements Listener {
 		e.setJoinMessage(ChatColor.AQUA + "+" + ChatColor.GRAY + " " + p.getName());
 		Stats.setStat(p, "name", p.getName());
 		Nametags.init(p);
+		p.setCollidable(false);
 		new BukkitRunnable() {
 			@Override
 			public void run() {

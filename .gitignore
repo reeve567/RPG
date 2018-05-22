@@ -17,3 +17,10 @@ ser/world_the_end/*
 out/RPG.jar
 out/RPG.jar
 .idea/workspace.xml
+pom.xml
+out/RPG.jar
+out/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
+out/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+out/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+.idea/workspace.xml
+out/RPG.jar
