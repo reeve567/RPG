@@ -25,8 +25,7 @@ public class NPCS implements Listener {
 	private static ArrayList<NPC> npcs = new ArrayList<>();
 	private static ArrayList<Chunk> chunks = new ArrayList<>();
 	
-	public NPCS(Main main) {
-		Bukkit.getPluginManager().registerEvents(this, main);
+	public NPCS() {
 		new Banker(new Location(Util.w, 21.5, 65, -4.5, 90, 0));
 		new Marketer(new Location(Util.w, 21.5, 65, -2.5, 90, 0));
 		new Talker(new Location(Util.w, 19.5, 66, 0.5, 90, 0), Villager.Profession.PRIEST, "§bKing Duncan", "Have fun on your adventures!", "Don't die!");

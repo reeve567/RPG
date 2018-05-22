@@ -24,3 +24,4 @@ out/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
 out/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
 .idea/workspace.xml
 out/RPG.jar
+src/main/java/me/imunsmart/rpg/Main.java
