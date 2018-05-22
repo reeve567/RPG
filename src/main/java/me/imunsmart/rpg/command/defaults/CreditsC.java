@@ -1,4 +1,4 @@
-package me.imunsmart.rpg.command.admincommands;
+package me.imunsmart.rpg.command.defaults;
 
 import org.bukkit.entity.Player;
 

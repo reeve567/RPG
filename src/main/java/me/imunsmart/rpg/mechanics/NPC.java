@@ -41,7 +41,7 @@ public class NPC implements Listener {
 	
 	private void init() {
 		//createNPC(w.spawn(new Location(w, 6, 63, -11), Villager.class), ChatColor.GREEN + "Merchant", market, Profession.LIBRARIAN).addTag("market");
-		createNPC(w.spawn(new Location(w, 18.5, 66, 0.5), Villager.class), "§aKing Duncan", kingDuncan, Profession.NITWIT).addTag("king");
+		createNPC(w.spawn(new Location(w, 18.5, 66, 0.5), Villager.class), ChatColor.GREEN + "King Duncan", kingDuncan, Profession.NITWIT).addTag("king");
 		
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(pl, () -> {
 			for (NPCEntity npe : npc) {

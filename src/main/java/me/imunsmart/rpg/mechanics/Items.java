@@ -216,7 +216,6 @@ public class Items {
 	
 	public static ItemStack getRandomArmorPiece(int tier, String type) {
 		String s = type.substring(0, 1).toUpperCase();
-		System.out.println(tier);
 		int m = Constants.getMaxHealth(tier, s) / 2 + (int) (Math.random() * (Constants.getMaxHealth(tier, s) / 2));
 		String flag = Constants.randomArmorFlag(m, tier);
 		if (flag.contains("uncommon")) {
