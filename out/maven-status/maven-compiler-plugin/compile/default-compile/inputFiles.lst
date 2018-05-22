@@ -14,10 +14,10 @@ F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\Soun
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\util\RomanNumerals.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\admincommands\gamemode\GMSP.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\Items.java
+F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\NPCS.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\util\Glow.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\admincommands\rpg\give\CStats.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\admincommands\playermoderation\InventoryC.java
-F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\NPC.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\AdminTools.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\admincommands\rpg\give\LootChestC.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\events\WorldEvents.java
@@ -53,11 +53,10 @@ F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\adminc
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\Holograms.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\Health.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\util\MessagesUtil.java
-F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\test\NPCS.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\util\StringUtility.java
-F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\loot\ChestItems.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\ActionBar.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\admincommands\gamemode\GMS.java
+F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\TeleportScrolls.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\Default.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\util\PacketUtil.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\RepairMenu.java

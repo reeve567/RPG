@@ -99,6 +99,7 @@ public class PlayerEvents implements Listener {
 	@EventHandler
 	public void onRespawn(PlayerRespawnEvent e) {
 		Player p = e.getPlayer();
+		e.setRespawnLocation(Util.spawn);
 		new BukkitRunnable() {
 			@Override
 			public void run() {
