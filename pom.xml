@@ -9,7 +9,7 @@
 
 	<build>
 		<finalName>RPG</finalName>
-		<directory>${pom.basedir}/ser/plugins</directory>
+		<directory>${pom.basedir}/out</directory>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -28,7 +28,6 @@
 			<id>dmulloy2-repo</id>
 			<url>http://repo.dmulloy2.net/nexus/repository/public/</url>
 		</repository>
-		<!-- And so on -->
 	</repositories>
 
 	<dependencies>

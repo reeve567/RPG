@@ -5,6 +5,7 @@ import me.imunsmart.rpg.command.admincommands.rpg.give.GemSpawnerC;
 import me.imunsmart.rpg.mechanics.Items;
 import me.imunsmart.rpg.util.CustomItem;
 import me.imunsmart.rpg.util.LocationUtility;
+import me.imunsmart.rpg.util.MessagesUtil;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.*;
@@ -153,7 +154,7 @@ public class GemSpawners implements Listener {
 						GemSpawner lc = new GemSpawner(tier, e.getClickedBlock().getLocation());
 						spawners.add(lc);
 						lc.spawn();
-						p.sendMessage(net.md_5.bungee.api.ChatColor.GRAY + "Successfully created a tier " + net.md_5.bungee.api.ChatColor.AQUA + tier + ChatColor.GRAY + " gem spawner.");
+						p.sendMessage(MessagesUtil.gemSpawnerCreated(tier));
 					}
 				}
 			}

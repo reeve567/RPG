@@ -3,8 +3,8 @@
   <component name="CompilerConfiguration">
     <annotationProcessing>
       <profile name="Annotation profile for RPG" enabled="true">
-        <sourceOutputDir name="ser/plugins/generated-sources/annotations" />
-        <sourceTestOutputDir name="ser/plugins/generated-test-sources/test-annotations" />
+        <sourceOutputDir name="out/generated-sources/annotations" />
+        <sourceTestOutputDir name="out/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="RPG" />
       </profile>

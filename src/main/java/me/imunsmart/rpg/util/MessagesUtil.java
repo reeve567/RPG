@@ -1,5 +1,7 @@
 package me.imunsmart.rpg.util;
 
+import net.md_5.bungee.api.ChatColor;
+
 public class MessagesUtil {
 	
 	public static final String classMenuTitle = "§7Class Selector";
@@ -40,4 +42,7 @@ public class MessagesUtil {
 		return prefix('a') + "Successfully created a tier §a" + tier + "§7 loot chest.";
 	}
 	
+	public static String gemSpawnerCreated(int tier) {
+		return prefix('a') + "Successfully created a tier §a" + tier +  "§7 gem spawner.";
+	}
 }
