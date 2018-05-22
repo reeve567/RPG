@@ -14,9 +14,7 @@ commands:
   givescraps:
     description: Give a player scraps.
   giveitem:
-    description: Give a specialized item.
-  spawner:
-    description: Create a spawner.
+    description: Give a specialized item.\
   suicide:
     description: Kill a player.
   broadcast:
@@ -34,9 +32,6 @@ commands:
     description: Kick a player.
   stats:
     description: Modify stats.
-  lootchest:
-    description: Add a loot chest.
-    aliases: [lc]
   inventory:
     description: Open an inventory.
     aliases: [inv]

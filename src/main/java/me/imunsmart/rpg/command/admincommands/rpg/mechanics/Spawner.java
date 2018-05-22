@@ -11,14 +11,15 @@ public class Spawner {
 			if (args[0].equalsIgnoreCase("delete")) {
 				Spawners.remove(args[1]);
 			}
-		} else if (args.length == 3) {
+		} else if (args.length == 4) {
 			String name = args[0];
+			String type = args[3];
 			int tier = Integer.parseInt(args[1]);
 			int max = Integer.parseInt(args[2]);
-			Spawners.setSpawn(p.getLocation(), tier, name, max);
+			Spawners.setSpawn(p.getLocation(), tier, name, max, type);
 			p.sendMessage(ChatColor.GREEN + "Created spawner.");
 		} else {
-			p.sendMessage(ChatColor.RED + "/spawner <delete> <name> or /spawner <name> <tier> <maxMobs>");
+			p.sendMessage(ChatColor.RED + "/spawner <delete> <name> or /spawner <name> <tier> <maxMobs> <type>");
 		}
 	}
 }

@@ -126,6 +126,8 @@ public class Health {
     }
 
     public static boolean hasAttribute(ItemStack i, String name) {
+        if(i == null)
+            return false;
         if (!i.hasItemMeta()) {
             return false;
         }

@@ -1,5 +1,6 @@
 package me.imunsmart.rpg.mechanics;
 
+import me.imunsmart.rpg.events.Spawners;
 import me.imunsmart.rpg.mechanics.loot.GemSpawners;
 import me.imunsmart.rpg.mechanics.loot.LootChests;
 import me.imunsmart.rpg.util.CustomItem;
@@ -61,8 +62,9 @@ public class AdminTools implements Listener {
     public void onInteract(PlayerInteractEvent e) {
         ItemStack stack = e.getItem();
         if (stack != null) {
+            if(e.getAction() == Action.RIGHT_CLICK_BLOCK) return;
             int a = 1;
-            if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR)
+            if (e.getAction() == Action.RIGHT_CLICK_AIR)
                 a = -1;
             if (stack.hasItemMeta() && stack.getItemMeta().hasDisplayName()) {
                 if (stack.getType() == Material.MONSTER_EGG) {
@@ -131,7 +133,14 @@ public class AdminTools implements Listener {
                         e.getPlayer().sendMessage(MessagesUtil.gemSpawnerCreated(tier));
                         break;
                     case MOB_SPAWNER:
-
+                        if(e.getPlayer().getInventory().getItem(3).getType() != Material.MONSTER_EGG) return;
+                        if(e.getPlayer().getInventory().getItem(4).getType() != Material.SKULL_ITEM) return;
+                        int amount = e.getPlayer().getInventory().getItem(3).getAmount();
+                        String type = ChatColor.stripColor(e.getPlayer().getInventory().getItem(4).getItemMeta().getLore().get(0)).split(" ")[1].toLowerCase();
+                        String name = "" + e.getBlockPlaced().getLocation().getBlockX() + e.getBlockPlaced().getLocation().getBlockY() + e.getBlockPlaced().getLocation().getBlockZ();
+                        Spawners.setSpawn(e.getBlockPlaced().getLocation(), tier, name, amount, type);
+                        String message = ChatColor.GRAY + "Spawner created. (" + ChatColor.AQUA + "type: " + type + ", amount: " + amount + ", tier: " + tier + ChatColor.GRAY + ")";
+                        e.getPlayer().sendMessage(message);
                         break;
                 }
             }
