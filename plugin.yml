@@ -40,3 +40,10 @@ commands:
   inventory:
     description: Open an inventory.
     aliases: [inv]
+  gemspawner:
+    description: Spawns gems.
+    aliases: [gs]
+  givetools:
+    description: Gives tools.
+  warp:
+    description: Warp places.
