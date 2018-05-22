@@ -84,6 +84,7 @@ public class Main extends JavaPlugin {
 		EntityManager.pl = null;
 		Spawners.disable();
 		lc.disable();
+		Holograms.disable();
 	}
 	
 	@Override
@@ -93,6 +94,7 @@ public class Main extends JavaPlugin {
 		registerGlow();
 		Nametags.setupDevTeam();
 		Nametags.setupTesterTeam();
+		new Holograms();
 		
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			Nametags.init(p);
