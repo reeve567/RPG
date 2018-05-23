@@ -272,7 +272,7 @@ public class Bank implements Listener {
 	
 	public static void openBank(Player p) {
 		int size = Stats.getInt(p, "bank.size", 1);
-		List<String> storage = Stats.getList(p, "bank.storage");
+		List<String> storage = Stats.getList(p.getUniqueId(), "bank.storage");
 		int op = size * 9 + 9;
 		if (size == 6)
 			op = 54;

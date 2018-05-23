@@ -16,12 +16,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Stats {
 	private static File dir;
-	public static final int QUEST_DONE_STATE = 2;
-	public static final int QUEST_IN_PROGRESS_STATE = 1;
-	public static final int QUEST_NOT_STARTED = 0;
 	
 	public Stats(Main pl) {
 		dir = new File(pl.getDataFolder() + "/players");
@@ -64,30 +62,10 @@ public class Stats {
 		}
 	}
 	
-	public static int questState(Player player,String quest) {
-		File f = new File(dir, player.getUniqueId() + ".yml");
-		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
-		if (!fc.contains("quest." + quest))
-			return 0;
-		return fc.getInt("quest." + quest);
+	public static List<String> getQuestData(UUID id) {
+		return getList(id,"quests");
 	}
 	
-	public static String getQuest(Player player) {
-		File f = new File(dir, player.getUniqueId() + ".yml");
-		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
-		if (!fc.contains("current-quest")) return null;
-		return fc.getString("current-quest");
-		
-	}
-	
-	public static void setQuestState(Player player, String quest, int state) {
-		setStat(player,"quest." + quest,state);
-	}
-	
-	public static boolean finishedQuest(Player player, String quest) {
-		return questState(player,quest) == QUEST_DONE_STATE;
-	}
-
 	public static boolean canWield(Player p, int tier) {
 		int level = getLevel(p);
 		return level >= Constants.LEVEL_REQ[tier - 1];
@@ -127,8 +105,8 @@ public class Stats {
 		return getInt(p, "level", 1);
 	}
 
-	public static List<String> getList(OfflinePlayer p, String id) {
-		File f = new File(dir, p.getUniqueId() + ".yml");
+	public static List<String> getList(UUID p, String id) {
+		File f = new File(dir, p + ".yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
 		if (!fc.contains(id))
 			return new ArrayList<>();

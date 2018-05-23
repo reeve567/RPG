@@ -1,6 +1,5 @@
 package me.imunsmart.rpg.mechanics;
 
-import me.imunsmart.rpg.mechanics.quests.Quest;
 import me.imunsmart.rpg.mechanics.quests.quest_npcs.KingDuncan;
 import me.imunsmart.rpg.util.Util;
 import org.bukkit.Chunk;
@@ -34,6 +33,42 @@ public class NPCS implements Listener {
 		}
 	}
 	
+	@EventHandler
+	public void onHit(EntityDamageEvent e) {
+		if (e.getEntity().getScoreboardTags().contains("npc")) {
+			e.setCancelled(true);
+		}
+	}
+	
+	@EventHandler
+	public void onInteract(PlayerInteractEntityEvent e) {
+		Entity entity = e.getRightClicked();
+		if (entity.getScoreboardTags().contains("npc")) {
+			e.setCancelled(true);
+			if (entity.getScoreboardTags().contains("banker")) {
+				Banker.onClick(e.getPlayer());
+			} else if (entity.getScoreboardTags().contains("marketer")) {
+				Marketer.onClick(e.getPlayer());
+			} else if (entity.getScoreboardTags().contains("talker")) {
+				for (NPC npc : npcs) {
+					if (npc instanceof Talker) {
+						Talker talker = (Talker) npc;
+						if (talker.entity.equals(entity)) {
+							talker.onClick(e.getPlayer());
+						}
+					}
+				}
+			}
+		} else {
+			System.out.println("unhandled npc");
+		}
+	}
+	
+	@EventHandler
+	public void onUnload(ChunkUnloadEvent e) {
+		if (chunks.contains(e.getChunk())) e.setCancelled(true);
+	}
+	
 	public abstract static class NPC {
 		
 		public LivingEntity entity;
@@ -42,15 +77,6 @@ public class NPCS implements Listener {
 		
 		private NPC(EntityType type, Location location, String name) {
 			this.entity = (LivingEntity) Util.w.spawnEntity(location, type);
-			this.location = location;
-			npcs.add(this);
-			this.name = name;
-			set();
-		}
-		
-		private NPC(Villager.Profession profession, Location location, String name) {
-			this.entity = (LivingEntity) Util.w.spawnEntity(location, EntityType.VILLAGER);
-			((Villager) entity).setProfession(profession);
 			this.location = location;
 			npcs.add(this);
 			this.name = name;
@@ -77,6 +103,15 @@ public class NPCS implements Listener {
 		}
 		
 		protected abstract String setOther();
+		
+		private NPC(Villager.Profession profession, Location location, String name) {
+			this.entity = (LivingEntity) Util.w.spawnEntity(location, EntityType.VILLAGER);
+			((Villager) entity).setProfession(profession);
+			this.location = location;
+			npcs.add(this);
+			this.name = name;
+			set();
+		}
 		
 		public Location getLocation() {
 			return location;
@@ -166,42 +201,6 @@ public class NPCS implements Listener {
 			super(type, location, name);
 		}
 		
-	}
-	
-	@EventHandler
-	public void onHit(EntityDamageEvent e) {
-		if (e.getEntity().getScoreboardTags().contains("npc")) {
-			e.setCancelled(true);
-		}
-	}
-	
-	@EventHandler
-	public void onInteract(PlayerInteractEntityEvent e) {
-		Entity entity = e.getRightClicked();
-		if (entity.getScoreboardTags().contains("npc")) {
-			e.setCancelled(true);
-			if (entity.getScoreboardTags().contains("banker")) {
-				Banker.onClick(e.getPlayer());
-			} else if (entity.getScoreboardTags().contains("marketer")) {
-				Marketer.onClick(e.getPlayer());
-			} else if (entity.getScoreboardTags().contains("talker")) {
-				for (NPC npc : npcs) {
-					if (npc instanceof Talker) {
-						Talker talker = (Talker) npc;
-						if (talker.entity.equals(entity)) {
-							talker.onClick(e.getPlayer());
-						}
-					}
-				}
-			}
-		} else {
-			System.out.println("unhandled npc");
-		}
-	}
-	
-	@EventHandler
-	public void onUnload(ChunkUnloadEvent e) {
-		if (chunks.contains(e.getChunk())) e.setCancelled(true);
 	}
 }
 
