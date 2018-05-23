@@ -22,6 +22,9 @@ public class Util {
     public static final String[] warpNames = {"Spawn", "Credits"};
     public static final Location[] warps = {spawn, new Location(Util.w, 10.5, 12, 182.5)};
 
+    public static final String[] tpNames = {"Spawn"};
+    public static final Location[] tp = {spawn};
+
     public static final int[] p_radi = {};
     public static final Location[] pvpZones = {};
 
@@ -60,6 +63,14 @@ public class Util {
         for (int i = 0; i < warpNames.length; i++) {
             String s = warpNames[i];
             if (name.equalsIgnoreCase(s)) return warps[i];
+        }
+        return null;
+    }
+
+    public static Location getTP(String name) {
+        for (int i = 0; i < tpNames.length; i++) {
+            String s = tpNames[i];
+            if (name.equalsIgnoreCase(s)) return tp[i];
         }
         return null;
     }

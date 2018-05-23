@@ -137,8 +137,7 @@ public class AdminTools implements Listener {
                         if(e.getPlayer().getInventory().getItem(4).getType() != Material.SKULL_ITEM) return;
                         int amount = e.getPlayer().getInventory().getItem(3).getAmount();
                         String type = ChatColor.stripColor(e.getPlayer().getInventory().getItem(4).getItemMeta().getLore().get(0)).split(" ")[1].toLowerCase();
-                        String name = "" + e.getBlockPlaced().getLocation().getBlockX() + e.getBlockPlaced().getLocation().getBlockY() + e.getBlockPlaced().getLocation().getBlockZ();
-                        Spawners.setSpawn(e.getBlockPlaced().getLocation(), tier, name, amount, type);
+                        Spawners.setSpawn(e.getBlockPlaced().getLocation(), tier, amount, type);
                         String message = ChatColor.GRAY + "Spawner created. (" + ChatColor.AQUA + "type: " + type + ", amount: " + amount + ", tier: " + tier + ChatColor.GRAY + ")";
                         e.getPlayer().sendMessage(message);
                         break;

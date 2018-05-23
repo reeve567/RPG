@@ -1,9 +1,14 @@
 package me.imunsmart.rpg.command.admincommands.rpg.give;
 
+import me.imunsmart.rpg.mechanics.Health;
 import me.imunsmart.rpg.mechanics.Items;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.Arrays;
 
 public class GiveWeapon {
 

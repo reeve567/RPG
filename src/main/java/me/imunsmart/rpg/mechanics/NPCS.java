@@ -182,6 +182,7 @@ public class NPCS implements Listener {
 	public static class Talker extends NPC {
 		
 		private String[] strings;
+		private int index = -1;
 		
 		public Talker(Location location, EntityType type, String name, String... strings) {
 			super(type, location, name);
@@ -209,7 +210,10 @@ public class NPCS implements Listener {
 		}
 		
 		void onClick(Player player) {
-			player.sendMessage(name + "§f:§7 " + strings[(int) (strings.length * Math.random())]);
+			index++;
+			if(index >= strings.length)
+				index = 0;
+			player.sendMessage(name + "§f:§7 " + strings[index]);
 			
 		}
 	}

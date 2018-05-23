@@ -20,6 +20,7 @@ public class Spawners {
 	public static List<Spawner> spawns = new ArrayList<Spawner>();
 	private static File spawn;
 	private static Spawners spawners;
+	private static int total = 0;
 	Main pl;
 	
 	public Spawners(Main pl) {
@@ -47,8 +48,10 @@ public class Spawners {
 	
 	public static void reloadSpawners() {
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(spawn);
+		total = fc.getInt("total", 0);
 		for (String name : fc.getKeys(false)) {
-			spawns.add(new Spawner(spawners, fc.getString("name"), fc.getString(name + ".type"), Bukkit.getWorld(fc.getString(name + ".world")), fc.getInt(name + ".x"), fc.getInt(name + ".y"), fc.getInt(name + ".z"), fc.getInt(name + ".tier"), fc.getInt(name + ".max")).spawn());
+			if(name.equalsIgnoreCase("total")) continue;
+			spawns.add(new Spawner(spawners, name, fc.getString(name + ".type"), Bukkit.getWorld(fc.getString(name + ".world")), fc.getInt(name + ".x"), fc.getInt(name + ".y"), fc.getInt(name + ".z"), fc.getInt(name + ".tier"), fc.getInt(name + ".max")).spawn());
 		}
 	}
 	
@@ -67,12 +70,14 @@ public class Spawners {
 		}
 	}
 	
-	public static void setSpawn(Location l, int tier, String name, int max, String type) {
+	public static void setSpawn(Location l, int tier, int max, String type) {
 		String w = l.getWorld().getName();
 		int x = l.getBlockX();
 		int y = l.getBlockY();
 		int z = l.getBlockZ();
+		String name = String.valueOf(total++);
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(spawn);
+		fc.set("total", total);
 		fc.set(name + ".world", w);
 		fc.set(name + ".x", x);
 		fc.set(name + ".y", y);
