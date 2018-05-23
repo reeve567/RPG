@@ -44,11 +44,7 @@ public class Main extends JavaPlugin {
 				new Potions(this),
 				new AdminTools(),
 				new TeleportScrolls(this),
-<<<<<<< HEAD
-				new NPCS(this)
-=======
 				new NPCS()
->>>>>>> 8292b94e1a23e4cef5232f50fc68bf444f0cbc2f
 		);
 		new GemSpawners(this);
 		new EntityManager(this);

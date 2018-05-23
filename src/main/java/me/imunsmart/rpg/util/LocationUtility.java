@@ -12,6 +12,10 @@ public class LocationUtility {
 		return new Location(location.getWorld(), location.getX(), location.getY(),location.getZ(),yaw,location.getPitch());
 	}
 	
+	public static Location moveUp(Location location,int up) {
+		return new Location(location.getWorld(),location.getX(),location.getY()+up,location.getZ());
+	}
+	
 	public enum Direction {
 		NORTH(180),
 		NORTHWEST(135),
