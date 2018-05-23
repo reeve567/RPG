@@ -34,7 +34,8 @@ public class Mob {
         this.tier = tier;
         loc = mob.getLocation();
         mob.getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(8.0);
-        pl = EntityManager.pl;
+	    mob.addScoreboardTag("monster");
+	    pl = EntityManager.pl;
         // Create Items
         String type = Math.random() < 0.5 ? "sword" : "axe";
         ItemStack h = Items.getRandomArmorPiece(tier, "helmet");
@@ -86,6 +87,7 @@ public class Mob {
         this.tier = tier;
         loc = mob.getLocation();
         mob.getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(8.0);
+        mob.addScoreboardTag("monster");
         pl = EntityManager.pl;
         // Create Items
         ItemStack h = Items.createArmor("helmet", tier, maxHelmet, helmetFlag);
