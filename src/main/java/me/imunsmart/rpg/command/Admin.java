@@ -31,7 +31,7 @@ public class Admin implements CommandExecutor {
 		pl.getCommand("givescraps").setExecutor(this);
 		pl.getCommand("giveitem").setExecutor(this);
 		pl.getCommand("spawnmob").setExecutor(this);
-//		pl.getCommand("spawner").setExecutor(this);
+		pl.getCommand("spawner").setExecutor(this);
 		pl.getCommand("kick").setExecutor(this);
 		pl.getCommand("gmc").setExecutor(this);
 		pl.getCommand("gms").setExecutor(this);

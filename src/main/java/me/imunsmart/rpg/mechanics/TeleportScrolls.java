@@ -48,7 +48,7 @@ public class TeleportScrolls implements Listener {
                             p.sendMessage(ChatColor.AQUA.toString() + x + "s...");
                         if (x == 0) {
                             p.sendMessage(ChatColor.GRAY + "You successfully teleported to " + ChatColor.AQUA + name + ChatColor.GRAY + ".");
-                            p.teleport(Util.getWarp(name));
+                            p.teleport(Util.getTP(name));
 
                             p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20, 0));
                             Sounds.play(p, Sound.ENTITY_ENDERMEN_TELEPORT, 0.67f);

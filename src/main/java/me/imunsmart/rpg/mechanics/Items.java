@@ -197,18 +197,17 @@ public class Items {
 	
 	public static ItemStack getRandomWeapon(int tier, String type) {
 		String flag = Constants.randomWeaponFlag(tier);
-		int max = (int) (Math.random() * Constants.getMaxDamage(tier));
-		int min = Constants.getMinDamage(tier) + (int) (Math.random() * ((max - Constants.getMinDamage(tier))));
+		int diff = Constants.getMaxDamage(tier) - Constants.getMinDamage(tier);
+		int m = (int) (Math.random() * diff);
+		int max = Constants.getMinDamage(tier) + m;
+		int min = Constants.getMinDamage(tier) + (int) (Math.random() * m);
 		if (max < min)
 			max = min;
 		if (flag.contains("uncommon")) {
-			max += Constants.getMaxDamage(tier) / 4;
 			min *= Constants.SCALE_UNC;
 			max *= Constants.SCALE_UNC;
 		}
 		if (flag.contains("rare")) {
-			max += Constants.getMaxDamage(tier) / 4;
-			min += Constants.getMaxDamage(tier) / 4;
 			min *= Constants.SCALE_RARE;
 			max *= Constants.SCALE_RARE;
 		}
