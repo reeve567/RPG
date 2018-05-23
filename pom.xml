@@ -9,7 +9,7 @@
 
 	<build>
 		<finalName>RPG</finalName>
-		<directory>C:\Users\User\Desktop\Minecraft\BukkitDev\plugins</directory>
+		<directory>${pom.basedir}/out</directory>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

@@ -20,13 +20,13 @@ public class Holograms {
 		
 	}
 	
-	private static TextHologram addTextHologram(Location location, String content) {
+	public static TextHologram addTextHologram(Location location, String content) {
 		TextHologram textHologram = new TextHologram(location, content);
 		textHolograms.add(textHologram);
 		return textHologram;
 	}
 	
-	private static ArrayList<TextHologram> addMultilineTextHologram(Location location, String... content) {
+	public static ArrayList<TextHologram> addMultilineTextHologram(Location location, String... content) {
 		ArrayList<TextHologram> holos = new ArrayList<>();
 		int amount = 0;
 		for (String s : content) {
@@ -45,7 +45,7 @@ public class Holograms {
 		}
 	}
 	
-	private static class TextHologram {
+	public static class TextHologram {
 		
 		private Location location;
 		private String content;
