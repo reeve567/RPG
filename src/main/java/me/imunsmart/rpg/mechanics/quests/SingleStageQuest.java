@@ -1,11 +1,12 @@
 package me.imunsmart.rpg.mechanics.quests;
 
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class SingleStageQuest extends Quest {
+public abstract class SingleStageQuest extends Quest {
 	
-	public SingleStageQuest(String name, int start, int end, ItemStack[] rewards) {
-		super(name, rewards, start, end);
+	public SingleStageQuest(Player player, String name, int start, int end, ItemStack[] rewards) {
+		super(player,name, rewards, start, end);
 	}
 	
 }

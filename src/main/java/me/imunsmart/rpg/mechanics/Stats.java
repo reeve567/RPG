@@ -2,6 +2,7 @@ package me.imunsmart.rpg.mechanics;
 
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.classes.Class;
+import me.imunsmart.rpg.mechanics.quests.Quest;
 import me.imunsmart.rpg.mobs.Constants;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
@@ -18,7 +19,10 @@ import java.util.List;
 
 public class Stats {
 	private static File dir;
-
+	public static final int QUEST_DONE_STATE = 2;
+	public static final int QUEST_IN_PROGRESS_STATE = 1;
+	public static final int QUEST_NOT_STARTED = 0;
+	
 	public Stats(Main pl) {
 		dir = new File(pl.getDataFolder() + "/players");
 		if (!pl.getDataFolder().exists())
@@ -58,6 +62,30 @@ public class Stats {
 			Player op = (Player) p;
 			new ActionBar(ChatColor.YELLOW + "+" + xp + " XP " + ChatColor.GRAY + "[" + ChatColor.YELLOW + x + " / " + (int) (Util.neededXP(p)) + ChatColor.GRAY + "]").sendToPlayer(op);
 		}
+	}
+	
+	public static int questState(Player player,String quest) {
+		File f = new File(dir, player.getUniqueId() + ".yml");
+		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
+		if (!fc.contains("quest." + quest))
+			return 0;
+		return fc.getInt("quest." + quest);
+	}
+	
+	public static String getQuest(Player player) {
+		File f = new File(dir, player.getUniqueId() + ".yml");
+		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
+		if (!fc.contains("current-quest")) return null;
+		return fc.getString("current-quest");
+		
+	}
+	
+	public static void setQuestState(Player player, String quest, int state) {
+		setStat(player,"quest." + quest,state);
+	}
+	
+	public static boolean finishedQuest(Player player, String quest) {
+		return questState(player,quest) == QUEST_DONE_STATE;
 	}
 
 	public static boolean canWield(Player p, int tier) {

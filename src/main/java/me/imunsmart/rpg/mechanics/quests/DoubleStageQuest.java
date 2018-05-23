@@ -9,7 +9,7 @@ public class DoubleStageQuest extends Quest {
 	private ArrayList<String> middleDialog;
 	
 	public DoubleStageQuest(String name, int start, int mid, int end, ItemStack[] rewards) {
-		super(name, rewards, start, end);
+		super(player, name, rewards, start, end);
 		middleDialog = getList("mid", mid);
 	}
 }
