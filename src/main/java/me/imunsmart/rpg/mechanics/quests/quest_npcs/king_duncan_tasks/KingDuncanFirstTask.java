@@ -7,15 +7,15 @@ import me.imunsmart.rpg.mechanics.quests.trackers.KillTracker;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class KDFT extends Quest implements FirstTask {
+public class KingDuncanFirstTask extends Quest implements FirstTask {
 	
-	public KDFT(Player player, String progress) {
+	public KingDuncanFirstTask(Player player, String progress) {
 		this(player);
 		KillTracker.killMap.put(player.getUniqueId(), Integer.valueOf(progress));
 	}
 	
-	public KDFT(Player player) {
-		super(player, "KDFT", new ItemStack[]{Items.createGems(30)},
+	public KingDuncanFirstTask(Player player) {
+		super(player, "KingDuncanFirstTask", new ItemStack[]{Items.createGems(30)},
 				new String[]{
 						"Ah! You must be the one I've been waiting for.",
 						"I'm sure you have plenty of questions to ask, but for now they will have to wait.",
@@ -41,7 +41,6 @@ public class KDFT extends Quest implements FirstTask {
 	
 	@Override
 	public boolean canFinish() {
-		set
 		return KillTracker.killMap.get(player.getUniqueId()) >= 10;
 	}
 	

@@ -1,7 +1,7 @@
 package me.imunsmart.rpg.mechanics.quests;
 
 import me.imunsmart.rpg.mechanics.Stats;
-import me.imunsmart.rpg.mechanics.quests.quest_npcs.king_duncan_tasks.KDFT;
+import me.imunsmart.rpg.mechanics.quests.quest_npcs.king_duncan_tasks.KingDuncanFirstTask;
 import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
@@ -31,9 +31,9 @@ public class QuestPlayerData {
 			}
 		} else {
 			if (strings.size() == 1)
-				activeQuest = new KDFT(Bukkit.getPlayer(id), strings.get(0).substring(strings.get(0).indexOf('-') + 1));
+				activeQuest = new KingDuncanFirstTask(Bukkit.getPlayer(id), strings.get(0).substring(strings.get(0).indexOf('-') + 1));
 			else
-				activeQuest = new KDFT(Bukkit.getPlayer(id));
+				activeQuest = new KingDuncanFirstTask(Bukkit.getPlayer(id));
 		}
 		save();
 	}

@@ -88,6 +88,20 @@ public abstract class Quest {
 		nextDialog++;
 	}
 	
+	public String getReadableName() {
+		char[] chars = name.toCharArray();
+		String s = "";
+		for (int i = 1; i < chars.length; i++) {
+			if (Character.isUpperCase(chars[i])) {
+				s += " " + chars[i];
+			}
+			else {
+				s += chars[i];
+			}
+		}
+		return s;
+	}
+	
 	public boolean isFinished() {
 		return finished;
 	}

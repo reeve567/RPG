@@ -29,7 +29,7 @@ public class KingDuncan extends NPCS.QuestGiver {
 	}
 	
 	public static void setQuests() {
-		quests.add("KDFT");
+		quests.add("KingDuncanFirstTask");
 	}
 	
 	@Override
@@ -66,7 +66,7 @@ public class KingDuncan extends NPCS.QuestGiver {
 				}
 			}
 			if (found) {
-				player.sendMessage(MessagesUtil.questStarted(playerData.getActiveQuest().getName()));
+				player.sendMessage(MessagesUtil.questStarted(playerData.getActiveQuest().getReadableName()));
 				QuestManager.updateBook(player);
 			} else {
 				//no available quests

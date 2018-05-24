@@ -2,7 +2,7 @@ package me.imunsmart.rpg.mechanics.quests;
 
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.Items;
-import me.imunsmart.rpg.mechanics.quests.quest_npcs.king_duncan_tasks.KDFT;
+import me.imunsmart.rpg.mechanics.quests.quest_npcs.king_duncan_tasks.KingDuncanFirstTask;
 import me.imunsmart.rpg.mechanics.quests.trackers.KillTracker;
 import me.imunsmart.rpg.util.CustomItem;
 import org.bukkit.Bukkit;
@@ -11,7 +11,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -37,7 +36,7 @@ public class QuestManager implements Listener {
 	
 	public static Quest getQuest(Player player, String s) {
 		
-		if (s.endsWith("FT")) {
+		if (s.endsWith("FirstTask")) {
 			return new FirstTaskFinder(player, s).getTask();
 		}
 		
@@ -46,23 +45,18 @@ public class QuestManager implements Listener {
 	
 	public static Quest getQuest(Player player, String s, String progress) {
 		
-		if (s.endsWith("FT")) {
+		if (s.endsWith("FirstTask")) {
 			return new FirstTaskFinder(player, s, progress).getTask();
 		}
 		
 		return null;
 	}
 	
-	@EventHandler
-	public void onOpen(InventoryMoveItemEvent e) {
-	
-	}
-	
 	public static void updateBook(Player player) {
 		CustomItem book = Items.createQuestInfo();
 		QuestPlayerData data = QuestManager.playerData.get(player.getUniqueId());
 		if (data.isInQuest()) {
-			book.setLore("§aQuest: " + data.getActiveQuest().getName(),"§aProgress: " + data.getActiveQuest().readableProgress(),data.getActiveQuest().canFinish() ? "§aReturn to " + data.getActiveQuest().getNpc() : "");
+			book.setLore("§aQuest: " + data.getActiveQuest().getReadableName(),"§aProgress: " + data.getActiveQuest().readableProgress(),data.getActiveQuest().canFinish() ? "§aReturn to " + data.getActiveQuest().getNpc() : "");
 		} else {
 			book.setLore("§cNo quest active!");
 		}
@@ -97,10 +91,9 @@ public class QuestManager implements Listener {
 			boolean useProgress = progress != null;
 			switch (s) {
 				
-				case "KDFT":
-					if (!useProgress)
-						return new KDFT(player);
-					else return new KDFT(player, progress);
+				case "KingDuncanFirstTask":
+					if (!useProgress) return new KingDuncanFirstTask(player);
+					else return new KingDuncanFirstTask(player, progress);
 				case "":
 					break;
 			}
