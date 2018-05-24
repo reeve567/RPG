@@ -26,7 +26,8 @@ public class KingDuncan extends NPCS.QuestGiver {
 		setQuests();
 	}
 	
-	public static void onClick(Player player) {
+	public void onClick(Player player) {
+		super.onClick(player);
 		String s = Stats.getQuest(player);
 		if (s == null) {
 			boolean found = false;

@@ -16,7 +16,7 @@ public class ServerEvents implements Listener {
 	
 	@EventHandler
 	public void onPing(ServerListPingEvent e) {
-		e.setMotd(Util.logo + ChatColor.GRAY + " > " + ChatColor.RED + "Version 0.01");
+		e.setMotd(Util.logo + ChatColor.GRAY + " > " + ChatColor.RED + Util.motd);
 	}
 	
 }

@@ -3,6 +3,9 @@ package me.imunsmart.rpg;
 import me.imunsmart.rpg.command.Admin;
 import me.imunsmart.rpg.events.*;
 import me.imunsmart.rpg.mechanics.*;
+import me.imunsmart.rpg.mechanics.gui.GlobalMarket;
+import me.imunsmart.rpg.mechanics.gui.RepairMenu;
+import me.imunsmart.rpg.mechanics.gui.SellMenu;
 import me.imunsmart.rpg.mechanics.loot.GemSpawners;
 import me.imunsmart.rpg.mechanics.loot.LootChests;
 import me.imunsmart.rpg.mobs.EntityManager;
@@ -50,6 +53,7 @@ public class Main extends JavaPlugin {
 		new EntityManager(this);
 		new Bank(this);
 		new RepairMenu(this);
+		new SellMenu(this);
 		new Spawners(this);
 		new GlobalMarket(this);
 		lc = new LootChests(this);
@@ -82,6 +86,7 @@ public class Main extends JavaPlugin {
 		lc.disable();
 		Holograms.disable();
 		NPCS.disable();
+		SellMenu.disable();
 	}
 	
 	@Override

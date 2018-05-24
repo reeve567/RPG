@@ -1,7 +1,7 @@
 name: RPG
 author: ImUnsmart
 main: me.imunsmart.rpg.Main
-version: 0.1
+version: 1.0
 commands:
   giveweapon:
     description: Give a weapon item.
@@ -15,6 +15,8 @@ commands:
     description: Give a player scraps.
   giveitem:
     description: Give a specialized item.
+  givetool:
+    description: Give a specialized tool.
   spawner:
     description: Create a spawner.
   suicide:

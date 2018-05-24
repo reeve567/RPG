@@ -22,11 +22,12 @@ public class Items {
 	
 	public static final ItemStack gem = createItem(Material.DIAMOND, 1, 0, ChatColor.AQUA + "Gem");
 	public static ChatColor[] nameColor = {ChatColor.GOLD, ChatColor.GRAY, ChatColor.WHITE, ChatColor.AQUA, ChatColor.YELLOW};
-	private static String[] weapons = {"WOOD", "STONE", "IRON", "DIAMOND", "GOLD"};
+	private static String[] tools = {"WOOD", "STONE", "IRON", "DIAMOND", "GOLD"};
 	private static String[] swords = {"Shortsword", "Longsword", "Greatsword", "Mystic Sword", "Godly Sword"};
 	private static String[] axes = {"Hatchet", "Tomohawk", "Great Axe", "Mystic Axe", "Godly Axe"};
 	private static String[] armor = {"LEATHER", "CHAINMAIL", "IRON", "DIAMOND", "GOLD"};
 	private static String[] armors = {"Old", "Rusted", "Great", "Mystic", "Godly"};
+	private static String[] picks = {"Beginner's", "Novice's", "Professional", "Masterful", "Godly"};
 	private static String[] types = {"axe", "sword", "helmet", "chestplate", "leggings", "boots"};
 	
 	public static void convertToScraps(Player p) {
@@ -234,30 +235,39 @@ public class Items {
 	}
 	
 	public static ItemStack createWeapon(String type, int tier, int min, int max, String flags) {
-		Material m = Material.getMaterial(weapons[tier - 1] + "_" + type.toUpperCase());
+		Material m = Material.getMaterial(tools[tier - 1] + "_" + type.toUpperCase());
 		String[] names = type.equals("sword") ? swords : axes;
-		String name = ChatColor.WHITE + names[tier - 1];
+		String name = nameColor[tier - 1] + names[tier - 1];
 		String[] flag = flags.split(",");
 		List<String> lore = new ArrayList<>();
 		lore.add("Damage: " + min + "-" + max);
-		name = getString(flags, name, flag, lore);
+		name = getName(name, flag, lore);
 		return createItem(m, 1, 0, name, lore);
 	}
 	
 	public static ItemStack createArmor(String type, int tier, int maxhp, String flags) {
 		Material m = Material.getMaterial(armor[tier - 1] + "_" + type.toUpperCase());
 		String[] flag = flags.split(",");
-		String name = ChatColor.WHITE + armors[tier - 1] + " " + type.substring(0, 1).toUpperCase() + type.substring(1).toLowerCase();
+		String name = nameColor[tier - 1] + armors[tier - 1] + " " + type.substring(0, 1).toUpperCase() + type.substring(1).toLowerCase();
 		List<String> lore = new ArrayList<String>();
 		if (maxhp < 1)
 			maxhp++;
 		lore.add("Health: +" + maxhp);
-		name = getString(flags, name, flag, lore);
+		name = getName(name, flag, lore);
 		return createItem(m, 1, 0, name, lore);
 	}
+
+	public static ItemStack createPickaxe(int tier, int durability, String flags) {
+		Material m = Material.getMaterial(tools[tier - 1] + "_PICKAXE");
+		String name = nameColor[tier - 1] + picks[tier - 1] + " Pickaxe";
+		String[] flag = flags.split(",");
+		List<String> lore = new ArrayList<String>();
+		name = getName(name, flag, lore);
+		return createItem(m, 1, durability, name, lore);
+	}
 	
-	private static String getString(String flags, String name, String[] flag, List<String> lore) {
-		if (flags.length() > 0) {
+	private static String getName(String name, String[] flag, List<String> lore) {
+		if (flag.length > 0) {
 			for (String s : flag) {
 				if (s.contains(":")) {
 					if (s.contains("name")) {

@@ -2,15 +2,14 @@ package me.imunsmart.rpg.events;
 
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.*;
+import me.imunsmart.rpg.mechanics.gui.GlobalMarket;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
 import net.minecraft.server.v1_12_R1.PacketPlayInClientCommand;
 import net.minecraft.server.v1_12_R1.PacketPlayInClientCommand.EnumClientCommand;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.block.BlockFace;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

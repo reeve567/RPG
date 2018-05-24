@@ -1,6 +1,10 @@
-package me.imunsmart.rpg.mechanics;
+package me.imunsmart.rpg.mechanics.gui;
 
 import me.imunsmart.rpg.Main;
+import me.imunsmart.rpg.mechanics.Bank;
+import me.imunsmart.rpg.mechanics.Items;
+import me.imunsmart.rpg.mechanics.Sounds;
+import me.imunsmart.rpg.mechanics.Stats;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;

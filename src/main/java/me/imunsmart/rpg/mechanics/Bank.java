@@ -201,12 +201,14 @@ public class Bank implements Listener {
 				p.sendMessage(MessagesUtil.bankEnterAmount);
 				withdraw.put(p.getName(), e.getClick() == ClickType.SHIFT_LEFT);
 				p.closeInventory();
+				return;
 			}
 			if (e.getClick() == ClickType.SHIFT_LEFT) {
 				if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.AQUA + "Gem") || e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.AQUA + "Bank Note")) {
 					depositGems(p);
 					p.closeInventory();
 					open(p);
+					return;
 				}
 			}
 			if (e.getCurrentItem().getItemMeta().getDisplayName().contains("Storage")) {

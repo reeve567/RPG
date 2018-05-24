@@ -7,6 +7,7 @@ import me.imunsmart.rpg.util.CustomItem;
 import me.imunsmart.rpg.util.MessagesUtil;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -16,6 +17,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class AdminTools implements Listener {
+
+    public static final ItemStack delete = Items.createItem(Material.BARRIER, 1, 0, ChatColor.RED + "Deleter", ChatColor.GRAY + "Left click to remove.");
 
     public static final ItemStack lootChest = new CustomItem(Material.CHEST).addGlow().setName("§b&lTier 1 Lootchest");
 
@@ -33,27 +36,17 @@ public class AdminTools implements Listener {
 
     @EventHandler
     public void onBreak(BlockBreakEvent e) {
-        ItemStack stack = e.getPlayer().getInventory().getItemInMainHand();
-        if (stack.hasItemMeta() && stack.getItemMeta().hasDisplayName() && stack.getItemMeta().getDisplayName().startsWith("§b§lTier ")) {
+        Player p = e.getPlayer();
+        ItemStack i = p.getInventory().getItemInMainHand();
+        if (i.hasItemMeta() && i.getItemMeta().hasDisplayName() && i.getItemMeta().getDisplayName().contains("Deleter")) {
             e.setCancelled(true);
-            switch (stack.getType()) {
-                case CHEST:
-                    if (e.getBlock().getType().equals(Material.CHEST)) {
-                        if (LootChests.removeChest(e.getBlock().getLocation())) {
-                            e.getPlayer().sendMessage(MessagesUtil.lootChestRemoved);
-                            return;
-                        }
-                    }
-                    e.getPlayer().sendMessage(MessagesUtil.lootChestErrorOrNotFound);
-                    break;
-                case DIAMOND_ORE:
-                    if (e.getBlock().getType().equals(Material.DIAMOND_ORE)) {
-                        if (GemSpawners.removeSpawner(e.getBlock().getLocation())) {
-                            e.getPlayer().sendMessage("");
-                            return;
-                        }
-                    }
-                    break;
+            if(LootChests.removeChest(e.getBlock().getLocation())) {
+                p.sendMessage(ChatColor.RED + "Lootchest removed.");
+                return;
+            }
+            if(GemSpawners.removeSpawner(e.getBlock().getLocation())) {
+                p.sendMessage(ChatColor.RED + "GemSpawner removed.");
+                return;
             }
         }
     }

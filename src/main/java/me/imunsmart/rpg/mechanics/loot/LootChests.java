@@ -160,19 +160,19 @@ public class LootChests implements Listener {
                         Items.createPotion(tier),
                         Items.createTeleportScroll(1, Util.tpNames[(int) (Math.random() * Util.tpNames.length)], 5),
                 };
-                double perc = Math.random();
-                if (perc >= 0.9) {
-                    int maxGems = (int) (Math.pow(2, tier) * 4) - 1;
-                    if (maxGems > 64) maxGems = 64;
-                    c.getBlockInventory().setItem(i, Items.createGems(1 + (int) (Math.random() * maxGems)));
-                    added++;
-                } else if (perc >= 0.85) {
-                    int maxGems = (int) (Math.pow(2, tier) * 4) - 1;
-                    c.getBlockInventory().setItem(i, Items.createGemNote(1 + (int) (Math.random() * maxGems)));
-                    added++;
-                } else if (perc >= 0.82) {
-                    c.getBlockInventory().setItem(i, Items.getRandomItem(tier));
-                    added++;
+                if(Math.random() < 0.5) {
+                    double perc = Math.random();
+                    if (perc >= 0.9) {
+                        int maxGems = (int) (Math.pow(2, tier - 1) * 4) - 1;
+                        if (maxGems > 64) maxGems = 64;
+                        c.getBlockInventory().setItem(i, Items.createGems(1 + (int) (Math.random() * maxGems)));
+                        added++;
+                    }else if (perc >= 0.87) {
+                        c.getBlockInventory().setItem(i, Items.getRandomItem(tier));
+                        added++;
+                    } else if (perc >= 0.8) {
+                        c.getBlockInventory().setItem(i, items[(int) (Math.random() * items.length)]);
+                    }
                 }
             }
         }
