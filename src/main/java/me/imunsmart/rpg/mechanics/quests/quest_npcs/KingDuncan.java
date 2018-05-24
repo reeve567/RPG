@@ -1,16 +1,12 @@
 package me.imunsmart.rpg.mechanics.quests.quest_npcs;
 
 import me.imunsmart.rpg.mechanics.NPCS;
-import me.imunsmart.rpg.mechanics.Stats;
 import me.imunsmart.rpg.mechanics.quests.Quest;
-import me.imunsmart.rpg.mechanics.quests.QuestList;
-import me.imunsmart.rpg.mechanics.quests.quest_npcs.king_duncan_tasks.KDFirstTask;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 public class KingDuncan extends NPCS.QuestGiver {
 	
@@ -26,6 +22,7 @@ public class KingDuncan extends NPCS.QuestGiver {
 		setQuests();
 	}
 	
+<<<<<<< HEAD
 	public void onClick(Player player) {
 		super.onClick(player);
 		String s = Stats.getQuest(player);
@@ -50,6 +47,10 @@ public class KingDuncan extends NPCS.QuestGiver {
 				}
 			}
 		}
+=======
+	public static void onClick(Player player) {
+	
+>>>>>>> a6301a48fa5fc905c79a07445c662b6c4d7020f5
 	}
 	
 	public static void setQuests() {
