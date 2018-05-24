@@ -3,6 +3,7 @@ package me.imunsmart.rpg.events;
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.*;
 import me.imunsmart.rpg.mechanics.quests.QuestManager;
+import me.imunsmart.rpg.mechanics.gui.GlobalMarket;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
 import net.minecraft.server.v1_12_R1.PacketPlayInClientCommand;

@@ -17,6 +17,7 @@ public class Warp {
 				return;
 			}
 			p.teleport(l);
+			p.sendMessage(ChatColor.GRAY + "You warped to: " + ChatColor.AQUA + name + ".");
 		} else {
 			String all = "";
 			for (String s : Util.warpNames) {

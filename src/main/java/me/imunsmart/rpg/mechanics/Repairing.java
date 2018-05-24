@@ -1,6 +1,7 @@
 package me.imunsmart.rpg.mechanics;
 
 import me.imunsmart.rpg.Main;
+import me.imunsmart.rpg.mechanics.gui.RepairMenu;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Material;

@@ -78,6 +78,7 @@ public class Mob {
 
         maxHP = health = Health.calculateMaxHealth(mob);
         mob.setCustomName(name);
+        mob.setCustomNameVisible(true);
         mob.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(mob.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue() * (4.0 / 3.0));
     }
 
@@ -131,6 +132,7 @@ public class Mob {
         }
         maxHP = health = Health.calculateMaxHealth(mob);
         mob.setCustomName(name);
+        mob.setCustomNameVisible(true);
         mob.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(mob.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue() * (4.0 / 3.0));
     }
 

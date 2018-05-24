@@ -55,9 +55,9 @@ public class Spawners {
 		}
 	}
 	
-	public static void remove(String s) {
+	public static void remove(String id) {
 		for (Spawner ss : spawns) {
-			if (ss.getName().equalsIgnoreCase(s)) {
+			if (ss.getName().equals(id)) {
 				spawns.remove(ss);
 				FileConfiguration fc = YamlConfiguration.loadConfiguration(spawn);
 				fc.set(ss.getName(), null);
@@ -96,18 +96,16 @@ public class Spawners {
 class Spawner {
 	private List<Mob> spawned = new ArrayList<>();
 	private String name, type;
-	private int x, y, z, tier, max;
+	private int tier, max;
 	private World w;
 	private Spawners s;
+	private Location l;
 	
 	public Spawner(Spawners s, String name, String type, World w, int x, int y, int z, int tier, int max) {
 		this.s = s;
 		this.name = name;
 		this.type = type;
-		this.w = w;
-		this.x = x;
-		this.y = y;
-		this.z = z;
+		this.l = new Location(w, x, y, z);
 		this.tier = tier;
 		this.max = max;
 	}
@@ -115,10 +113,14 @@ class Spawner {
 	public Spawner spawn() {
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(s.pl, () -> {
 			if (spawned.size() < max) {
-				spawned.add(EntityManager.spawn(new Location(w, x, y, z), type, tier));
+				spawned.add(EntityManager.spawn(l, type, tier));
 			}
 		}, 0, (1200 * tier));
 		return this;
+	}
+
+	public Location getLocation() {
+		return l;
 	}
 
 	public String getName() {

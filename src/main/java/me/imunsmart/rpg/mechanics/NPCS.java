@@ -1,5 +1,7 @@
 package me.imunsmart.rpg.mechanics;
 
+import me.imunsmart.rpg.mechanics.gui.GlobalMarket;
+import me.imunsmart.rpg.mechanics.gui.SellMenu;
 import me.imunsmart.rpg.mechanics.quests.quest_npcs.KingDuncan;
 import me.imunsmart.rpg.util.Util;
 import org.bukkit.Chunk;
@@ -23,6 +25,8 @@ public class NPCS implements Listener {
 	public NPCS() {
 		new Banker(new Location(Util.w, 21.5, 65, -4.5, 90, 0));
 		new Marketer(new Location(Util.w, 21.5, 65, -2.5, 90, 0));
+		new Merchant(new Location(Util.w, 21.5, 65, -0.5, 90, 0));
+		//new Talker(new Location(Util.w, 19.5, 66, 0.5, 90, 0), Villager.Profession.PRIEST, "§bKing Duncan", "Have fun on your adventures!", "Don't die!");
 		new KingDuncan(new Location(Util.w, 19.5, 66, 0.5, 90, 0));
 	}
 	
@@ -41,26 +45,12 @@ public class NPCS implements Listener {
 	
 	@EventHandler
 	public void onInteract(PlayerInteractEntityEvent e) {
-		System.out.println("test");
 		Entity entity = e.getRightClicked();
 		if (entity.getScoreboardTags().contains("npc")) {
-			System.out.println("test1");
 			e.setCancelled(true);
-			if (entity.getScoreboardTags().contains("king_duncan")) {
-				System.out.println("test2");
-				KingDuncan.onClick(e.getPlayer());
-			} else if (entity.getScoreboardTags().contains("banker")) {
-				Banker.onClick(e.getPlayer());
-			} else if (entity.getScoreboardTags().contains("marketer")) {
-				Marketer.onClick(e.getPlayer());
-			} else if (entity.getScoreboardTags().contains("talker")) {
-				for (NPC npc : npcs) {
-					if (npc instanceof Talker) {
-						Talker talker = (Talker) npc;
-						if (talker.entity.equals(entity)) {
-							talker.onClick(e.getPlayer());
-						}
-					}
+			for (NPC npc : npcs) {
+				if (npc.entity == entity) {
+					npc.onClick(e.getPlayer());
 				}
 			}
 		} else {
@@ -117,6 +107,10 @@ public class NPCS implements Listener {
 			set();
 		}
 		
+		public void onClick(Player player) {
+		
+		}
+		
 		public Location getLocation() {
 			return location;
 		}
@@ -125,10 +119,10 @@ public class NPCS implements Listener {
 	public static class Banker extends NPC {
 		
 		Banker(Location location) {
-			super(Villager.Profession.LIBRARIAN, location, "§aBanker");
+			super(Villager.Profession.LIBRARIAN, location, "§a§lBanker");
 		}
 		
-		static void onClick(Player player) {
+		public void onClick(Player player) {
 			Bank.open(player);
 		}
 		
@@ -138,12 +132,28 @@ public class NPCS implements Listener {
 		}
 	}
 	
-	public static class Marketer extends NPC {
-		Marketer(Location location) {
-			super(EntityType.VILLAGER, location, "§2Marketer");
+	public static class Merchant extends NPC {
+		
+		Merchant(Location location) {
+			super(Villager.Profession.LIBRARIAN, location, "§a§lMerchant");
 		}
 		
-		static void onClick(Player player) {
+		public void onClick(Player player) {
+			SellMenu.open(player);
+		}
+		
+		@Override
+		protected String setOther() {
+			return "merchant";
+		}
+	}
+	
+	public static class Marketer extends NPC {
+		Marketer(Location location) {
+			super(EntityType.VILLAGER, location, "§2§lMarketer");
+		}
+		
+		public void onClick(Player player) {
 			GlobalMarket.open(player);
 		}
 		
@@ -153,23 +163,25 @@ public class NPCS implements Listener {
 		}
 	}
 	
-	public abstract static class QuestGiver extends Talker {
+	public abstract static class QuestGiver extends NPC {
 		
+		protected String[] strings;
 		
 		public QuestGiver(Location location, EntityType type, String name, String... strings) {
-			super(location, type, name, strings);
+			super(type, location, name);
+			this.strings = strings;
 		}
 		
 		public QuestGiver(Location location, Villager.Profession profession, String name, String... strings) {
-			super(location, profession, name, strings);
+			super(profession, location, name);
 		}
 		
 	}
 	
 	public static class Talker extends NPC {
 		
-		protected String[] strings;
-		protected int index = -1;
+		private String[] strings;
+		private int index = -1;
 		
 		public Talker(Location location, EntityType type, String name, String... strings) {
 			super(type, location, name);
@@ -181,12 +193,12 @@ public class NPCS implements Listener {
 			this.strings = strings;
 		}
 		
-		void onClick(Player player) {
+		@Override
+		public void onClick(Player player) {
 			index++;
 			if (index >= strings.length)
 				index = 0;
 			player.sendMessage(name + "§f:§7 " + strings[index]);
-			
 		}
 		
 		@Override
@@ -195,16 +207,5 @@ public class NPCS implements Listener {
 		}
 	}
 	
-	public abstract static class Custom extends NPC {
-		
-		private Custom(EntityType type, Location location, String name) {
-			super(type, location, name);
-		}
-		
-		private Custom(Villager.Profession type, Location location, String name) {
-			super(type, location, name);
-		}
-		
-	}
 }
 

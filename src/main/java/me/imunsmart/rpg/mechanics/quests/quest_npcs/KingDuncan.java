@@ -25,7 +25,6 @@ public class KingDuncan extends NPCS.QuestGiver {
 		super(location, Villager.Profession.PRIEST, "§bKing Duncan",
 				strings
 		);
-		entity.addScoreboardTag("king_duncan");
 		setQuests();
 	}
 	
@@ -33,7 +32,12 @@ public class KingDuncan extends NPCS.QuestGiver {
 		quests.add("KDFT");
 	}
 	
-	public static void onClick(Player player) {
+	@Override
+	protected String setOther() {
+		return "king_duncan";
+	}
+	
+	public void onClick(Player player) {
 		if (QuestManager.playerData.get(player.getUniqueId()).isInQuest()) {
 			QuestPlayerData playerData = QuestManager.playerData.get(player.getUniqueId());
 			Quest quest = playerData.getActiveQuest();
