@@ -16,7 +16,7 @@ public abstract class Quest {
 	private ArrayList<String> endDialog;
 	private boolean started = false;
 	private boolean finished = false;
-	private int nextDialog = 1;
+	private int nextDialog = 0;
 	private String npc;
 	
 	protected Quest(Player player, String name, ItemStack[] rewards, String[] startStrings, String[] endStrings, String notDone, String npc) {
@@ -52,7 +52,7 @@ public abstract class Quest {
 		
 		if (!started) {
 			if (nextDialog == startDialog.size()) {
-				nextDialog = 1;
+				nextDialog = 0;
 				started = true;
 				return null;
 			}
@@ -60,7 +60,7 @@ public abstract class Quest {
 		} else if (finished) {
 			if (nextDialog == endDialog.size()) {
 				finish();
-				nextDialog = 1;
+				nextDialog = 0;
 				return null;
 			}
 			return endDialog.get(nextDialog++);
