@@ -44,7 +44,12 @@ public class QuestPlayerData {
 	
 	public ArrayList<String> toStringList() {
 		ArrayList<String> result = new ArrayList<>();
-		result.add("CQ:" + activeQuest.toString());
+		if (activeQuest == null) {
+			result.add("CQ:null");
+		}
+		else {
+			result.add("CQ:" + activeQuest.toString());
+		}
 		result.addAll(quests);
 		return result;
 	}

@@ -23,7 +23,7 @@ public class MessagesUtil {
 	}
 	
 	private static String prefix(char color) {
-		return "§8(§" + color + "§li§8) §7§§ ";
+		return "§8(§" + color + "§li§8) §7»» ";
 	}
 	
 	public static String bankUpgradeNotEnoughGems(int amount) {

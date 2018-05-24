@@ -23,7 +23,6 @@ public class NPCS implements Listener {
 	public NPCS() {
 		new Banker(new Location(Util.w, 21.5, 65, -4.5, 90, 0));
 		new Marketer(new Location(Util.w, 21.5, 65, -2.5, 90, 0));
-		//new Talker(new Location(Util.w, 19.5, 66, 0.5, 90, 0), Villager.Profession.PRIEST, "§bKing Duncan", "Have fun on your adventures!", "Don't die!");
 		new KingDuncan(new Location(Util.w, 19.5, 66, 0.5, 90, 0));
 	}
 	
@@ -42,10 +41,13 @@ public class NPCS implements Listener {
 	
 	@EventHandler
 	public void onInteract(PlayerInteractEntityEvent e) {
+		System.out.println("test");
 		Entity entity = e.getRightClicked();
 		if (entity.getScoreboardTags().contains("npc")) {
+			System.out.println("test1");
 			e.setCancelled(true);
 			if (entity.getScoreboardTags().contains("king_duncan")) {
+				System.out.println("test2");
 				KingDuncan.onClick(e.getPlayer());
 			} else if (entity.getScoreboardTags().contains("banker")) {
 				Banker.onClick(e.getPlayer());

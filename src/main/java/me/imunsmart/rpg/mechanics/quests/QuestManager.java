@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 
 import java.util.HashMap;
@@ -53,23 +54,27 @@ public class QuestManager implements Listener {
 	}
 	
 	@EventHandler
-	public void onOpen(InventoryOpenEvent e) {
+	public void onOpen(InventoryMoveItemEvent e) {
+	
+	}
+	
+	public static void updateBook(Player player) {
+		System.out.println("test4");
 		CustomItem book = Items.createQuestInfo();
-		Player p = (Player) e.getPlayer();
-		QuestPlayerData data = QuestManager.playerData.get(p.getUniqueId());
+		QuestPlayerData data = QuestManager.playerData.get(player.getUniqueId());
 		if (data.isInQuest()) {
-			book.setLore("§a" + data.getActiveQuest().getName());
-			book.setLore("§aProgress: " + data.getActiveQuest().readableProgress());
-			book.setLore("§aReturn to " + data.getActiveQuest().getNpc());
+			book.setLore("§aQuest: " + data.getActiveQuest().getName(),"§aProgress: " + data.getActiveQuest().readableProgress(),data.getActiveQuest().canFinish() ? "§aReturn to " + data.getActiveQuest().getNpc() : null);
 		} else {
 			book.setLore("§cNo quest active!");
 		}
-		p.getInventory().setItem(17, book);
+		player.getInventory().setItem(17, book);
 	}
 	
 	@EventHandler
-	public void onAnything(InventoryClickEvent e) {
-		if (e.getSlot() == 17) e.setCancelled(true);
+	public void onClick(InventoryClickEvent e) {
+		if (e.getSlot() == 17)
+			e.setCancelled(true);
+		if (e.getCurrentItem().hasItemMeta() && e.getCurrentItem().getItemMeta().hasDisplayName() && e.getCurrentItem().getItemMeta().getDisplayName().equals(Items.createQuestInfo().getItemMeta().getDisplayName())) e.setCancelled(true);
 	}
 	
 	private static class FirstTaskFinder {

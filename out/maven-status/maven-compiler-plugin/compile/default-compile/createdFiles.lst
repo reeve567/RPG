@@ -76,6 +76,7 @@ me\imunsmart\rpg\events\PlayerEvents.class
 me\imunsmart\rpg\mechanics\loot\LootChests.class
 me\imunsmart\rpg\command\admincommands\rpg\Warp.class
 me\imunsmart\rpg\util\AutoBroadcaster.class
+me\imunsmart\rpg\mechanics\quests\resources\KingDuncanResources.class
 me\imunsmart\rpg\mechanics\classes\Class.class
 me\imunsmart\rpg\util\AutoBroadcaster$1.class
 me\imunsmart\rpg\util\Glow.class

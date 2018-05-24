@@ -1,5 +1,6 @@
 package me.imunsmart.rpg.mechanics.quests.trackers;
 
+import me.imunsmart.rpg.mechanics.quests.QuestManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,6 +20,7 @@ public class KillTracker implements Listener {
 				if (e.getEntity().getScoreboardTags().contains("monster")) {
 					if (killMap.containsKey(e.getEntity().getKiller().getUniqueId())) {
 						killMap.put(e.getEntity().getKiller().getUniqueId(),killMap.get(e.getEntity().getKiller().getUniqueId())+1);
+						QuestManager.updateBook(e.getEntity().getKiller());
 					}
 				}
 			}
