@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public abstract class Quest {
@@ -15,9 +16,10 @@ public abstract class Quest {
 	private ArrayList<String> endDialog;
 	private boolean started = false;
 	private int nextDialog = 1;
-	private Player player;
+	protected Player player;
+	private String npc;
 	
-	Quest(Player player, String name, ItemStack[] rewards, int start, int end) {
+	protected Quest(Player player, String name, ItemStack[] rewards, int start, int end) {
 		this.name = name;
 		this.rewards = rewards;
 		this.player = player;
@@ -25,14 +27,7 @@ public abstract class Quest {
 		startDialog = getList("start", start);
 		endDialog = getList("end", end);
 		notDone = resource.getString("notDone");
-	}
-	
-	public ItemStack[] finish() {
-		return rewards;
-	}
-	
-	public ArrayList<String> getEndDialog() {
-		return endDialog;
+		npc = resource.getString("npc");
 	}
 	
 	public ArrayList<String> getList(String st, int end) {
@@ -41,6 +36,16 @@ public abstract class Quest {
 			temp.add(resource.getString(st + i));
 		}
 		return temp;
+	}
+	
+	public ItemStack[] finish() {
+		prepareFinish();
+		QuestManager.playerData.get(player.getUniqueId()).finishQuest();
+		return rewards;
+	}
+	
+	public ArrayList<String> getEndDialog() {
+		return endDialog;
 	}
 	
 	public String getName() {
@@ -74,5 +79,26 @@ public abstract class Quest {
 	public void nextDialog() {
 		nextDialog++;
 	}
+	
+	public String getNpc() {
+		return npc;
+	}
+	
+	public abstract boolean canFinish();
+	
+	public abstract void prepareFinish();
+	
+	public abstract String readableProgress();
+	
+	@Override
+	public String toString() {
+		if (!getProgress().equals("")) {
+			return name + "-" + getProgress();
+		} else {
+			return name;
+		}
+	}
+	
+	protected abstract String getProgress();
 }
 

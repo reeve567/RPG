@@ -1,8 +1,8 @@
-me\imunsmart\rpg\mechanics\quests\SingleStageQuest.class
 me\imunsmart\rpg\command\admincommands\rpg\give\GiveArmor.class
 me\imunsmart\rpg\mechanics\NPCS.class
 me\imunsmart\rpg\mobs\EntityManager.class
 me\imunsmart\rpg\events\PlayerEvents$3.class
+me\imunsmart\rpg\mechanics\quests\QuestPlayerData.class
 me\imunsmart\rpg\mechanics\RepairMenu.class
 me\imunsmart\rpg\events\Spawner.class
 me\imunsmart\rpg\events\SignEvents.class
@@ -14,11 +14,13 @@ me\imunsmart\rpg\command\admincommands\gamemode\GMA.class
 me\imunsmart\rpg\mechanics\Holograms$TextHologram.class
 me\imunsmart\rpg\util\MessagesUtil.class
 me\imunsmart\rpg\mechanics\NPCS$Marketer.class
+me\imunsmart\rpg\mechanics\quests\quest_npcs\king_duncan_tasks\KDFT.class
 me\imunsmart\rpg\util\Util.class
 me\imunsmart\rpg\mechanics\quests\Quest.class
 me\imunsmart\rpg\mechanics\loot\LootChests$LootChest$1.class
 me\imunsmart\rpg\command\admincommands\rpg\mechanics\Spawner.class
 me\imunsmart\rpg\mechanics\Sounds.class
+me\imunsmart\rpg\mechanics\quests\QuestManager$FirstTaskFinder.class
 me\imunsmart\rpg\mechanics\AdminTools$1.class
 me\imunsmart\rpg\events\ChatEvents.class
 me\imunsmart\rpg\mechanics\Stats.class
@@ -34,6 +36,7 @@ me\imunsmart\rpg\mechanics\loot\GemSpawners$GemSpawner$1.class
 me\imunsmart\rpg\util\LocationUtility$Direction.class
 me\imunsmart\rpg\command\Admin.class
 me\imunsmart\rpg\events\DamageEvents.class
+me\imunsmart\rpg\mechanics\quests\FirstTask.class
 me\imunsmart\rpg\mechanics\Nametags.class
 me\imunsmart\rpg\util\LocationUtility.class
 me\imunsmart\rpg\command\admincommands\gamemode\GMSP.class
@@ -45,7 +48,7 @@ me\imunsmart\rpg\command\admincommands\rpg\give\GiveWeapon.class
 me\imunsmart\rpg\command\admincommands\gamemode\GMS.class
 me\imunsmart\rpg\events\ServerEvents.class
 me\imunsmart\rpg\util\RomanNumber.class
-me\imunsmart\rpg\mechanics\quests\king_duncan\KDFirstTask.class
+me\imunsmart\rpg\mechanics\NPCS$QuestGiver.class
 me\imunsmart\rpg\mechanics\NPCS$Custom.class
 me\imunsmart\rpg\util\CustomItem.class
 me\imunsmart\rpg\mechanics\Bank.class
@@ -57,11 +60,13 @@ me\imunsmart\rpg\mechanics\TeleportScrolls$1.class
 me\imunsmart\rpg\mobs\Constants.class
 me\imunsmart\rpg\events\PlayerEvents$1.class
 me\imunsmart\rpg\mechanics\loot\LootChests$LootChest.class
+me\imunsmart\rpg\mechanics\quests\trackers\KillTracker.class
 me\imunsmart\rpg\mechanics\TeleportScrolls.class
 me\imunsmart\rpg\command\admincommands\rpg\give\LootChestC.class
 me\imunsmart\rpg\events\Spawners.class
 me\imunsmart\rpg\mechanics\ActionBar.class
 me\imunsmart\rpg\mechanics\GlobalMarket$1.class
+me\imunsmart\rpg\mechanics\quests\QuestManager.class
 me\imunsmart\rpg\command\admincommands\rpg\give\GiveTools.class
 me\imunsmart\rpg\mechanics\NPCS$Banker.class
 me\imunsmart\rpg\util\RomanNumerals.class
@@ -71,7 +76,6 @@ me\imunsmart\rpg\events\PlayerEvents.class
 me\imunsmart\rpg\mechanics\loot\LootChests.class
 me\imunsmart\rpg\command\admincommands\rpg\Warp.class
 me\imunsmart\rpg\util\AutoBroadcaster.class
-me\imunsmart\rpg\mechanics\quests\DoubleStageQuest.class
 me\imunsmart\rpg\mechanics\classes\Class.class
 me\imunsmart\rpg\util\AutoBroadcaster$1.class
 me\imunsmart\rpg\util\Glow.class
@@ -87,6 +91,7 @@ me\imunsmart\rpg\mechanics\RepairMenu$1.class
 me\imunsmart\rpg\mobs\EntityManager$1.class
 me\imunsmart\rpg\events\WorldEvents.class
 me\imunsmart\rpg\util\PlayerSkull.class
+me\imunsmart\rpg\mechanics\quests\quest_npcs\KingDuncan.class
 me\imunsmart\rpg\mechanics\Potions.class
 me\imunsmart\rpg\mechanics\Items.class
 me\imunsmart\rpg\mechanics\TitleMessage.class

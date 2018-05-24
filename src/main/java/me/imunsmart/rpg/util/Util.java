@@ -11,7 +11,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class Util {
-    public static final String logo = ChatColor.AQUA.toString() + ChatColor.BOLD + "Placeholder";
+    public static final String logo = "§7§lFallen §a§lRealms";
 
     public static final World w = Bukkit.getWorld("world");
     public static final Location spawn = new Location(w, 0.5, 65.5, 0.5);

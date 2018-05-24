@@ -1,6 +1,7 @@
 package me.imunsmart.rpg.mechanics;
 
 import me.imunsmart.rpg.mobs.Constants;
+import me.imunsmart.rpg.util.CustomItem;
 import me.imunsmart.rpg.util.StringUtility;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.GameMode;
@@ -78,6 +79,10 @@ public class Items {
 		im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		i.setItemMeta(im);
 		return i;
+	}
+	
+	public static CustomItem createQuestInfo() {
+		return new CustomItem(Material.PAPER).setName("§aQuest Info").addGlow();
 	}
 	
 	public static ItemStack createGemNote(int amount) {

@@ -41,6 +41,10 @@ public class MessagesUtil {
 	public static String lootChestCreated(int tier) {
 		return prefix('a') + "Successfully created a tier §a" + tier + "§7 loot chest.";
 	}
+	
+	public static String questStarted(String name) {
+		return prefix('a') + "Started quest §a" + name + "§7.";
+	}
 
 	public static String gemSpawnerCreated(int tier) {
 		return prefix('a') + "Successfully created a tier §a" + tier +  "§7 gem spawner.";

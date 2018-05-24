@@ -1,22 +1,21 @@
 package me.imunsmart.rpg.mechanics.quests;
 
-import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.Stats;
 import me.imunsmart.rpg.mechanics.quests.quest_npcs.king_duncan_tasks.KDFT;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 public class QuestPlayerData {
 	
+	private UUID id;
 	private ArrayList<String> quests = new ArrayList<>();
 	private Quest activeQuest = null;
 	
 	public QuestPlayerData(UUID id) {
+		this.id = id;
 		List<String> strings = Stats.getQuestData(id);
 		if (strings.size() > 1) {
 			for (String s : strings) {
@@ -24,7 +23,7 @@ public class QuestPlayerData {
 					quests.add(s.substring(2));
 				} else if (s.startsWith("CQ:")) {
 					if (s.contains("-")) {
-						activeQuest = QuestManager.getQuest(Bukkit.getPlayer(id), s.substring(3, s.indexOf('-')),s.substring(s.indexOf('-') + 1));
+						activeQuest = QuestManager.getQuest(Bukkit.getPlayer(id), s.substring(3, s.indexOf('-')), s.substring(s.indexOf('-') + 1));
 					} else {
 						activeQuest = QuestManager.getQuest(Bukkit.getPlayer(id), s.substring(3));
 					}
@@ -36,6 +35,18 @@ public class QuestPlayerData {
 			else
 				activeQuest = new KDFT(Bukkit.getPlayer(id));
 		}
+		save();
+	}
+	
+	private void save() {
+		Stats.setStat(Bukkit.getOfflinePlayer(id), "quests", toStringList());
+	}
+	
+	public ArrayList<String> toStringList() {
+		ArrayList<String> result = new ArrayList<>();
+		result.add("CQ:" + activeQuest.toString());
+		result.addAll(quests);
+		return result;
 	}
 	
 	public boolean hasFinished(String s) {
@@ -52,10 +63,12 @@ public class QuestPlayerData {
 	
 	public void setActiveQuest(Quest activeQuest) {
 		this.activeQuest = activeQuest;
+		save();
 	}
 	
-	public void save() {
-		//File f = new File();
-		//FileConfiguration fc =
+	public void finishQuest() {
+		quests.add(activeQuest.getName());
+		activeQuest = null;
+		save();
 	}
 }

@@ -5,6 +5,7 @@ import me.imunsmart.rpg.events.*;
 import me.imunsmart.rpg.mechanics.*;
 import me.imunsmart.rpg.mechanics.loot.GemSpawners;
 import me.imunsmart.rpg.mechanics.loot.LootChests;
+import me.imunsmart.rpg.mechanics.quests.QuestManager;
 import me.imunsmart.rpg.mobs.EntityManager;
 import me.imunsmart.rpg.util.AutoBroadcaster;
 import me.imunsmart.rpg.util.Glow;
@@ -46,6 +47,7 @@ public class Main extends JavaPlugin {
 				new TeleportScrolls(this),
 				new NPCS()
 		);
+		new QuestManager(this);
 		new GemSpawners(this);
 		new EntityManager(this);
 		new Bank(this);
@@ -82,6 +84,7 @@ public class Main extends JavaPlugin {
 		lc.disable();
 		Holograms.disable();
 		NPCS.disable();
+		QuestManager.disable();
 	}
 	
 	@Override
@@ -95,6 +98,7 @@ public class Main extends JavaPlugin {
 		
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			Nametags.init(p);
+			QuestManager.init(p);
 			p.setCollidable(false);
 		}
 		

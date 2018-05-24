@@ -2,15 +2,14 @@ package me.imunsmart.rpg.events;
 
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.*;
+import me.imunsmart.rpg.mechanics.quests.QuestManager;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
 import net.minecraft.server.v1_12_R1.PacketPlayInClientCommand;
 import net.minecraft.server.v1_12_R1.PacketPlayInClientCommand.EnumClientCommand;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.block.BlockFace;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,11 +25,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class PlayerEvents implements Listener {
 	private Main pl;
-
+	
 	public PlayerEvents(Main pl) {
 		this.pl = pl;
 	}
-
+	
 	@EventHandler
 	public void onClick(InventoryClickEvent e) {
 		if (e.getSlotType() != SlotType.OUTSIDE) {
@@ -39,7 +38,7 @@ public class PlayerEvents implements Listener {
 			}
 		}
 	}
-
+	
 	@EventHandler
 	public void onDeath(PlayerDeathEvent e) {
 		Player p = e.getEntity();
@@ -53,18 +52,19 @@ public class PlayerEvents implements Listener {
 			}
 		}.runTaskLater(pl, 5);
 	}
-
+	
 	@EventHandler
 	public void onHunger(FoodLevelChangeEvent e) {
 		e.setFoodLevel(20);
 	}
-
+	
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
 		e.setJoinMessage(ChatColor.AQUA + "+" + ChatColor.GRAY + " " + p.getName());
 		Stats.setStat(p, "name", p.getName());
 		Nametags.init(p);
+		QuestManager.init(p);
 		p.setCollidable(false);
 		new BukkitRunnable() {
 			@Override
@@ -76,13 +76,13 @@ public class PlayerEvents implements Listener {
 			}
 		}.runTaskLater(pl, 8);
 	}
-
+	
 	@EventHandler
 	public void onLeave(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		e.setQuitMessage(ChatColor.AQUA + "-" + ChatColor.GRAY + " " + p.getName());
 	}
-
+	
 	@EventHandler
 	public void onPickup(PlayerPickupItemEvent e) {
 		if (e.getItem().getItemStack().hasItemMeta()) {
@@ -91,13 +91,13 @@ public class PlayerEvents implements Listener {
 			}
 		}
 	}
-
+	
 	@EventHandler
 	public void onRegen(EntityRegainHealthEvent e) {
 		e.setAmount(0);
 		e.setCancelled(true);
 	}
-
+	
 	@EventHandler
 	public void onRespawn(PlayerRespawnEvent e) {
 		Player p = e.getPlayer();
@@ -109,19 +109,19 @@ public class PlayerEvents implements Listener {
 			}
 		}.runTaskLater(pl, 10);
 	}
-
+	
 	@EventHandler
 	public void onSwap(PlayerSwapHandItemsEvent e) {
 		e.setCancelled(true);
 	}
-
+	
 	@EventHandler
 	public void onCraft(CraftItemEvent e) {
 		Player p = (Player) e.getWhoClicked();
 		if (e.getClickedInventory() == p.getInventory())
 			e.setCancelled(true);
 	}
-
+	
 	@EventHandler
 	public void onInteract(PlayerInteractEvent e) {
 		Player p = e.getPlayer();

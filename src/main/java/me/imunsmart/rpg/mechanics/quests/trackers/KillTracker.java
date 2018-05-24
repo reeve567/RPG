@@ -29,6 +29,10 @@ public class KillTracker implements Listener {
 		return killMap.get(player.getUniqueId()) >= i;
 	}
 	
+	public static int getProgress(Player player) {
+		return killMap.get(player.getUniqueId());
+	}
+	
 	public static double getProgress(Player player,int goal) {
 		return ((double) goal / killMap.get(player.getUniqueId()))*100;
 	}

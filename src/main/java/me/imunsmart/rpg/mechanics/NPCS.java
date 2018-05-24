@@ -45,7 +45,9 @@ public class NPCS implements Listener {
 		Entity entity = e.getRightClicked();
 		if (entity.getScoreboardTags().contains("npc")) {
 			e.setCancelled(true);
-			if (entity.getScoreboardTags().contains("banker")) {
+			if (entity.getScoreboardTags().contains("king_duncan")) {
+				KingDuncan.onClick(e.getPlayer());
+			} else if (entity.getScoreboardTags().contains("banker")) {
 				Banker.onClick(e.getPlayer());
 			} else if (entity.getScoreboardTags().contains("marketer")) {
 				Marketer.onClick(e.getPlayer());
@@ -164,8 +166,8 @@ public class NPCS implements Listener {
 	
 	public static class Talker extends NPC {
 		
-		private String[] strings;
-		private int index = -1;
+		protected String[] strings;
+		protected int index = -1;
 		
 		public Talker(Location location, EntityType type, String name, String... strings) {
 			super(type, location, name);
