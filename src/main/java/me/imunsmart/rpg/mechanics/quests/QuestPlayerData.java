@@ -50,7 +50,9 @@ public class QuestPlayerData {
 		else {
 			result.add("CQ:" + activeQuest.toString());
 		}
-		result.addAll(quests);
+		for (String s : quests) {
+			result.add("Q:" + s);
+		}
 		return result;
 	}
 	

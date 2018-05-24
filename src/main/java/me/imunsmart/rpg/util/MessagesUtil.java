@@ -46,6 +46,10 @@ public class MessagesUtil {
 		return prefix('a') + "Started quest §a" + name + "§7.";
 	}
 
+	public static String questFinished(String name) {
+		return prefix('a') + "Finished quest §a" + name + "§7.";
+	}
+	
 	public static String gemSpawnerCreated(int tier) {
 		return prefix('a') + "Successfully created a tier §a" + tier +  "§7 gem spawner.";
 	}

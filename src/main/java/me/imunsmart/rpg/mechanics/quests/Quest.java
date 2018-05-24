@@ -1,5 +1,6 @@
 package me.imunsmart.rpg.mechanics.quests;
 
+import me.imunsmart.rpg.util.MessagesUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -27,10 +28,11 @@ public abstract class Quest {
 		endDialog = new ArrayList<>(Arrays.asList(endStrings));
 	}
 	
-	public ItemStack[] finish() {
+	public void finish() {
 		prepareFinish();
 		QuestManager.playerData.get(player.getUniqueId()).finishQuest();
-		return rewards;
+		player.sendMessage(MessagesUtil.questFinished(name));
+		player.getInventory().addItem(rewards);
 	}
 	
 	public abstract void prepareFinish();

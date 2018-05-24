@@ -59,11 +59,10 @@ public class QuestManager implements Listener {
 	}
 	
 	public static void updateBook(Player player) {
-		System.out.println("test4");
 		CustomItem book = Items.createQuestInfo();
 		QuestPlayerData data = QuestManager.playerData.get(player.getUniqueId());
 		if (data.isInQuest()) {
-			book.setLore("§aQuest: " + data.getActiveQuest().getName(),"§aProgress: " + data.getActiveQuest().readableProgress(),data.getActiveQuest().canFinish() ? "§aReturn to " + data.getActiveQuest().getNpc() : null);
+			book.setLore("§aQuest: " + data.getActiveQuest().getName(),"§aProgress: " + data.getActiveQuest().readableProgress(),data.getActiveQuest().canFinish() ? "§aReturn to " + data.getActiveQuest().getNpc() : "");
 		} else {
 			book.setLore("§cNo quest active!");
 		}

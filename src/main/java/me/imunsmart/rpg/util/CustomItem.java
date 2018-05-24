@@ -20,6 +20,13 @@ public class CustomItem extends ItemStack {
 		super(stack);
 	}
 	
+	public CustomItem addGlow() {
+		ItemMeta meta = meta();
+		meta.addEnchant(new Glow(999), 1, true);
+		setMeta(meta);
+		return this;
+	}
+	
 	private ItemMeta meta() {
 		return getItemMeta();
 	}
@@ -28,10 +35,8 @@ public class CustomItem extends ItemStack {
 		setItemMeta(meta);
 	}
 	
-	public CustomItem addGlow() {
-		ItemMeta meta = meta();
-		meta.addEnchant(new Glow(999), 1, true);
-		setMeta(meta);
+	public CustomItem setCustomAmount(int amount) {
+		setAmount(amount);
 		return this;
 	}
 	
@@ -39,10 +44,6 @@ public class CustomItem extends ItemStack {
 	@Override
 	public void setAmount(int amount) {
 		super.setAmount(amount);
-	}
-	public CustomItem setCustomAmount(int amount) {
-		setAmount(amount);
-		return this;
 	}
 	
 	public CustomItem addLore(String s) {
@@ -90,7 +91,9 @@ public class CustomItem extends ItemStack {
 		ItemMeta meta = meta();
 		List<String> lores = new ArrayList<>();
 		for (String s : lore) {
-			lores.add(ChatColor.translateAlternateColorCodes('&', s));
+			if (!s.equals("")) {
+				lores.add(ChatColor.translateAlternateColorCodes('&', s));
+			}
 		}
 		meta.setLore(lores);
 		setMeta(meta);

@@ -44,9 +44,11 @@ public class KingDuncan extends NPCS.QuestGiver {
 			if (quests.contains(quest.getName())) {
 				if (quest.canFinish()) {
 					quest.finish();
+					QuestManager.updateBook(player);
 				}
 				else {
 					player.sendMessage("§bKing Duncan§f:§7 " + quest.getNotDone());
+					QuestManager.updateBook(player);
 				}
 			}
 		} else {
@@ -57,10 +59,12 @@ public class KingDuncan extends NPCS.QuestGiver {
 				if (!found && playerData.hasFinished(s)) {
 					found = true;
 					playerData.setActiveQuest(QuestManager.getQuest(player, s));
+					QuestManager.updateBook(player);
 				}
 			}
 			if (found) {
 				player.sendMessage(MessagesUtil.questStarted(playerData.getActiveQuest().getName()));
+				QuestManager.updateBook(player);
 			} else {
 				//no available quests
 				index++;
@@ -70,6 +74,5 @@ public class KingDuncan extends NPCS.QuestGiver {
 				
 			}
 		}
-		QuestManager.updateBook(player);
 	}
 }

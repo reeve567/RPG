@@ -25,7 +25,7 @@ public class NPCS implements Listener {
 	public NPCS() {
 		new Banker(new Location(Util.w, 21.5, 65, -4.5, 90, 0));
 		new Marketer(new Location(Util.w, 21.5, 65, -2.5, 90, 0));
-		new Merchant(new Location(Util.w, 21.5, 65, -0.5, 90, 0));
+		new Merchant(new Location(Util.w, 21.5, 65, -3.5, 90, 0));
 		//new Talker(new Location(Util.w, 19.5, 66, 0.5, 90, 0), Villager.Profession.PRIEST, "§bKing Duncan", "Have fun on your adventures!", "Don't die!");
 		new KingDuncan(new Location(Util.w, 19.5, 66, 0.5, 90, 0));
 	}
