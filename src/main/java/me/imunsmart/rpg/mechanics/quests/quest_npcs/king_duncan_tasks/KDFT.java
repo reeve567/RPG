@@ -41,6 +41,7 @@ public class KDFT extends Quest implements FirstTask {
 	
 	@Override
 	public boolean canFinish() {
+		set
 		return KillTracker.killMap.get(player.getUniqueId()) >= 10;
 	}
 	

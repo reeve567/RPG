@@ -42,14 +42,17 @@ public class KingDuncan extends NPCS.QuestGiver {
 			QuestPlayerData playerData = QuestManager.playerData.get(player.getUniqueId());
 			Quest quest = playerData.getActiveQuest();
 			if (quests.contains(quest.getName())) {
+				//if (!quest.isStarted()) {
+				//	player.sendMessage("§bKing Duncan§f:§7 " + quest.getNextDialog());
+				//} else {
 				if (quest.canFinish()) {
 					quest.finish();
 					QuestManager.updateBook(player);
-				}
-				else {
+				} else {
 					player.sendMessage("§bKing Duncan§f:§7 " + quest.getNotDone());
 					QuestManager.updateBook(player);
 				}
+				//}
 			}
 		} else {
 			QuestPlayerData playerData = QuestManager.playerData.get(player.getUniqueId());

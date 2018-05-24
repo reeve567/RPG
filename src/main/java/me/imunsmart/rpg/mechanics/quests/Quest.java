@@ -15,6 +15,7 @@ public abstract class Quest {
 	private String notDone;
 	private ArrayList<String> endDialog;
 	private boolean started = false;
+	private boolean finished = false;
 	private int nextDialog = 1;
 	private String npc;
 	
@@ -28,14 +29,16 @@ public abstract class Quest {
 		endDialog = new ArrayList<>(Arrays.asList(endStrings));
 	}
 	
+	protected abstract String getProgress();
+	
+	public abstract boolean canFinish();
+	
 	public void finish() {
 		prepareFinish();
 		QuestManager.playerData.get(player.getUniqueId()).finishQuest();
 		player.sendMessage(MessagesUtil.questFinished(name));
 		player.getInventory().addItem(rewards);
 	}
-	
-	public abstract void prepareFinish();
 	
 	public ArrayList<String> getEndDialog() {
 		return endDialog;
@@ -45,20 +48,32 @@ public abstract class Quest {
 		return name;
 	}
 	
-	public int getNextDialog() {
-		return nextDialog;
-	}
-	
-	public void setNextDialog(int nextDialog) {
-		this.nextDialog = nextDialog;
+	public String getNextDialog() {
+		
+		if (!started) {
+			if (nextDialog == startDialog.size()) {
+				nextDialog = 1;
+				started = true;
+				return null;
+			}
+			return startDialog.get(nextDialog++);
+		} else if (finished) {
+			if (nextDialog == endDialog.size()) {
+				finish();
+				nextDialog = 1;
+				return null;
+			}
+			return endDialog.get(nextDialog++);
+		}
+		else return null;
 	}
 	
 	public String getNotDone() {
 		return notDone;
 	}
 	
-	public ArrayList<String> getStartDialog() {
-		return startDialog;
+	public String getNpc() {
+		return npc;
 	}
 	
 	public boolean isStarted() {
@@ -73,11 +88,15 @@ public abstract class Quest {
 		nextDialog++;
 	}
 	
-	public String getNpc() {
-		return npc;
+	public boolean isFinished() {
+		return finished;
 	}
 	
-	public abstract boolean canFinish();
+	public void setFinished() {
+		finished = true;
+	}
+	
+	public abstract void prepareFinish();
 	
 	public abstract String readableProgress();
 	
@@ -89,7 +108,5 @@ public abstract class Quest {
 			return name;
 		}
 	}
-	
-	protected abstract String getProgress();
 }
 
