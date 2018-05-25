@@ -3,6 +3,7 @@ package me.imunsmart.rpg;
 import me.imunsmart.rpg.command.Admin;
 import me.imunsmart.rpg.events.*;
 import me.imunsmart.rpg.mechanics.*;
+import me.imunsmart.rpg.mechanics.gui.BuyMenu;
 import me.imunsmart.rpg.mechanics.gui.GlobalMarket;
 import me.imunsmart.rpg.mechanics.gui.RepairMenu;
 import me.imunsmart.rpg.mechanics.gui.SellMenu;
@@ -56,6 +57,7 @@ public class Main extends JavaPlugin {
 		new Bank(this);
 		new RepairMenu(this);
 		new SellMenu(this);
+		new BuyMenu(this);
 		new Spawners(this);
 		new GlobalMarket(this);
 		lc = new LootChests(this);

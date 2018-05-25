@@ -3,6 +3,7 @@ package me.imunsmart.rpg.mechanics;
 import me.imunsmart.rpg.mobs.Constants;
 import me.imunsmart.rpg.util.CustomItem;
 import me.imunsmart.rpg.util.StringUtility;
+import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -23,12 +24,12 @@ public class Items {
 	
 	public static final ItemStack gem = createItem(Material.DIAMOND, 1, 0, ChatColor.AQUA + "Gem");
 	public static ChatColor[] nameColor = {ChatColor.GOLD, ChatColor.GRAY, ChatColor.WHITE, ChatColor.AQUA, ChatColor.YELLOW};
-	private static String[] tools = {"WOOD", "STONE", "IRON", "DIAMOND", "GOLD"};
+	public static String[] tools = {"WOOD", "STONE", "IRON", "DIAMOND", "GOLD"};
+	public static String[] picks = {"Beginner's", "Novice's", "Professional", "Masterful", "Godly"};
 	private static String[] swords = {"Shortsword", "Longsword", "Greatsword", "Mystic Sword", "Godly Sword"};
 	private static String[] axes = {"Hatchet", "Tomohawk", "Great Axe", "Mystic Axe", "Godly Axe"};
 	private static String[] armor = {"LEATHER", "CHAINMAIL", "IRON", "DIAMOND", "GOLD"};
 	private static String[] armors = {"Old", "Rusted", "Great", "Mystic", "Godly"};
-	private static String[] picks = {"Beginner's", "Novice's", "Professional", "Masterful", "Godly"};
 	private static String[] types = {"axe", "sword", "helmet", "chestplate", "leggings", "boots"};
 	
 	public static void convertToScraps(Player p) {
@@ -139,6 +140,8 @@ public class Items {
 	
 	public static int getTier(ItemStack i) {
 		String name = i.getType().name();
+		if(name.contains("LEATHER") || name.contains("WOOD"))
+			return 1;
 		if (name.contains("CHAINMAIL") || name.contains("STONE"))
 			return 2;
 		else if (name.contains("IRON"))
@@ -147,7 +150,7 @@ public class Items {
 			return 4;
 		else if (name.contains("GOLD"))
 			return 5;
-		return 1;
+		return 0;
 	}
 	
 	public static ItemStack randomEnchant(ItemStack i) {
@@ -262,11 +265,16 @@ public class Items {
 		return createItem(m, 1, 0, name, lore);
 	}
 
-	public static ItemStack createPickaxe(int tier, int durability, String flags) {
-		Material m = Material.getMaterial(tools[tier - 1] + "_PICKAXE");
-		String name = nameColor[tier - 1] + picks[tier - 1] + " Pickaxe";
+	public static ItemStack createPickaxe(int level, int durability, String flags) {
+		int tier = level / 20;
+		Material m = Material.getMaterial(tools[tier] + "_PICKAXE");
+		String name = nameColor[tier] + picks[tier] + " Pickaxe";
 		String[] flag = flags.split(",");
 		List<String> lore = new ArrayList<String>();
+		lore.add(ChatColor.GRAY + "Use often to level up.");
+		lore.add(" ");
+		lore.add(ChatColor.GRAY + "Level: " + ChatColor.AQUA + level);
+		lore.add(ChatColor.GRAY + "XP: " + ChatColor.AQUA + "0 / " + Util.pickXP(level));
 		name = getName(name, flag, lore);
 		return createItem(m, 1, durability, name, lore);
 	}

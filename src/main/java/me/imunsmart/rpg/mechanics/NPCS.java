@@ -1,5 +1,6 @@
 package me.imunsmart.rpg.mechanics;
 
+import me.imunsmart.rpg.mechanics.gui.BuyMenu;
 import me.imunsmart.rpg.mechanics.gui.GlobalMarket;
 import me.imunsmart.rpg.mechanics.gui.SellMenu;
 import me.imunsmart.rpg.mechanics.quests.quest_npcs.KingDuncan;
@@ -139,7 +140,7 @@ public class NPCS implements Listener {
 		}
 		
 		public void onClick(Player player) {
-			SellMenu.open(player);
+			BuyMenu.showMenu(player);
 		}
 		
 		@Override

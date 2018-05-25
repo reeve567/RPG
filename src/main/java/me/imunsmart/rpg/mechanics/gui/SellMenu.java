@@ -1,5 +1,6 @@
 package me.imunsmart.rpg.mechanics.gui;
 
+import io.netty.util.internal.MathUtil;
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.Items;
 import me.imunsmart.rpg.mechanics.Sounds;
@@ -58,10 +59,10 @@ public class SellMenu implements Listener {
                     if (inv.getItem(x) == null) continue;
                     ItemStack i = inv.getItem(x);
                     if (i.getType() == Material.COAL) gems += i.getAmount();
-                    if (i.getType() == Material.IRON_INGOT) gems += i.getAmount() * 3;
-                    if (i.getType() == Material.EMERALD) gems += i.getAmount() * 5;
-                    if (i.getType() == Material.REDSTONE) gems += i.getAmount() * 8;
-                    if (i.getType() == Material.GOLD_INGOT) gems += i.getAmount() * 10;
+                    else if (i.getType() == Material.IRON_INGOT) gems += i.getAmount() * 3;
+                    else if (i.getType() == Material.EMERALD) gems += i.getAmount() * 5;
+                    else if (i.getType() == Material.REDSTONE) gems += i.getAmount() * 8;
+                    else if (i.getType() == Material.GOLD_INGOT) gems += i.getAmount() * 10;
                 }
                 Material m = gems > 64 ? Material.EMPTY_MAP : Material.DIAMOND;
                 inv.setItem(49, Items.createItem(m, 1, 0, ChatColor.AQUA + "Click to Sell", ChatColor.GRAY + "Gem Value: " + ChatColor.AQUA + gems));

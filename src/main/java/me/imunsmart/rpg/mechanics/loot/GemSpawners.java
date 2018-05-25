@@ -134,11 +134,7 @@ public class GemSpawners implements Listener {
                 if (sp.getLocation().equals(e.getBlock().getLocation())) {
                     if(i != null && i.getType().name().contains("PICKAXE")) {
                         sp.loot();
-                        i.setDurability((short) (i.getDurability() + 1));
-                        if(i.getDurability() > i.getType().getMaxDurability()) {
-                            p.getInventory().setItemInMainHand(null);
-                            Sounds.play(p, Sound.ENTITY_ITEM_BREAK, 1);
-                        }
+                        Util.usePick(p);
                     }
                 }
             }

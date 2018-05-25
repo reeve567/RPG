@@ -78,8 +78,16 @@ public class Constants {
 
     public static final int MAX_T5_GEMS = 64;
 
+    // Weapons
+    public static final int[] USE_ITEM = { 10, 8, 5, 0, 75 };
+
     // Levels
     public static final int[] LEVEL_REQ = {0, 10, 20, 30, 50};
+    public static float BASE_XP = 200;
+    public static float MULT = 1.095f;
+
+    public static float PICK_BASE_XP = 100;
+    public static float PICK_MULT = 1.06f;
 
     // Zombies
     private static final String[] zt1 = {"Rotting Zombie", "Dying Zombie", "Scattered Zombie", "Weak Zombie"};

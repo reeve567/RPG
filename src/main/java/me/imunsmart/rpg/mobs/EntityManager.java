@@ -173,23 +173,10 @@ public class EntityManager implements Listener {
         weapon.put(p.getName(), w);
         int v = i.getType().name().contains("AXE") ? 2 : 1;
         i.setDurability((short) (i.getDurability() - v));
-        if (i.getType().name().contains("GOLD")) {
-            if (weapon.get(p.getName()) >= 75) {
-                i.setDurability((short) (i.getDurability() + 1));
-                weapon.remove(p.getName());
-            }
-        } else if (i.getType().name().contains("STONE")) {
-            if (weapon.get(p.getName()) >= 40) {
-                i.setDurability((short) (i.getDurability() + 1));
-                weapon.remove(p.getName());
-            }
-        } else if (i.getType().name().contains("WOOD")) {
-            if (weapon.get(p.getName()) >= 20) {
-                i.setDurability((short) (i.getDurability() + 1));
-                weapon.remove(p.getName());
-            }
-        } else {
+        int tier = Items.getTier(i);
+        if(weapon.get(p.getName()) >= Constants.USE_ITEM[tier - 1]) {
             i.setDurability((short) (i.getDurability() + 1));
+            weapon.put(p.getName(), 0);
         }
         if (i.getDurability() > i.getType().getMaxDurability()) {
             p.getInventory().setItemInMainHand(null);
@@ -209,28 +196,15 @@ public class EntityManager implements Listener {
             ItemStack i = a[x];
             if (i == null)
                 continue;
+            int tier = Items.getTier(i);
             int[] temp = {0, 0, 0, 0};
             if (armor.containsKey(p.getName()))
                 temp = armor.get(p.getName());
             temp[x]++;
             i.setDurability((short) (i.getDurability() - 1));
-            if (i.getType().name().contains("GOLD")) {
-                if (temp[x] >= 75) {
-                    i.setDurability((short) (i.getDurability() + 1));
-                    temp[x] = 0;
-                }
-            } else if (i.getType().name().contains("CHAINMAIL")) {
-                if (temp[x] >= 40) {
-                    i.setDurability((short) (i.getDurability() + 1));
-                    temp[x] = 0;
-                }
-            } else if (i.getType().name().contains("LEATHER")) {
-                if (temp[x] >= 20) {
-                    i.setDurability((short) (i.getDurability() + 1));
-                    temp[x] = 0;
-                }
-            } else {
+            if(temp[x] >= Constants.USE_ITEM[tier - 1]) {
                 i.setDurability((short) (i.getDurability() + 1));
+                temp[x] = 0;
             }
             if (i.getDurability() > i.getType().getMaxDurability()) {
                 a[x] = null;
