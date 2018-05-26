@@ -243,6 +243,12 @@ public class GlobalMarket implements Listener {
 						p.closeInventory();
 						return;
 					}
+					if(e.getCurrentItem().containsEnchantment(Enchantment.getByName("glow"))) {
+						p.sendMessage(ChatColor.RED + "You cannot sell that item!");
+						Sounds.play(p, Sound.ENTITY_ITEM_BREAK, 0.67f);
+						p.closeInventory();
+						return;
+					}
 				}
 				sell.put(p.getName(), e.getCurrentItem());
 				p.sendMessage(ChatColor.GRAY + "Enter a cost for this item in chat or type 'cancel' to cancel.");

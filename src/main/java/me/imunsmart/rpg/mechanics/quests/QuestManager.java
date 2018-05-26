@@ -11,6 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
+import org.bukkit.event.inventory.InventoryType;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -65,8 +66,8 @@ public class QuestManager implements Listener {
 	
 	@EventHandler
 	public void onClick(InventoryClickEvent e) {
-		if (e.getSlot() == 17)
-			e.setCancelled(true);
+		if(e.getCurrentItem() == null || e.getSlotType() == InventoryType.SlotType.OUTSIDE)
+			return;
 		if (e.getCurrentItem().hasItemMeta() && e.getCurrentItem().getItemMeta().hasDisplayName() && e.getCurrentItem().getItemMeta().getDisplayName().equals(Items.createQuestInfo().getItemMeta().getDisplayName())) e.setCancelled(true);
 	}
 	

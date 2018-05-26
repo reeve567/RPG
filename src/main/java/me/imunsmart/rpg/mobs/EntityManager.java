@@ -96,11 +96,15 @@ public class EntityManager implements Listener {
                     return;
                 }
             }
+            if(e.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
+                e.setCancelled(true);
+                e.setDamage(0);
+                return;
+            }
             double damage = 1;
             ItemStack i = le.getEquipment().getItemInMainHand();
             if (i != null)
                 damage = Health.getAttributeI(le.getEquipment().getItemInMainHand(), "Damage");
-            assert i != null;
             String name = i.getType().name();
             if (name.contains("SWORD") || name.contains("AXE")) {
                 if (le instanceof Player) {
@@ -144,15 +148,13 @@ public class EntityManager implements Listener {
                     mess = ChatColor.YELLOW.toString() + ChatColor.BOLD + "!CRIT! " + mess;
                     Sounds.play(p, Sound.BLOCK_ANVIL_PLACE, 1);
                 }
-                if (e.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
-                    Holograms.TextHologram hologram = Holograms.addTextHologram(LocationUtility.moveUp(hit.getLocation(), 1), mess);
-                    new BukkitRunnable() {
-                        @Override
-                        public void run() {
-                            hologram.disable();
-                        }
-                    }.runTaskLaterAsynchronously(pl, 30);
-                }
+                Holograms.TextHologram hologram = Holograms.addTextHologram(LocationUtility.moveUp(hit.getLocation(), 1), mess);
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        hologram.disable();
+                    }
+                }.runTaskLaterAsynchronously(pl, 30);
                 Health.combat.put(p.getName(), 16);
             }
             if (hit instanceof Player) {
@@ -170,11 +172,14 @@ public class EntityManager implements Listener {
         if (i == null)
             return;
         int w = weapon.containsKey(p.getName()) ? weapon.get(p.getName()) + 1 : 1;
+        System.out.println(w);
         weapon.put(p.getName(), w);
-        int v = i.getType().name().contains("AXE") ? 2 : 1;
-        i.setDurability((short) (i.getDurability() - v));
+        if (i.getType().name().contains("AXE"))
+            i.setDurability((short) (i.getDurability() - 2));
+        else if (i.getType().name().contains("SWORD"))
+            i.setDurability((short) (i.getDurability() - 1));
         int tier = Items.getTier(i);
-        if(weapon.get(p.getName()) >= Constants.USE_ITEM[tier - 1]) {
+        if (weapon.get(p.getName()) >= Constants.USE_ITEM[tier - 1]) {
             i.setDurability((short) (i.getDurability() + 1));
             weapon.put(p.getName(), 0);
         }
@@ -202,7 +207,7 @@ public class EntityManager implements Listener {
                 temp = armor.get(p.getName());
             temp[x]++;
             i.setDurability((short) (i.getDurability() - 1));
-            if(temp[x] >= Constants.USE_ITEM[tier - 1]) {
+            if (temp[x] >= Constants.USE_ITEM[tier - 1]) {
                 i.setDurability((short) (i.getDurability() + 1));
                 temp[x] = 0;
             }

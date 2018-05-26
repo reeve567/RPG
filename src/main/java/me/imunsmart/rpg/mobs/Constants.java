@@ -86,8 +86,8 @@ public class Constants {
     public static float BASE_XP = 200;
     public static float MULT = 1.095f;
 
-    public static float PICK_BASE_XP = 100;
-    public static float PICK_MULT = 1.06f;
+    public static float PICK_BASE_XP = 200;
+    public static float PICK_MULT = 1.05f;
 
     // Zombies
     private static final String[] zt1 = {"Rotting Zombie", "Dying Zombie", "Scattered Zombie", "Weak Zombie"};

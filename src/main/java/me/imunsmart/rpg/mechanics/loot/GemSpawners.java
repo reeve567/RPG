@@ -134,7 +134,7 @@ public class GemSpawners implements Listener {
                 if (sp.getLocation().equals(e.getBlock().getLocation())) {
                     if(i != null && i.getType().name().contains("PICKAXE")) {
                         sp.loot();
-                        Util.usePick(p);
+                        Util.usePick(p, sp.getTier());
                     }
                 }
             }

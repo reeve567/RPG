@@ -152,7 +152,7 @@ public class LootChests implements Listener {
             l.getBlock().setType(Material.CHEST);
             Chest c = (Chest) l.getBlock().getState();
             c.getBlockInventory().clear();
-            int possible = 1 + tier;
+            int possible = 2 + (tier / 2);
             int added = 0;
             while (added < possible) {
                 int i = (int) (Math.random() * c.getBlockInventory().getSize());

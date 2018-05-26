@@ -7,11 +7,14 @@ import me.imunsmart.rpg.mechanics.Stats;
 import me.imunsmart.rpg.mobs.Constants;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.*;
+import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+import sun.misc.MessageUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -90,7 +93,7 @@ public class Util {
 
     private static HashMap<String, Integer> uses = new HashMap<String, Integer>();
 
-    public static void usePick(Player p) {
+    public static void usePick(Player p, int t) {
         ItemStack i = p.getInventory().getItemInMainHand();
         int tier = Items.getTier(i);
         if(!uses.containsKey(p.getName()))
@@ -106,25 +109,33 @@ public class Util {
         }
         int level = Integer.parseInt(ChatColor.stripColor(i.getItemMeta().getLore().get(2)).split(" ")[1]);
         int xp = Integer.parseInt(ChatColor.stripColor(i.getItemMeta().getLore().get(3)).split(" ")[1]);
-        int x = 50 + (int) (Math.random() * 75);
+        int x = 50 + (int) (Math.random() * (75 * t));
         xp += x;
         ItemMeta im = i.getItemMeta();
         if(xp >= pickXP(level)) {
-            xp = 0;
+            xp -= pickXP(level);
             level++;
             if(level % 20 == 0 && tier != 5) {
                 float perc = (float) i.getDurability() / (float) i.getType().getMaxDurability();
                 i.setType(Material.valueOf(Items.tools[tier] + "_PICKAXE"));
                 i.setDurability((short) (i.getType().getMaxDurability() * perc));
                 im.setDisplayName(Items.nameColor[tier] + Items.picks[tier] + " Pickaxe");
+                Firework fw = p.getWorld().spawn(p.getLocation(), Firework.class);
+                FireworkMeta fm = fw.getFireworkMeta();
+                fm.addEffect(FireworkEffect.builder().with(FireworkEffect.Type.BALL_LARGE).withColor(Color.BLUE).withFade(Color.AQUA).flicker(true).trail(true).build());
+                fm.setPower(1);
+                fw.setFireworkMeta(fm);
+                p.sendMessage(MessagesUtil.pickaxeTier(tier + 1));
+                Sounds.play(p, Sound.ENTITY_PLAYER_LEVELUP, 1);
             }
-        }
+            new ActionBar(ChatColor.AQUA + "Level Up! [" + (level - 1) + "->" + level + "]").sendToPlayer(p);
+        } else
+            new ActionBar(ChatColor.YELLOW + "+" + x + "XP").sendToPlayer(p);
         List<String> lore = im.getLore();
         lore.set(2, ChatColor.GRAY + "Level: " + ChatColor.AQUA + level);
         lore.set(3, ChatColor.GRAY + "XP: " + ChatColor.AQUA + xp + " / " + Util.pickXP(level));
         im.setLore(lore);
         i.setItemMeta(im);
-        new ActionBar(ChatColor.YELLOW + "+" + x + "XP").sendToPlayer(p);
     }
 
 }

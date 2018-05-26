@@ -15,6 +15,7 @@ public class MessagesUtil {
 	
 	public static final String lootChestRemoved = prefix('c') + "§cRemoved loot chest.";
 	public static final String lootChestErrorOrNotFound = prefix('c') + "§cEither this block is not a loot chest, or there was an error removing it.";
+
 	//just for copy-paste use
 	private static final char colorChar = '§';
 	
@@ -52,5 +53,9 @@ public class MessagesUtil {
 	
 	public static String gemSpawnerCreated(int tier) {
 		return prefix('a') + "Successfully created a tier §a" + tier +  "§7 gem spawner.";
+	}
+
+	public static String pickaxeTier(int tier) {
+		return prefix('b') + "Your pickaxe has advanced to tier §b" + tier + "§7.";
 	}
 }
