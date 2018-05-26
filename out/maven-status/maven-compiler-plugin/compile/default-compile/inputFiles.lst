@@ -42,7 +42,6 @@ F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\ques
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\util\RomanNumber.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\Stats.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\Main.java
-F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\quests\quest_npcs\king_duncan_tasks\KDFT.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\events\DamageEvents.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\Bank.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\classes\ClassSelector.java
@@ -56,6 +55,7 @@ F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\clas
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\admincommands\rpg\give\GiveScraps.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\admincommands\rpg\give\GiveWeapon.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\events\Spawners.java
+F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\quests\quest_npcs\king_duncan_tasks\KingDuncanFirstTask.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\command\admincommands\rpg\mechanics\SpawnMob.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\Health.java
 F:\Development\Code\Java\other\RPG\src\main\java\me\imunsmart\rpg\mechanics\Holograms.java

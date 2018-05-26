@@ -4,7 +4,6 @@ import me.imunsmart.rpg.mechanics.NPCS;
 import me.imunsmart.rpg.mechanics.quests.Quest;
 import me.imunsmart.rpg.mechanics.quests.QuestManager;
 import me.imunsmart.rpg.mechanics.quests.QuestPlayerData;
-import me.imunsmart.rpg.util.MessagesUtil;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
@@ -28,7 +27,7 @@ public class KingDuncan extends NPCS.QuestGiver {
 		setQuests();
 	}
 	
-	public static void setQuests() {
+	private static void setQuests() {
 		quests.add("KingDuncanFirstTask");
 	}
 	
@@ -41,34 +40,52 @@ public class KingDuncan extends NPCS.QuestGiver {
 		if (QuestManager.playerData.get(player.getUniqueId()).isInQuest()) {
 			QuestPlayerData playerData = QuestManager.playerData.get(player.getUniqueId());
 			Quest quest = playerData.getActiveQuest();
+			player.sendMessage("1");
+			player.sendMessage(quest.getName());
 			if (quests.contains(quest.getName())) {
-				//if (!quest.isStarted()) {
-				//	player.sendMessage("§bKing Duncan§f:§7 " + quest.getNextDialog());
-				//} else {
-				if (quest.canFinish()) {
-					quest.finish();
-					QuestManager.updateBook(player);
+				player.sendMessage("2");
+				if (!quest.isStarted()) {
+					String s = quest.getNextDialog();
+					if (s != null) {
+						player.sendMessage("§bKing Duncan§f:§7 " + s);
+					}
 				} else {
-					player.sendMessage("§bKing Duncan§f:§7 " + quest.getNotDone());
-					QuestManager.updateBook(player);
+					if (quest.canFinish()) {
+						String s = quest.getNextDialog();
+						if (s == null) {
+							quest.finish();
+							QuestManager.updateBook(player);
+						} else {
+							player.sendMessage("§bKing Duncan§f:§7 " + s);
+						}
+					} else {
+						player.sendMessage("§bKing Duncan§f:§7 " + quest.getNotDone());
+						QuestManager.updateBook(player);
+					}
 				}
-				//}
 			}
 		} else {
+			player.sendMessage("3");
+			
 			QuestPlayerData playerData = QuestManager.playerData.get(player.getUniqueId());
 			
 			boolean found = false;
 			for (String s : quests) {
-				if (!found && playerData.hasFinished(s)) {
+				player.sendMessage("4");
+				if (!found && !playerData.hasFinished(s)) {
+					player.sendMessage("5");
 					found = true;
 					playerData.setActiveQuest(QuestManager.getQuest(player, s));
 					QuestManager.updateBook(player);
 				}
 			}
+			player.sendMessage("6");
 			if (found) {
-				player.sendMessage(MessagesUtil.questStarted(playerData.getActiveQuest().getReadableName()));
+				player.sendMessage("7");
 				QuestManager.updateBook(player);
+				player.sendMessage("a");
 			} else {
+				player.sendMessage("8");
 				//no available quests
 				index++;
 				if (index >= strings.length)

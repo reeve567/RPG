@@ -14,9 +14,9 @@ me\imunsmart\rpg\mechanics\Holograms$TextHologram.class
 me\imunsmart\rpg\util\MessagesUtil.class
 me\imunsmart\rpg\mechanics\gui\RepairMenu.class
 me\imunsmart\rpg\mechanics\NPCS$Marketer.class
-me\imunsmart\rpg\mechanics\quests\quest_npcs\king_duncan_tasks\KDFT.class
 me\imunsmart\rpg\util\Util.class
 me\imunsmart\rpg\mechanics\quests\Quest.class
+me\imunsmart\rpg\mechanics\quests\quest_npcs\king_duncan_tasks\KingDuncanFirstTask.class
 me\imunsmart\rpg\mechanics\loot\LootChests$LootChest$1.class
 me\imunsmart\rpg\command\admincommands\rpg\mechanics\Spawner.class
 me\imunsmart\rpg\mechanics\Sounds.class
@@ -80,6 +80,7 @@ me\imunsmart\rpg\events\PlayerEvents.class
 me\imunsmart\rpg\mechanics\loot\LootChests.class
 me\imunsmart\rpg\command\admincommands\rpg\Warp.class
 me\imunsmart\rpg\util\AutoBroadcaster.class
+me\imunsmart\rpg\mechanics\quests\NPCConversation.class
 me\imunsmart\rpg\mechanics\classes\Class.class
 me\imunsmart\rpg\util\AutoBroadcaster$1.class
 me\imunsmart\rpg\util\Glow.class

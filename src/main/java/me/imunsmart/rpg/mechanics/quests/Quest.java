@@ -29,16 +29,7 @@ public abstract class Quest {
 		endDialog = new ArrayList<>(Arrays.asList(endStrings));
 	}
 	
-	protected abstract String getProgress();
-	
 	public abstract boolean canFinish();
-	
-	public void finish() {
-		prepareFinish();
-		QuestManager.playerData.get(player.getUniqueId()).finishQuest();
-		player.sendMessage(MessagesUtil.questFinished(name));
-		player.getInventory().addItem(rewards);
-	}
 	
 	public ArrayList<String> getEndDialog() {
 		return endDialog;
@@ -53,11 +44,11 @@ public abstract class Quest {
 		if (!started) {
 			if (nextDialog == startDialog.size()) {
 				nextDialog = 0;
-				started = true;
+				setStarted(false);
 				return null;
 			}
 			return startDialog.get(nextDialog++);
-		} else if (finished) {
+		} else {
 			if (nextDialog == endDialog.size()) {
 				finish();
 				nextDialog = 0;
@@ -65,7 +56,35 @@ public abstract class Quest {
 			}
 			return endDialog.get(nextDialog++);
 		}
-		else return null;
+	}
+	
+	public void finish() {
+		prepareFinish();
+		QuestManager.playerData.get(player.getUniqueId()).finishQuest();
+		player.sendMessage(MessagesUtil.questFinished(getReadableName()));
+		player.getInventory().addItem(rewards);
+	}
+	
+	public String getReadableName() {
+		char[] chars = name.toCharArray();
+		String s = name.substring(0, 1);
+		for (int i = 1; i < chars.length; i++) {
+			if (Character.isUpperCase(chars[i])) {
+				s += " " + chars[i];
+			} else {
+				s += chars[i];
+			}
+		}
+		return s;
+	}
+	
+	public abstract void prepareFinish();
+	
+	public boolean isLastDialog(String s) {
+		if (!started) {
+			return startDialog.indexOf(s) - 1 == startDialog.size();
+		}
+		return endDialog.indexOf(s) - 1 == endDialog.size();
 	}
 	
 	public String getNotDone() {
@@ -80,26 +99,15 @@ public abstract class Quest {
 		return started;
 	}
 	
-	public void setStarted(boolean started) {
-		this.started = started;
+	public void setStarted(boolean progress) {
+		this.started = true;
+		if (progress) {
+			player.sendMessage(MessagesUtil.questStarted(getReadableName()));
+		}
 	}
 	
 	public void nextDialog() {
 		nextDialog++;
-	}
-	
-	public String getReadableName() {
-		char[] chars = name.toCharArray();
-		String s = "";
-		for (int i = 1; i < chars.length; i++) {
-			if (Character.isUpperCase(chars[i])) {
-				s += " " + chars[i];
-			}
-			else {
-				s += chars[i];
-			}
-		}
-		return s;
 	}
 	
 	public boolean isFinished() {
@@ -109,8 +117,6 @@ public abstract class Quest {
 	public void setFinished() {
 		finished = true;
 	}
-	
-	public abstract void prepareFinish();
 	
 	public abstract String readableProgress();
 	
@@ -122,5 +128,7 @@ public abstract class Quest {
 			return name;
 		}
 	}
+	
+	protected abstract String getProgress();
 }
 

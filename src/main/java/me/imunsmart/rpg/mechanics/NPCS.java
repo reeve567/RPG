@@ -2,7 +2,6 @@ package me.imunsmart.rpg.mechanics;
 
 import me.imunsmart.rpg.mechanics.gui.BuyMenu;
 import me.imunsmart.rpg.mechanics.gui.GlobalMarket;
-import me.imunsmart.rpg.mechanics.gui.SellMenu;
 import me.imunsmart.rpg.mechanics.quests.quest_npcs.KingDuncan;
 import me.imunsmart.rpg.util.Util;
 import org.bukkit.Chunk;
@@ -37,33 +36,6 @@ public class NPCS implements Listener {
 		}
 	}
 	
-	@EventHandler
-	public void onHit(EntityDamageEvent e) {
-		if (e.getEntity().getScoreboardTags().contains("npc")) {
-			e.setCancelled(true);
-		}
-	}
-	
-	@EventHandler
-	public void onInteract(PlayerInteractEntityEvent e) {
-		Entity entity = e.getRightClicked();
-		if (entity.getScoreboardTags().contains("npc")) {
-			e.setCancelled(true);
-			for (NPC npc : npcs) {
-				if (npc.entity == entity) {
-					npc.onClick(e.getPlayer());
-				}
-			}
-		} else {
-			System.out.println("unhandled npc");
-		}
-	}
-	
-	@EventHandler
-	public void onUnload(ChunkUnloadEvent e) {
-		if (chunks.contains(e.getChunk())) e.setCancelled(true);
-	}
-	
 	public abstract static class NPC {
 		
 		public LivingEntity entity;
@@ -72,6 +44,15 @@ public class NPCS implements Listener {
 		
 		private NPC(EntityType type, Location location, String name) {
 			this.entity = (LivingEntity) Util.w.spawnEntity(location, type);
+			this.location = location;
+			npcs.add(this);
+			this.name = name;
+			set();
+		}
+		
+		private NPC(Villager.Profession profession, Location location, String name) {
+			this.entity = (LivingEntity) Util.w.spawnEntity(location, EntityType.VILLAGER);
+		 	((Villager) entity).setProfession(profession);
 			this.location = location;
 			npcs.add(this);
 			this.name = name;
@@ -99,21 +80,12 @@ public class NPCS implements Listener {
 		
 		protected abstract String setOther();
 		
-		private NPC(Villager.Profession profession, Location location, String name) {
-			this.entity = (LivingEntity) Util.w.spawnEntity(location, EntityType.VILLAGER);
-			((Villager) entity).setProfession(profession);
-			this.location = location;
-			npcs.add(this);
-			this.name = name;
-			set();
+		public Location getLocation() {
+			return location;
 		}
 		
 		public void onClick(Player player) {
 		
-		}
-		
-		public Location getLocation() {
-			return location;
 		}
 	}
 	
@@ -123,13 +95,13 @@ public class NPCS implements Listener {
 			super(Villager.Profession.LIBRARIAN, location, "§a§lBanker");
 		}
 		
-		public void onClick(Player player) {
-			Bank.open(player);
-		}
-		
 		@Override
 		protected String setOther() {
 			return "banker";
+		}
+		
+		public void onClick(Player player) {
+			Bank.open(player);
 		}
 	}
 	
@@ -139,13 +111,13 @@ public class NPCS implements Listener {
 			super(Villager.Profession.LIBRARIAN, location, "§a§lMerchant");
 		}
 		
-		public void onClick(Player player) {
-			BuyMenu.showMenu(player);
-		}
-		
 		@Override
 		protected String setOther() {
 			return "merchant";
+		}
+		
+		public void onClick(Player player) {
+			BuyMenu.showMenu(player);
 		}
 	}
 	
@@ -154,13 +126,13 @@ public class NPCS implements Listener {
 			super(EntityType.VILLAGER, location, "§2§lMarketer");
 		}
 		
-		public void onClick(Player player) {
-			GlobalMarket.open(player);
-		}
-		
 		@Override
 		protected String setOther() {
 			return "marketer";
+		}
+		
+		public void onClick(Player player) {
+			GlobalMarket.open(player);
 		}
 	}
 	
@@ -175,6 +147,7 @@ public class NPCS implements Listener {
 		
 		public QuestGiver(Location location, Villager.Profession profession, String name, String... strings) {
 			super(profession, location, name);
+			this.strings = strings;
 		}
 		
 	}
@@ -195,17 +168,44 @@ public class NPCS implements Listener {
 		}
 		
 		@Override
+		protected String setOther() {
+			return "talker";
+		}
+		
+		@Override
 		public void onClick(Player player) {
 			index++;
 			if (index >= strings.length)
 				index = 0;
 			player.sendMessage(name + "§f:§7 " + strings[index]);
 		}
-		
-		@Override
-		protected String setOther() {
-			return "talker";
+	}
+	
+	@EventHandler
+	public void onHit(EntityDamageEvent e) {
+		if (e.getEntity().getScoreboardTags().contains("npc")) {
+			e.setCancelled(true);
 		}
+	}
+	
+	@EventHandler
+	public void onInteract(PlayerInteractEntityEvent e) {
+		Entity entity = e.getRightClicked();
+		if (entity.getScoreboardTags().contains("npc")) {
+			e.setCancelled(true);
+			for (NPC npc : npcs) {
+				if (npc.entity == entity) {
+					npc.onClick(e.getPlayer());
+				}
+			}
+		} else {
+			System.out.println("unhandled npc");
+		}
+	}
+	
+	@EventHandler
+	public void onUnload(ChunkUnloadEvent e) {
+		if (chunks.contains(e.getChunk())) e.setCancelled(true);
 	}
 	
 }

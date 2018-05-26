@@ -42,7 +42,7 @@ public class QuestPlayerData {
 		Stats.setStat(Bukkit.getOfflinePlayer(id), "quests", toStringList());
 	}
 	
-	public ArrayList<String> toStringList() {
+	private ArrayList<String> toStringList() {
 		ArrayList<String> result = new ArrayList<>();
 		if (activeQuest == null) {
 			result.add("CQ:null");
