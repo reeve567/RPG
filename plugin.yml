@@ -34,6 +34,8 @@ commands:
     description: Change gamemode to spectator.
   kick:
     description: Kick a player.
+  ban:
+    description: BanManager a player.
   stats:
     description: Modify stats.
   lootchest:

@@ -17,6 +17,7 @@ public class Kick {
 		Player target = Bukkit.getPlayer(args[0]);
 		if (args.length == 1) {
 			if (target != null && target.isOnline()) {
+				Bukkit.broadcastMessage(ChatColor.RED + target.getName() + ChatColor.GRAY + " was kicked from the server.");
 				target.kickPlayer("Kicked from server.");
 				sender.sendMessage(ChatColor.GREEN + "Target has been kicked.");
 			} else {
@@ -25,6 +26,7 @@ public class Kick {
 		} else if (args.length > 1) {
 			String reason = StringUtility.colorConv(StringUtility.join(args, 1));
 			target.kickPlayer(ChatColor.RED + "Kicked for: " + ChatColor.WHITE + reason);
+			Bukkit.broadcastMessage(ChatColor.RED + target.getName() + ChatColor.GRAY + " was kicked for: " + ChatColor.RED + reason + ".");
 		} else {
 			sender.sendMessage(ChatColor.RED + "Usage: /kick <player> [reason]");
 		}

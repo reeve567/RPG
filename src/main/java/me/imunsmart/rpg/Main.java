@@ -1,6 +1,9 @@
 package me.imunsmart.rpg;
 
 import me.imunsmart.rpg.command.Admin;
+import me.imunsmart.rpg.command.Default;
+import me.imunsmart.rpg.command.Moderator;
+import me.imunsmart.rpg.command.admincommands.playermoderation.BanManager;
 import me.imunsmart.rpg.events.*;
 import me.imunsmart.rpg.mechanics.*;
 import me.imunsmart.rpg.mechanics.gui.BuyMenu;
@@ -35,6 +38,8 @@ public class Main extends JavaPlugin {
 	private void registerCommands() {
 		getLogger().log(Level.INFO, "Registered commands.");
 		new Admin(this);
+		new Default(this);
+		new Moderator(this);
 	}
 	
 	private void registerEvents() {
@@ -60,6 +65,7 @@ public class Main extends JavaPlugin {
 		new BuyMenu(this);
 		new Spawners(this);
 		new GlobalMarket(this);
+		new BanManager(this);
 		lc = new LootChests(this);
 	}
 	
@@ -101,7 +107,7 @@ public class Main extends JavaPlugin {
 		registerGlow();
 		Nametags.setupDevTeam();
 		Nametags.setupTesterTeam();
-		new Holograms();
+		new Holograms(this);
 		
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			Nametags.init(p);

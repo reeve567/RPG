@@ -1,6 +1,7 @@
 package me.imunsmart.rpg.mechanics;
 
 import me.imunsmart.rpg.Main;
+import me.imunsmart.rpg.command.admincommands.playermoderation.BanManager;
 import me.imunsmart.rpg.mobs.Constants;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
@@ -174,6 +175,7 @@ public class Health {
 
     public static void task(Main pl) {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(pl, () -> {
+            BanManager.security();
             for (Player p : Bukkit.getOnlinePlayers()) {
                 p.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(Double.MAX_VALUE);
                 p.setLevel(Stats.getInt(p, "level", 1));

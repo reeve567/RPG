@@ -91,7 +91,6 @@ public class KingDuncan extends NPCS.QuestGiver {
 				if (index >= strings.length)
 					index = 0;
 				player.sendMessage("§bKing Duncan§f:§7 " + strings[index]);
-				
 			}
 		}
 	}

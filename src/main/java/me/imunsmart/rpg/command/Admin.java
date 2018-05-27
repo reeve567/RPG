@@ -32,17 +32,13 @@ public class Admin implements CommandExecutor {
         pl.getCommand("givetool").setExecutor(this);
         pl.getCommand("spawnmob").setExecutor(this);
         pl.getCommand("spawner").setExecutor(this);
-        pl.getCommand("kick").setExecutor(this);
         pl.getCommand("gmc").setExecutor(this);
         pl.getCommand("gms").setExecutor(this);
         pl.getCommand("gmsp").setExecutor(this);
         pl.getCommand("gma").setExecutor(this);
-        pl.getCommand("suicide").setExecutor(this);
         pl.getCommand("stats").setExecutor(this);
 //		pl.getCommand("lootchest").setExecutor(this);
 //		pl.getCommand("lc").setExecutor(this);
-        pl.getCommand("inventory").setExecutor(this);
-        pl.getCommand("inv").setExecutor(this);
 //        pl.getCommand("gemspawner").setExecutor(this);
 //        pl.getCommand("gs").setExecutor(this);
         pl.getCommand("givetools").setExecutor(this);
@@ -121,22 +117,10 @@ public class Admin implements CommandExecutor {
             }
             if (tp != null)
                 GMA.run(tp);
-        } else if (label.equalsIgnoreCase("suicide")) {
-            Player tp = p;
-            if (args.length == 1) {
-                tp = Bukkit.getPlayer(args[0]);
-                if (tp == null) {
-                    p.sendMessage(ChatColor.RED + "Player not online.");
-                }
-            }
-            if (tp != null)
-                Suicide.run(tp);
         } else if (label.equalsIgnoreCase("stats")) {
             CStats.run(p, args);
         } else if (label.equalsIgnoreCase("lootchest") || label.equalsIgnoreCase("lc")) {
             LootChestC.run(p, args);
-        } else if (label.equalsIgnoreCase("inventory") || label.equalsIgnoreCase("inv")) {
-            InventoryC.run(p, args);
         } else if (label.equalsIgnoreCase("gemspawner") || label.equalsIgnoreCase("gs")) {
             GemSpawnerC.run(p, args);
         } else if (label.equalsIgnoreCase("givetools")) {

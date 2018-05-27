@@ -20,6 +20,8 @@ public class Constants {
     public static final int MAX_HEALTH_1H = 15;
     public static final int MAX_HEALTH_T1 = MAX_HEALTH_1H + MAX_HEALTH_1C + MAX_HEALTH_1L + MAX_HEALTH_1B;
 
+    public static final double DROP_RATE_1 = 0.1;
+
     public static final int MAX_T1_GEMS = 3;
 
     // T2
@@ -33,6 +35,8 @@ public class Constants {
     public static final int MAX_HEALTH_2C = 4 * MAX_HEALTH_1C;
     public static final int MAX_HEALTH_2H = 4 * MAX_HEALTH_1H;
     public static final int MAX_HEALTH_T2 = MAX_HEALTH_1H + MAX_HEALTH_1C + MAX_HEALTH_1L + MAX_HEALTH_1B;
+
+    public static final double DROP_RATE_2 = 0.9;
 
     public static final int MAX_T2_GEMS = 14;
 
@@ -48,6 +52,8 @@ public class Constants {
     public static final int MAX_HEALTH_3H = 4 * MAX_HEALTH_2H;
     public static final int MAX_HEALTH_T3 = MAX_HEALTH_1H + MAX_HEALTH_1C + MAX_HEALTH_1L + MAX_HEALTH_1B;
 
+    public static final double DROP_RATE_3 = 0.07;
+
     public static final int MAX_T3_GEMS = 32;
 
     // T4
@@ -62,6 +68,8 @@ public class Constants {
     public static final int MAX_HEALTH_4H = 4 * MAX_HEALTH_3H;
     public static final int MAX_HEALTH_T4 = MAX_HEALTH_1H + MAX_HEALTH_1C + MAX_HEALTH_1L + MAX_HEALTH_1B;
 
+    public static final double DROP_RATE_4 = 0.05;
+
     public static final int MAX_T4_GEMS = 58;
 
     // T5
@@ -75,6 +83,8 @@ public class Constants {
     public static final int MAX_HEALTH_5C = 4 * MAX_HEALTH_4C;
     public static final int MAX_HEALTH_5H = 4 * MAX_HEALTH_4H;
     public static final int MAX_HEALTH_T5 = MAX_HEALTH_1H + MAX_HEALTH_1C + MAX_HEALTH_1L + MAX_HEALTH_1B;
+
+    public static final double DROP_RATE_5 = 0.02;
 
     public static final int MAX_T5_GEMS = 64;
 
@@ -168,6 +178,16 @@ public class Constants {
             e.printStackTrace();
         }
         return 1;
+    }
+
+    public static double getDropRate(int tier) {
+        try {
+            Field f = Constants.class.getDeclaredField("DROP_RATE_" + tier);
+            return f.getDouble(null);
+        } catch (IllegalArgumentException | IllegalAccessException | SecurityException | NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+        return 0.1;
     }
 
     public static String randomArmorFlag(int max, int tier) {

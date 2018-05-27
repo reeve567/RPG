@@ -44,15 +44,16 @@ public class Mob {
         ItemStack b = Items.getRandomArmorPiece(tier, "boots");
         ItemStack w = Items.getRandomWeapon(tier, type);
         // Drops
-        if (Math.random() < 0.1) {
+        double dr = Constants.getDropRate(tier);
+        if (Math.random() < dr) {
             drop = h;
-        } else if (Math.random() < 0.1) {
+        } else if (Math.random() < dr) {
             drop = c;
-        } else if (Math.random() < 0.1) {
+        } else if (Math.random() < dr) {
             drop = l;
-        } else if (Math.random() < 0.1) {
+        } else if (Math.random() < dr) {
             drop = b;
-        } else if (Math.random() < 0.1) {
+        } else if (Math.random() < dr) {
             drop = w;
         }
         // Wear
@@ -97,15 +98,16 @@ public class Mob {
         ItemStack b = Items.createArmor("boots", tier, maxBoots, bootsFlag);
         ItemStack w = Items.getRandomWeapon(tier, type);
         // Drops
-        if (Math.random() < 0.1) {
+        double dr = Constants.getDropRate(tier);
+        if (Math.random() < dr) {
             drop = h;
-        } else if (Math.random() < 0.1) {
+        } else if (Math.random() < dr) {
             drop = c;
-        } else if (Math.random() < 0.1) {
+        } else if (Math.random() < dr) {
             drop = l;
-        } else if (Math.random() < 0.1) {
+        } else if (Math.random() < dr) {
             drop = b;
-        } else if (Math.random() < 0.1) {
+        } else if (Math.random() < dr) {
             drop = w;
         }
         // Wear

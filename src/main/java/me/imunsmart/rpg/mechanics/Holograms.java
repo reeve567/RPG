@@ -1,23 +1,25 @@
 package me.imunsmart.rpg.mechanics;
 
+import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.util.Util;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
+import java.io.File;
 
 import java.util.ArrayList;
 
 public class Holograms {
 	
 	private static ArrayList<TextHologram> textHolograms = new ArrayList<>();
+	private Main pl;
 	
-	public Holograms() {
-		addTextHologram(new Location(Util.w, 6.5, 15, 186.5), "§c§lTeddyBe is gay");
-		addTextHologram(new Location(Util.w, 6.5, 14.75, 186.5), "§c§lTeddyBe is gay 2");
-		addTextHologram(new Location(Util.w, 6.5, 14.5, 186.5), "§c§lTeddyBe is gay 3");
-		
-		addMultilineTextHologram(new Location(Util.w,6.5,14,186.5),"1","2","3","4","5");
-		
+	public Holograms(Main pl) {
+		addTextHologram(new Location(Util.w,-14.5, 66, -18.5), ChatColor.GREEN.toString() + ChatColor.BOLD + "The Mine");
+		this.pl = pl;
 	}
 	
 	public static TextHologram addTextHologram(Location location, String content) {
