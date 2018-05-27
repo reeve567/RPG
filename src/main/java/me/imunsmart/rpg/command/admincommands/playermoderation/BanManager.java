@@ -137,10 +137,10 @@ public class BanManager implements Listener {
                 m -= h * 60;
                 long d = h / 24;
                 h -= d * 24;
-                long mo = d / 30;
-                d -= mo * 30;
                 long w = d / 7;
                 d -= w * 7;
+                long mo = w / 4;
+                w -= mo * 4;
                 timeLeft = ChatColor.RED + "\nTime Left: " + ChatColor.WHITE;
                 if (mo != 0) {
                     timeLeft += mo + "mo ";
@@ -208,7 +208,8 @@ public class BanManager implements Listener {
             int j = d.indexOf("mo") - 1;
             while (j > 0 && Character.isDigit(d.charAt(j)))
                 j--;
-            time += Long.parseLong(d.substring(j, i)) * 1000 * 60 * 60 * 24 * 30;
+            time += Long.parseLong(d.substring(j, i)) * 1000 * 60 * 60 * 24 * 7 * 4;
+            time -= 180 * 1000;
         }
         return time;
     }
