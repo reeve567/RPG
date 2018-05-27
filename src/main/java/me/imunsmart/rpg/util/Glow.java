@@ -35,7 +35,7 @@ public class Glow extends Enchantment {
 	@Override
 	public boolean canEnchantItem(ItemStack itemStack) {
 		
-		return false;
+		return true;
 	}
 	
 	@Override
@@ -76,5 +76,9 @@ public class Glow extends Enchantment {
 	public boolean isTreasure() {
 		return false;
 	}
-	
+
+	public static ItemStack add(ItemStack i) {
+		i.addUnsafeEnchantment(Enchantment.getByName("glow"), 1);
+		return i;
+	}
 }

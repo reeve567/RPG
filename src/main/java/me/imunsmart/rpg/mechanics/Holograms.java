@@ -18,7 +18,7 @@ public class Holograms {
 	private Main pl;
 	
 	public Holograms(Main pl) {
-		addTextHologram(new Location(Util.w,-14.5, 66, -18.5), ChatColor.GREEN.toString() + ChatColor.BOLD + "The Mine");
+		addTextHologram(new Location(Util.w,102.5, 74.5, -93.5), ChatColor.GREEN.toString() + ChatColor.BOLD + "The Mine");
 		this.pl = pl;
 	}
 	

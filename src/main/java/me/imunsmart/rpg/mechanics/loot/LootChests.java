@@ -167,10 +167,10 @@ public class LootChests implements Listener {
                         if (maxGems > 64) maxGems = 64;
                         c.getBlockInventory().setItem(i, Items.createGems(1 + (int) (Math.random() * maxGems)));
                         added++;
-                    }else if (perc >= 0.87) {
+                    }else if (perc >= 0.89) {
                         c.getBlockInventory().setItem(i, Items.getRandomItem(tier));
                         added++;
-                    } else if (perc >= 0.8) {
+                    } else if (perc >= 0.85) {
                         c.getBlockInventory().setItem(i, items[(int) (Math.random() * items.length)]);
                     }
                 }

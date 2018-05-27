@@ -150,4 +150,18 @@ public class PlayerEvents implements Listener {
 			}
 		}
 	}
+
+	@EventHandler
+	public void onMove(PlayerMoveEvent e) {
+		Player p = e.getPlayer();
+		if(Util.inSafeZone(e.getFrom()) && !Util.inSafeZone(e.getTo())) {
+			p.sendMessage(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Entering Wilderness (PvP: NONE, Mobs: ALL)");
+		} else if(!Util.inSafeZone(e.getFrom()) && Util.inSafeZone(e.getTo())) {
+			p.sendMessage(ChatColor.GREEN.toString() + ChatColor.BOLD + "Entering Safezone (PvP: NONE, Mobs: NONE)");
+		}  else if(!Util.inPvPZone(e.getFrom()) && Util.inPvPZone(e.getTo())) {
+			p.sendMessage(ChatColor.RED.toString() + ChatColor.BOLD + "Entering PvP Zone (PvP: ALL, Mobs: ALL)");
+		} else if(Util.inPvPZone(e.getFrom()) && !Util.inPvPZone(e.getTo())) {
+			p.sendMessage(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Entering Wilderness (PvP: NONE, Mobs: ALL)");
+		}
+	}
 }

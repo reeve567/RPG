@@ -105,15 +105,16 @@ public class Repairing implements Listener {
                         i.setPickupDelay(Integer.MAX_VALUE);
                         remove.put(p.getName(), i);
                         anvil.put(p.getName(), e.getClickedBlock());
+                        return;
                     }
-                    if (e.getItem() != null) {
-                        if (e.getItem().hasItemMeta()) {
-                            if (e.getItem().getItemMeta().getDisplayName().contains("Scrap")) {
-                                RepairMenu.open(p);
-                            }
+                    if (e.getItem().hasItemMeta()) {
+                        if (e.getItem().getItemMeta().getDisplayName().contains("Scrap")) {
+                            RepairMenu.open(p);
+                            return;
                         }
                     }
                 }
+                p.sendMessage(ChatColor.GRAY + "Right click the anvil with a tool or scraps to repair.");
             }
         }
     }
