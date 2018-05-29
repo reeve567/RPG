@@ -7,11 +7,7 @@ import org.bukkit.entity.Player;
 
 public class Spawner {
 	public static void run(Player p, String[] args) {
-		if (args.length == 2) {
-			if (args[0].equalsIgnoreCase("delete")) {
-				Spawners.remove(args[1]);
-			}
-		} else if (args.length == 3) {
+		if (args.length == 3) {
 			String type = args[0];
 			int tier = Integer.parseInt(args[1]);
 			int max = Integer.parseInt(args[2]);

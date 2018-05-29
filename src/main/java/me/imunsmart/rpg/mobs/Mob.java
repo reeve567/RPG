@@ -18,9 +18,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 public class Mob {
-    public LivingEntity mob;
+    public UUID mob;
     private double health, maxHP;
     private ItemStack drop;
     private Main pl;
@@ -29,12 +30,16 @@ public class Mob {
     private HashMap<String, Integer> hits = new HashMap<>();
     private int hitsTaken = 0;
 
-    public Mob(LivingEntity mob, String name, int tier) {
+    public Mob(UUID mob, String name, int tier) {
         this.mob = mob;
         this.tier = tier;
-        loc = mob.getLocation();
-        mob.getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(8.0);
-	    mob.addScoreboardTag("monster");
+        if(getMob() == null) {
+            die();
+            return;
+        }
+        loc = getMob().getLocation();
+        getMob().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(8.0);
+	    getMob().addScoreboardTag("monster");
 	    pl = EntityManager.pl;
         // Create Items
         String type = Math.random() < 0.5 ? "sword" : "axe";
@@ -58,38 +63,39 @@ public class Mob {
         }
         // Wear
         if (Math.random() > 0.25)
-            mob.getEquipment().setChestplate(c);
+            getMob().getEquipment().setChestplate(c);
         if (Math.random() > 0.25)
-            mob.getEquipment().setLeggings(l);
+            getMob().getEquipment().setLeggings(l);
         if (Math.random() > 0.25)
-            mob.getEquipment().setBoots(b);
-        mob.getEquipment().setItemInMainHand(w);
+            getMob().getEquipment().setBoots(b);
+        getMob().getEquipment().setItemInMainHand(w);
         // Drop Chances
-        mob.getEquipment().setBootsDropChance(0);
-        mob.getEquipment().setHelmetDropChance(0);
-        mob.getEquipment().setChestplateDropChance(0);
-        mob.getEquipment().setLeggingsDropChance(0);
-        mob.getEquipment().setItemInMainHandDropChance(0);
+        getMob().getEquipment().setBootsDropChance(0);
+        getMob().getEquipment().setHelmetDropChance(0);
+        getMob().getEquipment().setChestplateDropChance(0);
+        getMob().getEquipment().setLeggingsDropChance(0);
+        getMob().getEquipment().setItemInMainHandDropChance(0);
         // Wear Skull
         ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
         SkullMeta sm = (SkullMeta) skull.getItemMeta();
         sm.setOwner(Util.names[(int) (Math.random() * Util.names.length)]);
         skull.setItemMeta(sm);
-        mob.getEquipment().setHelmet(skull);
+        getMob().getEquipment().setHelmet(skull);
 
-        maxHP = health = Health.calculateMaxHealth(mob);
-        mob.setCustomName(name);
-        mob.setCustomNameVisible(true);
-        mob.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(mob.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue() * (4.0 / 3.0));
+        maxHP = health = Health.calculateMaxHealth(getMob());
+        getMob().setCustomName(name);
+        getMob().setCustomNameVisible(true);
+        getMob().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(getMob().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue() * (4.0 / 3.0));
+        getMob().setRemoveWhenFarAway(false);
     }
 
-    public Mob(LivingEntity mob, String name, String type, int min, int max, String flag, int tier, int maxHelmet, int maxChestplate, int maxLeggings, int maxBoots,
+    public Mob(UUID mob, String name, String type, int min, int max, String flag, int tier, int maxHelmet, int maxChestplate, int maxLeggings, int maxBoots,
                String helmetFlag, String chestplateFlag, String leggingsFlag, String bootsFlag, String skullName) {
         this.mob = mob;
         this.tier = tier;
-        loc = mob.getLocation();
-        mob.getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(8.0);
-        mob.addScoreboardTag("monster");
+        loc = getMob().getLocation();
+        getMob().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(8.0);
+        getMob().addScoreboardTag("monster");
         pl = EntityManager.pl;
         // Create Items
         ItemStack h = Items.createArmor("helmet", tier, maxHelmet, helmetFlag);
@@ -111,41 +117,42 @@ public class Mob {
             drop = w;
         }
         // Wear
-        if (mob.getType() == EntityType.ZOMBIE || mob.getType() == EntityType.SKELETON) {
+        if (getMob().getType() == EntityType.ZOMBIE || getMob().getType() == EntityType.SKELETON) {
             if (Math.random() > 0.25)
-                mob.getEquipment().setChestplate(c);
+                getMob().getEquipment().setChestplate(c);
             if (Math.random() > 0.25)
-                mob.getEquipment().setLeggings(l);
+                getMob().getEquipment().setLeggings(l);
             if (Math.random() > 0.25)
-                mob.getEquipment().setBoots(b);
-            mob.getEquipment().setItemInMainHand(w);
+                getMob().getEquipment().setBoots(b);
+            getMob().getEquipment().setItemInMainHand(w);
             // Drop Chances
-            mob.getEquipment().setBootsDropChance(0);
-            mob.getEquipment().setHelmetDropChance(0);
-            mob.getEquipment().setChestplateDropChance(0);
-            mob.getEquipment().setLeggingsDropChance(0);
-            mob.getEquipment().setItemInMainHandDropChance(0);
+            getMob().getEquipment().setBootsDropChance(0);
+            getMob().getEquipment().setHelmetDropChance(0);
+            getMob().getEquipment().setChestplateDropChance(0);
+            getMob().getEquipment().setLeggingsDropChance(0);
+            getMob().getEquipment().setItemInMainHandDropChance(0);
             // Wear Skull
             ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
             SkullMeta sm = (SkullMeta) skull.getItemMeta();
             sm.setOwner(skullName);
             skull.setItemMeta(sm);
-            mob.getEquipment().setHelmet(skull);
+            getMob().getEquipment().setHelmet(skull);
         }
-        maxHP = health = Health.calculateMaxHealth(mob);
-        mob.setCustomName(name);
-        mob.setCustomNameVisible(true);
-        mob.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(mob.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue() * (4.0 / 3.0));
+        maxHP = health = Health.calculateMaxHealth(getMob());
+        getMob().setCustomName(name);
+        getMob().setCustomNameVisible(true);
+        getMob().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(getMob().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue() * (4.0 / 3.0));
+        getMob().setRemoveWhenFarAway(false);
     }
 
     private void die() {
-        mob.setHealth(0);
+        getMob().setHealth(0);
         if (drop != null) {
-            mob.getWorld().dropItemNaturally(mob.getLocation(), drop);
+            getMob().getWorld().dropItemNaturally(getMob().getLocation(), drop);
         }
         if (Math.random() < 0.75) {
             int gd = (int) (Math.random() * Constants.getMaxDrops(tier));
-            mob.getWorld().dropItemNaturally(mob.getLocation(), Items.createGems(gd));
+            getMob().getWorld().dropItemNaturally(getMob().getLocation(), Items.createGems(gd));
         }
         for (String s : hits.keySet()) {
             Player p = Bukkit.getPlayer(s);
@@ -158,6 +165,7 @@ public class Mob {
             }
         }
         hits.clear();
+        Spawners.removeEntity(this);
     }
 
     public void damage(double i, Player p) {
@@ -178,7 +186,7 @@ public class Mob {
         // for (int h = 0; h < x; h++) {
         // bar += "♥";
         // }
-        mob.setCustomName(ChatColor.WHITE.toString() + (int) health + " " + ChatColor.RED.toString() + ChatColor.BOLD + "HP");
+        getMob().setCustomName(ChatColor.WHITE.toString() + (int) health + " " + ChatColor.RED.toString() + ChatColor.BOLD + "HP");
     }
 
     public double getHealth() {
@@ -189,9 +197,14 @@ public class Mob {
         if (health < 1) {
             die();
         }
-        if (loc.distanceSquared(mob.getLocation()) >= 625) {
-            mob.teleport(loc);
+        if(getMob() != null) {
+            if (loc.distanceSquared(getMob().getLocation()) >= 625) {
+                getMob().teleport(loc);
+            }
         }
-        Spawners.die(this);
+    }
+
+    public LivingEntity getMob() {
+        return (LivingEntity) Bukkit.getEntity(mob);
     }
 }

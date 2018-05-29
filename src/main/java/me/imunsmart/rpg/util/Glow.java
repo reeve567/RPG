@@ -78,6 +78,8 @@ public class Glow extends Enchantment {
 	}
 
 	public static ItemStack add(ItemStack i) {
+		if(i == null)
+			return null;
 		i.addUnsafeEnchantment(Enchantment.getByName("glow"), 1);
 		return i;
 	}

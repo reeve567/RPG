@@ -21,6 +21,8 @@ public class Moderator implements CommandExecutor {
         pl.getCommand("inventory").setExecutor(this);
         pl.getCommand("inv").setExecutor(this);
         pl.getCommand("ban").setExecutor(this);
+        pl.getCommand("tempban").setExecutor(this);
+        pl.getCommand("ban-ip").setExecutor(this);
     }
 
     @Override
@@ -33,7 +35,13 @@ public class Moderator implements CommandExecutor {
             Kick.run(sender, args);
             return false;
         } else if(label.equalsIgnoreCase("ban")) {
-            BanManager.run(sender, args);
+            BanManager.runBan(sender, args);
+            return false;
+        }else if(label.equalsIgnoreCase("ban-ip")) {
+            BanManager.banIP(sender, args);
+            return false;
+        }else if(label.equalsIgnoreCase("tempban")) {
+            BanManager.runTempBan(sender, args);
             return false;
         }
         if (!(sender instanceof Player)) {

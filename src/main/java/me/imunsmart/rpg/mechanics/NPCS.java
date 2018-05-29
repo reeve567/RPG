@@ -20,14 +20,15 @@ import java.util.ArrayList;
 public class NPCS implements Listener {
 	
 	private static ArrayList<NPC> npcs = new ArrayList<>();
-	private static ArrayList<Chunk> chunks = new ArrayList<>();
+	public static ArrayList<Chunk> chunks = new ArrayList<>();
 	
 	public NPCS() {
-		new Banker(new Location(Util.w, 21.5, 65, -4.5, 90, 0));
-		new Marketer(new Location(Util.w, 21.5, 65, -2.5, 90, 0));
-		new Merchant(new Location(Util.w, 21.5, 65, -3.5, 90, 0));
+		new Marketer(new Location(Util.w, 0.5, 75.5, -1.5, 180, 0));
+		new Marketer(new Location(Util.w, 2.5, 75.5, 0.5, -90, 0));
+		new Marketer(new Location(Util.w, 0.5, 75.5, 2.5, 0, 0));
+		new Marketer(new Location(Util.w, -1.5, 75.5, 0.5, 90, 0));
 		//new Talker(new Location(Util.w, 19.5, 66, 0.5, 90, 0), Villager.Profession.PRIEST, "§bKing Duncan", "Have fun on your adventures!", "Don't die!");
-		new KingDuncan(new Location(Util.w, 71.5, 75, -113.5, 90, 0));
+		new KingDuncan(new Location(Util.w, 71.5, 75.5, -113.5, -90, 0));
 	}
 	
 	public static void disable() {

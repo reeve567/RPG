@@ -36,6 +36,10 @@ commands:
     description: Kick a player.
   ban:
     description: BanManager a player.
+  ban-ip:
+    description: BanManager a player.
+  tempban:
+    description: BanManager a player.
   stats:
     description: Modify stats.
   inventory:

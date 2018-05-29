@@ -7,6 +7,7 @@ import me.imunsmart.rpg.util.CustomItem;
 import me.imunsmart.rpg.util.MessagesUtil;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -40,12 +41,16 @@ public class AdminTools implements Listener {
         ItemStack i = p.getInventory().getItemInMainHand();
         if (i.hasItemMeta() && i.getItemMeta().hasDisplayName() && i.getItemMeta().getDisplayName().contains("Deleter")) {
             e.setCancelled(true);
-            if(LootChests.removeChest(e.getBlock().getLocation())) {
+            if (LootChests.removeChest(e.getBlock().getLocation())) {
                 p.sendMessage(ChatColor.RED + "Lootchest removed.");
                 return;
             }
-            if(GemSpawners.removeSpawner(e.getBlock().getLocation())) {
+            if (GemSpawners.removeSpawner(e.getBlock().getLocation())) {
                 p.sendMessage(ChatColor.RED + "GemSpawner removed.");
+                return;
+            }
+            if (Spawners.remove(e.getBlock().getRelative(BlockFace.UP).getLocation())) {
+                p.sendMessage(ChatColor.RED + "Spawner removed.");
                 return;
             }
         }
@@ -55,7 +60,7 @@ public class AdminTools implements Listener {
     public void onInteract(PlayerInteractEvent e) {
         ItemStack stack = e.getItem();
         if (stack != null) {
-            if(e.getAction() == Action.RIGHT_CLICK_BLOCK) return;
+            if (e.getAction() == Action.RIGHT_CLICK_BLOCK) return;
             int a = 1;
             if (e.getAction() == Action.RIGHT_CLICK_AIR)
                 a = -1;
@@ -126,10 +131,10 @@ public class AdminTools implements Listener {
                         e.getPlayer().sendMessage(MessagesUtil.gemSpawnerCreated(tier));
                         break;
                     case MOB_SPAWNER:
-                        if(e.getPlayer().getInventory().getItem(3).getType() != Material.MONSTER_EGG) return;
-                        if(e.getPlayer().getInventory().getItem(4).getType() != Material.SKULL_ITEM) return;
-                        int amount = e.getPlayer().getInventory().getItem(3).getAmount();
-                        String type = ChatColor.stripColor(e.getPlayer().getInventory().getItem(4).getItemMeta().getLore().get(0)).split(" ")[1].toLowerCase();
+                        if (e.getPlayer().getInventory().getItem(4).getType() != Material.MONSTER_EGG) return;
+                        if (e.getPlayer().getInventory().getItem(5).getType() != Material.SKULL_ITEM) return;
+                        int amount = e.getPlayer().getInventory().getItem(4).getAmount();
+                        String type = ChatColor.stripColor(e.getPlayer().getInventory().getItem(5).getItemMeta().getLore().get(0)).split(" ")[1].toLowerCase();
                         Spawners.setSpawn(e.getBlockPlaced().getLocation(), tier, amount, type);
                         String message = ChatColor.GRAY + "Spawner created. (" + ChatColor.AQUA + "type: " + type + ", amount: " + amount + ", tier: " + tier + ChatColor.GRAY + ")";
                         e.getPlayer().sendMessage(message);

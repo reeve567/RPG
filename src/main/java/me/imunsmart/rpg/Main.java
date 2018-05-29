@@ -89,7 +89,6 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		Health.disable();
-		EntityManager.disable();
 		GemSpawners.disable();
 		EntityManager.pl = null;
 		Spawners.disable();
@@ -102,9 +101,9 @@ public class Main extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
+		registerGlow();
 		registerEvents();
 		registerCommands();
-		registerGlow();
 		Nametags.setupDevTeam();
 		Nametags.setupTesterTeam();
 		new Holograms(this);

@@ -25,7 +25,7 @@ public class Util {
     public static final World w = Bukkit.getWorld("world");
     public static final Location spawn = new Location(w, 0.5, 65.5, 0.5);
 
-    public static final int[] s_radi = {25,};
+    public static final int[] s_radi = {30, };
     public static final Location[] safeZones = {spawn};
 
     public static final String[] warpNames = {"Spawn", "Credits"};
@@ -34,8 +34,8 @@ public class Util {
     public static final String[] tpNames = {"Spawn"};
     public static final Location[] tp = {spawn};
 
-    public static final int[] p_radi = {25};
-    public static final Location[] pvpZones = {new Location(w, 88.5, 64.5, -27.5)};
+    public static final int[] p_radi = {};
+    public static final Location[] pvpZones = {};
 
     public static String[] names = {"ImUnsmart", "Xwy", "maxrocks0406"};
 

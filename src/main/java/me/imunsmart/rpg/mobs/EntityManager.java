@@ -1,6 +1,8 @@
 package me.imunsmart.rpg.mobs;
 
 import me.imunsmart.rpg.Main;
+import me.imunsmart.rpg.command.admincommands.rpg.mechanics.Spawner;
+import me.imunsmart.rpg.events.Spawners;
 import me.imunsmart.rpg.mechanics.*;
 import me.imunsmart.rpg.util.LocationUtility;
 import me.imunsmart.rpg.util.Util;
@@ -19,9 +21,10 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.UUID;
 
 public class EntityManager implements Listener {
-    public static HashMap<LivingEntity, Mob> mobs = new HashMap<>();
+    public static HashMap<UUID, Mob> mobs = new HashMap<>();
     public static Main pl;
     private HashMap<String, Integer> weapon = new HashMap<>();
     private HashMap<String, int[]> armor = new HashMap<>();
@@ -34,9 +37,9 @@ public class EntityManager implements Listener {
 
     private void task() {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(pl, () -> {
-            Iterator<LivingEntity> it = mobs.keySet().iterator();
+            Iterator<UUID> it = mobs.keySet().iterator();
             while (it.hasNext()) {
-                LivingEntity le = it.next();
+                UUID le = it.next();
                 Mob m = mobs.get(le);
                 m.tick();
                 if (m.getHealth() < 1) {
@@ -46,12 +49,6 @@ public class EntityManager implements Listener {
         }, 0, 2);
     }
 
-    public static void disable() {
-        for (LivingEntity le : mobs.keySet()) {
-            le.remove();
-        }
-    }
-
     public static Mob spawn(Location l, String type, int tier) {
         if (type == null) {
             return null;
@@ -59,26 +56,26 @@ public class EntityManager implements Listener {
         if (type.equalsIgnoreCase("zombie")) {
             Zombie z = l.getWorld().spawn(l, Zombie.class);
             z.setBaby(false);
-            Mob m = new Mob(z, ChatColor.GREEN + Constants.getRandomZombieName(tier), tier);
-            return mobs.put(z, Nametags.addName(m));
+            Mob m = new Mob(z.getUniqueId(), ChatColor.GREEN + Constants.getRandomZombieName(tier), tier);
+            return mobs.put(z.getUniqueId(), Nametags.addName(m));
         }
         if (type.equalsIgnoreCase("skeleton")) {
             Skeleton s = l.getWorld().spawn(l, Skeleton.class);
-            Mob m = new Mob(s, ChatColor.GREEN + Constants.getRandomSkeletonName(tier), tier);
-            return mobs.put(s, Nametags.addName(m));
+            Mob m = new Mob(s.getUniqueId(), ChatColor.GREEN + Constants.getRandomSkeletonName(tier), tier);
+            return mobs.put(s.getUniqueId(), Nametags.addName(m));
         }
         if (type.equalsIgnoreCase("spider")) {
             Spider s = l.getWorld().spawn(l, Spider.class);
             int maxHealth = (int) (Math.random() * (Constants.getMaxHealth(tier) / 2)) + (Constants.getMaxHealth(tier) / 2);
-            Mob m = new Mob(s, ChatColor.GREEN + Constants.getRandomSpiderName(tier), tier);
-            return mobs.put(s, Nametags.addName(m));
+            Mob m = new Mob(s.getUniqueId(), ChatColor.GREEN + Constants.getRandomSpiderName(tier), tier);
+            return mobs.put(s.getUniqueId(), Nametags.addName(m));
         }
         return null;
     }
 
     @EventHandler
     public void onDamage(EntityDamageEvent e) {
-        if (mobs.containsKey(e.getEntity()))
+        if (mobs.containsKey(e.getEntity().getUniqueId()))
             e.setDamage(0);
     }
 
@@ -139,8 +136,8 @@ public class EntityManager implements Listener {
             if (le instanceof Player) {
                 Player p = (Player) le;
                 double hp = 0;
-                if (mobs.containsKey(hit)) {
-                    hp = mobs.get(hit).getHealth();
+                if (mobs.containsKey(hit.getUniqueId())) {
+                    hp = mobs.get(hit.getUniqueId()).getHealth();
                 } else if (hit instanceof Player && Health.health.containsKey(e.getEntity().getName()))
                     hp = Health.health.get(e.getEntity().getName());
                 String mess = "§c-" + (int) damage;
@@ -161,8 +158,8 @@ public class EntityManager implements Listener {
                 Player p = (Player) hit;
                 Health.combat.put(p.getName(), 16);
                 Health.damage(p, (int) damage);
-            } else if (mobs.containsKey(e.getEntity())) {
-                mobs.get(e.getEntity()).damage(damage, le instanceof Player ? (Player) le : null);
+            } else if (mobs.containsKey(e.getEntity().getUniqueId())) {
+                mobs.get(e.getEntity().getUniqueId()).damage(damage, le instanceof Player ? (Player) le : null);
             }
             e.setDamage(0);
         }
@@ -222,7 +219,7 @@ public class EntityManager implements Listener {
 
     @EventHandler
     public void onDeath(EntityDeathEvent e) {
-        if (mobs.containsKey(e.getEntity())) {
+        if (mobs.containsKey(e.getEntity().getUniqueId())) {
             e.setDroppedExp(0);
             e.getDrops().clear();
         }
