@@ -231,13 +231,16 @@ public class Items {
         pm.setColor(Potions.colors[tier - 1]);
         pm.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
         i.setItemMeta(pm);
-        return Glow.add(i);
+        i.addUnsafeEnchantment(new Glow(999),1);
+        return i;
     }
 
     public static ItemStack createTeleportScroll(int amount, String location, int delay) {
         String name = ChatColor.GREEN + "Teleport: " + location;
         String lore = ChatColor.GRAY + "Teleport delay: " + ChatColor.YELLOW + delay + ChatColor.GRAY + " seconds";
-        return Glow.add(Items.createItem(Material.BOOK, amount, 0, name, lore));
+        ItemStack stack = Items.createItem(Material.BOOK, amount, 0, name, lore);
+        stack.addUnsafeEnchantment(new Glow(999),1);
+        return stack;
     }
 
     public static CustomItem createQuestInfo() {

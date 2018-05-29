@@ -34,6 +34,12 @@ commands:
     description: Change gamemode to spectator.
   kick:
     description: Kick a player.
+  ban:
+    description: BanManager a player.
+  ban-ip:
+    description: BanManager a player.
+  tempban:
+    description: BanManager a player.
   stats:
     description: Modify stats.
   inventory:
@@ -43,3 +49,5 @@ commands:
     description: Gives tools.
   warp:
     description: Warp places.
+  speed:
+    description: Change fly speed
