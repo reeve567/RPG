@@ -40,6 +40,7 @@ public class TeleportScrolls implements Listener {
 
                     @Override
                     public void run() {
+                        System.out.println(getTaskId());
                         if (Util.moved(original, p.getLocation())) {
                             p.sendMessage(ChatColor.RED + "You moved, cancelling teleport.");
                             cancel();
