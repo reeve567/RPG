@@ -49,3 +49,5 @@ commands:
     description: Gives tools.
   warp:
     description: Warp places.
+  speed:
+    description: Change fly speed
