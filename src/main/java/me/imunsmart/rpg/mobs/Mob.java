@@ -196,11 +196,13 @@ public class Mob {
     }
 
     public void tick() {
-        if (health < 1) {
-            die();
-        }
-        if (loc.distanceSquared(getMob().getLocation()) >= 625) {
-            getMob().teleport(loc);
+        if(getMob() != null) {
+            if (health < 1) {
+                die();
+            }
+            if (loc.distanceSquared(getMob().getLocation()) >= 625) {
+                getMob().teleport(loc);
+            }
         }
     }
 

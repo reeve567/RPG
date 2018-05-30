@@ -239,7 +239,7 @@ public class Items {
         String name = ChatColor.GREEN + "Teleport: " + location;
         String lore = ChatColor.GRAY + "Teleport delay: " + ChatColor.YELLOW + delay + ChatColor.GRAY + " seconds";
         ItemStack stack = Items.createItem(Material.BOOK, amount, 0, name, lore);
-        stack.addUnsafeEnchantment(new Glow(999),1);
+        stack.addUnsafeEnchantment(Enchantment.getByName("glow"),1);
         return stack;
     }
 

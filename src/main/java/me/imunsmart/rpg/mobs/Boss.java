@@ -49,7 +49,7 @@ public class Boss {
         Mob m = new Mob(le.getUniqueId(), name, tier, type, minDMG, maxDMG, t, mh, mc, ml, mb, Constants.randomArmorFlag(mh, tier, 1.3),
                 Constants.randomArmorFlag(mc, tier, 1.3), Constants.randomArmorFlag(ml, tier, 1.3), Constants.randomArmorFlag(mb, tier, 1.3), "ImUnsmart");
         EntityManager.mobs.put(le.getUniqueId(), m);
-        Bukkit.broadcastMessage(ChatColor.RED.toString() + ChatColor.BOLD + name + " has spawned.");
+        Bukkit.broadcastMessage(name + ChatColor.RED.toString() + ChatColor.BOLD + " has spawned.");
         return le;
     }
 
