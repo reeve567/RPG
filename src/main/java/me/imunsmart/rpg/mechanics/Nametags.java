@@ -10,7 +10,6 @@ import org.bukkit.scoreboard.*;
 public class Nametags {
 	
 	public static Mob addName(Mob mob) {
-		
 		return mob;
 	}
 	

@@ -89,7 +89,7 @@ public class Constants {
     public static final int MAX_T5_GEMS = 64;
 
     // Weapons
-    public static final int[] USE_ITEM = { 10, 8, 5, 0, 75 };
+    public static final int[] USE_ITEM = {10, 8, 5, 0, 75};
 
     // Levels
     public static final int[] LEVEL_REQ = {0, 10, 20, 30, 50};
@@ -203,10 +203,36 @@ public class Constants {
         return flag;
     }
 
+    public static String randomArmorFlag(int max, int tier, double mult) {
+        String flag = "";
+        if (Math.random() < 0.6 * mult) {
+            flag += "Regen:" + (1 + (int) (Math.random() * (max * Constants.getMaxRegen(tier)))) + ",";
+        }
+        double perc = Math.random();
+        if (perc >= 0.1 && perc < 0.2)
+            flag += "uncommon";
+        else if (perc < 0.1)
+            flag += "rare";
+        return flag;
+    }
+
     public static String randomWeaponFlag(int tier) {
         String flag = "";
         double perc = Math.random();
         if (Math.random() < 0.1) {
+            flag += "Critical:" + (int) (Math.random() * 25 + 1) + "%,";
+        }
+        if (perc >= 0.1 && perc < 0.2)
+            flag += "uncommon";
+        else if (perc < 0.1)
+            flag += "rare";
+        return flag;
+    }
+
+    public static String randomWeaponFlag(int tier, double mult) {
+        String flag = "";
+        double perc = Math.random();
+        if (Math.random() < 0.1 * mult) {
             flag += "Critical:" + (int) (Math.random() * 25 + 1) + "%,";
         }
         if (perc >= 0.1 && perc < 0.2)

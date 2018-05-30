@@ -1,7 +1,6 @@
 package me.imunsmart.rpg.events;
 
 import me.imunsmart.rpg.Main;
-import me.imunsmart.rpg.mechanics.NPCS;
 import me.imunsmart.rpg.mobs.EntityManager;
 import me.imunsmart.rpg.mobs.Mob;
 import me.imunsmart.rpg.util.Util;
@@ -95,7 +94,7 @@ public class Spawners {
 
     public static void removeEntity(Mob m) {
         for (Spawner s : spawns) {
-            if (s.getSpawned().contains(m)) {
+            if (s.contains(m)) {
                 s.getSpawned().remove(m);
                 s.dec();
             }
@@ -148,6 +147,14 @@ class Spawner {
 
     public List<Mob> getSpawned() {
         return spawned;
+    }
+
+    public boolean contains(Mob m) {
+        for (Mob s : spawned) {
+            if (m.getMob() == s.getMob())
+                return true;
+        }
+        return false;
     }
 
     public void dec() {

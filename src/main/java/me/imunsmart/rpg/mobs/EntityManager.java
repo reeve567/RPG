@@ -31,8 +31,15 @@ public class EntityManager implements Listener {
 
     public EntityManager(Main m) {
         pl = m;
+        init();
         task();
         Bukkit.getPluginManager().registerEvents(this, m);
+    }
+
+    private void init() {
+        Boss pumpkin = new Boss(new Location(Util.w, 11.5, 64.5, -55.5), Zombie.class, "Pumpkin", 1, 30, 45, 20,
+                15, 8, 10, 5, 4, 5, 15);
+        pumpkin.init(pl);
     }
 
     private void task() {
@@ -57,18 +64,20 @@ public class EntityManager implements Listener {
             Zombie z = l.getWorld().spawn(l, Zombie.class);
             z.setBaby(false);
             Mob m = new Mob(z.getUniqueId(), ChatColor.GREEN + Constants.getRandomZombieName(tier), tier);
-            return mobs.put(z.getUniqueId(), Nametags.addName(m));
+            mobs.put(z.getUniqueId(), m);
+            return m;
         }
         if (type.equalsIgnoreCase("skeleton")) {
             Skeleton s = l.getWorld().spawn(l, Skeleton.class);
             Mob m = new Mob(s.getUniqueId(), ChatColor.GREEN + Constants.getRandomSkeletonName(tier), tier);
-            return mobs.put(s.getUniqueId(), Nametags.addName(m));
+            mobs.put(s.getUniqueId(), m);
+            return m;
         }
         if (type.equalsIgnoreCase("spider")) {
             Spider s = l.getWorld().spawn(l, Spider.class);
-            int maxHealth = (int) (Math.random() * (Constants.getMaxHealth(tier) / 2)) + (Constants.getMaxHealth(tier) / 2);
             Mob m = new Mob(s.getUniqueId(), ChatColor.GREEN + Constants.getRandomSpiderName(tier), tier);
-            return mobs.put(s.getUniqueId(), Nametags.addName(m));
+            mobs.put(s.getUniqueId(), m);
+            return m;
         }
         return null;
     }
@@ -169,7 +178,6 @@ public class EntityManager implements Listener {
         if (i == null)
             return;
         int w = weapon.containsKey(p.getName()) ? weapon.get(p.getName()) + 1 : 1;
-        System.out.println(w);
         weapon.put(p.getName(), w);
         if (i.getType().name().contains("AXE"))
             i.setDurability((short) (i.getDurability() - 2));

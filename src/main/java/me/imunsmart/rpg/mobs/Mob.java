@@ -33,14 +33,13 @@ public class Mob {
     public Mob(UUID mob, String name, int tier) {
         this.mob = mob;
         this.tier = tier;
-        if(getMob() == null) {
-            die();
+        if (getMob() == null) {
             return;
         }
         loc = getMob().getLocation();
         getMob().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(8.0);
-	    getMob().addScoreboardTag("monster");
-	    pl = EntityManager.pl;
+        getMob().addScoreboardTag("monster");
+        pl = EntityManager.pl;
         // Create Items
         String type = Math.random() < 0.5 ? "sword" : "axe";
         ItemStack h = Items.getRandomArmorPiece(tier, "helmet");
@@ -89,10 +88,13 @@ public class Mob {
         getMob().setRemoveWhenFarAway(false);
     }
 
-    public Mob(UUID mob, String name, String type, int min, int max, String flag, int tier, int maxHelmet, int maxChestplate, int maxLeggings, int maxBoots,
-               String helmetFlag, String chestplateFlag, String leggingsFlag, String bootsFlag, String skullName) {
+    public Mob(UUID mob, String name, int tier, String type, int minDMG, int maxDMG, String weaponFlag, int maxHelmet, int maxChestplate, int maxLeggings,
+               int maxBoots, String helmetFlag, String chestplateFlag, String leggingsFlag, String bootsFlag, String skullName) {
         this.mob = mob;
         this.tier = tier;
+        if (getMob() == null) {
+            return;
+        }
         loc = getMob().getLocation();
         getMob().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(8.0);
         getMob().addScoreboardTag("monster");
@@ -102,7 +104,7 @@ public class Mob {
         ItemStack c = Items.createArmor("chestplate", tier, maxChestplate, chestplateFlag);
         ItemStack l = Items.createArmor("leggings", tier, maxLeggings, leggingsFlag);
         ItemStack b = Items.createArmor("boots", tier, maxBoots, bootsFlag);
-        ItemStack w = Items.getRandomWeapon(tier, type);
+        ItemStack w = Items.createWeapon(type, tier, minDMG, maxDMG, weaponFlag);
         // Drops
         double dr = Constants.getDropRate(tier);
         if (Math.random() < dr) {
@@ -146,7 +148,7 @@ public class Mob {
     }
 
     private void die() {
-        getMob().setHealth(0);
+        Spawners.removeEntity(this);
         if (drop != null) {
             getMob().getWorld().dropItemNaturally(getMob().getLocation(), drop);
         }
@@ -154,6 +156,7 @@ public class Mob {
             int gd = (int) (Math.random() * Constants.getMaxDrops(tier));
             getMob().getWorld().dropItemNaturally(getMob().getLocation(), Items.createGems(gd));
         }
+        getMob().setHealth(0);
         for (String s : hits.keySet()) {
             Player p = Bukkit.getPlayer(s);
             if (p != null) {
@@ -165,7 +168,6 @@ public class Mob {
             }
         }
         hits.clear();
-        Spawners.removeEntity(this);
     }
 
     public void damage(double i, Player p) {
@@ -197,10 +199,8 @@ public class Mob {
         if (health < 1) {
             die();
         }
-        if(getMob() != null) {
-            if (loc.distanceSquared(getMob().getLocation()) >= 625) {
-                getMob().teleport(loc);
-            }
+        if (loc.distanceSquared(getMob().getLocation()) >= 625) {
+            getMob().teleport(loc);
         }
     }
 

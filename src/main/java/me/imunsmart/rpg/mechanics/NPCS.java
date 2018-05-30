@@ -4,6 +4,7 @@ import me.imunsmart.rpg.mechanics.gui.BuyMenu;
 import me.imunsmart.rpg.mechanics.gui.GlobalMarket;
 import me.imunsmart.rpg.mechanics.quests.quest_npcs.KingDuncan;
 import me.imunsmart.rpg.util.Util;
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.entity.*;
@@ -16,11 +17,11 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class NPCS implements Listener {
 	
 	private static ArrayList<NPC> npcs = new ArrayList<>();
-	public static ArrayList<Chunk> chunks = new ArrayList<>();
 	
 	public NPCS() {
 		new Marketer(new Location(Util.w, 0.5, 75.5, -1.5, 180, 0));
@@ -33,18 +34,22 @@ public class NPCS implements Listener {
 	
 	public static void disable() {
 		for (NPC npc : npcs) {
-			npc.entity.remove();
+			LivingEntity entity = npc.getEntity();
+			if(entity == null)
+				continue;
+			npc.getEntity().remove();
 		}
+		npcs.clear();
 	}
 	
 	public abstract static class NPC {
 		
-		public LivingEntity entity;
+		public UUID uuid;
 		public String name;
 		private Location location;
 		
 		private NPC(EntityType type, Location location, String name) {
-			this.entity = (LivingEntity) Util.w.spawnEntity(location, type);
+			this.uuid = location.getWorld().spawn(location, type.getEntityClass()).getUniqueId();
 			this.location = location;
 			npcs.add(this);
 			this.name = name;
@@ -52,8 +57,8 @@ public class NPCS implements Listener {
 		}
 		
 		private NPC(Villager.Profession profession, Location location, String name) {
-			this.entity = (LivingEntity) Util.w.spawnEntity(location, EntityType.VILLAGER);
-		 	((Villager) entity).setProfession(profession);
+			this.uuid = location.getWorld().spawn(location, Villager.class).getUniqueId();
+		 	((Villager) Bukkit.getEntity(uuid)).setProfession(profession);
 			this.location = location;
 			npcs.add(this);
 			this.name = name;
@@ -61,13 +66,11 @@ public class NPCS implements Listener {
 		}
 		
 		private void set() {
+			LivingEntity entity = getEntity();
+			if(entity == null)
+				return;
 			entity.addScoreboardTag("npc");
 			entity.addScoreboardTag(setOther());
-			
-			Chunk c = entity.getLocation().getChunk();
-			if (!chunks.contains(c)) {
-				chunks.add(c);
-			}
 			
 			entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 255, true));
 			entity.setInvulnerable(true);
@@ -87,6 +90,10 @@ public class NPCS implements Listener {
 		
 		public void onClick(Player player) {
 		
+		}
+
+		public LivingEntity getEntity() {
+			return (LivingEntity) Bukkit.getEntity(uuid);
 		}
 	}
 	
@@ -195,7 +202,7 @@ public class NPCS implements Listener {
 		if (entity.getScoreboardTags().contains("npc")) {
 			e.setCancelled(true);
 			for (NPC npc : npcs) {
-				if (npc.entity == entity) {
+				if (npc.getEntity() != null && npc.getEntity() == entity) {
 					npc.onClick(e.getPlayer());
 				}
 			}
@@ -203,11 +210,5 @@ public class NPCS implements Listener {
 			System.out.println("unhandled npc");
 		}
 	}
-	
-	@EventHandler
-	public void onUnload(ChunkUnloadEvent e) {
-		if (chunks.contains(e.getChunk())) e.setCancelled(true);
-	}
-	
 }
 

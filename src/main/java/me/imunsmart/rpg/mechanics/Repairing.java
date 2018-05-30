@@ -86,7 +86,7 @@ public class Repairing implements Listener {
                     if (e.getItem().getType().name().contains("HELMET") || e.getItem().getType().name().contains("CHESTPLATE") || e.getItem().getType().name().contains("LEGGINGS") || e.getItem().getType().name().contains("BOOTS") || e.getItem().getType().name().contains("SWORD") || e.getItem().getType().name().contains("AXE")) {
                         ItemStack old = e.getItem();
                         double perc = (double) old.getDurability() / old.getType().getMaxDurability();
-                        if (perc == 0) {
+                        if (old.getDurability() == 0) {
                             p.sendMessage(ChatColor.RED + "No need to repair that...");
                             p.playSound(p.getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 0.67f);
                             return;

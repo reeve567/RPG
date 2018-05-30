@@ -226,6 +226,7 @@ public class Bank implements Listener {
 					depositGems(p);
 					p.closeInventory();
 					open(p);
+					return;
 				}
 			}
 			if (e.getCurrentItem().getItemMeta().getDisplayName().contains("Upgrade")) {
