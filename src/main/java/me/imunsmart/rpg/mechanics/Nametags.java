@@ -18,43 +18,25 @@ public class Nametags {
 	}
 	
 	public static void setupDevTeam() {
-		ScoreboardManager manager = Bukkit.getScoreboardManager();
-		Scoreboard scoreboard = manager.getMainScoreboard();
-		try {
-			scoreboard.getTeams().remove(scoreboard.getTeam("devs"));
-		} catch (Exception ignored) {
-		
-		}
-		
-		try {
-			Team team = scoreboard.registerNewTeam("devs");
-			team.setPrefix("§b§lDEV §f");
-			team.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.ALWAYS);
-			team.addPlayer(Bukkit.getOfflinePlayer("Xwy"));
-			team.addPlayer(Bukkit.getOfflinePlayer("ImUnsmart"));
-			setScoreboard(scoreboard);
-		} catch (Exception ignored) {
-		
-		}
+		setupTeam("devs", "§b§lDEV §f", "Xwy", "ImUnsmart");
 	}
 	
-	public static void setupTesterTeam() {
+	public static void setupTeam(String name, String prefix, String... members) {
 		ScoreboardManager manager = Bukkit.getScoreboardManager();
 		Scoreboard scoreboard = manager.getMainScoreboard();
 		try {
-			scoreboard.getTeams().remove(scoreboard.getTeam("testers"));
-		}catch (Exception exception) {
-		
+			scoreboard.getTeams().remove(scoreboard.getTeam(name));
+		} catch (Exception ignored) {
 		}
-		
 		try {
-			Team team = scoreboard.registerNewTeam("testers");
-			team.setPrefix("§c§lTESTER §f");
+			Team team = scoreboard.registerNewTeam(name);
+			team.setPrefix(prefix);
 			team.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.ALWAYS);
-			team.addPlayer(Bukkit.getOfflinePlayer("TeddyBe"));
+			for (String s : members) {
+				team.addPlayer(Bukkit.getOfflinePlayer(s));
+			}
 			setScoreboard(scoreboard);
-		} catch (Exception e) {
-		
+		} catch (Exception ignored) {
 		}
 	}
 	
@@ -62,6 +44,10 @@ public class Nametags {
 		for (Player pl : Bukkit.getOnlinePlayers()) {
 			pl.setScoreboard(scoreboard);
 		}
+	}
+	
+	public static void setupTesterTeam() {
+		setupTeam("testers", "§c§lTESTER §f", "TeddyBe", "flame8499", "matt2117");
 	}
 	
 	public static void init(Player p) {
