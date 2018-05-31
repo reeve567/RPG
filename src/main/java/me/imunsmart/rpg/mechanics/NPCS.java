@@ -57,8 +57,9 @@ public class NPCS implements Listener {
 		}
 		
 		private NPC(Villager.Profession profession, Location location, String name) {
-			this.uuid = location.getWorld().spawn(location, Villager.class).getUniqueId();
-		 	((Villager) Bukkit.getEntity(uuid)).setProfession(profession);
+		 	LivingEntity entity = location.getWorld().spawn(location, Villager.class);
+			this.uuid = entity.getUniqueId();
+			((Villager) entity).setProfession(profession);
 			this.location = location;
 			npcs.add(this);
 			this.name = name;
