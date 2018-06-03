@@ -20,6 +20,8 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.UUID;
@@ -140,6 +142,24 @@ public class EntityManager implements Listener {
             else {
                 for (ItemStack it : hit.getEquipment().getArmorContents()) {
                     incDur(it);
+                }
+                if(Boss.isBoss(hit)) {
+                    Mob mob = mobs.get(hit.getUniqueId());
+                    String n = ChatColor.stripColor(mob.getName()).replaceAll(" ", "").trim();
+                    try {
+                        Class c = Class.forName("me.imunsmart.rpg.mobs.bosses." + n);
+                        Method m = c.getDeclaredMethod("handleDamage", Mob.class);
+                        m.setAccessible(true);
+                        m.invoke(null, mob);
+                    } catch (ClassNotFoundException e1) {
+                        e1.printStackTrace();
+                    } catch (NoSuchMethodException e1) {
+                        e1.printStackTrace();
+                    } catch (IllegalAccessException e1) {
+                        e1.printStackTrace();
+                    } catch (InvocationTargetException e1) {
+                        e1.printStackTrace();
+                    }
                 }
             }
             if (damage == 0)

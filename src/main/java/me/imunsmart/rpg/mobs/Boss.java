@@ -3,15 +3,23 @@ package me.imunsmart.rpg.mobs;
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.util.MessagesUtil;
 import me.imunsmart.rpg.util.Util;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Zombie;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class Boss {
+
+    private static List<UUID> bosses = new ArrayList<>();
 
     private Location l;
     private String name, deathMessage;
@@ -41,7 +49,11 @@ public class Boss {
     }
 
     public LivingEntity spawn() {
+        if(le != null)
+            bosses.remove(le);
         le = Util.w.spawn(l, clazz).getUniqueId();
+        reset();
+        bosses.add(le);
         LivingEntity l = getMob();
         if (l instanceof Zombie)
             ((Zombie) l).setBaby(false);
@@ -61,15 +73,15 @@ public class Boss {
         spawn();
         new BukkitRunnable() {
             int time = 120 * tier;
-            boolean broadcasted = false;
 
             LivingEntity l = getMob();
+            boolean b = true;
 
             public void run() {
                 if (l == null || l.isDead()) {
-                    if (!broadcasted) {
-                        broadcasted = true;
-                        Bukkit.broadcastMessage(MessagesUtil.mobDefeated(name, deathMessage));
+                    if(b) {
+                        Util.broadcastAround(MessagesUtil.mobDefeated(name, deathMessage), l.getLocation(), 100);
+                        b = false;
                     }
                     time--;
                     if (time < 1) {
@@ -83,6 +95,26 @@ public class Boss {
 
     public LivingEntity getMob() {
         return (LivingEntity) Bukkit.getEntity(le);
+    }
+
+    private void reset() {
+        String n = ChatColor.stripColor(name).replaceAll(" ", "").trim();
+        try {
+            Class c = Class.forName("me.imunsmart.rpg.mobs.bosses." + n);
+            Field f = c.getDeclaredField("flag");
+            f.setAccessible(true);
+            f.setInt(null, 0);
+        } catch (ClassNotFoundException e1) {
+            e1.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static boolean isBoss(LivingEntity le) {
+        return bosses.contains(le.getUniqueId());
     }
 
 }

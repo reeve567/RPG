@@ -30,6 +30,7 @@ public class Mob {
     private Location loc;
     private HashMap<String, Integer> hits = new HashMap<>();
     private int hitsTaken = 0;
+    private String name;
 
     public Mob(UUID mob, String name, int tier) {
         this.mob = mob;
@@ -93,6 +94,7 @@ public class Mob {
                int maxBoots, String helmetFlag, String chestplateFlag, String leggingsFlag, String bootsFlag, String skullName) {
         this.mob = mob;
         this.tier = tier;
+        this.name = name;
         if (getMob() == null) {
             return;
         }
@@ -201,6 +203,14 @@ public class Mob {
         return health;
     }
 
+    public double getMaxHP() {
+        return maxHP;
+    }
+
+    public double getHealthPercentage() {
+        return health / maxHP;
+    }
+
     public void tick() {
         if (getMob() != null) {
             if (health < 1) {
@@ -210,6 +220,15 @@ public class Mob {
                 getMob().teleport(loc);
             }
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+        getMob().setCustomName(name);
     }
 
     public LivingEntity getMob() {

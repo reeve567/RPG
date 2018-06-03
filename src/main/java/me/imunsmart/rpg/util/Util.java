@@ -144,8 +144,12 @@ public class Util {
         i.setItemMeta(im);
     }
 
-    public static void broadcastAround(Location l, int r) {
-
+    public static void broadcastAround(String message, Location l, int r) {
+        for(Player p : Bukkit.getOnlinePlayers()) {
+            if(p.getLocation().distanceSquared(l) <= r * r) {
+                p.sendMessage(message);
+            }
+        }
     }
 
 }
