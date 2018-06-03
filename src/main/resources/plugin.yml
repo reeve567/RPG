@@ -53,3 +53,5 @@ commands:
     description: Change fly speed
   fly:
     description: Toggle fly ability.
+  removeEntities:
+    description: Remove entities that shouldn't be there.
