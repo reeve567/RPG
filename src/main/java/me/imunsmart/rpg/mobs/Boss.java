@@ -11,8 +11,6 @@ import org.bukkit.entity.Zombie;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -28,6 +26,7 @@ public class Boss {
     private int minDMG, maxDMG;
     private Class<? extends LivingEntity> clazz;
     private UUID le;
+    private Runnable postSpawn;
 
     public Boss(Location l, Class<? extends LivingEntity> clazz, String name, int tier, int maxHelmet, int maxChestplate, int maxLeggings, int maxBoots,
                 int varh, int varc, int varl, int varb, int minDMG, int maxDMG, String deathMessage) {
@@ -48,8 +47,14 @@ public class Boss {
         this.deathMessage = deathMessage;
     }
 
+    public Boss(Location l, Class<? extends LivingEntity> clazz, String name, int tier, int maxHelmet, int maxChestplate, int maxLeggings, int maxBoots,
+                int varh, int varc, int varl, int varb, int minDMG, int maxDMG, String deathMessage, Runnable postSpawn) {
+        this(l, clazz, name, tier, maxHelmet, maxChestplate, maxLeggings, maxBoots, varh, varc, varl, varb, minDMG, maxDMG, deathMessage);
+        this.postSpawn = postSpawn;
+    }
+
     public LivingEntity spawn() {
-        if(le != null)
+        if (le != null)
             bosses.remove(le);
         le = Util.w.spawn(l, clazz).getUniqueId();
         reset();
@@ -63,9 +68,12 @@ public class Boss {
         int ml = maxHelmet + (int) (Math.random() * varl);
         int mb = maxHelmet + (int) (Math.random() * varb);
         String t = Constants.randomWeaponFlag(tier, 1.3);
-        Mob m = new Mob(le, name, tier, type, minDMG, maxDMG, t, mh, mc, ml, mb, Constants.randomArmorFlag(mh, tier, 1.3),
+        Mob m = EntityManager.customMob(getMob(), name, tier, type, minDMG, maxDMG, t, mh, mc, ml, mb, Constants.randomArmorFlag(mh, tier, 1.3),
                 Constants.randomArmorFlag(mc, tier, 1.3), Constants.randomArmorFlag(ml, tier, 1.3), Constants.randomArmorFlag(mb, tier, 1.3), "ImUnsmart");
         EntityManager.mobs.put(le, m);
+        if(postSpawn != null) {
+            postSpawn.run();
+        }
         return l;
     }
 
@@ -79,7 +87,7 @@ public class Boss {
 
             public void run() {
                 if (l == null || l.isDead()) {
-                    if(b) {
+                    if (b && l != null) {
                         Util.broadcastAround(MessagesUtil.mobDefeated(name, deathMessage), l.getLocation(), 100);
                         b = false;
                     }

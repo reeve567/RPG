@@ -1,10 +1,10 @@
 package me.imunsmart.rpg.command;
 
 import me.imunsmart.rpg.Main;
-import me.imunsmart.rpg.command.admincommands.playermoderation.BanManager;
-import me.imunsmart.rpg.command.admincommands.playermoderation.InventoryC;
-import me.imunsmart.rpg.command.admincommands.playermoderation.Kick;
-import me.imunsmart.rpg.command.admincommands.playermoderation.Suicide;
+import me.imunsmart.rpg.command.admins.playermoderation.BanManager;
+import me.imunsmart.rpg.command.admins.playermoderation.InventoryC;
+import me.imunsmart.rpg.command.admins.playermoderation.Kick;
+import me.imunsmart.rpg.command.admins.playermoderation.Suicide;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

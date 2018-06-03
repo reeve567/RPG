@@ -1,4 +1,4 @@
-package me.imunsmart.rpg.command.admincommands.playermoderation;
+package me.imunsmart.rpg.command.admins.playermoderation;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;

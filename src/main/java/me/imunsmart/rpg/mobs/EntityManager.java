@@ -1,8 +1,6 @@
 package me.imunsmart.rpg.mobs;
 
 import me.imunsmart.rpg.Main;
-import me.imunsmart.rpg.command.admincommands.rpg.mechanics.Spawner;
-import me.imunsmart.rpg.events.Spawners;
 import me.imunsmart.rpg.mechanics.*;
 import me.imunsmart.rpg.util.LocationUtility;
 import me.imunsmart.rpg.util.Util;
@@ -46,9 +44,13 @@ public class EntityManager implements Listener {
 
     private void init() {
         pumpking = new Boss(new Location(Util.w, 11.5, 64.5, -55.5), Zombie.class, ChatColor.GOLD.toString() + ChatColor.BOLD + "Pumpking", 1, 30, 45,
-                20,15, 8, 10, 5, 4, 5, 15, "The oppressive");
+                20, 15, 8, 10, 5, 4, 5, 15, "The oppressive", new Runnable() {
+            @Override
+            public void run() {
+                pumpking.getMob().getEquipment().setHelmet(new ItemStack(Material.PUMPKIN));
+            }
+        });
         pumpking.init(pl);
-        pumpking.getMob().getEquipment().setHelmet(new ItemStack(Material.PUMPKIN));
     }
 
     private void task() {
@@ -259,5 +261,12 @@ public class EntityManager implements Listener {
             e.setDroppedExp(0);
             e.getDrops().clear();
         }
+    }
+
+    public static Mob customMob(LivingEntity le, String name, int tier, String type, int minDMG, int maxDMG, String weaponFlag, int maxHelmet, int maxChestplate, int maxLeggings,
+                                int maxBoots, String helmetFlag, String chestplateFlag, String leggingsFlag, String bootsFlag, String skullName) {
+        Mob m = new Mob(le.getUniqueId(), name, tier, type, minDMG, maxDMG, weaponFlag, maxHelmet, maxChestplate, maxLeggings, maxBoots, helmetFlag, chestplateFlag, leggingsFlag, bootsFlag, skullName);
+        mobs.put(le.getUniqueId(), m);
+        return m;
     }
 }

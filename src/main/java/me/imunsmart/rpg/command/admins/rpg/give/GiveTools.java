@@ -1,4 +1,4 @@
-package me.imunsmart.rpg.command.admincommands.rpg.give;
+package me.imunsmart.rpg.command.admins.rpg.give;
 
 import me.imunsmart.rpg.mechanics.AdminTools;
 import org.bukkit.entity.Player;

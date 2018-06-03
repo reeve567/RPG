@@ -12,6 +12,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -67,7 +68,7 @@ public class Mob {
             getMob().getEquipment().setChestplate(c);
         if (Math.random() > 0.25)
             getMob().getEquipment().setLeggings(l);
-        if (Math.random() > 0.25)
+        if (Math.random() > 0.25 || (getMob().getEquipment().getChestplate() == null && getMob().getEquipment().getLeggings() == null))
             getMob().getEquipment().setBoots(b);
         getMob().getEquipment().setItemInMainHand(w);
         // Drop Chances
@@ -83,7 +84,7 @@ public class Mob {
         skull.setItemMeta(sm);
         getMob().getEquipment().setHelmet(skull);
 
-        maxHP = health = Health.calculateMaxHealth(getMob());
+        maxHP = health = Health.calculateMaxHealth(getMob()) + Health.getAttributeI(b, "Health");
         getMob().setCustomName(name);
         getMob().setCustomNameVisible(true);
         getMob().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(getMob().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue() * (4.0 / 3.0));
@@ -103,18 +104,34 @@ public class Mob {
         getMob().addScoreboardTag("monster");
         pl = EntityManager.pl;
         // Create Items
-        weaponFlag += "name:" + Items.nameColor[tier - 1] + (type.equalsIgnoreCase("axe") ? Items.axes[tier - 1] : Items.swords[tier - 1]) + " of " + name;
-        helmetFlag += "name:" + Items.nameColor[tier - 1] + StringUtility.capitalize(Items.armor[tier - 1]) + " Helmet of " + name;
-        chestplateFlag += "name:" + Items.nameColor[tier - 1] + StringUtility.capitalize(Items.armor[tier - 1]) + " Chestplate of " + name;
-        leggingsFlag += "name:" + Items.nameColor[tier - 1] + StringUtility.capitalize(Items.armor[tier - 1]) + " Leggings of " + name;
-        bootsFlag += "name:" + Items.nameColor[tier - 1] + StringUtility.capitalize(Items.armor[tier - 1]) + " Boots of " + name;
+        String n = Items.nameColor[tier - 1] + ChatColor.stripColor(name);
+        if(weaponFlag.length() > 0)
+            weaponFlag += ",";
+        if(helmetFlag.length() > 0)
+            helmetFlag += ",";
+        if(chestplateFlag.length() > 0)
+            chestplateFlag += ",";
+        if(leggingsFlag.length() > 0)
+            leggingsFlag += ",";
+        if(bootsFlag.length() > 0)
+            bootsFlag += ",";
+        weaponFlag += "name:" + Items.nameColor[tier - 1] + (type.equalsIgnoreCase("axe") ? Items.axes[tier - 1] : Items.swords[tier - 1]) + " of " + n;
+        helmetFlag += "name:" + Items.nameColor[tier - 1] + StringUtility.capitalize(Items.armor[tier - 1]) + " Helmet of " + n;
+        chestplateFlag += "name:" + Items.nameColor[tier - 1] + StringUtility.capitalize(Items.armor[tier - 1]) + " Chestplate of " + n;
+        leggingsFlag += "name:" + Items.nameColor[tier - 1] + StringUtility.capitalize(Items.armor[tier - 1]) + " Leggings of " + n;
+        bootsFlag += "name:" + Items.nameColor[tier - 1] + StringUtility.capitalize(Items.armor[tier - 1]) + " Boots of " + n;
         ItemStack h = Items.createArmor("helmet", tier, maxHelmet, helmetFlag);
         ItemStack c = Items.createArmor("chestplate", tier, maxChestplate, chestplateFlag);
         ItemStack l = Items.createArmor("leggings", tier, maxLeggings, leggingsFlag);
         ItemStack b = Items.createArmor("boots", tier, maxBoots, bootsFlag);
         ItemStack w = Items.createWeapon(type, tier, minDMG, maxDMG, weaponFlag);
+        h.addUnsafeEnchantment(Enchantment.getByName("glow"), 1);
+        c.addUnsafeEnchantment(Enchantment.getByName("glow"), 1);
+        l.addUnsafeEnchantment(Enchantment.getByName("glow"), 1);
+        b.addUnsafeEnchantment(Enchantment.getByName("glow"), 1);
+        w.addUnsafeEnchantment(Enchantment.getByName("glow"), 1);
         // Drops
-        double dr = Constants.getDropRate(tier);
+        double dr = Constants.getDropRate(tier) / 1.5d;
         if (Math.random() < dr) {
             drop = h;
         } else if (Math.random() < dr) {
@@ -128,12 +145,9 @@ public class Mob {
         }
         // Wear
         if (getMob().getType() == EntityType.ZOMBIE || getMob().getType() == EntityType.SKELETON) {
-            if (Math.random() > 0.25)
-                getMob().getEquipment().setChestplate(c);
-            if (Math.random() > 0.25)
-                getMob().getEquipment().setLeggings(l);
-            if (Math.random() > 0.25)
-                getMob().getEquipment().setBoots(b);
+            getMob().getEquipment().setChestplate(c);
+            getMob().getEquipment().setLeggings(l);
+            getMob().getEquipment().setBoots(b);
             getMob().getEquipment().setItemInMainHand(w);
             // Drop Chances
             getMob().getEquipment().setBootsDropChance(0);
@@ -148,7 +162,7 @@ public class Mob {
             skull.setItemMeta(sm);
             getMob().getEquipment().setHelmet(skull);
         }
-        maxHP = health = Health.calculateMaxHealth(getMob());
+        maxHP = health = Health.calculateMaxHealth(getMob()) + Health.getAttributeI(b, "Health");
         getMob().setCustomName(name);
         getMob().setCustomNameVisible(true);
         getMob().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(getMob().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue() * (4.0 / 3.0));

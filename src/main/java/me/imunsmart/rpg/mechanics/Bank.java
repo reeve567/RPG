@@ -145,7 +145,7 @@ public class Bank implements Listener {
 					p.getInventory().addItem(Items.createGems(gems));
 					p.sendMessage(ChatColor.GRAY + "Withdrew a total of " + ChatColor.AQUA + (stacks * 64 + gems) + " gems.");
 					Sounds.play(p, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 2);
-					Stats.setStat(p, "gems", pg - gems);
+					Stats.setStat(p, "gems", pg - total);
 				}
 				withdraw.remove(p.getName());
 			} else {

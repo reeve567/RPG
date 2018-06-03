@@ -4,6 +4,7 @@ import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.Bank;
 import me.imunsmart.rpg.mechanics.Items;
 import me.imunsmart.rpg.mechanics.Sounds;
+import me.imunsmart.rpg.util.MessagesUtil;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -54,6 +55,12 @@ public class BuyMenu implements Listener {
         addItem(pick2, 1100);
         ItemStack pick3 = Items.createPickaxe(20, 0, "");
         addItem(pick3, 2400);
+        addItem(Items.createPotion(1), 15);
+        addItem(Items.createPotion(2), 50);
+        addItem(Items.createPotion(3), 160);
+        addItem(Items.createPotion(4), 250);
+        addItem(Items.createPotion(5), 500);
+        addItem(Items.createWeapon("axe", 2, 10, 20, "name:&bWar Axe,Critical:20%,exclusive"), 200);
 
         menu = Bukkit.createInventory(null, 27, ChatColor.DARK_GREEN + "Merchant");
         for (int i = 0; i < menu.getSize(); i++) {
@@ -66,6 +73,7 @@ public class BuyMenu implements Listener {
     private void addItem(ItemStack i, int cost) {
         ItemMeta im = i.getItemMeta();
         List<String> lore = im.getLore();
+        lore.add(" ");
         lore.add(ChatColor.GRAY + "Cost: " + ChatColor.AQUA + cost);
         im.setLore(lore);
         i.setItemMeta(im);
@@ -81,7 +89,7 @@ public class BuyMenu implements Listener {
         if (top.getName().equals(ChatColor.DARK_AQUA + "Buy")) {
             e.setCancelled(true);
             if (e.getCurrentItem().hasItemMeta()) {
-                if (!e.getCurrentItem().getItemMeta().hasLore()) return;
+                if (!e.getCurrentItem().getItemMeta().hasLore() || e.getCurrentItem().getItemMeta().getDisplayName().contains("Shop")) return;
                 ItemStack i = e.getCurrentItem();
                 int cost = Integer.parseInt(ChatColor.stripColor(i.getItemMeta().getLore().get(i.getItemMeta().getLore().size() - 1)).split(" ")[1]);
                 if (Bank.pay(p, cost)) {
@@ -98,7 +106,7 @@ public class BuyMenu implements Listener {
                     p.sendMessage(ChatColor.GREEN + "Purchase successful.");
                     return;
                 } else {
-                    p.sendMessage(ChatColor.RED + "You cannot afford that item!");
+                    p.sendMessage(MessagesUtil.notEnoughGems(cost));
                     Sounds.play(p, Sound.ENTITY_ITEM_BREAK, 0.67f);
                     return;
                 }

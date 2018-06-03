@@ -307,6 +307,8 @@ public class Items {
                 }
             }
         }
+        if(lore.get(lore.size() - 1).isEmpty())
+            lore.remove(lore.size() - 1);
         return name;
     }
 }

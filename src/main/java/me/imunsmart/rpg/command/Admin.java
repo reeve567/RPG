@@ -1,16 +1,16 @@
 package me.imunsmart.rpg.command;
 
 import me.imunsmart.rpg.Main;
-import me.imunsmart.rpg.command.admincommands.Speed;
-import me.imunsmart.rpg.command.admincommands.gamemode.GMA;
-import me.imunsmart.rpg.command.admincommands.gamemode.GMC;
-import me.imunsmart.rpg.command.admincommands.gamemode.GMS;
-import me.imunsmart.rpg.command.admincommands.gamemode.GMSP;
-import me.imunsmart.rpg.command.admincommands.playermoderation.Kick;
-import me.imunsmart.rpg.command.admincommands.rpg.Warp;
-import me.imunsmart.rpg.command.admincommands.rpg.give.*;
-import me.imunsmart.rpg.command.admincommands.rpg.mechanics.SpawnMob;
-import me.imunsmart.rpg.command.admincommands.rpg.mechanics.Spawner;
+import me.imunsmart.rpg.command.admins.Speed;
+import me.imunsmart.rpg.command.admins.gamemode.GMA;
+import me.imunsmart.rpg.command.admins.gamemode.GMC;
+import me.imunsmart.rpg.command.admins.gamemode.GMS;
+import me.imunsmart.rpg.command.admins.gamemode.GMSP;
+import me.imunsmart.rpg.command.admins.playermoderation.Kick;
+import me.imunsmart.rpg.command.admins.rpg.Warp;
+import me.imunsmart.rpg.command.admins.rpg.give.*;
+import me.imunsmart.rpg.command.admins.rpg.mechanics.SpawnMob;
+import me.imunsmart.rpg.command.admins.rpg.mechanics.Spawner;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

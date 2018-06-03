@@ -2,6 +2,7 @@ package me.imunsmart.rpg.mechanics;
 
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.gui.RepairMenu;
+import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Material;
@@ -62,6 +63,14 @@ public class Repairing implements Listener {
     @EventHandler
     public void onClick(PlayerInteractEvent e) {
         Player p = e.getPlayer();
+        if (Util.validClick(e)) {
+            if (e.getItem().hasItemMeta()) {
+                if (e.getItem().getItemMeta().getDisplayName().contains("Scrap")) {
+                    RepairMenu.open(p);
+                    return;
+                }
+            }
+        }
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (e.getClickedBlock().getType() == Material.FURNACE) {
                 e.setCancelled(true);
@@ -106,12 +115,6 @@ public class Repairing implements Listener {
                         remove.put(p.getName(), i);
                         anvil.put(p.getName(), e.getClickedBlock());
                         return;
-                    }
-                    if (e.getItem().hasItemMeta()) {
-                        if (e.getItem().getItemMeta().getDisplayName().contains("Scrap")) {
-                            RepairMenu.open(p);
-                            return;
-                        }
                     }
                 }
                 p.sendMessage(ChatColor.GRAY + "Right click the anvil with a tool or scraps to repair.");

@@ -54,17 +54,17 @@ public class RepairMenu implements Listener {
 					if (top.getItem(10) != null) {
 						int dur = top.getItem(10).getDurability();
 						ItemStack scraps = top.getItem(12);
-						double rp = 0.01;
+						double rp = 0.03;
 						if (scraps != null) {
 							short data = scraps.getDurability();
 							if (data == 8)
-								rp = 0.03;
+								rp = 0.04;
 							if (data == 7)
-								rp = 0.05;
+								rp = 0.07;
 							if (data == 12)
-								rp = 0.08;
+								rp = 0.11;
 							if (data == 11)
-								rp = 0.14;
+								rp = 0.15;
 							rp *= scraps.getAmount();
 							if (scraps.getType() != Material.INK_SACK)
 								rp = 0;
@@ -89,17 +89,17 @@ public class RepairMenu implements Listener {
 					if (top.getItem(10) != null) {
 						int dur = top.getItem(10).getDurability();
 						ItemStack scraps = top.getItem(12);
-						double rp = 0.01;
-						if (scraps != null && scraps.getType() == Material.INK_SACK) {
+						double rp = 0.03;
+						if (scraps != null) {
 							short data = scraps.getDurability();
 							if (data == 8)
-								rp = 0.03;
+								rp = 0.04;
 							if (data == 7)
-								rp = 0.05;
+								rp = 0.07;
 							if (data == 12)
-								rp = 0.08;
+								rp = 0.11;
 							if (data == 11)
-								rp = 0.14;
+								rp = 0.15;
 							rp *= scraps.getAmount();
 						} else
 							rp = 0;

@@ -1,7 +1,7 @@
 package me.imunsmart.rpg.mechanics.loot;
 
 import me.imunsmart.rpg.Main;
-import me.imunsmart.rpg.command.admincommands.rpg.give.LootChestC;
+import me.imunsmart.rpg.command.admins.rpg.give.LootChestC;
 import me.imunsmart.rpg.mechanics.Items;
 import me.imunsmart.rpg.util.MessagesUtil;
 import me.imunsmart.rpg.util.Util;
