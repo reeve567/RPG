@@ -31,15 +31,18 @@ public class EntityManager implements Listener {
 
     public EntityManager(Main m) {
         pl = m;
-        init();
-        task();
         Bukkit.getPluginManager().registerEvents(this, m);
+        task();
+        new BukkitRunnable() {
+            public void run() {
+                init();
+            }
+        }.runTaskLater(pl, 20);
     }
 
     private void init() {
-        Boss pumpkin = new Boss(new Location(Util.w, 11.5, 64.5, -55.5), Zombie.class, ChatColor.GOLD.toString() + ChatColor.BOLD + "Pumpkin", 1, 30, 45, 20,
-                15, 8, 10, 5, 4, 5, 15);
-        pumpkin.init(pl);
+        new Boss(new Location(Util.w, 11.5, 64.5, -55.5), Zombie.class, ChatColor.GOLD.toString() + ChatColor.BOLD + "Pumpking", 1, 30, 45, 20,
+                15, 8, 10, 5, 4, 5, 15, "The oppressive").init(pl);
     }
 
     private void task() {
@@ -50,6 +53,7 @@ public class EntityManager implements Listener {
                 Mob m = mobs.get(le);
                 m.tick();
                 if (m.getHealth() < 1) {
+                    System.out.println(m.getMob().getCustomName());
                     it.remove();
                 }
             }
@@ -149,7 +153,7 @@ public class EntityManager implements Listener {
                     hp = mobs.get(hit.getUniqueId()).getHealth();
                 } else if (hit instanceof Player && Health.health.containsKey(e.getEntity().getName()))
                     hp = Health.health.get(e.getEntity().getName());
-                String mess = "§c-" + (int) damage;
+                String mess = "§c-" + (int) damage + " ♥";
                 if (crit) {
                     mess = ChatColor.YELLOW.toString() + ChatColor.BOLD + "!CRIT! " + mess;
                     Sounds.play(p, Sound.BLOCK_ANVIL_PLACE, 1);

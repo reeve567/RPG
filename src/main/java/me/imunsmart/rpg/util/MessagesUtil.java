@@ -58,4 +58,8 @@ public class MessagesUtil {
 	public static String pickaxeTier(int tier) {
 		return prefix('b') + "Your pickaxe has advanced to tier §b" + tier + "§7.";
 	}
+
+	public static String mobDefeated(String name, String deathMessage) {
+		return prefix('4') + "§4" + deathMessage + " " + name + " §4has finally been slain.";
+	}
 }

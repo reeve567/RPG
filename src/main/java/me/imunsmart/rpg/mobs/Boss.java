@@ -1,9 +1,9 @@
 package me.imunsmart.rpg.mobs;
 
 import me.imunsmart.rpg.Main;
+import me.imunsmart.rpg.util.MessagesUtil;
 import me.imunsmart.rpg.util.Util;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Zombie;
@@ -12,14 +12,14 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class Boss {
 
     private Location l;
-    private String name;
+    private String name, deathMessage;
     private int tier;
     private int maxHelmet, maxChestplate, maxLeggings, maxBoots, varh, varc, varl, varb;
     private int minDMG, maxDMG;
     private Class<? extends LivingEntity> clazz;
 
     public Boss(Location l, Class<? extends LivingEntity> clazz, String name, int tier, int maxHelmet, int maxChestplate, int maxLeggings, int maxBoots,
-                int varh, int varc, int varl, int varb, int minDMG, int maxDMG) {
+                int varh, int varc, int varl, int varb, int minDMG, int maxDMG, String deathMessage) {
         this.l = l;
         this.clazz = clazz;
         this.name = name;
@@ -34,9 +34,10 @@ public class Boss {
         this.varb = varb;
         this.minDMG = minDMG;
         this.maxDMG = maxDMG;
+        this.deathMessage = deathMessage;
     }
 
-    private LivingEntity spawn() {
+    public LivingEntity spawn() {
         LivingEntity le = Util.w.spawn(l, clazz);
         if (le instanceof Zombie)
             ((Zombie) le).setBaby(false);
@@ -49,17 +50,21 @@ public class Boss {
         Mob m = new Mob(le.getUniqueId(), name, tier, type, minDMG, maxDMG, t, mh, mc, ml, mb, Constants.randomArmorFlag(mh, tier, 1.3),
                 Constants.randomArmorFlag(mc, tier, 1.3), Constants.randomArmorFlag(ml, tier, 1.3), Constants.randomArmorFlag(mb, tier, 1.3), "ImUnsmart");
         EntityManager.mobs.put(le.getUniqueId(), m);
-        Bukkit.broadcastMessage(name + ChatColor.RED.toString() + ChatColor.BOLD + " has spawned.");
         return le;
     }
 
     public void init(Main pl) {
-        final LivingEntity le = spawn();
+        final LivingEntity l = spawn();
         new BukkitRunnable() {
-            int time = 60 * tier;
+            int time = 120 * tier;
+            boolean broadcasted = false;
 
             public void run() {
-                if (le == null || le.isDead()) {
+                if (l == null || l.isDead()) {
+                    if (!broadcasted) {
+                        broadcasted = true;
+                        Bukkit.broadcastMessage(MessagesUtil.mobDefeated(name, deathMessage));
+                    }
                     time--;
                     if (time < 1) {
                         cancel();
@@ -69,4 +74,6 @@ public class Boss {
             }
         }.runTaskTimer(pl, 0, 20);
     }
+
+
 }

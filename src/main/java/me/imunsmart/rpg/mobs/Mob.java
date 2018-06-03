@@ -5,6 +5,7 @@ import me.imunsmart.rpg.events.Spawners;
 import me.imunsmart.rpg.mechanics.Health;
 import me.imunsmart.rpg.mechanics.Items;
 import me.imunsmart.rpg.mechanics.Stats;
+import me.imunsmart.rpg.util.StringUtility;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
@@ -100,6 +101,11 @@ public class Mob {
         getMob().addScoreboardTag("monster");
         pl = EntityManager.pl;
         // Create Items
+        weaponFlag += "name:" + Items.nameColor[tier - 1] + (type.equalsIgnoreCase("axe") ? Items.axes[tier - 1] : Items.swords[tier - 1]) + " of " + name;
+        helmetFlag += "name:" + Items.nameColor[tier - 1] + StringUtility.capitalize(Items.armor[tier - 1]) + " Helmet of " + name;
+        chestplateFlag += "name:" + Items.nameColor[tier - 1] + StringUtility.capitalize(Items.armor[tier - 1]) + " Chestplate of " + name;
+        leggingsFlag += "name:" + Items.nameColor[tier - 1] + StringUtility.capitalize(Items.armor[tier - 1]) + " Leggings of " + name;
+        bootsFlag += "name:" + Items.nameColor[tier - 1] + StringUtility.capitalize(Items.armor[tier - 1]) + " Boots of " + name;
         ItemStack h = Items.createArmor("helmet", tier, maxHelmet, helmetFlag);
         ItemStack c = Items.createArmor("chestplate", tier, maxChestplate, chestplateFlag);
         ItemStack l = Items.createArmor("leggings", tier, maxLeggings, leggingsFlag);
@@ -196,7 +202,7 @@ public class Mob {
     }
 
     public void tick() {
-        if(getMob() != null) {
+        if (getMob() != null) {
             if (health < 1) {
                 die();
             }

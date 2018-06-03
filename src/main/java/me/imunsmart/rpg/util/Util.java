@@ -115,7 +115,7 @@ public class Util {
         }
         int level = Integer.parseInt(ChatColor.stripColor(i.getItemMeta().getLore().get(2)).split(" ")[1]);
         int xp = Integer.parseInt(ChatColor.stripColor(i.getItemMeta().getLore().get(3)).split(" ")[1]);
-        int x = 50 + (int) (Math.random() * (75 * t));
+        int x = 50 + (int) (Math.random() * (85 * t));
         xp += x;
         ItemMeta im = i.getItemMeta();
         if (xp >= pickXP(level)) {

@@ -27,17 +27,17 @@ public class Items {
     public static ChatColor[] nameColor = {ChatColor.GOLD, ChatColor.GRAY, ChatColor.WHITE, ChatColor.AQUA, ChatColor.YELLOW};
     public static String[] tools = {"WOOD", "STONE", "IRON", "DIAMOND", "GOLD"};
     public static String[] picks = {"Beginner's", "Novice's", "Professional", "Masterful", "Godly"};
-    private static String[] swords = {"Shortsword", "Longsword", "Greatsword", "Mystic Sword", "Godly Sword"};
-    private static String[] axes = {"Hatchet", "Tomohawk", "Great Axe", "Mystic Axe", "Godly Axe"};
-    private static String[] armor = {"LEATHER", "CHAINMAIL", "IRON", "DIAMOND", "GOLD"};
-    private static String[] armors = {"Old", "Rusted", "Great", "Mystic", "Godly"};
-    private static String[] types = {"axe", "sword", "helmet", "chestplate", "leggings", "boots"};
+    public static String[] swords = {"Shortsword", "Longsword", "Greatsword", "Mystic Sword", "Godly Sword"};
+    public static String[] axes = {"Hatchet", "Tomohawk", "Great Axe", "Mystic Axe", "Godly Axe"};
+    public static String[] armor = {"LEATHER", "CHAINMAIL", "IRON", "DIAMOND", "GOLD"};
+    public static String[] armors = {"Old", "Rusted", "Great", "Mystic", "Godly"};
+    public static String[] types = {"axe", "sword", "helmet", "chestplate", "leggings", "boots"};
 
     public static ItemStack createItem(Material m, int amount, int durability, String name, String... lore) {
         ItemStack i = new ItemStack(m, amount, (short) durability);
         ItemMeta im = i.getItemMeta();
         im.setDisplayName(name);
-        List<String> s = new ArrayList<String>();
+        List<String> s = new ArrayList<>();
         for (String l : lore) {
             s.add(ChatColor.GRAY + l);
         }
@@ -194,7 +194,7 @@ public class Items {
     public static ItemStack createArmor(String type, int tier, int maxhp, String flags) {
         Material m = Material.getMaterial(armor[tier - 1] + "_" + type.toUpperCase());
         String[] flag = flags.split(",");
-        String name = nameColor[tier - 1] + armors[tier - 1] + " " + type.substring(0, 1).toUpperCase() + type.substring(1).toLowerCase();
+        String name = nameColor[tier - 1] + armors[tier - 1] + " " + StringUtility.capitalize(type);
         List<String> lore = new ArrayList<String>();
         if (maxhp < 1)
             maxhp++;

@@ -36,7 +36,7 @@ public class Constants {
     public static final int MAX_HEALTH_2H = 4 * MAX_HEALTH_1H;
     public static final int MAX_HEALTH_T2 = MAX_HEALTH_1H + MAX_HEALTH_1C + MAX_HEALTH_1L + MAX_HEALTH_1B;
 
-    public static final double DROP_RATE_2 = 0.9;
+    public static final double DROP_RATE_2 = 0.07;
 
     public static final int MAX_T2_GEMS = 14;
 
@@ -52,7 +52,7 @@ public class Constants {
     public static final int MAX_HEALTH_3H = 4 * MAX_HEALTH_2H;
     public static final int MAX_HEALTH_T3 = MAX_HEALTH_1H + MAX_HEALTH_1C + MAX_HEALTH_1L + MAX_HEALTH_1B;
 
-    public static final double DROP_RATE_3 = 0.07;
+    public static final double DROP_RATE_3 = 0.04;
 
     public static final int MAX_T3_GEMS = 32;
 
@@ -68,7 +68,7 @@ public class Constants {
     public static final int MAX_HEALTH_4H = 4 * MAX_HEALTH_3H;
     public static final int MAX_HEALTH_T4 = MAX_HEALTH_1H + MAX_HEALTH_1C + MAX_HEALTH_1L + MAX_HEALTH_1B;
 
-    public static final double DROP_RATE_4 = 0.05;
+    public static final double DROP_RATE_4 = 0.03;
 
     public static final int MAX_T4_GEMS = 58;
 
