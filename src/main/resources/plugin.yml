@@ -51,3 +51,5 @@ commands:
     description: Warp places.
   speed:
     description: Change fly speed
+  fly:
+    description: Toggle fly ability.

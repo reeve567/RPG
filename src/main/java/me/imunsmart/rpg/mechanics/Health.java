@@ -1,7 +1,7 @@
 package me.imunsmart.rpg.mechanics;
 
 import me.imunsmart.rpg.Main;
-import me.imunsmart.rpg.command.admincommands.playermoderation.BanManager;
+import me.imunsmart.rpg.command.admins.playermoderation.BanManager;
 import me.imunsmart.rpg.mobs.Constants;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;

@@ -1,8 +1,6 @@
 package me.imunsmart.rpg.mobs;
 
 import me.imunsmart.rpg.Main;
-import me.imunsmart.rpg.command.admincommands.rpg.mechanics.Spawner;
-import me.imunsmart.rpg.events.Spawners;
 import me.imunsmart.rpg.mechanics.*;
 import me.imunsmart.rpg.util.LocationUtility;
 import me.imunsmart.rpg.util.Util;

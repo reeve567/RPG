@@ -1,4 +1,4 @@
-package me.imunsmart.rpg.command.admincommands.rpg.give;
+package me.imunsmart.rpg.command.admins.rpg.give;
 
 import java.util.HashMap;
 

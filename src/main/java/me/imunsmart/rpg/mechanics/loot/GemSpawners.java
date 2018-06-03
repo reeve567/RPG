@@ -1,9 +1,7 @@
 package me.imunsmart.rpg.mechanics.loot;
 
 import me.imunsmart.rpg.Main;
-import me.imunsmart.rpg.command.admincommands.rpg.give.GemSpawnerC;
-import me.imunsmart.rpg.mechanics.Health;
-import me.imunsmart.rpg.mechanics.Sounds;
+import me.imunsmart.rpg.command.admins.rpg.give.GemSpawnerC;
 import me.imunsmart.rpg.util.LocationUtility;
 import me.imunsmart.rpg.util.MessagesUtil;
 import me.imunsmart.rpg.util.Util;

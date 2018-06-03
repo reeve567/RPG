@@ -1,4 +1,4 @@
-package me.imunsmart.rpg.command.admincommands.rpg;
+package me.imunsmart.rpg.command.admins.rpg;
 
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;

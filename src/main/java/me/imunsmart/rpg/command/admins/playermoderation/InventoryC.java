@@ -1,10 +1,8 @@
-package me.imunsmart.rpg.command.admincommands.playermoderation;
+package me.imunsmart.rpg.command.admins.playermoderation;
 
 import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import me.imunsmart.rpg.util.StringUtility;
 import net.md_5.bungee.api.ChatColor;
 
 public class InventoryC {

@@ -16,6 +16,8 @@ public class MessagesUtil {
 	public static final String lootChestRemoved = prefix('c') + "§cRemoved loot chest.";
 	public static final String lootChestErrorOrNotFound = prefix('c') + "§cEither this block is not a loot chest, or there was an error removing it.";
 
+	public static final String flyToggle = prefix('6') + "Fly mode toggled.";
+	
 	//just for copy-paste use
 	private static final char colorChar = '§';
 	

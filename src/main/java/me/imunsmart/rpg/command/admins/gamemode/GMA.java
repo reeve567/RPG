@@ -1,4 +1,4 @@
-package me.imunsmart.rpg.command.admincommands.gamemode;
+package me.imunsmart.rpg.command.admins.gamemode;
 
 
 import org.bukkit.ChatColor;
