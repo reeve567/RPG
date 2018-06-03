@@ -9,6 +9,7 @@ import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -28,6 +29,7 @@ public class EntityManager implements Listener {
     public static Main pl;
     private HashMap<String, Integer> weapon = new HashMap<>();
     private HashMap<String, int[]> armor = new HashMap<>();
+    private Boss pumpking;
 
     public EntityManager(Main m) {
         pl = m;
@@ -37,12 +39,14 @@ public class EntityManager implements Listener {
             public void run() {
                 init();
             }
-        }.runTaskLater(pl, 20);
+        }.runTaskLater(pl, 60);
     }
 
     private void init() {
-        new Boss(new Location(Util.w, 11.5, 64.5, -55.5), Zombie.class, ChatColor.GOLD.toString() + ChatColor.BOLD + "Pumpking", 1, 30, 45, 20,
-                15, 8, 10, 5, 4, 5, 15, "The oppressive").init(pl);
+        pumpking = new Boss(new Location(Util.w, 11.5, 64.5, -55.5), Zombie.class, ChatColor.GOLD.toString() + ChatColor.BOLD + "Pumpking", 1, 30, 45,
+                20,15, 8, 10, 5, 4, 5, 15, "The oppressive");
+        pumpking.init(pl);
+        pumpking.getMob().getEquipment().setHelmet(new ItemStack(Material.PUMPKIN));
     }
 
     private void task() {

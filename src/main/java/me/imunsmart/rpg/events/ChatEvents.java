@@ -15,6 +15,8 @@ public class ChatEvents implements Listener {
         this.pl = pl;
     }
 
+    private String[] badWords = { "fuck", "shit", "damn", "dam", "nigger", "nigga", "bitch", "dick", "penis", "vagina", "cunt", "ass" };
+
     public static String getPrefix(Player p) {
         if (p.getName().equals("Xwy") || p.getName().equals("ImUnsmart"))
             return ChatColor.AQUA.toString() + ChatColor.BOLD + "DEV " + ChatColor.WHITE;
@@ -47,6 +49,13 @@ public class ChatEvents implements Listener {
             } else if (args[0].equalsIgnoreCase("..durability")) {
                 e.setCancelled(true);
                 p.getInventory().getItemInMainHand().setDurability(Short.parseShort(args[1]));
+            }
+        } else {
+            for(String s : badWords) {
+                if (e.getMessage().contains(s)) {
+                    e.setCancelled(true);
+                    p.sendMessage(ChatColor.RED.toString() + ChatColor.BOLD + "No swearsies, the puppers don't like.");
+                }
             }
         }
     }
