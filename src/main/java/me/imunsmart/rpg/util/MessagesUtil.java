@@ -1,7 +1,5 @@
 package me.imunsmart.rpg.util;
 
-import net.md_5.bungee.api.ChatColor;
-
 public class MessagesUtil {
 	
 	public static final String classMenuTitle = "§7Class Selector";
@@ -15,7 +13,7 @@ public class MessagesUtil {
 	
 	public static final String lootChestRemoved = prefix('c') + "§cRemoved loot chest.";
 	public static final String lootChestErrorOrNotFound = prefix('c') + "§cEither this block is not a loot chest, or there was an error removing it.";
-
+	
 	public static final String flyToggle = prefix('6') + "Fly mode toggled.";
 	
 	//just for copy-paste use
@@ -48,19 +46,23 @@ public class MessagesUtil {
 	public static String questStarted(String name) {
 		return prefix('a') + "Started quest §a" + name + "§7.";
 	}
-
+	
 	public static String questFinished(String name) {
 		return prefix('a') + "Finished quest §a" + name + "§7.";
 	}
 	
 	public static String gemSpawnerCreated(int tier) {
-		return prefix('a') + "Successfully created a tier §a" + tier +  "§7 gem spawner.";
+		return prefix('a') + "Successfully created a tier §a" + tier + "§7 gem spawner.";
 	}
-
+	
 	public static String pickaxeTier(int tier) {
 		return prefix('b') + "Your pickaxe has advanced to tier §b" + tier + "§7.";
 	}
-
+	
+	public static String NPCMessage(String name, String message) {
+		return name + "§f:§7 " + message;
+	}
+	
 	public static String mobDefeated(String name, String deathMessage) {
 		return prefix('4') + "§4" + deathMessage + " " + name + " §4has finally been slain.";
 	}
