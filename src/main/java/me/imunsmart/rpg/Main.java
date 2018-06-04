@@ -21,6 +21,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.lang.reflect.Field;
 import java.util.logging.Level;
@@ -28,6 +29,7 @@ import java.util.logging.Level;
 public class Main extends JavaPlugin {
 
     public LootChests lc;
+    public static Main main;
 
     private void register(Listener... listeners) {
         for (Listener l : listeners) {
@@ -54,7 +56,8 @@ public class Main extends JavaPlugin {
                 new Potions(this),
                 new AdminTools(),
                 new TeleportScrolls(this),
-                new NPCS()
+                new NPCS(),
+		        new ItemNames()
         );
         new QuestManager(this);
         new GemSpawners(this);
@@ -101,6 +104,9 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
+    	main = this;
+	    this.saveDefaultConfig();
+	    this.reloadConfig();
         registerGlow();
         registerEvents();
         registerCommands();
@@ -120,5 +126,5 @@ public class Main extends JavaPlugin {
 
         Health.task(this);
     }
-
+    
 }

@@ -99,7 +99,6 @@ public class QuestManager implements Listener {
 				case "FarmerBillFirstTask":
 					if (!useProgress) return new FarmerBillFirstTask(player);
 					else return new FarmerBillFirstTask(player,progress);
-					break;
 			}
 			
 			return null;
