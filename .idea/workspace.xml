@@ -6,10 +6,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="602b60e5-1c02-458d-a26a-ce6a0dfbbf68" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/quest_npcs/FarmerBill.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/quest_npcs/farmer_bill_tasks/FarmerBillFirstTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugin.yml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/NPCS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/NPCS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/quest_npcs/farmer_bill_tasks/FarmerBillFirstTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/quest_npcs/farmer_bill_tasks/FarmerBillFirstTask.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -46,20 +44,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NPCS.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="NPCS.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/NPCS.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="850">
-              <caret line="162" column="52" selection-start-line="162" selection-start-column="52" selection-end-line="162" selection-end-column="52" />
+            <state relative-caret-position="306">
+              <caret line="36" column="56" selection-start-line="36" selection-start-column="56" selection-end-line="36" selection-end-column="56" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FarmerBillFirstTask.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FarmerBillFirstTask.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/quest_npcs/farmer_bill_tasks/FarmerBillFirstTask.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="31" column="121" selection-start-line="31" selection-start-column="121" selection-end-line="31" selection-end-column="121" />
+            <state relative-caret-position="761">
+              <caret line="55" column="27" selection-start-line="55" selection-start-column="27" selection-end-line="55" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#433#434#0" expanded="true" />
@@ -171,10 +169,10 @@
         <option value="$PROJECT_DIR$/src/main/resources/plugin.yml" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/command/admins/rpg/RemoveEntities.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/command/Admin.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/NPCS.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/quest_npcs/FarmerBill.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/QuestManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/quest_npcs/farmer_bill_tasks/FarmerBillFirstTask.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/NPCS.java" />
       </list>
     </option>
   </component>
@@ -484,11 +482,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16868000" />
+    <option name="totallyTimeSpent" value="17157000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="bottom" id="TODO" order="9" />
@@ -499,11 +496,11 @@
       <window_info anchor="right" id="Maven Projects" order="1" visible="true" weight="0.3296875" />
       <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="1" />
-      <window_info anchor="bottom" id="Run" order="5" weight="0.20452404" />
+      <window_info active="true" anchor="bottom" id="Run" order="5" visible="true" weight="0.20452404" />
       <window_info anchor="bottom" id="Terminal" order="2" />
       <window_info id="Capture Tool" order="0" />
       <window_info id="Designer" order="1" />
-      <window_info active="true" content_ui="combo" id="Project" order="4" visible="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="4" visible="true" weight="0.25" />
       <window_info anchor="bottom" id="Statistic" />
       <window_info anchor="right" id="Database" />
       <window_info id="Structure" order="5" side_tool="true" weight="0.25" />
@@ -891,13 +888,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/NPCS.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="850">
-          <caret line="162" column="52" selection-start-line="162" selection-start-column="52" selection-end-line="162" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/quest_npcs/king_duncan_tasks/KingDuncanFirstTask.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -907,8 +897,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/quest_npcs/farmer_bill_tasks/FarmerBillFirstTask.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="31" column="121" selection-start-line="31" selection-start-column="121" selection-end-line="31" selection-end-column="121" />
+        <state relative-caret-position="761">
+          <caret line="55" column="27" selection-start-line="55" selection-start-column="27" selection-end-line="55" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#433#434#0" expanded="true" />
@@ -918,6 +908,13 @@
             <element signature="e#616#617#0" expanded="true" />
             <element signature="e#634#635#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/NPCS.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="36" column="56" selection-start-line="36" selection-start-column="56" selection-end-line="36" selection-end-column="56" />
         </state>
       </provider>
     </entry>

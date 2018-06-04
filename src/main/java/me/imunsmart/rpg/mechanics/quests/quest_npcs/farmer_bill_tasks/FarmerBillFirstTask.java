@@ -53,11 +53,11 @@ public class FarmerBillFirstTask extends Quest implements FirstTask {
 	
 	@Override
 	public String readableProgress() {
-		return null;
+		return "none really";
 	}
 	
 	@Override
 	protected String getProgress() {
-		return null;
+		return "none atm";
 	}
 }
