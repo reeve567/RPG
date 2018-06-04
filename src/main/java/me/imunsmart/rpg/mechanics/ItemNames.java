@@ -21,12 +21,8 @@ public class ItemNames implements Listener {
 		Item item = e.getTarget();
 		Item i = e.getEntity();
 		int a = i.getItemStack().getAmount() + item.getItemStack().getAmount();
-		String count = me.fsml.holodrops.Main.main.getConfig().getString("stack-count").replaceAll("%amount%", "" + a);
-		if (me.fsml.holodrops.Main.main.sbsc) {
-			item.setCustomName(me.fsml.holodrops.Main.main.pre + pickName(item) + ChatColor.translateAlternateColorCodes('&', count));
-		} else {
-			item.setCustomName(me.fsml.holodrops.Main.main.pre + pickName(item) + ChatColor.translateAlternateColorCodes('&', count));
-		}
+		String count = Main.main.getConfig().getString("stack-count").replaceAll("%amount%", "" + a);
+		item.setCustomName(pickName(item) + ChatColor.translateAlternateColorCodes('&', count));
 	}
 	
 	public String pickName(Item item) {
