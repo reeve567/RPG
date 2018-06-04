@@ -5,6 +5,7 @@ import me.imunsmart.rpg.mechanics.Bank;
 import me.imunsmart.rpg.mechanics.Items;
 import me.imunsmart.rpg.mechanics.Sounds;
 import me.imunsmart.rpg.mechanics.Stats;
+import me.imunsmart.rpg.util.PlayerSkull;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
@@ -69,6 +70,7 @@ public class GlobalMarket implements Listener {
 		for (int i = 0; i < inv.getSize(); i++) {
 			inv.setItem(i, Items.createItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
 		}
+		inv.setItem(4,new PlayerSkull("0qt"));
 		inv.setItem(12, Items.createItem(Material.EMERALD_BLOCK, 1, 0, ChatColor.GREEN + "Buy Items", "Click to purchase items", "on the market."));
 		inv.setItem(14, Items.createItem(Material.DIAMOND_BLOCK, 1, 0, ChatColor.AQUA + "Sell Items", "Click to sell items", "on the market."));
 		p.openInventory(inv);

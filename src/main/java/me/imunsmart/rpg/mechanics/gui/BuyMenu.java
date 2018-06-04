@@ -68,7 +68,7 @@ public class BuyMenu implements Listener {
         for (int i = 0; i < menu.getSize(); i++) {
             menu.setItem(i, Items.createItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
         }
-        menu.setItem(4,new PlayerSkull("0ceac85e-159d-4f9d-a1c2-c8acde792f23"));
+        menu.setItem(4,new PlayerSkull("BoxMan01234"));
         menu.setItem(12, Items.createItem(Material.EMERALD_BLOCK, 1, 0, ChatColor.GREEN + "Buy Items", "Click to purchase items."));
         menu.setItem(14, Items.createItem(Material.DIAMOND_BLOCK, 1, 0, ChatColor.AQUA + "Sell Items", "Click to sell items."));
     }
