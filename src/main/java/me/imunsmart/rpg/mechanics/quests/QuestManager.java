@@ -2,6 +2,7 @@ package me.imunsmart.rpg.mechanics.quests;
 
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.Items;
+import me.imunsmart.rpg.mechanics.quests.quest_npcs.farmer_bill_tasks.FarmerBillFirstTask;
 import me.imunsmart.rpg.mechanics.quests.quest_npcs.king_duncan_tasks.KingDuncanFirstTask;
 import me.imunsmart.rpg.mechanics.quests.trackers.KillTracker;
 import me.imunsmart.rpg.util.CustomItem;
@@ -95,7 +96,9 @@ public class QuestManager implements Listener {
 				case "KingDuncanFirstTask":
 					if (!useProgress) return new KingDuncanFirstTask(player);
 					else return new KingDuncanFirstTask(player, progress);
-				case "":
+				case "FarmerBillFirstTask":
+					if (!useProgress) return new FarmerBillFirstTask(player);
+					else return new FarmerBillFirstTask(player,progress);
 					break;
 			}
 			

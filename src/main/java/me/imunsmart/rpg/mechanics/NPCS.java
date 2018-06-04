@@ -160,6 +160,7 @@ public class NPCS implements Listener {
 			this.strings = strings;
 		}
 		
+		public abstract void onClick(Player player);
 	}
 	
 	public static class Talker extends NPC {
