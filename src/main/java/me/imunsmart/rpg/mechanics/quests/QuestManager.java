@@ -3,6 +3,7 @@ package me.imunsmart.rpg.mechanics.quests;
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.Stats;
 import me.imunsmart.rpg.mechanics.quests.questList.farmerbill.FarmerBillsPumpkinProblem;
+import me.imunsmart.rpg.mechanics.quests.questList.kingduncan.AMineFullOfMonsters;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -50,6 +51,7 @@ public class QuestManager {
 
     private void loadQuests(Main pl) {
         quests.add(new FarmerBillsPumpkinProblem(pl));
+        quests.add(new AMineFullOfMonsters(pl));
     }
 
     public static void disable() {

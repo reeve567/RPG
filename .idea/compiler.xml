@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="../../../Desktop/Minecraft/BukkitDev/plugins/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="RPG" />
+        <module name="RPG (1)" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="RPG" target="8" />
+      <module name="RPG (1)" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>

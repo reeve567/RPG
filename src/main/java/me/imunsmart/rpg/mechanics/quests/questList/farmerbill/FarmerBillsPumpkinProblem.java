@@ -18,16 +18,15 @@ public class FarmerBillsPumpkinProblem extends Quest {
     public FarmerBillsPumpkinProblem(Main pl) {
         super(pl,"Farmer Bill's Pumpkin Problem", new String[] {"A strange monster has stolen", "Farmer Bill's prized pumpkin!", "Help him get it back before", "the big competition!" },
                 new String[] { "Please help me. I've got a terrible issue.", "There's a crazed beast who stole my largest pumpkin!", "I need that pumpkin for the competition tomorrow!",
-                        "Please help me get my pumpkin back!", "Thank you so much! Please take this as thanks." });
+                        "Please help me get my pumpkin back!", "Thank you so much! Please take this as thanks." }, Quest.MISC);
         pumpkin = Items.createItem(Material.PUMPKIN, 1, 0, ChatColor.GOLD + "Enormous Pumpkin", "I think Farmer Bill might", "be interested in this item.", "", ChatColor.YELLOW + getName() + " Quest Item");
     }
 
     @Override
     public void rewardPlayer(Player p) {
+        super.rewardPlayer(p);
         p.getInventory().addItem(Items.createGemNote(50));
         Stats.addXP(p, 500);
-        new ActionBar(ChatColor.YELLOW + "+500 XP").sendToPlayer(p);
-        Stats.completeQuest(p, getName());
-        QuestManager.playerProgress.remove(p.getName());
+        p.sendMessage(ChatColor.GRAY + "Rewards:\n-" + ChatColor.YELLOW + " 500 Experience" + ChatColor.GRAY + "\n-" + ChatColor.AQUA + " 50 Gems (noted)");
     }
 }

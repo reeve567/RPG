@@ -23,7 +23,7 @@ public class FarmerBill extends NPCS.QuestGiver {
     private static String name = ChatColor.GOLD.toString() + ChatColor.BOLD + "Farmer Bill";
 
     private static final String[] strings = {
-            "Eat your fruits!",
+            "I've got plenty of fruits and veggies!",
             "I'd love to go on your adventures.",
             "What all is out there?"
     };

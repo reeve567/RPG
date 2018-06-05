@@ -5,6 +5,8 @@ import me.imunsmart.rpg.events.Spawners;
 import me.imunsmart.rpg.mechanics.Health;
 import me.imunsmart.rpg.mechanics.Items;
 import me.imunsmart.rpg.mechanics.Stats;
+import me.imunsmart.rpg.mechanics.quests.QuestEvents;
+import me.imunsmart.rpg.mechanics.quests.QuestManager;
 import me.imunsmart.rpg.util.StringUtility;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
@@ -191,6 +193,9 @@ public class Mob {
             Player p = Bukkit.getPlayer(s);
             if (p != null) {
                 double perc = (double) hits.get(s) / hitsTaken;
+                if(perc > 0.5) {
+                    QuestEvents.handleKill(p);
+                }
                 double xp = Math.pow(1.75, tier) * 6;
                 double bonus = 1 + ((double) Constants.LEVEL_REQ[tier - 1] / Stats.getLevel(p)) / 100.0;
                 double totalXP = perc * Math.random() * (xp - 1) * bonus;

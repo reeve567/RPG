@@ -1,21 +1,28 @@
 package me.imunsmart.rpg.mechanics.quests;
 
 import me.imunsmart.rpg.Main;
+import me.imunsmart.rpg.mechanics.Stats;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
 public abstract class Quest implements Listener {
+    public static final int MISC = 0, KILL = 1;
+
     protected Main pl;
 
     private String name ;
     private String[] description, dialogs;
+    private int type;
+    private int flags;
 
-    public Quest(Main pl, String name, String[] description, String[] dialogs) {
+    public Quest(Main pl, String name, String[] description, String[] dialogs, int type) {
         this.pl = pl;
         this.name = name;
         this.description = description;
         this.dialogs = dialogs;
+        this.type = type;
+        flags = 0;
         Bukkit.getPluginManager().registerEvents(this, pl);
     }
 
@@ -31,6 +38,20 @@ public abstract class Quest implements Listener {
         return dialogs;
     }
 
+    public int getType() {
+        return type;
+    }
 
-    public abstract void rewardPlayer(Player p);
+    public void setFlags(int flags) {
+        this.flags = flags;
+    }
+
+    public int getFlags() {
+        return flags;
+    }
+
+    public void rewardPlayer(Player p) {
+        Stats.completeQuest(p, getName());
+        QuestManager.playerProgress.remove(p.getName());
+    }
 }

@@ -35,7 +35,7 @@ public class ItemNames implements Listener {
 			String keys;
 			do {
 				if (!var3.hasNext()) {
-					return ChatColor.translateAlternateColorCodes('&', item.getCustomName());
+					return ChatColor.translateAlternateColorCodes('&', item.getName());
 				}
 				
 				keys = (String) var3.next();

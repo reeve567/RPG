@@ -20,8 +20,10 @@ import java.util.ArrayList;
 
 public class KingDuncan extends NPCS.QuestGiver {
 
+    public static String name = ChatColor.GREEN.toString() + ChatColor.BOLD + "King Duncan";
+
     private static final String[] strings = {
-            "Don't die!",
+            "Be wary of thieves.",
             "Have fun on your adventures.",
             "Watch out for powerful monsters."
     };
@@ -30,6 +32,7 @@ public class KingDuncan extends NPCS.QuestGiver {
 
     public KingDuncan(Location location) {
         super(location, Villager.Profession.PRIEST, "§bKing Duncan", strings);
+        quests.add("A Mine Full of Monsters");
     }
 
     @Override
@@ -40,18 +43,13 @@ public class KingDuncan extends NPCS.QuestGiver {
     public void onClick(Player player) {
         if (QuestManager.playerProgress.containsKey(player.getName()) && QuestManager.getProgress(player).getQuest().getName().equalsIgnoreCase(quests.get(0))) {
             Quest q = QuestManager.getProgress(player).getQuest();
-            if (player.getInventory().containsAtLeast(FarmerBillsPumpkinProblem.pumpkin, 1)) {
-                for(int i = 0; i < player.getInventory().getSize(); i++) {
-                    if(player.getInventory().getItem(i) != null && player.getInventory().getItem(i).hasItemMeta())
-                        if(player.getInventory().getItem(i).getItemMeta().getDisplayName().equals(FarmerBillsPumpkinProblem.pumpkin.getItemMeta().getDisplayName()))
-                            player.getInventory().setItem(i, null);
-                }
+            if (QuestManager.getProgress(player).getFlag() >= q.getFlags()) {
                 player.sendMessage(name + ChatColor.WHITE + ": " + q.getDialogs()[q.getDialogs().length - 1]);
                 q.rewardPlayer(player);
                 Util.launchFirework(player.getLocation(), FireworkEffect.builder().with(FireworkEffect.Type.BALL_LARGE).withColor(Color.OLIVE).withFade(Color.GREEN).flicker(true).trail(true).build());
                 return;
             } else {
-                player.sendMessage(name + ChatColor.WHITE + ": " + q.getDialogs()[q.getDialogs().length - 2]);
+                player.sendMessage(name + ChatColor.WHITE + ": You haven't quite killed enough monsters yet.");
                 return;
             }
         } else {
