@@ -13,6 +13,8 @@ public class MessagesUtil {
 
     public static final String lootChestRemoved = prefix('c') + "§cRemoved loot chest.";
     public static final String lootChestErrorOrNotFound = prefix('c') + "§cEither this block is not a loot chest, or there was an error removing it.";
+    public static final String flyToggle = prefix('b') + "You have toggled flight.";
+    public static final String inCombat = prefix('c') + "You cannot do that while in combat.";
 
     //just for copy-paste use
     private static final char colorChar = '§';
@@ -63,5 +65,9 @@ public class MessagesUtil {
 
     public static String mobDefeated(String name, String deathMessage) {
         return prefix('4') + "§4" + deathMessage + " " + name + " §4has finally been slain.";
+    }
+
+    public static String damage(int hp, int damage) {
+        return "§c-" + damage + "HP §7(§a" + hp + "HP§7)";
     }
 }

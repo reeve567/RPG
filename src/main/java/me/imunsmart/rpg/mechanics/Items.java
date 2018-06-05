@@ -6,8 +6,12 @@ import me.imunsmart.rpg.util.Glow;
 import me.imunsmart.rpg.util.StringUtility;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
+import net.minecraft.server.v1_12_R1.NBTCompressedStreamTools;
+import net.minecraft.server.v1_12_R1.NBTTagCompound;
+import net.minecraft.server.v1_12_R1.NBTTagList;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -16,10 +20,9 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.io.*;
+import java.math.BigInteger;
+import java.util.*;
 
 public class Items {
 
@@ -61,21 +64,6 @@ public class Items {
         return i;
     }
 
-    public static ItemStack deserialize(String s) {
-        String[] tokens = s.split("@");
-        Material m = Material.valueOf(tokens[1].substring(1));
-        int amt = Integer.valueOf(tokens[2].substring(1));
-        int dur = Integer.valueOf(tokens[3].substring(1));
-        if (tokens.length > 4) {
-            String name = ChatColor.translateAlternateColorCodes('&', tokens[4].substring(1));
-            List<String> lore = new ArrayList<>();
-            if (tokens.length > 5)
-                Collections.addAll(lore, tokens[5].substring(1).split(","));
-            return Items.createItem(m, amt, dur, name, lore);
-        } else
-            return new ItemStack(m, amt, (short) dur);
-    }
-
     public static int getTier(ItemStack i) {
         String name = i.getType().name();
         if (name.contains("LEATHER") || name.contains("WOOD"))
@@ -102,23 +90,95 @@ public class Items {
         return i;
     }
 
-    public static String serialize(ItemStack i) {
-        if (i == null)
-            return "@iAIR@a0@d-1";
-        if (!i.hasItemMeta())
-            return "@i" + i.getType().name() + "@a" + i.getAmount() + "@d" + i.getDurability();
-        String lore = "";
-        int x = 0;
-        if (i.getItemMeta().hasLore()) {
-            for (String s : i.getItemMeta().getLore()) {
-                if (x != i.getItemMeta().getLore().size() - 1)
-                    lore += s + ",";
-                else
-                    lore += s;
-                x++;
-            }
+//    public static ItemStack deserialize(String s) {
+//        String[] tokens = s.split("@");
+//        Material m = Material.valueOf(tokens[1].substring(1));
+//        int amt = Integer.valueOf(tokens[2].substring(1));
+//        int dur = Integer.valueOf(tokens[3].substring(1));
+//        if (tokens.length > 4) {
+//            String name = ChatColor.translateAlternateColorCodes('&', tokens[4].substring(1));
+//            List<String> lore = new ArrayList<>();
+//            if (tokens.length > 5)
+//                Collections.addAll(lore, tokens[5].substring(1).split(","));
+//            ItemStack i = Items.createItem(m, amt, dur, name, lore);
+//            if(tokens.length > 6) {
+//                for(String x : tokens[6].substring(1).split(",")) {
+//                    x = ChatColor.stripColor(x);
+//                    Enchantment e = Enchantment.getByName(x.split(":")[0]);
+//                    int level = Integer.parseInt(x.split(":")[1]);
+//                    i.addUnsafeEnchantment(e, level);
+//                }
+//            }
+//            return i;
+//        } else
+//            return new ItemStack(m, amt, (short) dur);
+//    }
+//
+//    public static String serialize(ItemStack i) {
+//        System.out.println(i.toString());
+//        if (i == null)
+//            return "@iAIR@a0@d-1";
+//        if (!i.hasItemMeta())
+//            return "@i" + i.getType().name() + "@a" + i.getAmount() + "@d" + i.getDurability();
+//        String lore = "";
+//        int x = 0;
+//        if (i.getItemMeta().hasLore()) {
+//            for (String s : i.getItemMeta().getLore()) {
+//                if (x != i.getItemMeta().getLore().size() - 1)
+//                    lore += s + ",";
+//                else
+//                    lore += s;
+//                x++;
+//            }
+//        }
+//        String enchants = "";
+//        int y = 0;
+//        for(Enchantment e : i.getEnchantments().keySet()) {
+//            int level = i.getEnchantments().get(e);
+//            enchants += e.getName() + ":" + level;
+//            if(y != i.getEnchantments().keySet().size() - 1)
+//                enchants += ",";
+//            y++;
+//        }
+//        return "@i" + i.getType().name() + "@a" + i.getAmount() + "@d" + i.getDurability() + "@n" + i.getItemMeta().getDisplayName() + "@l" + lore + "@e" + enchants;
+//    }
+
+    public static String serialize(ItemStack item) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        DataOutputStream dataOutput = new DataOutputStream(outputStream);
+
+        NBTTagList nbtTagListItems = new NBTTagList();
+        NBTTagCompound nbtTagCompoundItem = new NBTTagCompound();
+
+        net.minecraft.server.v1_12_R1.ItemStack nmsItem = CraftItemStack.asNMSCopy(item);
+
+        nmsItem.save(nbtTagCompoundItem);
+
+        nbtTagListItems.add(nbtTagCompoundItem);
+
+        try {
+            NBTCompressedStreamTools.a(nbtTagCompoundItem, (DataOutput) dataOutput);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return "@i" + i.getType().name() + "@a" + i.getAmount() + "@d" + i.getDurability() + "@n" + i.getItemMeta().getDisplayName() + "@l" + lore;
+
+        return new BigInteger(1, outputStream.toByteArray()).toString(32);
+    }
+
+    public static ItemStack deserialize(String data) {
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(new BigInteger(data, 32).toByteArray());
+
+        NBTTagCompound nbtTagCompoundRoot = null;
+        try {
+            nbtTagCompoundRoot = NBTCompressedStreamTools.a(new DataInputStream(inputStream));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        net.minecraft.server.v1_12_R1.ItemStack nmsItem = new net.minecraft.server.v1_12_R1.ItemStack(nbtTagCompoundRoot);
+        ItemStack item = (ItemStack) CraftItemStack.asBukkitCopy(nmsItem);
+
+        return item;
     }
 
     public static void useItem(Player p) {

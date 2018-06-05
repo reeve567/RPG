@@ -9,14 +9,6 @@ import org.bukkit.scoreboard.*;
 
 public class Nametags {
 	
-	public static Mob addName(Mob mob) {
-		return mob;
-	}
-	
-	public static void init(Monster p) {
-	
-	}
-	
 	public static void setupDevTeam() {
 		setupTeam("devs", "§b§lDEV §f", "Xwy", "ImUnsmart");
 	}

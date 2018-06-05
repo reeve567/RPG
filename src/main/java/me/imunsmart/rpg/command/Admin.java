@@ -7,6 +7,7 @@ import me.imunsmart.rpg.command.admins.gamemode.GMC;
 import me.imunsmart.rpg.command.admins.gamemode.GMS;
 import me.imunsmart.rpg.command.admins.gamemode.GMSP;
 import me.imunsmart.rpg.command.admins.playermoderation.Kick;
+import me.imunsmart.rpg.command.admins.rpg.RemoveEntities;
 import me.imunsmart.rpg.command.admins.rpg.Warp;
 import me.imunsmart.rpg.command.admins.rpg.give.*;
 import me.imunsmart.rpg.command.admins.rpg.mechanics.SpawnMob;
@@ -43,6 +44,7 @@ public class Admin implements CommandExecutor {
 		pl.getCommand("speed").setExecutor(this);
 		pl.getCommand("givetools").setExecutor(this);
 		pl.getCommand("warp").setExecutor(this);
+		pl.getCommand("re").setExecutor(this);
 	}
 	
 	@Override
@@ -129,6 +131,9 @@ public class Admin implements CommandExecutor {
 			Warp.run(p, args);
 		} else if (label.equalsIgnoreCase("speed")) {
 			Speed.run(p,args);
+		}else if (label.equalsIgnoreCase("re")) {
+			System.out.println(1);
+			RemoveEntities.run(p);
 		}
 		return false;
 	}

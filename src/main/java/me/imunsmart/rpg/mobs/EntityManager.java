@@ -184,17 +184,25 @@ public class EntityManager implements Listener {
                     mess = ChatColor.YELLOW.toString() + ChatColor.BOLD + "!CRIT! " + mess;
                     Sounds.play(p, Sound.BLOCK_ANVIL_PLACE, 1);
                 }
-                Holograms.TextHologram hologram = Holograms.addTextHologram(LocationUtility.moveUp(hit.getLocation(), 1), mess);
-                new BukkitRunnable() {
-                    @Override
-                    public void run() {
-                        hologram.disable();
+                if(!e.isCancelled()) {
+                    Holograms.TextHologram hologram = Holograms.addTextHologram(LocationUtility.moveUp(hit.getLocation(), 1), mess);
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            hologram.disable();
+                        }
+                    }.runTaskLaterAsynchronously(pl, 30);
+                    if(!Health.inCombat(p)) {
+                        p.sendMessage(ChatColor.RED.toString() + ChatColor.BOLD + "Entering combat.");
                     }
-                }.runTaskLaterAsynchronously(pl, 30);
-                Health.combat.put(p.getName(), 16);
+                    Health.combat.put(p.getName(), 16);
+                }
             }
             if (hit instanceof Player) {
                 Player p = (Player) hit;
+                if(!Health.inCombat(p)) {
+                    p.sendMessage(ChatColor.RED.toString() + ChatColor.BOLD + "Entering combat.");
+                }
                 Health.combat.put(p.getName(), 16);
                 Health.damage(p, (int) damage);
             } else if (mobs.containsKey(e.getEntity().getUniqueId())) {

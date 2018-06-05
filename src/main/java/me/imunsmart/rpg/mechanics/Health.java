@@ -3,6 +3,7 @@ package me.imunsmart.rpg.mechanics;
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.command.admins.playermoderation.BanManager;
 import me.imunsmart.rpg.mobs.Constants;
+import me.imunsmart.rpg.util.MessagesUtil;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
@@ -77,6 +78,7 @@ public class Health {
         if ((double) hp / calculateMaxHealth(p) < 0.2) {
             Sounds.play(p, Sound.ENTITY_PLAYER_BIG_FALL, 1);
         }
+        new ActionBar(MessagesUtil.damage(hp, i)).sendToPlayer(p);
     }
 
     public static void disable() {
@@ -127,7 +129,7 @@ public class Health {
     }
 
     public static boolean hasAttribute(ItemStack i, String name) {
-        if(i == null)
+        if (i == null)
             return false;
         if (!i.hasItemMeta() || !i.getItemMeta().hasLore()) {
             return false;
@@ -192,18 +194,20 @@ public class Health {
                     health.put(p.getName(), hp);
                 }
 
-                if (hp != max && !p.isDead()) {
+                if (!p.isDead()) {
                     int regen = calculateHealthRegen(p);
                     if (Util.inSafeZone(p))
                         regen *= 25;
                     if (combat.containsKey(p.getName())) {
                         if (combat.get(p.getName()) == 0) {
-                            heal(p, regen);
+                            combat.remove(p.getName());
+                            p.sendMessage(ChatColor.GREEN.toString() + ChatColor.BOLD + "Exiting combat.");
                         } else {
                             combat.put(p.getName(), combat.get(p.getName()) - 1);
                         }
                     } else {
-                        heal(p, regen);
+                        if (hp != max)
+                            heal(p, regen);
                     }
                 }
 
@@ -254,5 +258,9 @@ public class Health {
                 }
             }
         }, 0, 10);
+    }
+
+    public static boolean inCombat(Player p) {
+        return combat.containsKey(p.getName());
     }
 }

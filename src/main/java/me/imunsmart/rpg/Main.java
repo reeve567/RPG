@@ -16,8 +16,10 @@ import me.imunsmart.rpg.mechanics.quests.QuestManager;
 import me.imunsmart.rpg.mobs.EntityManager;
 import me.imunsmart.rpg.util.AutoBroadcaster;
 import me.imunsmart.rpg.util.Glow;
+import me.imunsmart.rpg.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -100,6 +102,10 @@ public class Main extends JavaPlugin {
         NPCS.disable();
         QuestManager.disable();
         SellMenu.disable();
+        for(LivingEntity le : Util.w.getLivingEntities()) {
+            if(!(le instanceof Player))
+                le.remove();
+        }
     }
 
     @Override

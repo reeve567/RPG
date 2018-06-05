@@ -14,6 +14,7 @@ import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -105,15 +106,15 @@ public class Mob {
         pl = EntityManager.pl;
         // Create Items
         String n = Items.nameColor[tier - 1] + ChatColor.stripColor(name);
-        if(weaponFlag.length() > 0)
+        if (weaponFlag.length() > 0)
             weaponFlag += ",";
-        if(helmetFlag.length() > 0)
+        if (helmetFlag.length() > 0)
             helmetFlag += ",";
-        if(chestplateFlag.length() > 0)
+        if (chestplateFlag.length() > 0)
             chestplateFlag += ",";
-        if(leggingsFlag.length() > 0)
+        if (leggingsFlag.length() > 0)
             leggingsFlag += ",";
-        if(bootsFlag.length() > 0)
+        if (bootsFlag.length() > 0)
             bootsFlag += ",";
         weaponFlag += "name:" + Items.nameColor[tier - 1] + (type.equalsIgnoreCase("axe") ? Items.axes[tier - 1] : Items.swords[tier - 1]) + " of " + n;
         helmetFlag += "name:" + Items.nameColor[tier - 1] + StringUtility.capitalize(Items.armor[tier - 1]) + " Helmet of " + n;
@@ -172,9 +173,9 @@ public class Mob {
     private void die() {
         Spawners.removeEntity(this);
         if (drop != null) {
-            getMob().getWorld().dropItemNaturally(getMob().getLocation(), drop);
+            Item i = getMob().getWorld().dropItemNaturally(getMob().getLocation(), drop);
         }
-        if (Math.random() < 0.75) {
+        if (Math.random() < 0.6) {
             int gd = (int) (Math.random() * Constants.getMaxDrops(tier));
             getMob().getWorld().dropItemNaturally(getMob().getLocation(), Items.createGems(gd));
         }

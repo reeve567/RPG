@@ -1,6 +1,7 @@
 package me.imunsmart.rpg.mechanics;
 
 import me.imunsmart.rpg.Main;
+import me.imunsmart.rpg.util.MessagesUtil;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Location;
@@ -26,6 +27,10 @@ public class TeleportScrolls implements Listener {
         Player p = e.getPlayer();
         if (Util.validClick(e)) {
             if (e.getItem().getType() == Material.BOOK && e.getItem().hasItemMeta()) {
+                if(Health.inCombat(p)) {
+                    p.sendMessage(MessagesUtil.inCombat);
+                    return;
+                }
                 Items.useItem(p);
                 String name = ChatColor.stripColor(e.getItem().getItemMeta().getDisplayName()).split(" ")[1];
                 int delay = Integer.parseInt(ChatColor.stripColor(e.getItem().getItemMeta().getLore().get(0)).split(" ")[2]);

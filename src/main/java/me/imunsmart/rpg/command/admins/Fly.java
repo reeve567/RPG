@@ -8,6 +8,7 @@ public class Fly {
 	public static void run(Player player) {
 		player.sendMessage(MessagesUtil.flyToggle);
 		player.setAllowFlight(!player.getAllowFlight());
+		player.setFlying(player.getAllowFlight());
 	}
 
 }
