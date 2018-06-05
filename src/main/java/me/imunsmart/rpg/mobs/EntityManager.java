@@ -2,7 +2,7 @@ package me.imunsmart.rpg.mobs;
 
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.*;
-import me.imunsmart.rpg.mechanics.quests.questList.FarmerBill.FarmerBillsPumpkinProblem;
+import me.imunsmart.rpg.mechanics.quests.questList.farmerbill.FarmerBillsPumpkinProblem;
 import me.imunsmart.rpg.util.LocationUtility;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;

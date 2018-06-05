@@ -31,6 +31,119 @@ import java.lang.reflect.Field;
 import java.util.logging.Level;
 
 public class Main extends JavaPlugin {
+<<<<<<< HEAD
+
+    public LootChests lc;
+    public static Main main;
+
+    private void register(Listener... listeners) {
+        for (Listener l : listeners) {
+            Bukkit.getPluginManager().registerEvents(l, this);
+        }
+    }
+
+    private void registerCommands() {
+        getLogger().log(Level.INFO, "Registered commands.");
+        new Admin(this);
+        new Default(this);
+        new Moderator(this);
+    }
+
+    private void registerEvents() {
+        getLogger().log(Level.INFO, "Registered events.");
+        register(new WorldEvents(this),
+                new PlayerEvents(this),
+                new DamageEvents(this),
+                new ChatEvents(this),
+                new ServerEvents(this),
+                new SignEvents(this),
+                new Repairing(this),
+                new Potions(this),
+                new AdminTools(),
+                new TeleportScrolls(this),
+                new NPCS(),
+                new ItemNames()
+        );
+        new QuestManager(this);
+        new GemSpawners(this);
+        new EntityManager(this);
+        new Bank(this);
+        new RepairMenu(this);
+        new SellMenu(this);
+        new BuyMenu(this);
+        new QuestGUI(this);
+        new Spawners(this);
+        new GlobalMarket(this);
+        new BanManager(this);
+        lc = new LootChests(this);
+    }
+
+    private void registerGlow() {
+        try {
+            Field f = Enchantment.class.getDeclaredField("acceptingNew");
+            f.setAccessible(true);
+            f.set(null, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            Glow glow = new Glow(999);
+            Enchantment.registerEnchantment(glow);
+        } catch (IllegalArgumentException ignored) {
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onDisable() {
+        QuestManager.disable();
+        Health.disable();
+        GemSpawners.disable();
+        EntityManager.pl = null;
+        Spawners.disable();
+        lc.disable();
+        Holograms.disable();
+        NPCS.disable();
+        SellMenu.disable();
+        for (LivingEntity le : Util.w.getLivingEntities()) {
+            if (!(le instanceof Player))
+                le.remove();
+        }
+    }
+
+    @Override
+    public void onEnable() {
+        main = this;
+        this.saveDefaultConfig();
+        this.reloadConfig();
+        registerGlow();
+        registerEvents();
+        registerCommands();
+        Nametags.setupDevTeam();
+        Nametags.setupTesterTeam();
+        new Holograms(this);
+
+
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    QuestManager.loadProgress(p);
+                    Nametags.init(p);
+                    p.setCollidable(false);
+                }
+            }
+        }.runTaskLater(this, 20);
+
+        new AutoBroadcaster(this);
+
+        new Stats(this);
+
+        Health.task(this);
+    }
+
+=======
 	
 	public static Main main;
 	
@@ -160,4 +273,5 @@ public class Main extends JavaPlugin {
 		}
 	}
 	
+>>>>>>> 6f9706ee856b565e5416d26124c5d687f204f167
 }

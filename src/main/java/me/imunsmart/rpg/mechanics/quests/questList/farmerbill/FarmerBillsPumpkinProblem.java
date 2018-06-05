@@ -1,4 +1,4 @@
-package me.imunsmart.rpg.mechanics.quests.questList.FarmerBill;
+package me.imunsmart.rpg.mechanics.quests.questList.farmerbill;
 
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.ActionBar;
@@ -9,7 +9,6 @@ import me.imunsmart.rpg.mechanics.quests.QuestManager;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.inventory.ItemStack;
 
 public class FarmerBillsPumpkinProblem extends Quest {

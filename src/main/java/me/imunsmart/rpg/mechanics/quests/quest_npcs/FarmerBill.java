@@ -5,7 +5,7 @@ import me.imunsmart.rpg.mechanics.Stats;
 import me.imunsmart.rpg.mechanics.quests.Quest;
 import me.imunsmart.rpg.mechanics.quests.QuestData;
 import me.imunsmart.rpg.mechanics.quests.QuestManager;
-import me.imunsmart.rpg.mechanics.quests.questList.FarmerBill.FarmerBillsPumpkinProblem;
+import me.imunsmart.rpg.mechanics.quests.questList.farmerbill.FarmerBillsPumpkinProblem;
 import me.imunsmart.rpg.mobs.EntityManager;
 import me.imunsmart.rpg.util.Util;
 import org.bukkit.ChatColor;
