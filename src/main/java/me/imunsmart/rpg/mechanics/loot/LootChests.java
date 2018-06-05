@@ -67,7 +67,7 @@ public class LootChests implements Listener {
         return false;
     }
 
-    public void disable() {
+    public static void disable() {
         File f = new File(pl.getDataFolder(), "lootchests.yml");
         FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
         List<String> c = new ArrayList<>();
