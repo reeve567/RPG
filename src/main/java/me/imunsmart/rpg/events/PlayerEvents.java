@@ -4,6 +4,7 @@ import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.*;
 import me.imunsmart.rpg.mechanics.quests.QuestManager;
 import me.imunsmart.rpg.mechanics.gui.GlobalMarket;
+import me.imunsmart.rpg.util.DiscordBroadcaster;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
 import net.minecraft.server.v1_12_R1.PacketPlayInClientCommand;
@@ -42,6 +43,7 @@ public class PlayerEvents implements Listener {
 	
 	@EventHandler
 	public void onDeath(PlayerDeathEvent e) {
+		DiscordBroadcaster.messages.add("Player " + e.getEntity().getName() + " has died");
 		Player p = e.getEntity();
 		e.setDeathMessage("");
 		e.setDroppedExp(0);
@@ -61,6 +63,7 @@ public class PlayerEvents implements Listener {
 	
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
+		DiscordBroadcaster.messages.add("Player " + e.getPlayer().getName() + " has joined with address: " + e.getPlayer().getAddress().toString().substring(1));
 		Player p = e.getPlayer();
 		e.setJoinMessage(ChatColor.AQUA + "+" + ChatColor.GRAY + " " + p.getName());
 		Stats.setStat(p, "name", p.getName());
@@ -80,6 +83,7 @@ public class PlayerEvents implements Listener {
 	
 	@EventHandler
 	public void onLeave(PlayerQuitEvent e) {
+		DiscordBroadcaster.messages.add("Player " + e.getPlayer().getName() + " has left with address: " + e.getPlayer().getAddress().toString().substring(1));
 		Player p = e.getPlayer();
 		e.setQuitMessage(ChatColor.AQUA + "-" + ChatColor.GRAY + " " + p.getName());
 	}
