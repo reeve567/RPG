@@ -46,6 +46,10 @@ public class MessagesUtil {
     public static String lootChestCreated(int tier) {
         return prefix('a') + "Successfully created a tier §a" + tier + "§7 loot chest.";
     }
+    
+    public static String npcMessage(String name, String message) {
+        return name + "§f: §7" + message;
+    }
 
     public static String questStarted(String name) {
         return prefix('a') + "Started quest §a" + name + "§7.";

@@ -4,9 +4,11 @@ import me.imunsmart.rpg.mechanics.NPCS;
 import me.imunsmart.rpg.mechanics.quests.Quest;
 import me.imunsmart.rpg.mechanics.quests.QuestManager;
 import me.imunsmart.rpg.mechanics.quests.QuestPlayerData;
+import me.imunsmart.rpg.util.MessagesUtil;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
+import sun.plugin2.message.Message;
 
 import java.util.ArrayList;
 
@@ -40,14 +42,12 @@ public class KingDuncan extends NPCS.QuestGiver {
 		if (QuestManager.playerData.get(player.getUniqueId()).isInQuest()) {
 			QuestPlayerData playerData = QuestManager.playerData.get(player.getUniqueId());
 			Quest quest = playerData.getActiveQuest();
-			player.sendMessage("1");
 			player.sendMessage(quest.getName());
 			if (quests.contains(quest.getName())) {
-				player.sendMessage("2");
 				if (!quest.isStarted()) {
 					String s = quest.getNextDialog();
 					if (s != null) {
-						player.sendMessage("§bKing Duncan§f:§7 " + s);
+						player.sendMessage(MessagesUtil.npcMessage(name,s));
 					}
 				} else {
 					if (quest.canFinish()) {
@@ -65,28 +65,19 @@ public class KingDuncan extends NPCS.QuestGiver {
 				}
 			}
 		} else {
-			player.sendMessage("3");
-			
 			QuestPlayerData playerData = QuestManager.playerData.get(player.getUniqueId());
 			
 			boolean found = false;
 			for (String s : quests) {
-				player.sendMessage("4");
 				if (!found && !playerData.hasFinished(s)) {
-					player.sendMessage("5");
 					found = true;
 					playerData.setActiveQuest(QuestManager.getQuest(player, s));
 					QuestManager.updateBook(player);
 				}
 			}
-			player.sendMessage("6");
 			if (found) {
-				player.sendMessage("7");
 				QuestManager.updateBook(player);
-				player.sendMessage("a");
 			} else {
-				player.sendMessage("8");
-				//no available quests
 				index++;
 				if (index >= strings.length)
 					index = 0;
