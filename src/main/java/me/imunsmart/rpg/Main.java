@@ -67,7 +67,7 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		main = this;
-		new DiscordBroadcaster();
+		new DiscordBroadcaster().runTaskTimer(this, 1, 5);
 		this.saveDefaultConfig();
 		this.reloadConfig();
 		DiscordBroadcaster.messages.add("Loaded config.yml");
