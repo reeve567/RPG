@@ -79,8 +79,7 @@ public class Main extends JavaPlugin {
 		new Holograms(this);
 		DiscordBroadcaster.messages.add("Initiated Holograms");
 		for (Player p : Bukkit.getOnlinePlayers()) {
-			Nametags.init(p);
-			p.setCollidable(false);
+		
 		}
 		DiscordBroadcaster.messages.add("Setup online players for Quests and Nametags");
 		new AutoBroadcaster(this);
@@ -139,9 +138,11 @@ public class Main extends JavaPlugin {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				for (Player p : Bukkit.getOnlinePlayers())
+				for (Player p : Bukkit.getOnlinePlayers()) {
 					QuestManager.loadProgress(p);
-				
+					Nametags.init(p);
+					p.setCollidable(false);
+				}
 			}
 		}.runTaskLater(this, 20);
 	}
