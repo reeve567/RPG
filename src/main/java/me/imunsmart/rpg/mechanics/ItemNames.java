@@ -26,7 +26,7 @@ public class ItemNames implements Listener {
 	}
 	
 	public String pickName(Item item) {
-		if (item.getItemStack().getItemMeta().hasDisplayName()) {
+		if (item.getItemStack().hasItemMeta() && item.getItemStack().getItemMeta().hasDisplayName()) {
 			item.setCustomName(item.getItemStack().getItemMeta().getDisplayName());
 			return ChatColor.translateAlternateColorCodes('&', item.getCustomName());
 		} else {

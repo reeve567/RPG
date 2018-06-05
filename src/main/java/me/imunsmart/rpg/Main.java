@@ -74,15 +74,6 @@ public class Main extends JavaPlugin {
         new GlobalMarket(this);
         new BanManager(this);
         lc = new LootChests(this);
-
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                for (Player p : Bukkit.getOnlinePlayers())
-                    QuestManager.loadProgress(p);
-
-            }
-        }.runTaskLater(this, 20);
     }
 
     private void registerGlow() {
@@ -131,10 +122,17 @@ public class Main extends JavaPlugin {
         Nametags.setupTesterTeam();
         new Holograms(this);
 
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            Nametags.init(p);
-            p.setCollidable(false);
-        }
+
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    QuestManager.loadProgress(p);
+                    Nametags.init(p);
+                    p.setCollidable(false);
+                }
+            }
+        }.runTaskLater(this, 20);
 
         new AutoBroadcaster(this);
 

@@ -2,7 +2,7 @@ package me.imunsmart.rpg.mechanics.quests;
 
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.Stats;
-import me.imunsmart.rpg.mechanics.quests.questList.FarmerBill.FarmerBillsPumpkinProblem;
+import me.imunsmart.rpg.mechanics.quests.questList.farmerbill.FarmerBillsPumpkinProblem;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
