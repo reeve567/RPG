@@ -1,13 +1,17 @@
 package me.imunsmart.rpg.mechanics;
 
-import me.imunsmart.rpg.mobs.Mob;
+import me.imunsmart.rpg.util.DiscordBroadcaster;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
 
 public class Nametags {
+	
+	public static void init() {
+		setupTesterTeam();
+		setupDevTeam();
+	}
 	
 	public static void setupDevTeam() {
 		setupTeam("devs", "§b§lDEV §f", "Xwy", "ImUnsmart");
@@ -30,6 +34,7 @@ public class Nametags {
 			setScoreboard(scoreboard);
 		} catch (Exception ignored) {
 		}
+		DiscordBroadcaster.messages.add("Setup team " + name);
 	}
 	
 	private static void setScoreboard(Scoreboard scoreboard) {

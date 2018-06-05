@@ -13,7 +13,7 @@
 		<directory>C:\Users\User\Desktop\Minecraft\BukkitDev\plugins</directory>
 		<directory>${pom.basedir}/out</directory>
 		-->
-		<directory>C:\Users\User\Desktop\Minecraft\BukkitDev\plugins</directory>
+		<directory>${pom.basedir}/out</directory>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -24,8 +24,31 @@
 					<goal>package</goal>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.1.0</version>
+				<configuration>
+					<!-- put your configurations here -->
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
+
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
 
 	<dependencies>
 		<dependency>
@@ -35,6 +58,11 @@
 			<scope>system</scope>
 			<systemPath>${pom.basedir}/lib/spigot.jar</systemPath>
 			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>com.github.MrPowerGamerBR</groupId>
+			<artifactId>TemmieWebhook</artifactId>
+			<version>-59de40c3b6-1</version>
 		</dependency>
 	</dependencies>
 
