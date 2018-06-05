@@ -2,18 +2,20 @@ package me.imunsmart.rpg.mechanics;
 
 import me.imunsmart.rpg.mechanics.gui.BuyMenu;
 import me.imunsmart.rpg.mechanics.gui.GlobalMarket;
+import me.imunsmart.rpg.mechanics.quests.Quest;
+import me.imunsmart.rpg.mechanics.quests.QuestManager;
+import me.imunsmart.rpg.mechanics.quests.QuestPlayerData;
 import me.imunsmart.rpg.mechanics.quests.quest_npcs.FarmerBill;
 import me.imunsmart.rpg.mechanics.quests.quest_npcs.KingDuncan;
+import me.imunsmart.rpg.util.MessagesUtil;
 import me.imunsmart.rpg.util.Util;
 import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.event.world.ChunkUnloadEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -34,17 +36,39 @@ public class NPCS implements Listener {
 		
 		//QUEST NPCS
 		new KingDuncan(new Location(Util.w, 71.5, 75.5, -113.5, -90, 0));
-		new FarmerBill(new Location(Util.w,-13,63,-16));
+		new FarmerBill(new Location(Util.w, -13, 63, -16));
 	}
 	
 	public static void disable() {
 		for (NPC npc : npcs) {
 			LivingEntity entity = npc.getEntity();
-			if(entity == null)
+			if (entity == null)
 				continue;
 			npc.getEntity().remove();
 		}
 		npcs.clear();
+	}
+	
+	@EventHandler
+	public void onHit(EntityDamageEvent e) {
+		if (e.getEntity().getScoreboardTags().contains("npc")) {
+			e.setCancelled(true);
+		}
+	}
+	
+	@EventHandler
+	public void onInteract(PlayerInteractEntityEvent e) {
+		Entity entity = e.getRightClicked();
+		if (entity.getScoreboardTags().contains("npc")) {
+			e.setCancelled(true);
+			for (NPC npc : npcs) {
+				if (npc.getEntity() != null && npc.getEntity() == entity) {
+					npc.onClick(e.getPlayer());
+				}
+			}
+		} else {
+			System.out.println("unhandled npc");
+		}
 	}
 	
 	public abstract static class NPC {
@@ -61,19 +85,9 @@ public class NPCS implements Listener {
 			set();
 		}
 		
-		private NPC(Villager.Profession profession, Location location, String name) {
-		 	LivingEntity entity = location.getWorld().spawn(location, Villager.class);
-			this.uuid = entity.getUniqueId();
-			((Villager) entity).setProfession(profession);
-			this.location = location;
-			npcs.add(this);
-			this.name = name;
-			set();
-		}
-		
 		private void set() {
 			LivingEntity entity = getEntity();
-			if(entity == null)
+			if (entity == null)
 				return;
 			entity.addScoreboardTag("npc");
 			entity.addScoreboardTag(setOther());
@@ -88,7 +102,21 @@ public class NPCS implements Listener {
 			}
 		}
 		
+		public LivingEntity getEntity() {
+			return (LivingEntity) Bukkit.getEntity(uuid);
+		}
+		
 		protected abstract String setOther();
+		
+		private NPC(Villager.Profession profession, Location location, String name) {
+			LivingEntity entity = location.getWorld().spawn(location, Villager.class);
+			this.uuid = entity.getUniqueId();
+			((Villager) entity).setProfession(profession);
+			this.location = location;
+			npcs.add(this);
+			this.name = name;
+			set();
+		}
 		
 		public Location getLocation() {
 			return location;
@@ -96,10 +124,6 @@ public class NPCS implements Listener {
 		
 		public void onClick(Player player) {
 		
-		}
-
-		public LivingEntity getEntity() {
-			return (LivingEntity) Bukkit.getEntity(uuid);
 		}
 	}
 	
@@ -153,6 +177,8 @@ public class NPCS implements Listener {
 	public abstract static class QuestGiver extends NPC {
 		
 		protected String[] strings;
+		protected ArrayList<String> quests = new ArrayList<>();
+		private int index = -1;
 		
 		public QuestGiver(Location location, EntityType type, String name, String... strings) {
 			super(type, location, name);
@@ -164,7 +190,52 @@ public class NPCS implements Listener {
 			this.strings = strings;
 		}
 		
-		public abstract void onClick(Player player);
+		public void onClick(Player player) {
+			if (QuestManager.playerData.get(player.getUniqueId()).isInQuest()) {
+				QuestPlayerData playerData = QuestManager.playerData.get(player.getUniqueId());
+				Quest quest = playerData.getActiveQuest();
+				player.sendMessage(quest.getName());
+				if (quests.contains(quest.getName())) {
+					if (!quest.isStarted()) {
+						String s = quest.getNextDialog();
+						if (s != null) {
+							player.sendMessage(MessagesUtil.npcMessage(name, s));
+						}
+					} else {
+						if (quest.canFinish()) {
+							String s = quest.getNextDialog();
+							if (s == null) {
+								quest.finish();
+								QuestManager.updateBook(player);
+							} else {
+								player.sendMessage(MessagesUtil.npcMessage(name, s));
+							}
+						} else {
+							player.sendMessage(MessagesUtil.npcMessage(name, quest.getNotDone()));
+							QuestManager.updateBook(player);
+						}
+					}
+				}
+			} else {
+				QuestPlayerData playerData = QuestManager.playerData.get(player.getUniqueId());
+				
+				boolean found = false;
+				for (String s : quests) {
+					if (!found && !playerData.hasFinished(s)) {
+						found = true;
+						playerData.setActiveQuest(QuestManager.getQuest(player, s));
+						QuestManager.updateBook(player);
+					}
+				}
+				if (found) {
+					QuestManager.updateBook(player);
+				} else {
+					index++;
+					if (index >= strings.length) index = 0;
+					player.sendMessage(MessagesUtil.npcMessage(name, strings[index]));
+				}
+			}
+		}
 	}
 	
 	public static class Talker extends NPC {
@@ -193,28 +264,6 @@ public class NPCS implements Listener {
 			if (index >= strings.length)
 				index = 0;
 			player.sendMessage(name + "§f:§7 " + strings[index]);
-		}
-	}
-	
-	@EventHandler
-	public void onHit(EntityDamageEvent e) {
-		if (e.getEntity().getScoreboardTags().contains("npc")) {
-			e.setCancelled(true);
-		}
-	}
-	
-	@EventHandler
-	public void onInteract(PlayerInteractEntityEvent e) {
-		Entity entity = e.getRightClicked();
-		if (entity.getScoreboardTags().contains("npc")) {
-			e.setCancelled(true);
-			for (NPC npc : npcs) {
-				if (npc.getEntity() != null && npc.getEntity() == entity) {
-					npc.onClick(e.getPlayer());
-				}
-			}
-		} else {
-			System.out.println("unhandled npc");
 		}
 	}
 }
