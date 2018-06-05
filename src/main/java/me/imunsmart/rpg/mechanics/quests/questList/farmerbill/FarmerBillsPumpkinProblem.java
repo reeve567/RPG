@@ -26,7 +26,7 @@ public class FarmerBillsPumpkinProblem extends Quest {
     public void rewardPlayer(Player p) {
         super.rewardPlayer(p);
         p.getInventory().addItem(Items.createGemNote(50));
-        Stats.addXP(p, 500);
-        p.sendMessage(ChatColor.GRAY + "Rewards:\n-" + ChatColor.YELLOW + " 500 Experience" + ChatColor.GRAY + "\n-" + ChatColor.AQUA + " 50 Gems (noted)");
+        Stats.addXP(p, 225);
+        p.sendMessage(ChatColor.GRAY + "Rewards:\n-" + ChatColor.YELLOW + " 225 Experience" + ChatColor.GRAY + "\n-" + ChatColor.AQUA + " 50 Gems (noted)");
     }
 }

@@ -21,8 +21,8 @@ public class AMineFullOfMonsters extends Quest {
     @Override
     public void rewardPlayer(Player p) {
         super.rewardPlayer(p);
-        Stats.addXP(p, 300);
+        Stats.addXP(p, 150);
         p.getInventory().addItem(Items.createWeapon("axe", 1, 5, 9, "Critical:2%,uncommon"));
-        p.sendMessage(ChatColor.GRAY + "Rewards:\n-" + ChatColor.YELLOW + " 300 Experience" + ChatColor.GRAY + "\n-" + ChatColor.GOLD + " Tier 1 Axe");
+        p.sendMessage(ChatColor.GRAY + "Rewards:\n-" + ChatColor.YELLOW + " 150 Experience" + ChatColor.GRAY + "\n-" + ChatColor.GOLD + " Tier 1 Axe");
     }
 }

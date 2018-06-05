@@ -2,24 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7babd4a6-803b-4f68-9ddd-8f5d119047dc" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/QuestEvents.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_MrPowerGamerBR_TemmieWebhook__59de40c3b6_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_kevinsawicki_http_request_6_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_8_0.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/RPG-RELEASE-shaded.jar" afterPath="$PROJECT_DIR$/out/RPG-RELEASE-shaded.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/RPG.jar" afterPath="$PROJECT_DIR$/out/RPG.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/original-RPG.jar" afterPath="$PROJECT_DIR$/out/original-RPG.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RPG.iml" afterPath="$PROJECT_DIR$/RPG.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/Main.java" afterPath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/ItemNames.java" afterPath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/ItemNames.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/Quest.java" afterPath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/Quest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/QuestManager.java" afterPath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/QuestManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/out/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Bank.java" afterPath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Bank.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/questList/farmerbill/FarmerBillsPumpkinProblem.java" afterPath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/questList/farmerbill/FarmerBillsPumpkinProblem.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/questList/kingduncan/AMineFullOfMonsters.java" afterPath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/questList/kingduncan/AMineFullOfMonsters.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/quest_npcs/FarmerBill.java" afterPath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/quest_npcs/FarmerBill.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/quest_npcs/KingDuncan.java" afterPath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/quest_npcs/KingDuncan.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mobs/Mob.java" afterPath="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mobs/Mob.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -34,18 +26,48 @@
       <file leaf-file-name="FarmerBillsPumpkinProblem.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/questList/farmerbill/FarmerBillsPumpkinProblem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="28" column="28" lean-forward="true" selection-start-line="28" selection-start-column="28" selection-end-line="29" selection-end-column="156" />
+            <state relative-caret-position="340">
+              <caret line="29" column="79" lean-forward="false" selection-start-line="29" selection-start-column="79" selection-end-line="29" selection-end-column="79" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AMineFullOfMonsters.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AMineFullOfMonsters.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/questList/kingduncan/AMineFullOfMonsters.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="24" column="78" lean-forward="false" selection-start-line="24" selection-start-column="78" selection-end-line="24" selection-end-column="78" />
+            <state relative-caret-position="323">
+              <caret line="25" column="79" lean-forward="false" selection-start-line="25" selection-start-column="79" selection-end-line="25" selection-end-column="79" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Bank.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Bank.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="493">
+              <caret line="100" column="17" lean-forward="true" selection-start-line="100" selection-start-column="17" selection-end-line="100" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GiveGems.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/command/admins/rpg/give/GiveGems.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="253">
+              <caret line="15" column="68" lean-forward="false" selection-start-line="15" selection-start-column="68" selection-end-line="15" selection-end-column="68" />
               <folding />
             </state>
           </provider>
@@ -80,7 +102,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/Main.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mobs/Mob.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/quest_npcs/FarmerBill.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/Quest.java" />
@@ -88,8 +109,10 @@
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/quest_npcs/KingDuncan.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/QuestEvents.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/ItemNames.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/questList/farmerbill/FarmerBillsPumpkinProblem.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/questList/kingduncan/AMineFullOfMonsters.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/questList/farmerbill/FarmerBillsPumpkinProblem.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Bank.java" />
       </list>
     </option>
   </component>
@@ -300,7 +323,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="Itemnames&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/mechanics/ItemNames.java&#10;Quest&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/mechanics/quests/Quest.java&#10;Mob&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/mobs/Mob.java" />
+    <property name="SearchEverywhereHistoryKey" value="GiveGems&#9;PSI&#9;JAVA://me.imunsmart.rpg.command.admins.rpg.give.GiveGems&#10;Bank&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/mechanics/Bank.java&#10;Itemnames&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/mechanics/ItemNames.java&#10;Quest&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/mechanics/quests/Quest.java&#10;Mob&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/mobs/Mob.java" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -475,13 +498,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/command/admins/Speed.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mobs/bosses/Pumpking.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -664,14 +680,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Bank.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="186" column="4" lean-forward="true" selection-start-line="186" selection-start-column="4" selection-end-line="193" selection-end-column="71" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/config.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1792">
@@ -698,6 +706,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
           <caret line="163" column="17" lean-forward="false" selection-start-line="138" selection-start-column="12" selection-end-line="163" selection-end-column="17" />
+          <folding>
+            <element signature="e#1503#1511#0" expanded="true" />
+            <element signature="e#1569#1588#0" expanded="true" />
+            <element signature="e#1651#1668#0" expanded="true" />
+            <marker date="1528222841371" expanded="true" signature="2564:2939" ph="{...}" />
+            <marker date="1528222841371" expanded="true" signature="4487:4519" ph="@{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -746,20 +761,6 @@
         <state relative-caret-position="68">
           <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="53" column="20" lean-forward="false" selection-start-line="53" selection-start-column="20" selection-end-line="53" selection-end-column="20" />
-          <folding>
-            <marker date="1528233497854" expanded="true" signature="1294:1398" ph="..." />
-            <marker date="1528233497854" expanded="true" signature="1309:1381" ph="..." />
-            <marker date="1528233497854" expanded="true" signature="1415:1836" ph="..." />
-            <marker date="1528233497854" expanded="true" signature="1430:1662" ph="..." />
-            <marker date="1528233497854" expanded="true" signature="1677:1819" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -838,16 +839,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/questList/farmerbill/FarmerBillsPumpkinProblem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="28" column="28" lean-forward="true" selection-start-line="28" selection-start-column="28" selection-end-line="29" selection-end-column="156" />
+        <state relative-caret-position="340">
+          <caret line="29" column="79" lean-forward="false" selection-start-line="29" selection-start-column="79" selection-end-line="29" selection-end-column="79" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/quests/questList/kingduncan/AMineFullOfMonsters.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="24" column="78" lean-forward="false" selection-start-line="24" selection-start-column="78" selection-end-line="24" selection-end-column="78" />
+        <state relative-caret-position="323">
+          <caret line="25" column="79" lean-forward="false" selection-start-line="25" selection-start-column="79" selection-end-line="25" selection-end-column="79" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="15" column="68" lean-forward="false" selection-start-line="15" selection-start-column="68" selection-end-line="15" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/command/admins/rpg/give/GiveGems.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/mechanics/Bank.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="100" column="17" lean-forward="true" selection-start-line="100" selection-start-column="17" selection-end-line="100" selection-end-column="17" />
           <folding />
         </state>
       </provider>
