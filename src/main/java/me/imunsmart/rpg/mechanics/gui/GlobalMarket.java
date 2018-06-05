@@ -52,7 +52,7 @@ public class GlobalMarket implements Listener {
 		if (!f.exists()) {
 			try {
 				f.createNewFile();
-				fc.set("items", Arrays.asList("@iEMERALD_BLOCK@a1@d0@n&aBlock@lTest;ImUnsmart;100"));
+				fc.set("items", null);
 				fc.save(f);
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -242,12 +242,6 @@ public class GlobalMarket implements Listener {
 					}
 					if (e.getCurrentItem().containsEnchantment(Enchantment.VANISHING_CURSE)) {
 						p.sendMessage(ChatColor.RED + "You cannot sell cursed items!");
-						Sounds.play(p, Sound.ENTITY_ITEM_BREAK, 0.67f);
-						p.closeInventory();
-						return;
-					}
-					if(e.getCurrentItem().containsEnchantment(Enchantment.getByName("glow"))) {
-						p.sendMessage(ChatColor.RED + "You cannot sell that item!");
 						Sounds.play(p, Sound.ENTITY_ITEM_BREAK, 0.67f);
 						p.closeInventory();
 						return;

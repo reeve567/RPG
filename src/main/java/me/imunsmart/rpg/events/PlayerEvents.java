@@ -2,6 +2,7 @@ package me.imunsmart.rpg.events;
 
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.*;
+import me.imunsmart.rpg.mechanics.quests.Quest;
 import me.imunsmart.rpg.mechanics.quests.QuestManager;
 import me.imunsmart.rpg.mechanics.gui.GlobalMarket;
 import me.imunsmart.rpg.util.Util;
@@ -65,8 +66,8 @@ public class PlayerEvents implements Listener {
 		e.setJoinMessage(ChatColor.AQUA + "+" + ChatColor.GRAY + " " + p.getName());
 		Stats.setStat(p, "name", p.getName());
 		Nametags.init(p);
-		QuestManager.init(p);
 		p.setCollidable(false);
+		QuestManager.loadProgress(p);
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -89,6 +90,16 @@ public class PlayerEvents implements Listener {
 		if (e.getItem().getItemStack().hasItemMeta()) {
 			if (e.getItem().getItemStack().getItemMeta().getDisplayName().contains("Gem")) {
 				new ActionBar(ChatColor.AQUA + "+" + e.getItem().getItemStack().getAmount() + " Gems").sendToPlayer(e.getPlayer());
+			}
+			if(e.getItem().getItemStack().getItemMeta().hasLore()) {
+				String s = ChatColor.stripColor(e.getItem().getItemStack().getItemMeta().getLore().get(e.getItem().getItemStack().getItemMeta().getLore().size() - 1));
+				if(s.contains("Quest Item")) {
+					Quest quest = QuestManager.getQuest(s.substring(0, s.length() - 11));
+					if(!QuestManager.doingQuest(e.getPlayer(), quest)) {
+						e.setCancelled(true);
+						return;
+					}
+				}
 			}
 		}
 	}

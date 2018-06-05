@@ -6,6 +6,7 @@ import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Zombie;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -59,7 +60,7 @@ public class Boss {
         le = Util.w.spawn(l, clazz).getUniqueId();
         reset();
         bosses.add(le);
-        LivingEntity l = getMob();
+        LivingEntity l = getEntity();
         if (l instanceof Zombie)
             ((Zombie) l).setBaby(false);
         String type = Math.random() < 0.5 ? "Sword" : "Axe";
@@ -68,7 +69,7 @@ public class Boss {
         int ml = maxHelmet + (int) (Math.random() * varl);
         int mb = maxHelmet + (int) (Math.random() * varb);
         String t = Constants.randomWeaponFlag(tier, 1.3);
-        Mob m = EntityManager.customMob(getMob(), name, tier, type, minDMG, maxDMG, t, mh, mc, ml, mb, Constants.randomArmorFlag(mh, tier, 1.3),
+        Mob m = EntityManager.customMob(getEntity(), name, tier, type, minDMG, maxDMG, t, mh, mc, ml, mb, Constants.randomArmorFlag(mh, tier, 1.3),
                 Constants.randomArmorFlag(mc, tier, 1.3), Constants.randomArmorFlag(ml, tier, 1.3), Constants.randomArmorFlag(mb, tier, 1.3), "ImUnsmart");
         EntityManager.mobs.put(le, m);
         if(postSpawn != null) {
@@ -82,7 +83,7 @@ public class Boss {
         new BukkitRunnable() {
             int time = 120 * tier;
 
-            LivingEntity l = getMob();
+            LivingEntity l = getEntity();
             boolean b = true;
 
             public void run() {
@@ -101,9 +102,10 @@ public class Boss {
         }.runTaskTimer(pl, 0, 20);
     }
 
-    public LivingEntity getMob() {
+    public LivingEntity getEntity() {
         return (LivingEntity) Bukkit.getEntity(le);
     }
+    public Mob getMob() { return EntityManager.mobs.get(le); }
 
     private void reset() {
         String n = ChatColor.stripColor(name).replaceAll(" ", "").trim();

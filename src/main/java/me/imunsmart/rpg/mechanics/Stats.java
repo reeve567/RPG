@@ -13,13 +13,11 @@ import org.bukkit.entity.Player;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
 public class Stats {
-	public static final int QUEST_DONE_STATE = 2;
-	public static final int QUEST_IN_PROGRESS_STATE = 1;
-	public static final int QUEST_NOT_STARTED = 0;
 	private static File dir;
 	
 	public Stats(Main pl) {
@@ -29,17 +27,19 @@ public class Stats {
 		if (!dir.exists())
 			dir.mkdirs();
 	}
-	
-	public static String getQuest(Player player) {
-		File f = new File(dir, player.getUniqueId() + ".yml");
+
+	public static List<String> getCompletedQuests(OfflinePlayer p ) {
+		File f = new File(dir, p.getUniqueId() + ".yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
-		if (!fc.contains("current-quest")) return null;
-		return fc.getString("current-quest");
-		
+		if (!fc.contains("completed-quests")) return new ArrayList<String>();
+		return fc.getStringList("completed-quests");
 	}
-	
-	public static void setQuestState(Player player, String quest, int state) {
-		setStat(player, "quest." + quest, state);
+
+	public static void completeQuest(OfflinePlayer op, String id) {
+		List<String> cq = getCompletedQuests(op);
+		cq.add(id);
+		setStat(op, "completed-quests", cq);
+		setStat(op, "current-quest", null);
 	}
 	
 	public static void setStat(OfflinePlayer p, String id, Object o) {
@@ -52,19 +52,6 @@ public class Stats {
 			e.printStackTrace();
 		}
 	}
-	
-	public static boolean finishedQuest(Player player, String quest) {
-		return questState(player, quest) == QUEST_DONE_STATE;
-	}
-	
-	public static int questState(Player player, String quest) {
-		File f = new File(dir, player.getUniqueId() + ".yml");
-		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
-		if (!fc.contains("quest." + quest))
-			return 0;
-		return fc.getInt("quest." + quest);
-	}
-	
 	public static List<String> getList(OfflinePlayer p, String id) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);

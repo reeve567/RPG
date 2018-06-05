@@ -2,6 +2,7 @@ package me.imunsmart.rpg.mobs;
 
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.*;
+import me.imunsmart.rpg.mechanics.quests.questList.FarmerBill.FarmerBillsPumpkinProblem;
 import me.imunsmart.rpg.util.LocationUtility;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
@@ -47,10 +48,11 @@ public class EntityManager implements Listener {
                 20, 15, 8, 10, 5, 4, 5, 15, "The oppressive", new Runnable() {
             @Override
             public void run() {
-                pumpking.getMob().getEquipment().setHelmet(new ItemStack(Material.PUMPKIN));
+                pumpking.getEntity().getEquipment().setHelmet(new ItemStack(Material.PUMPKIN));
             }
         });
         pumpking.init(pl);
+        pumpking.getMob().addDrop(FarmerBillsPumpkinProblem.pumpkin, 1);
     }
 
     private void task() {

@@ -126,11 +126,7 @@ public class Util {
                 i.setType(Material.valueOf(Items.tools[tier] + "_PICKAXE"));
                 i.setDurability((short) (i.getType().getMaxDurability() * perc));
                 im.setDisplayName(Items.nameColor[tier] + Items.picks[tier] + " Pickaxe");
-                Firework fw = p.getWorld().spawn(p.getLocation(), Firework.class);
-                FireworkMeta fm = fw.getFireworkMeta();
-                fm.addEffect(FireworkEffect.builder().with(FireworkEffect.Type.BALL_LARGE).withColor(Color.BLUE).withFade(Color.AQUA).flicker(true).trail(true).build());
-                fm.setPower(1);
-                fw.setFireworkMeta(fm);
+                launchFirework(p.getLocation(), FireworkEffect.builder().with(FireworkEffect.Type.BALL_LARGE).withColor(Color.BLUE).withFade(Color.AQUA).flicker(true).trail(true).build());
                 p.sendMessage(MessagesUtil.pickaxeTier(tier + 1));
                 Sounds.play(p, Sound.ENTITY_PLAYER_LEVELUP, 1);
             }
@@ -150,6 +146,14 @@ public class Util {
                 p.sendMessage(message);
             }
         }
+    }
+
+    public static void launchFirework(Location l, FireworkEffect e) {
+        Firework fw = l.getWorld().spawn(l, Firework.class);
+        FireworkMeta fm = fw.getFireworkMeta();
+        fm.addEffect(e);
+        fm.setPower(1);
+        fw.setFireworkMeta(fm);
     }
 
 }

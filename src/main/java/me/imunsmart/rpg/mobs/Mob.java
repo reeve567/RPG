@@ -27,6 +27,7 @@ public class Mob {
     public UUID mob;
     private double health, maxHP;
     private ItemStack drop;
+    private HashMap<ItemStack, Double> alts = new HashMap<>();
     private Main pl;
     private int tier;
     private Location loc;
@@ -172,14 +173,20 @@ public class Mob {
 
     private void die() {
         Spawners.removeEntity(this);
+        LivingEntity le = getMob();
+        for(ItemStack it : alts.keySet()) {
+            if(Math.random() <= alts.get(it)) {
+                le.getWorld().dropItemNaturally(le.getLocation(), it);
+            }
+        }
         if (drop != null) {
-            Item i = getMob().getWorld().dropItemNaturally(getMob().getLocation(), drop);
+            Item i = le.getWorld().dropItemNaturally(le.getLocation(), drop);
         }
         if (Math.random() < 0.6) {
             int gd = (int) (Math.random() * Constants.getMaxDrops(tier));
-            getMob().getWorld().dropItemNaturally(getMob().getLocation(), Items.createGems(gd));
+            le.getWorld().dropItemNaturally(le.getLocation(), Items.createGems(gd));
         }
-        getMob().setHealth(0);
+        le.setHealth(0);
         for (String s : hits.keySet()) {
             Player p = Bukkit.getPlayer(s);
             if (p != null) {
@@ -248,5 +255,9 @@ public class Mob {
 
     public LivingEntity getMob() {
         return (LivingEntity) Bukkit.getEntity(mob);
+    }
+    
+    public void addDrop(ItemStack i, double rate) {
+        alts.put(i, rate);
     }
 }

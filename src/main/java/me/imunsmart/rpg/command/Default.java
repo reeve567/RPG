@@ -1,5 +1,7 @@
 package me.imunsmart.rpg.command;
 
+import me.imunsmart.rpg.command.defaults.QuestLog;
+import me.imunsmart.rpg.mechanics.quests.QuestGUI;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -13,6 +15,7 @@ public class Default implements CommandExecutor {
 
 	public Default(Main pl) {
 		this.pl = pl;
+		pl.getCommand("quests").setExecutor(this);
 	}
 
 	@Override
@@ -22,6 +25,9 @@ public class Default implements CommandExecutor {
 			return true;
 		}
 		Player p = (Player) sender;
+		if (label.equalsIgnoreCase("quests")) {
+			QuestLog.run(p);
+		}
 		return false;
 	}
 }
