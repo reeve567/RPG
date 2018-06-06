@@ -13,13 +13,15 @@ public abstract class Quest implements Listener {
 
     private String name ;
     private String[] description, dialogs;
+    private String rewards;
     private int type;
     private int flags;
 
-    public Quest(Main pl, String name, String[] description, String[] dialogs, int type) {
+    public Quest(Main pl, String name, String[] description, String[] dialogs, String rewards, int type) {
         this.pl = pl;
         this.name = name;
         this.description = description;
+        this.rewards = rewards;
         this.dialogs = dialogs;
         this.type = type;
         flags = 0;
@@ -53,5 +55,10 @@ public abstract class Quest implements Listener {
     public void rewardPlayer(Player p) {
         Stats.completeQuest(p, getName());
         QuestManager.playerProgress.remove(p.getName());
+        p.sendMessage(rewards.replaceAll(",","\n"));
+    }
+
+    public String getRewards() {
+        return rewards;
     }
 }

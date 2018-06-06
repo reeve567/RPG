@@ -17,6 +17,8 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -53,7 +55,17 @@ public class QuestGUI implements Listener {
                 c = ChatColor.GREEN;
             if(curQuest.equalsIgnoreCase(q.getName()))
                 c = ChatColor.YELLOW;
-            ItemStack x = Items.createItem(Material.BOOK, 1, 0, c + q.getName(), q.getDescription());
+            List<String> d = new ArrayList<>();
+            for(String s : q.getDescription())
+                d.add(s);
+            d.add(" ");
+            for(String s : q.getRewards().split(","))
+                d.add(s);
+            String[] desc = new String[d.size()];
+            for(int k = 0; k < desc.length; k++) {
+                desc[k] = d.get(k);
+            }
+            ItemStack x = Items.createItem(Material.BOOK, 1, 0, c + q.getName(), desc);
             if(Stats.getCompletedQuests(p).contains(q.getName()))
                 x.addUnsafeEnchantment(Enchantment.getByName("glow"), 1);
             inv.setItem(9 + j, x);

@@ -6,6 +6,7 @@ import me.imunsmart.rpg.mechanics.quests.Quest;
 import me.imunsmart.rpg.mechanics.quests.QuestData;
 import me.imunsmart.rpg.mechanics.quests.QuestManager;
 import me.imunsmart.rpg.mechanics.quests.questList.farmerbill.FarmerBillsPumpkinProblem;
+import me.imunsmart.rpg.mechanics.quests.questList.farmerbill.MelonTending;
 import me.imunsmart.rpg.mobs.EntityManager;
 import me.imunsmart.rpg.util.Util;
 import org.bukkit.ChatColor;
@@ -33,6 +34,7 @@ public class FarmerBill extends NPCS.QuestGiver {
 
     public FarmerBill(Location location) {
         super(location, Villager.Profession.FARMER, "§aFarmer Bill", strings);
+        quests.add("Melon Tending");
         quests.add("Farmer Bill's Pumpkin Problem");
     }
 
@@ -46,11 +48,27 @@ public class FarmerBill extends NPCS.QuestGiver {
     public void onClick(Player player) {
         if (QuestManager.playerProgress.containsKey(player.getName()) && QuestManager.getProgress(player).getQuest().getName().equalsIgnoreCase(quests.get(0))) {
             Quest q = QuestManager.getProgress(player).getQuest();
+            if (player.getInventory().containsAtLeast(MelonTending.melon, 10)) {
+                for (int i = 0; i < player.getInventory().getSize(); i++) {
+                    if (player.getInventory().getItem(i) != null && player.getInventory().getItem(i).hasItemMeta())
+                        if (player.getInventory().getItem(i).getItemMeta().getDisplayName().equals(MelonTending.melon.getItemMeta().getDisplayName()))
+                            player.getInventory().setItem(i, null);
+                }
+                player.sendMessage(name + ChatColor.WHITE + ": " + q.getDialogs()[q.getDialogs().length - 1]);
+                q.rewardPlayer(player);
+                Util.launchFirework(player.getLocation(), FireworkEffect.builder().with(FireworkEffect.Type.BALL_LARGE).withColor(Color.OLIVE).withFade(Color.GREEN).flicker(true).trail(true).build());
+                return;
+            } else {
+                player.sendMessage(name + ChatColor.WHITE + ": " + q.getDialogs()[q.getDialogs().length - 2]);
+                return;
+            }
+        } else if (QuestManager.playerProgress.containsKey(player.getName()) && QuestManager.getProgress(player).getQuest().getName().equalsIgnoreCase(quests.get(1))) {
+            Quest q = QuestManager.getProgress(player).getQuest();
             if (player.getInventory().containsAtLeast(FarmerBillsPumpkinProblem.pumpkin, 1)) {
-                for(int i = 0; i < player.getInventory().getSize(); i++) {
-                    if(player.getInventory().getItem(i) != null && player.getInventory().getItem(i).hasItemMeta())
-                    if(player.getInventory().getItem(i).getItemMeta().getDisplayName().equals(FarmerBillsPumpkinProblem.pumpkin.getItemMeta().getDisplayName()))
-                        player.getInventory().setItem(i, null);
+                for (int i = 0; i < player.getInventory().getSize(); i++) {
+                    if (player.getInventory().getItem(i) != null && player.getInventory().getItem(i).hasItemMeta())
+                        if (player.getInventory().getItem(i).getItemMeta().getDisplayName().equals(FarmerBillsPumpkinProblem.pumpkin.getItemMeta().getDisplayName()))
+                            player.getInventory().setItem(i, null);
                 }
                 player.sendMessage(name + ChatColor.WHITE + ": " + q.getDialogs()[q.getDialogs().length - 1]);
                 q.rewardPlayer(player);
@@ -91,7 +109,7 @@ public class FarmerBill extends NPCS.QuestGiver {
 
     public void speak(Player player) {
         index++;
-        if(index >= strings.length)
+        if (index >= strings.length)
             index = 0;
         player.sendMessage(name + ChatColor.WHITE + ": " + strings[index]);
     }
