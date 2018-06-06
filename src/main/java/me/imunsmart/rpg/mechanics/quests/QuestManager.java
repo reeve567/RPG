@@ -50,8 +50,8 @@ public class QuestManager {
     }
 
     private void loadQuests(Main pl) {
-        quests.add(new FarmerBillsPumpkinProblem(pl));
         quests.add(new AMineFullOfMonsters(pl));
+        quests.add(new FarmerBillsPumpkinProblem(pl));
     }
 
     public static void disable() {

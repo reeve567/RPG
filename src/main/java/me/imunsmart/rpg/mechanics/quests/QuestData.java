@@ -1,7 +1,7 @@
 package me.imunsmart.rpg.mechanics.quests;
 
 public class QuestData {
-    private int flag = 0;
+    private int flag;
     private Quest quest;
 
     public QuestData(Quest q, int flag) {

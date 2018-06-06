@@ -72,7 +72,7 @@ public class QuestGUI implements Listener {
         if(!e.getInventory().getTitle().contains("Quests"))
             return;
         e.setCancelled(true);
-        int pg = page.containsKey(p.getName()) ? page.get(p.getName()) : 0;
+        int pg = page.getOrDefault(p.getName(), 0);
         if (e.getCurrentItem().hasItemMeta() && e.getCurrentItem().getItemMeta().hasDisplayName()) {
             if (e.getCurrentItem().getItemMeta().getDisplayName().contains("<- Prev")) {
                 Sounds.play(p, Sound.BLOCK_STONE_BUTTON_CLICK_ON, 1);
