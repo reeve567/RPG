@@ -8,7 +8,7 @@ import me.imunsmart.rpg.events.*;
 import me.imunsmart.rpg.mechanics.*;
 import me.imunsmart.rpg.mechanics.gui.BuyMenu;
 import me.imunsmart.rpg.mechanics.gui.GlobalMarket;
-import me.imunsmart.rpg.mechanics.gui.RepairMenu;
+import me.imunsmart.rpg.mechanics.gui.ItemMenu;
 import me.imunsmart.rpg.mechanics.gui.SellMenu;
 import me.imunsmart.rpg.mechanics.loot.GemSpawners;
 import me.imunsmart.rpg.mechanics.loot.LootChests;
@@ -137,7 +137,7 @@ public class Main extends JavaPlugin {
         new GemSpawners(this);
         new EntityManager(this);
         new Bank(this);
-        new RepairMenu(this);
+        new ItemMenu(this);
         new SellMenu(this);
         new BuyMenu(this);
         new QuestGUI(this);

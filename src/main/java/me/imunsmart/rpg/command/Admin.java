@@ -132,7 +132,6 @@ public class Admin implements CommandExecutor {
 		} else if (label.equalsIgnoreCase("speed")) {
 			Speed.run(p,args);
 		}else if (label.equalsIgnoreCase("re")) {
-			System.out.println(1);
 			RemoveEntities.run(p);
 		}
 		return false;

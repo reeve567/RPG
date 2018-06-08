@@ -25,15 +25,15 @@ public class Constants {
     public static final int MAX_T1_GEMS = 3;
 
     // T2
-    public static final int MIN_DAMAGE_2 = 4 * MIN_DAMAGE_1;
-    public static final int MAX_DAMAGE_2 = 4 * MAX_DAMAGE_1;
+    public static final int MIN_DAMAGE_2 = 4 * MIN_DAMAGE_1; // 4
+    public static final int MAX_DAMAGE_2 = 4 * MAX_DAMAGE_1; // 24
 
     public static final double MAX_REGEN_2 = 0.2;
 
-    public static final int MAX_HEALTH_2B = 4 * MAX_HEALTH_1B;
-    public static final int MAX_HEALTH_2L = 4 * MAX_HEALTH_1L;
-    public static final int MAX_HEALTH_2C = 4 * MAX_HEALTH_1C;
-    public static final int MAX_HEALTH_2H = 4 * MAX_HEALTH_1H;
+    public static final int MAX_HEALTH_2B = 4 * MAX_HEALTH_1B; // 48
+    public static final int MAX_HEALTH_2L = 4 * MAX_HEALTH_1L; // 100
+    public static final int MAX_HEALTH_2C = 4 * MAX_HEALTH_1C; // 120
+    public static final int MAX_HEALTH_2H = 4 * MAX_HEALTH_1H; // 60
     public static final int MAX_HEALTH_T2 = MAX_HEALTH_1H + MAX_HEALTH_1C + MAX_HEALTH_1L + MAX_HEALTH_1B;
 
     public static final double DROP_RATE_2 = 0.07;
@@ -41,15 +41,15 @@ public class Constants {
     public static final int MAX_T2_GEMS = 14;
 
     // T3
-    public static final int MIN_DAMAGE_3 = 4 * MIN_DAMAGE_2;
-    public static final int MAX_DAMAGE_3 = 4 * MAX_DAMAGE_2;
+    public static final int MIN_DAMAGE_3 = 4 * MIN_DAMAGE_2; // 16
+    public static final int MAX_DAMAGE_3 = 4 * MAX_DAMAGE_2; // 96
 
     public static final double MAX_REGEN_3 = 0.21;
 
-    public static final int MAX_HEALTH_3B = 4 * MAX_HEALTH_2B;
-    public static final int MAX_HEALTH_3L = 4 * MAX_HEALTH_2L;
-    public static final int MAX_HEALTH_3C = 4 * MAX_HEALTH_2C;
-    public static final int MAX_HEALTH_3H = 4 * MAX_HEALTH_2H;
+    public static final int MAX_HEALTH_3B = 4 * MAX_HEALTH_2B; // 192
+    public static final int MAX_HEALTH_3L = 4 * MAX_HEALTH_2L; // 400
+    public static final int MAX_HEALTH_3C = 4 * MAX_HEALTH_2C; // 480
+    public static final int MAX_HEALTH_3H = 4 * MAX_HEALTH_2H; // 240
     public static final int MAX_HEALTH_T3 = MAX_HEALTH_1H + MAX_HEALTH_1C + MAX_HEALTH_1L + MAX_HEALTH_1B;
 
     public static final double DROP_RATE_3 = 0.04;
@@ -57,15 +57,15 @@ public class Constants {
     public static final int MAX_T3_GEMS = 32;
 
     // T4
-    public static final int MIN_DAMAGE_4 = 4 * MIN_DAMAGE_3;
-    public static final int MAX_DAMAGE_4 = 4 * MAX_DAMAGE_3;
+    public static final int MIN_DAMAGE_4 = 4 * MIN_DAMAGE_3; // 64
+    public static final int MAX_DAMAGE_4 = 4 * MAX_DAMAGE_3; // 384
 
     public static final double MAX_REGEN_4 = 0.22;
 
-    public static final int MAX_HEALTH_4B = 4 * MAX_HEALTH_3B;
-    public static final int MAX_HEALTH_4L = 4 * MAX_HEALTH_3L;
-    public static final int MAX_HEALTH_4C = 4 * MAX_HEALTH_3C;
-    public static final int MAX_HEALTH_4H = 4 * MAX_HEALTH_3H;
+    public static final int MAX_HEALTH_4B = 4 * MAX_HEALTH_3B; // 768
+    public static final int MAX_HEALTH_4L = 4 * MAX_HEALTH_3L; // 1600
+    public static final int MAX_HEALTH_4C = 4 * MAX_HEALTH_3C; // 1920
+    public static final int MAX_HEALTH_4H = 4 * MAX_HEALTH_3H; // 960
     public static final int MAX_HEALTH_T4 = MAX_HEALTH_1H + MAX_HEALTH_1C + MAX_HEALTH_1L + MAX_HEALTH_1B;
 
     public static final double DROP_RATE_4 = 0.03;
@@ -73,15 +73,15 @@ public class Constants {
     public static final int MAX_T4_GEMS = 58;
 
     // T5
-    public static final int MIN_DAMAGE_5 = 4 * MIN_DAMAGE_4;
-    public static final int MAX_DAMAGE_5 = 4 * MAX_DAMAGE_4;
+    public static final int MIN_DAMAGE_5 = 4 * MIN_DAMAGE_4; // 256
+    public static final int MAX_DAMAGE_5 = 4 * MAX_DAMAGE_4; // 1536
 
     public static final double MAX_REGEN_5 = 0.23;
 
-    public static final int MAX_HEALTH_5B = 4 * MAX_HEALTH_4B;
-    public static final int MAX_HEALTH_5L = 4 * MAX_HEALTH_4L;
-    public static final int MAX_HEALTH_5C = 4 * MAX_HEALTH_4C;
-    public static final int MAX_HEALTH_5H = 4 * MAX_HEALTH_4H;
+    public static final int MAX_HEALTH_5B = 4 * MAX_HEALTH_4B; // 3072
+    public static final int MAX_HEALTH_5L = 4 * MAX_HEALTH_4L; // 6400
+    public static final int MAX_HEALTH_5C = 4 * MAX_HEALTH_4C; // 7680
+    public static final int MAX_HEALTH_5H = 4 * MAX_HEALTH_4H; // 3840
     public static final int MAX_HEALTH_T5 = MAX_HEALTH_1H + MAX_HEALTH_1C + MAX_HEALTH_1L + MAX_HEALTH_1B;
 
     public static final double DROP_RATE_5 = 0.02;
@@ -222,6 +222,8 @@ public class Constants {
         if (Math.random() < 0.1) {
             flag += "Critical:" + (int) (Math.random() * 25 + 1) + "%,";
         }
+        if(Math.random() < 0.05)
+            flag += "Fire Damage:+" + (int) (Math.random() * (tier * 4)) + ",";
         if (perc >= 0.1 && perc < 0.2)
             flag += "uncommon";
         else if (perc < 0.1)

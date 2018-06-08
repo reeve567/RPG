@@ -1,46 +1,45 @@
 package me.imunsmart.rpg.mechanics.quests.quest_npcs;
 
 import me.imunsmart.rpg.mechanics.NPCS;
+import me.imunsmart.rpg.mechanics.Sounds;
 import me.imunsmart.rpg.mechanics.Stats;
 import me.imunsmart.rpg.mechanics.quests.Quest;
 import me.imunsmart.rpg.mechanics.quests.QuestData;
 import me.imunsmart.rpg.mechanics.quests.QuestManager;
-import me.imunsmart.rpg.mechanics.quests.questList.farmerbill.FarmerBillsPumpkinProblem;
 import me.imunsmart.rpg.mechanics.quests.questList.farmerbill.MelonTending;
+import me.imunsmart.rpg.mechanics.quests.questList.pyrotechnic.ContestingTheFlameOfTruth;
 import me.imunsmart.rpg.mobs.EntityManager;
+import me.imunsmart.rpg.mobs.Mob;
 import me.imunsmart.rpg.util.Util;
-import org.bukkit.ChatColor;
-import org.bukkit.Color;
-import org.bukkit.FireworkEffect;
-import org.bukkit.Location;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Skeleton;
 import org.bukkit.entity.Villager;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 
-public class FarmerBill extends NPCS.QuestGiver {
+public class PyroTechnic extends NPCS.QuestGiver {
 
-    private static String name = ChatColor.GOLD.toString() + ChatColor.BOLD + "Farmer Bill";
+    private static String name = ChatColor.RED.toString() + ChatColor.BOLD + "PyroTechnic";
 
     private static final String[] strings = {
-            "I've got plenty of fruits and veggies!",
-            "I'd love to go on your adventures.",
-            "What all is out there?"
+            "Hey kid... you wanna buy some fireworks?",
+            "People say I'm a hothead but I just like fire.",
+            "How long you think the forest would take to finally burn down?"
     };
 
     private static ArrayList<String> quests = new ArrayList<>();
     private static int index = -1;
 
-    public FarmerBill(Location location) {
+    public PyroTechnic(Location location) {
         super(location, Villager.Profession.FARMER, name, strings);
-        quests.add("Melon Tending");
-        quests.add("Farmer Bill's Pumpkin Problem");
+        quests.add("Contesting the Flame of Truth");
     }
 
     @Override
     protected String setOther() {
-        return "farmer_bill";
+        return "pyro_technic";
     }
 
 
@@ -48,10 +47,45 @@ public class FarmerBill extends NPCS.QuestGiver {
     public void onClick(Player player) {
         if (QuestManager.playerProgress.containsKey(player.getName()) && QuestManager.getProgress(player).getQuest().getName().equalsIgnoreCase(quests.get(0))) {
             Quest q = QuestManager.getProgress(player).getQuest();
-            if (player.getInventory().containsAtLeast(MelonTending.melon, 10)) {
+            if (player.getInventory().containsAtLeast(ContestingTheFlameOfTruth.torch, 1)) {
                 for (int i = 0; i < player.getInventory().getSize(); i++) {
                     if (player.getInventory().getItem(i) != null && player.getInventory().getItem(i).hasItemMeta())
-                        if (player.getInventory().getItem(i).getItemMeta().getDisplayName().equals(MelonTending.melon.getItemMeta().getDisplayName()))
+                        if (player.getInventory().getItem(i).getItemMeta().getDisplayName().equals(ContestingTheFlameOfTruth.torch.getItemMeta().getDisplayName()))
+                            player.getInventory().setItem(i, null);
+                }
+                player.sendMessage(name + ChatColor.WHITE + ": Please stand back, I'm going to try an ancient ritual! Let's hope this works!");
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        getLocation().getWorld().playEffect(getLocation(), Effect.EXPLOSION_HUGE, 0);
+                        Sounds.play(player, Sound.ENTITY_GENERIC_EXPLODE, 0.67f);
+                        Skeleton s = getLocation().getWorld().spawn(getLocation(), Skeleton.class);
+                        Mob mob = EntityManager.customMob(s, ChatColor.RED + "PyroManiac", 3, "axe", 30, 90, "Fire Damage:+10,Rare",
+                                240, 480, 400, 192, "Regen:10", "Regen:20", "Regen:15", "Regen:10", "Prestonplayz");
+                        mob.addDrop(ContestingTheFlameOfTruth.firespirit, 1);
+                        QuestManager.getProgress(player).incrementFlag();
+                        new BukkitRunnable() {
+                            @Override
+                            public void run() {
+                                if (!EntityManager.mobs.containsKey(mob.getMob().getUniqueId())) {
+                                    cancel();
+                                    return;
+                                }
+                                if (!player.isOnline() || getLocation().distanceSquared(player.getLocation()) >= (40 * 40)) {
+                                    mob.getMob().remove();
+                                    EntityManager.mobs.remove(mob.getMob().getUniqueId());
+                                    cancel();
+                                    return;
+                                }
+                            }
+                        }.runTaskTimer(EntityManager.pl, 0, 20);
+                    }
+                }.runTaskLater(EntityManager.pl, 40);
+                return;
+            } else if (player.getInventory().containsAtLeast(ContestingTheFlameOfTruth.firespirit, 1)) {
+                for (int i = 0; i < player.getInventory().getSize(); i++) {
+                    if (player.getInventory().getItem(i) != null && player.getInventory().getItem(i).hasItemMeta())
+                        if (player.getInventory().getItem(i).getItemMeta().getDisplayName().equals(ContestingTheFlameOfTruth.firespirit.getItemMeta().getDisplayName()))
                             player.getInventory().setItem(i, null);
                 }
                 player.sendMessage(name + ChatColor.WHITE + ": " + q.getDialogs()[q.getDialogs().length - 1]);
@@ -59,23 +93,7 @@ public class FarmerBill extends NPCS.QuestGiver {
                 Util.launchFirework(player.getLocation(), FireworkEffect.builder().with(FireworkEffect.Type.BALL_LARGE).withColor(Color.OLIVE).withFade(Color.GREEN).flicker(true).trail(true).build());
                 return;
             } else {
-                player.sendMessage(name + ChatColor.WHITE + ": " + q.getDialogs()[q.getDialogs().length - 2]);
-                return;
-            }
-        } else if (QuestManager.playerProgress.containsKey(player.getName()) && QuestManager.getProgress(player).getQuest().getName().equalsIgnoreCase(quests.get(1))) {
-            Quest q = QuestManager.getProgress(player).getQuest();
-            if (player.getInventory().containsAtLeast(FarmerBillsPumpkinProblem.pumpkin, 1)) {
-                for (int i = 0; i < player.getInventory().getSize(); i++) {
-                    if (player.getInventory().getItem(i) != null && player.getInventory().getItem(i).hasItemMeta())
-                        if (player.getInventory().getItem(i).getItemMeta().getDisplayName().equals(FarmerBillsPumpkinProblem.pumpkin.getItemMeta().getDisplayName()))
-                            player.getInventory().setItem(i, null);
-                }
-                player.sendMessage(name + ChatColor.WHITE + ": " + q.getDialogs()[q.getDialogs().length - 1]);
-                q.rewardPlayer(player);
-                Util.launchFirework(player.getLocation(), FireworkEffect.builder().with(FireworkEffect.Type.BALL_LARGE).withColor(Color.OLIVE).withFade(Color.GREEN).flicker(true).trail(true).build());
-                return;
-            } else {
-                player.sendMessage(name + ChatColor.WHITE + ": " + q.getDialogs()[q.getDialogs().length - 2]);
+                player.sendMessage(name + ChatColor.WHITE + ": Any information yet?");
                 return;
             }
         } else {

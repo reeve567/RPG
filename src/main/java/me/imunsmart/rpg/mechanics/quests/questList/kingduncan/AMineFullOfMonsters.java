@@ -15,7 +15,7 @@ public class AMineFullOfMonsters extends Quest {
                 new String[] { "The royal mine has an infestation", "of creepy monsters. Help the King", "solve the situation." },
                 new String[] { "Hello there! You look like a fine adventurer.", "In that case, perhaps you can be of some assistance.", "See our mine seems to be infected with a plague of monsters.",
                 "Normally I would send someone more qualified but I can't afford to lose any more men.", "Anyway good luck and don't die!", "You actually did it!? I mean... Please take this as thanks." },
-                ChatColor.GRAY + "Rewards:,-" + ChatColor.YELLOW + " 150 Experience" + ChatColor.GRAY + ",-" + ChatColor.GOLD + " Tier 1 Axe", Quest.KILL);
+                ChatColor.GRAY + "Rewards:,-" + ChatColor.YELLOW + " 150 Experience" + ChatColor.GRAY + ",-" + ChatColor.GREEN + " Tier 1 Enchantment", Quest.KILL);
         setFlags(10);
     }
 
@@ -23,6 +23,6 @@ public class AMineFullOfMonsters extends Quest {
     public void rewardPlayer(Player p) {
         super.rewardPlayer(p);
         Stats.addXP(p, 150);
-        p.getInventory().addItem(Items.createWeapon("axe", 1, 5, 9, "Critical:2%,uncommon"));
+        p.getInventory().addItem(Items.createEnchant(1));
     }
 }

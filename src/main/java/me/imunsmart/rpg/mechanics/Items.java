@@ -303,6 +303,13 @@ public class Items {
         return stack;
     }
 
+    public static ItemStack createEnchant(int tier) {
+        String name = ChatColor.GREEN + "Tier " + tier + " Enchant";
+        ItemStack stack = Items.createItem(Material.PAPER, 1, 0, name, "Chance of failing if enchantment level", "is above 5.");
+        stack.addUnsafeEnchantment(Enchantment.getByName("glow"),1);
+        return stack;
+    }
+
     public static CustomItem createQuestInfo() {
         return new CustomItem(Material.PAPER).setName("§aQuest Info").addGlow();
     }
@@ -370,5 +377,9 @@ public class Items {
         if(lore.get(lore.size() - 1).isEmpty())
             lore.remove(lore.size() - 1);
         return name;
+    }
+
+    public static boolean isWeapon(ItemStack i) {
+        return i.getType().name().contains("AXE") || i.getType().name().contains("SWORD");
     }
 }

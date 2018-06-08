@@ -107,6 +107,24 @@ public class PlayerEvents implements Listener {
 			}
 		}
 	}
+
+	@EventHandler
+	public void onDrop(PlayerDropItemEvent e) {
+		if(e.getItemDrop().getItemStack().getItemMeta().hasLore()) {
+			String s = ChatColor.stripColor(e.getItemDrop().getItemStack().getItemMeta().getLore().get(e.getItemDrop().getItemStack().getItemMeta().getLore().size() - 1));
+			if(s.contains("Quest Item")) {
+				Quest quest = QuestManager.getQuest(s.substring(0, s.length() - 11));
+				if(QuestManager.doingQuest(e.getPlayer(), quest)) {
+					e.getPlayer().sendMessage(ChatColor.RED + "The item magically returns to your possession.");
+					e.setCancelled(true);
+					return;
+				} else {
+					e.getItemDrop().remove();
+					e.getPlayer().sendMessage(ChatColor.RED + "The item vanishes into thin air...");
+				}
+			}
+		}
+	}
 	
 	@EventHandler
 	public void onRegen(EntityRegainHealthEvent e) {

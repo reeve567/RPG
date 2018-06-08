@@ -45,7 +45,8 @@ public class QuestGUI implements Listener {
         inv.setItem(0, Items.createItem(Material.CARPET, 1, 14, ChatColor.RED + "<- Prev"));
         inv.setItem(8, Items.createItem(Material.CARPET, 1, 13, ChatColor.DARK_GREEN + "Next ->"));
         String curQuest = QuestManager.playerProgress.containsKey(p.getName()) ? QuestManager.getProgress(p).getQuest().getName() : "none";
-        inv.setItem(4, Items.createItem(Material.BOOK, 1, 0, ChatColor.GRAY + "Current Quest: " + ChatColor.AQUA + curQuest, "All quests in order of increasing", "difficulty. Glowing quests have", "already been completed."));
+        int total = Stats.getCompletedQuests(p).size();
+        inv.setItem(4, Items.createItem(Material.BOOK, 1, 0, ChatColor.GRAY + "Current Quest: " + ChatColor.AQUA + curQuest, "All quests in order of increasing", "difficulty. Glowing quests have", "already been completed.", " ", "Completed Quests: " + total));
         for(int j = (i * 45); j < (i * 45) + 45; j++) {
             if(j >= QuestManager.quests.size())
                 break;

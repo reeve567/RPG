@@ -2,8 +2,10 @@ package me.imunsmart.rpg.mechanics;
 
 import me.imunsmart.rpg.mechanics.gui.BuyMenu;
 import me.imunsmart.rpg.mechanics.gui.GlobalMarket;
+import me.imunsmart.rpg.mechanics.quests.QuestEvents;
 import me.imunsmart.rpg.mechanics.quests.quest_npcs.FarmerBill;
 import me.imunsmart.rpg.mechanics.quests.quest_npcs.KingDuncan;
+import me.imunsmart.rpg.mechanics.quests.quest_npcs.PyroTechnic;
 import me.imunsmart.rpg.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -32,6 +34,7 @@ public class NPCS implements Listener {
 
         //QUEST NPCS
         new KingDuncan(new Location(Util.w, 71.5, 75.5, -113.5, -90, 0));
+        new PyroTechnic(new Location(Util.w, -95.5, 64.5, -69.5));
         new FarmerBill(new Location(Util.w, -13, 63, -16));
     }
 
@@ -59,7 +62,9 @@ public class NPCS implements Listener {
             e.setCancelled(true);
             for (NPC npc : npcs) {
                 if (npc.getEntity() != null && npc.getEntity() == entity) {
+                    System.out.println("hello");
                     npc.onClick(e.getPlayer());
+                    QuestEvents.handleChat(e.getPlayer(), npc);
                 }
             }
         } else {
@@ -67,7 +72,7 @@ public class NPCS implements Listener {
         }
     }
 
-    public abstract static class NPC {
+    public static abstract class NPC {
 
         public UUID uuid;
         public String name;

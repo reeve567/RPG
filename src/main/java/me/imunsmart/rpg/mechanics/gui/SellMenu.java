@@ -50,7 +50,6 @@ public class SellMenu implements Listener {
         new BukkitRunnable() {
             @Override
             public void run() {
-                System.out.println(getTaskId());
                 if(!open.contains(p.getName())) {
                     cancel();
                     return;
