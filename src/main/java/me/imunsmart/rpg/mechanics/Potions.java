@@ -34,7 +34,7 @@ public class Potions implements Listener {
 								p.sendMessage(ChatColor.RED + "You are already healthy.");
 								return;
 							}
-							int restore = Health.getAttributeI(e.getItem(), "restores");
+							int restore = Health.getAttribute(e.getItem(), "restores");
 							Health.heal(p, restore);
 							Sounds.play(p, Sound.ENTITY_GENERIC_DRINK, 1);
 							new ActionBar(ChatColor.GREEN + "+" + restore + "HP").sendToPlayer(p);

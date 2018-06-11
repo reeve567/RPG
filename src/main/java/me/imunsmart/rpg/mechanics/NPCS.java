@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class NPCS implements Listener {
-	
 	private static ArrayList<NPC> npcs = new ArrayList<>();
 	
 	public NPCS() {
@@ -74,7 +73,7 @@ public class NPCS implements Listener {
 		e.getNPC().onClick(e.getPlayer());
 	}
 	
-	public abstract static class NPC {
+	public static abstract class NPC {
 		
 		public UUID uuid;
 		public String name;
@@ -226,5 +225,6 @@ public class NPCS implements Listener {
 			player.sendMessage(name + "§f:§7 " + strings[index]);
 		}
 	}
+	
 }
 

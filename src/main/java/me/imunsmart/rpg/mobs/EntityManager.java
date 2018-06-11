@@ -6,10 +6,7 @@ import me.imunsmart.rpg.mechanics.quests.questList.farmerbill.FarmerBillsPumpkin
 import me.imunsmart.rpg.util.LocationUtility;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -63,7 +60,6 @@ public class EntityManager implements Listener {
                 Mob m = mobs.get(le);
                 m.tick();
                 if (m.getHealth() < 1) {
-                    System.out.println(m.getMob().getCustomName());
                     it.remove();
                 }
             }
@@ -116,7 +112,7 @@ public class EntityManager implements Listener {
                     return;
                 }
             }
-            if(e.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
+            if (e.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
                 e.setCancelled(true);
                 e.setDamage(0);
                 return;
@@ -124,7 +120,7 @@ public class EntityManager implements Listener {
             double damage = 1;
             ItemStack i = le.getEquipment().getItemInMainHand();
             if (i != null)
-                damage = Health.getAttributeI(le.getEquipment().getItemInMainHand(), "Damage");
+                damage = Health.getAttribute(le.getEquipment().getItemInMainHand(), "Damage");
             String name = i.getType().name();
             if (name.contains("SWORD") || name.contains("AXE")) {
                 if (le instanceof Player) {
@@ -147,7 +143,7 @@ public class EntityManager implements Listener {
                 for (ItemStack it : hit.getEquipment().getArmorContents()) {
                     incDur(it);
                 }
-                if(Boss.isBoss(hit)) {
+                if (Boss.isBoss(hit)) {
                     Mob mob = mobs.get(hit.getUniqueId());
                     String n = ChatColor.stripColor(mob.getName()).replaceAll(" ", "").trim();
                     try {
@@ -168,11 +164,17 @@ public class EntityManager implements Listener {
             }
             if (damage == 0)
                 damage += 1;
-            double cc = Health.getAttributeP(i, "Critical");
+            double cc = Health.getAttribute(i, "Critical") / 100.0;
             boolean crit = false;
             if (Math.random() < cc) {
                 damage *= 2;
                 crit = true;
+            }
+            if (Health.hasAttribute(i, "Fire Damage")) {
+                damage += Health.getAttribute(i, "Fire Damage");
+                if (Math.random() < 0.5)
+                    hit.setFireTicks(10);
+                hit.getWorld().playEffect(hit.getLocation(), Effect.STEP_SOUND, Material.LAVA);
             }
             if (le instanceof Player) {
                 Player p = (Player) le;
@@ -186,7 +188,7 @@ public class EntityManager implements Listener {
                     mess = ChatColor.YELLOW.toString() + ChatColor.BOLD + "!CRIT! " + mess;
                     Sounds.play(p, Sound.BLOCK_ANVIL_PLACE, 1);
                 }
-                if(!e.isCancelled()) {
+                if (!e.isCancelled()) {
                     Holograms.TextHologram hologram = Holograms.addTextHologram(LocationUtility.moveUp(hit.getLocation(), 1), mess);
                     new BukkitRunnable() {
                         @Override
@@ -194,7 +196,7 @@ public class EntityManager implements Listener {
                             hologram.disable();
                         }
                     }.runTaskLaterAsynchronously(pl, 30);
-                    if(!Health.inCombat(p)) {
+                    if (!Health.inCombat(p)) {
                         p.sendMessage(ChatColor.RED.toString() + ChatColor.BOLD + "Entering combat.");
                     }
                     Health.combat.put(p.getName(), 16);
@@ -202,7 +204,7 @@ public class EntityManager implements Listener {
             }
             if (hit instanceof Player) {
                 Player p = (Player) hit;
-                if(!Health.inCombat(p)) {
+                if (!Health.inCombat(p)) {
                     p.sendMessage(ChatColor.RED.toString() + ChatColor.BOLD + "Entering combat.");
                 }
                 Health.combat.put(p.getName(), 16);

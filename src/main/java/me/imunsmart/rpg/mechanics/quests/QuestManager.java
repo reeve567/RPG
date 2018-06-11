@@ -5,6 +5,7 @@ import me.imunsmart.rpg.mechanics.Stats;
 import me.imunsmart.rpg.mechanics.quests.questList.farmerbill.FarmerBillsPumpkinProblem;
 import me.imunsmart.rpg.mechanics.quests.questList.farmerbill.MelonTending;
 import me.imunsmart.rpg.mechanics.quests.questList.kingduncan.AMineFullOfMonsters;
+import me.imunsmart.rpg.mechanics.quests.questList.pyrotechnic.ContestingTheFlameOfTruth;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.BlockState;
@@ -38,12 +39,10 @@ public class QuestManager {
 
     public static boolean doingQuest(Player p, Quest q) {
         if(!playerProgress.containsKey(p.getName())) return false;
-        System.out.println(q);
         return playerProgress.get(p.getName()).getQuest().getName().equals(q.getName());
     }
 
     public static void loadProgress(Player p) {
-        System.out.println(p.getName());
         Quest q = getQuest(Stats.getString(p, "current-quest.name"));
         int flag = Stats.getInt(p, "current-quest.progress");
         if(q != null) {
@@ -55,6 +54,7 @@ public class QuestManager {
         quests.add(new MelonTending(pl));
         quests.add(new FarmerBillsPumpkinProblem(pl));
         quests.add(new AMineFullOfMonsters(pl));
+        quests.add(new ContestingTheFlameOfTruth(pl));
     }
 
     public static void disable() {

@@ -18,8 +18,11 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Health {
 
@@ -40,7 +43,7 @@ public class Health {
             ItemStack it = pi.getArmorContents()[i];
             if (it != null) {
                 if (it.hasItemMeta()) {
-                    regen += getAttributeI(it, "Regen");
+                    regen += getAttribute(it, "Regen");
                 }
             }
         }
@@ -57,7 +60,7 @@ public class Health {
                 } else {
                     if (it.getType() == Material.SKULL_ITEM)
                         continue;
-                    maxhp += getAttributeI(it, "Health");
+                    maxhp += getAttribute(it, "Health");
                 }
             }
         }
@@ -90,16 +93,18 @@ public class Health {
         }
     }
 
-    public static int getAttributeI(ItemStack i, String name) {
+    public static int getAttribute(ItemStack i, String name) {
         if (!hasAttribute(i, name)) {
             return 0;
         } else {
             for (String s : i.getItemMeta().getLore()) {
                 String line = ChatColor.stripColor(s);
                 if (line.split(":")[0].equalsIgnoreCase(name)) {
-                    String val = line.split(" ")[1];
+                    String val = line.split(" ")[line.split(" ").length - 1];
                     if (val.contains("+"))
                         val = val.substring(1);
+                    if(val.contains("%"))
+                        val = val.substring(0, val.length() - 1);
                     if (val.contains("-")) {
                         int min = Integer.parseInt(val.split("-")[0]);
                         return (min + (int) Math.round(Math.random() * (Integer.parseInt(val.split("-")[1]) - min)));
@@ -111,21 +116,27 @@ public class Health {
         return 0;
     }
 
-    public static double getAttributeP(ItemStack i, String name) {
-        if (!hasAttribute(i, name)) {
-            return 0;
-        } else {
-            for (String s : i.getItemMeta().getLore()) {
-                String line = ChatColor.stripColor(s);
-                if (line.split(":")[0].equalsIgnoreCase(name)) {
-                    String val = s.split(" ")[1];
-                    if (val.contains("%"))
-                        val = val.replaceAll("%", "");
-                    return Double.parseDouble(val) / 100.0d;
-                }
+    public static ItemStack setAttribute(ItemStack item, String name, String value) {
+        int pos = getAttributePos(item, name);
+        if(pos == -1)
+            return item;
+        ItemMeta im = item.getItemMeta();
+        List<String> lore = im.getLore();
+        lore.set(pos, ChatColor.RED + name + ": " + value);
+        im.setLore(lore);
+        return item;
+    }
+
+    public static List<String> getAttributes(ItemStack item) {
+        List<String> att = new ArrayList<>();
+        if(!item.hasItemMeta() && item.getItemMeta().hasLore())
+            return att;
+        for(String s : item.getItemMeta().getLore()) {
+            if(s.contains(":")) {
+                att.add(ChatColor.stripColor(s.split(":")[0]));
             }
         }
-        return 0;
+        return att;
     }
 
     public static boolean hasAttribute(ItemStack i, String name) {
@@ -140,6 +151,20 @@ public class Health {
                 return true;
         }
         return false;
+    }
+
+    public static int getAttributePos(ItemStack i, String name) {
+        if (i == null)
+            return -1;
+        if (!i.hasItemMeta() || !i.getItemMeta().hasLore()) {
+            return -1;
+        }
+        for (int j = 0; j < i.getItemMeta().getLore().size(); j++) {
+            String l = ChatColor.stripColor(i.getItemMeta().getLore().get(j));
+            if (l.split(":")[0].equalsIgnoreCase(name))
+                return j;
+        }
+        return -1;
     }
 
     public static void heal(Player p, int i) {

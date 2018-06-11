@@ -14,6 +14,11 @@ public class GiveItem {
                 tp.getInventory().addItem(Items.createPotion(tier));
                 p.sendMessage(ChatColor.GREEN + "Item created successfully.");
             }
+            if (args[0].equalsIgnoreCase("enchant")) {
+                int tier = Integer.parseInt(args[1]);
+                tp.getInventory().addItem(Items.createEnchant(tier));
+                p.sendMessage(ChatColor.GREEN + "Item created successfully.");
+            }
         } else if (args.length == 3) {
             if (args[0].equalsIgnoreCase("scroll")) {
                 tp.getInventory().addItem(Items.createTeleportScroll(Integer.parseInt(args[2]), args[1], 5));

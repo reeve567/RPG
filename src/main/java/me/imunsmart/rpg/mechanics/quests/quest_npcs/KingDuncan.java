@@ -31,7 +31,7 @@ public class KingDuncan extends NPCS.QuestGiver {
     private static int index = -1;
 
     public KingDuncan(Location location) {
-        super(location, Villager.Profession.PRIEST, "§bKing Duncan", strings);
+        super(location, Villager.Profession.PRIEST, name, strings);
         quests.add("A Mine Full of Monsters");
     }
 

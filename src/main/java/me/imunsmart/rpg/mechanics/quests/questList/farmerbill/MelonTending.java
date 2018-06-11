@@ -5,10 +5,14 @@ import me.imunsmart.rpg.mechanics.Items;
 import me.imunsmart.rpg.mechanics.Stats;
 import me.imunsmart.rpg.mechanics.quests.Quest;
 import me.imunsmart.rpg.mechanics.quests.QuestManager;
+import me.imunsmart.rpg.mobs.EntityManager;
+import me.imunsmart.rpg.mobs.Mob;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
@@ -38,12 +42,34 @@ public class MelonTending extends Quest {
     @EventHandler
     public void onBreak(BlockBreakEvent e) {
         Player p = e.getPlayer();
-        System.out.println(1);
         if(e.getBlock().getType() == Material.MELON_BLOCK) {
             if (QuestManager.doingQuest(p, this)) {
                 QuestManager.update.add(e.getBlock().getState());
                 e.getBlock().setType(Material.AIR);
                 p.getInventory().addItem(melon);
+                if(Math.random() < 0.2) {
+                    Location l = e.getBlock().getLocation();
+                    Mob m = EntityManager.customMob(p.getWorld().spawn(e.getBlock().getLocation(), Zombie.class), ChatColor.AQUA + "Melon Felon", 1, "axe", 1, 3, "Critical:10%",
+                            0, 0, 0, 0, "", "", "", "", "ImUnsmart");
+                    m.getMob().getEquipment().setHelmet(new ItemStack(Material.MELON_BLOCK));
+                    ((Zombie) m.getMob()).setBaby(true);
+                    m.invalidateDrop(true, true, true, true, false);
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            if(!EntityManager.mobs.containsKey(m.getMob().getUniqueId())) {
+                                cancel();
+                                return;
+                            }
+                            if(!p.isOnline() || l.distanceSquared(p.getLocation()) >= (40 * 40)) {
+                                m.getMob().remove();
+                                EntityManager.mobs.remove(m.getMob().getUniqueId());
+                                cancel();
+                                return;
+                            }
+                        }
+                    }.runTaskTimer(EntityManager.pl, 0, 20);
+                }
                 new BukkitRunnable() {
                     @Override
                     public void run() {

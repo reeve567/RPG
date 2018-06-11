@@ -15,6 +15,12 @@ public class GiveWeapon {
                 p.getInventory().addItem(Items.getRandomWeapon(tier, type));
                 p.updateInventory();
                 p.sendMessage(ChatColor.GREEN + "Item created.");
+            } else if (args[0].equalsIgnoreCase("god")) {
+                String type = args[1];
+                int tier = Integer.parseInt(args[2]);
+                p.getInventory().addItem(Items.createWeapon(type, tier, 1000, 1000, "Critical:100%"));
+                p.updateInventory();
+                p.sendMessage(ChatColor.GREEN + "Item created.");
             } else {
                 String type = args[0].toLowerCase();
                 int tier = Integer.parseInt(args[1]);

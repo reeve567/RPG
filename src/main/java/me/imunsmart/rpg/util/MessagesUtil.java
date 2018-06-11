@@ -16,6 +16,8 @@ public class MessagesUtil {
     public static final String flyToggle = prefix('b') + "You have toggled flight.";
     public static final String inCombat = prefix('c') + "You cannot do that while in combat.";
 
+    public static final String failedEnchant = prefix('c') + "§cDue to a failure during enchantment, the item has vanished.";
+
     //just for copy-paste use
     private static final char colorChar = '§';
 

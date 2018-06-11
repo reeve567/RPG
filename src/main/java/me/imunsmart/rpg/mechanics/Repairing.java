@@ -1,7 +1,7 @@
 package me.imunsmart.rpg.mechanics;
 
 import me.imunsmart.rpg.Main;
-import me.imunsmart.rpg.mechanics.gui.RepairMenu;
+import me.imunsmart.rpg.mechanics.gui.ItemMenu;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Effect;
@@ -65,8 +65,8 @@ public class Repairing implements Listener {
         Player p = e.getPlayer();
         if (Util.validClick(e)) {
             if (e.getItem().hasItemMeta()) {
-                if (e.getItem().getItemMeta().getDisplayName().contains("Scrap")) {
-                    RepairMenu.open(p);
+                if (e.getItem().getItemMeta().getDisplayName().contains("Scrap") || e.getItem().getItemMeta().getDisplayName().contains("Enchant")) {
+                    ItemMenu.open(p);
                     return;
                 }
             }

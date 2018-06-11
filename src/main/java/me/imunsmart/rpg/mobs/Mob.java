@@ -6,7 +6,6 @@ import me.imunsmart.rpg.mechanics.Health;
 import me.imunsmart.rpg.mechanics.Items;
 import me.imunsmart.rpg.mechanics.Stats;
 import me.imunsmart.rpg.mechanics.quests.QuestEvents;
-import me.imunsmart.rpg.mechanics.quests.QuestManager;
 import me.imunsmart.rpg.util.StringUtility;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
@@ -88,7 +87,7 @@ public class Mob {
         skull.setItemMeta(sm);
         getMob().getEquipment().setHelmet(skull);
 
-        maxHP = health = Health.calculateMaxHealth(getMob()) + Health.getAttributeI(b, "Health");
+        maxHP = health = Health.calculateMaxHealth(getMob()) + Health.getAttribute(b, "Health");
         getMob().setCustomName(name);
         getMob().setCustomNameVisible(true);
         getMob().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(getMob().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue() * (4.0 / 3.0));
@@ -166,7 +165,7 @@ public class Mob {
             skull.setItemMeta(sm);
             getMob().getEquipment().setHelmet(skull);
         }
-        maxHP = health = Health.calculateMaxHealth(getMob()) + Health.getAttributeI(b, "Health");
+        maxHP = health = Health.calculateMaxHealth(getMob()) + Health.getAttribute(b, "Health");
         getMob().setCustomName(name);
         getMob().setCustomNameVisible(true);
         getMob().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(getMob().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue() * (4.0 / 3.0));
@@ -264,5 +263,20 @@ public class Mob {
     
     public void addDrop(ItemStack i, double rate) {
         alts.put(i, rate);
+    }
+
+    public void invalidateDrop(boolean helmet, boolean chestplate, boolean leggings, boolean boots, boolean weapon) {
+        if(drop == null)
+            return;
+        if(drop.getType().name().contains("HELMET") && helmet)
+            drop = null;
+        if(drop.getType().name().contains("CHESTPLATE") && chestplate)
+            drop = null;
+        if(drop.getType().name().contains("LEGGINGS") && leggings)
+            drop = null;
+        if(drop.getType().name().contains("BOOTS") && boots)
+            drop = null;
+        if(drop.getType().name().contains("WEAPON") && weapon)
+            drop = null;
     }
 }

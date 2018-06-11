@@ -158,6 +158,7 @@ public class LootChests implements Listener {
                 int i = (int) (Math.random() * c.getBlockInventory().getSize());
                 ItemStack[] items = {
                         Items.createPotion(tier),
+                        Items.createEnchant(tier),
                         Items.createTeleportScroll(1, Util.tpNames[(int) (Math.random() * Util.tpNames.length)], 5),
                 };
                 if(Math.random() < 0.5) {
@@ -170,7 +171,7 @@ public class LootChests implements Listener {
                     }else if (perc >= 0.89) {
                         c.getBlockInventory().setItem(i, Items.getRandomItem(tier));
                         added++;
-                    } else if (perc >= 0.85) {
+                    } else if (perc >= 0.86) {
                         c.getBlockInventory().setItem(i, items[(int) (Math.random() * items.length)]);
                     }
                 }
