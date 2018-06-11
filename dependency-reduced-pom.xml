@@ -5,7 +5,7 @@
   <artifactId>RPG</artifactId>
   <version>RELEASE</version>
   <build>
-    <directory>C:\Users\User\Desktop\Minecraft\BukkitDev\plugins</directory>
+    <directory>${pom.basedir}/out</directory>
     <finalName>RPG</finalName>
     <plugins>
       <plugin>

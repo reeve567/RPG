@@ -1,6 +1,6 @@
 package me.imunsmart.rpg.mechanics;
 
-import me.imunsmart.rpg.events.NPCClickEvent;
+import me.imunsmart.rpg.events.RPGNPCClickEvent;
 import me.imunsmart.rpg.mechanics.gui.BuyMenu;
 import me.imunsmart.rpg.mechanics.gui.GlobalMarket;
 import me.imunsmart.rpg.mechanics.quests.quest_npcs.FarmerBill;
@@ -59,7 +59,7 @@ public class NPCS implements Listener {
 			e.setCancelled(true);
 			for (NPC npc : npcs) {
 				if (npc.getEntity() != null && npc.getEntity() == entity) {
-					NPCClickEvent ev = new NPCClickEvent(e.getPlayer(), npc);
+					RPGNPCClickEvent ev = new RPGNPCClickEvent(e.getPlayer(), npc);
 					Bukkit.getPluginManager().callEvent(ev);
 				}
 			}
@@ -69,7 +69,7 @@ public class NPCS implements Listener {
 	}
 	
 	@EventHandler
-	public void onClick(NPCClickEvent e) {
+	public void onClick(RPGNPCClickEvent e) {
 		e.getNPC().onClick(e.getPlayer());
 	}
 	

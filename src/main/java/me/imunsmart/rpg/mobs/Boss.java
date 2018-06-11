@@ -68,16 +68,15 @@ public class Boss {
 			((Zombie) l).setBaby(false);
 		String type = Math.random() < 0.5 ? "Sword" : "Axe";
 		int mh = maxHelmet + (int) (Math.random() * varh);
-		int mc = maxHelmet + (int) (Math.random() * varc);
-		int ml = maxHelmet + (int) (Math.random() * varl);
-		int mb = maxHelmet + (int) (Math.random() * varb);
+		int mc = maxChestplate + (int) (Math.random() * varc);
+		int ml = maxLeggings + (int) (Math.random() * varl);
+		int mb = maxBoots + (int) (Math.random() * varb);
 		String t = Constants.randomWeaponFlag(tier, 1.3);
 		Mob m = EntityManager.customMob(getEntity(), name, tier, type, minDMG, maxDMG, t, mh, mc, ml, mb, Constants.randomArmorFlag(mh, tier, 1.3),
 				Constants.randomArmorFlag(mc, tier, 1.3), Constants.randomArmorFlag(ml, tier, 1.3), Constants.randomArmorFlag(mb, tier, 1.3), "ImUnsmart");
 		EntityManager.mobs.put(le, m);
-		if (postSpawn != null) {
+		if (postSpawn != null)
 			postSpawn.run();
-		}
 		return l;
 	}
 	
