@@ -3,6 +3,7 @@ package me.imunsmart.rpg.mobs;
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.*;
 import me.imunsmart.rpg.mechanics.quests.questList.farmerbill.FarmerBillsPumpkinProblem;
+import me.imunsmart.rpg.mobs.bosses.Pumpking;
 import me.imunsmart.rpg.util.LocationUtility;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
@@ -55,7 +56,8 @@ public class EntityManager implements Listener {
 	}
 	
 	private void init() {
-		pumpking = new Boss(new Location(Util.w, 11.5, 64.5, -55.5), Zombie.class, ChatColor.GOLD.toString() + ChatColor.BOLD + "Pumpking", 1, 30, 45,
+
+		pumpking = new Pumpking(new Location(Util.w, 11.5, 64.5, -55.5), Zombie.class, ChatColor.GOLD.toString() + ChatColor.BOLD + "Pumpking", 1, 30, 45,
 				20, 15, 8, 10, 5, 4, 5, 15, "The oppressive", new Runnable() {
 			@Override
 			public void run() {
@@ -152,15 +154,19 @@ public class EntityManager implements Listener {
 				}
 				if (Boss.isBoss(hit)) {
 					Mob mob = mobs.get(hit.getUniqueId());
-					String n = ChatColor.stripColor(mob.getName()).replaceAll(" ", "").trim();
-					try {
-						Class c = Class.forName("me.imunsmart.rpg.mobs.bosses." + n);
-						Method m = c.getDeclaredMethod("handleDamage", Mob.class);
-						m.setAccessible(true);
-						m.invoke(null, mob);
-					} catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException e1) {
-						e1.printStackTrace();
-					}
+
+					pumpking.handleDamage(mob);
+
+//					String n = ChatColor.stripColor(mob.getName()).replaceAll(" ", "").trim();
+//					try {
+//
+//						Class c = Class.forName("me.imunsmart.rpg.mobs.bosses." + n);
+//						Method m = c.getDeclaredMethod("handleDamage", Mob.class);
+//						m.setAccessible(true);
+//						m.invoke(null, mob);
+//					} catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException e1) {
+//						e1.printStackTrace();
+//					}
 					
 				}
 			}

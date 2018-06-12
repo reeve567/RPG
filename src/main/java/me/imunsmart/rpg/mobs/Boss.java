@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Boss {
+public abstract class Boss {
 	
 	private static List<UUID> bosses = new ArrayList<>();
 	
@@ -27,6 +27,9 @@ public class Boss {
 	private Class<? extends LivingEntity> clazz;
 	private UUID le;
 	private Runnable postSpawn;
+
+	public abstract void handleDamage(Mob m);
+	abstract void reset(String name);
 	
 	public Boss(Location l, Class<? extends LivingEntity> clazz, String name, int tier, int maxHelmet, int maxChestplate, int maxLeggings, int maxBoots,
 	            int varh, int varc, int varl, int varb, int minDMG, int maxDMG, String deathMessage, Runnable postSpawn) {
@@ -34,7 +37,7 @@ public class Boss {
 		this.postSpawn = postSpawn;
 	}
 	
-	public Boss(Location l, Class<? extends LivingEntity> clazz, String name, int tier, int maxHelmet, int maxChestplate, int maxLeggings, int maxBoots,
+	private Boss(Location l, Class<? extends LivingEntity> clazz, String name, int tier, int maxHelmet, int maxChestplate, int maxLeggings, int maxBoots,
 	            int varh, int varc, int varl, int varb, int minDMG, int maxDMG, String deathMessage) {
 		this.l = l;
 		this.clazz = clazz;
@@ -61,7 +64,7 @@ public class Boss {
 		if (le != null)
 			bosses.remove(le);
 		le = Util.w.spawn(l, clazz).getUniqueId();
-		reset();
+		reset(name);
 		bosses.add(le);
 		LivingEntity l = getEntity();
 		if (l instanceof Zombie)
@@ -111,17 +114,4 @@ public class Boss {
 	public Mob getMob() {
 		return EntityManager.mobs.get(le);
 	}
-	
-	private void reset() {
-		String n = ChatColor.stripColor(name).replaceAll(" ", "").trim();
-		try {
-			Class c = Class.forName("me.imunsmart.rpg.mobs.bosses." + n);
-			Field f = c.getDeclaredField("flag");
-			f.setAccessible(true);
-			f.setInt(null, 0);
-		} catch (ClassNotFoundException | IllegalAccessException | NoSuchFieldException e1) {
-			e1.printStackTrace();
-		}
-	}
-	
 }

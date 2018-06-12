@@ -31,7 +31,7 @@ public class Bank implements Listener {
     private List<String> upgrade = new ArrayList<>();
     private Main pl;
 
-    public Bank(Main pl) {
+    public Bank(Main pl, String sdf) {
         this.pl = pl;
         Bukkit.getPluginManager().registerEvents(this, pl);
     }
