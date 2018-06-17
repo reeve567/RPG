@@ -56,12 +56,7 @@ public class EntityManager implements Listener {
 	
 	private void init() {
 		pumpking = new Boss(new Location(Util.w, 11.5, 64.5, -55.5), Zombie.class, ChatColor.GOLD.toString() + ChatColor.BOLD + "Pumpking", 1, 30, 45,
-				20, 15, 8, 10, 5, 4, 5, 15, "The oppressive", new Runnable() {
-			@Override
-			public void run() {
-				pumpking.getEntity().getEquipment().setHelmet(new ItemStack(Material.PUMPKIN));
-			}
-		});
+				20, 15, 8, 10, 5, 4, 5, 15, "The oppressive", () -> pumpking.getEntity().getEquipment().setHelmet(new ItemStack(Material.PUMPKIN)));
 		pumpking.init(pl);
 		pumpking.getMob().addDrop(FarmerBillsPumpkinProblem.pumpkin, 1);
 	}
