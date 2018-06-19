@@ -9,7 +9,6 @@ me\imunsmart\rpg\events\SignEvents.class
 me\imunsmart\rpg\mechanics\NPCS$NPC.class
 me\imunsmart\rpg\command\defaults\CreditsC.class
 me\imunsmart\rpg\mechanics\Holograms.class
-me\imunsmart\rpg\mobs\EntityManager$3.class
 me\imunsmart\rpg\mechanics\quests\quest_npcs\KingDuncan$1.class
 me\imunsmart\rpg\command\admins\rpg\give\LootChestC.class
 me\imunsmart\rpg\mechanics\Holograms$TextHologram.class

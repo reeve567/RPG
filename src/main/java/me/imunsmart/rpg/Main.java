@@ -51,28 +51,28 @@ public class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         QuestManager.disable();
-        DiscordBroadcaster.messages.add("Disabled QuestManager");
+        DiscordBroadcaster.instantBroadcast("Disabled QuestManager");
         Health.disable();
-        DiscordBroadcaster.messages.add("Ended Health task");
+        DiscordBroadcaster.instantBroadcast("Ended Health task");
         GemSpawners.disable();
-        DiscordBroadcaster.messages.add("Disabled GemSpawners");
+        DiscordBroadcaster.instantBroadcast("Disabled GemSpawners");
         EntityManager.pl = null;
         Spawners.disable();
-        DiscordBroadcaster.messages.add("Disabled MobSpawners");
+        DiscordBroadcaster.instantBroadcast("Disabled MobSpawners");
         LootChests.disable();
-        DiscordBroadcaster.messages.add("Disabled LootChests");
+        DiscordBroadcaster.instantBroadcast("Disabled LootChests");
         Holograms.disable();
-        DiscordBroadcaster.messages.add("Disabled Holograms");
+        DiscordBroadcaster.instantBroadcast("Disabled Holograms");
         NPCS.disable();
-        DiscordBroadcaster.messages.add("Disabled NPCS");
+        DiscordBroadcaster.instantBroadcast("Disabled NPCS");
         SellMenu.disable();
-        DiscordBroadcaster.messages.add("Disabled SellMenu");
+        DiscordBroadcaster.instantBroadcast("Disabled SellMenu");
         for (LivingEntity le : Util.w.getLivingEntities()) {
             if (!(le instanceof Player))
                 le.remove();
         }
-        DiscordBroadcaster.messages.add("Removed Entities");
-        DiscordBroadcaster.messages.add("Closing RPG1...");
+        DiscordBroadcaster.instantBroadcast("Removed Entities");
+        DiscordBroadcaster.instantBroadcast("Closing RPG1...");
     }
 
     @Override

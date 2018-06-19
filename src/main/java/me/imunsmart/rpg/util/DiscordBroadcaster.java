@@ -4,6 +4,7 @@ import com.mrpowergamerbr.temmiewebhook.DiscordMessage;
 import com.mrpowergamerbr.temmiewebhook.TemmieWebhook;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -15,7 +16,6 @@ public class DiscordBroadcaster extends BukkitRunnable {
 	private static final String info = "[INFO] ";
 	private static final String name = " [RPG1] ";
 	private static final TemmieWebhook temmie = new TemmieWebhook(webhook);
-	private static String date;
 	
 	public DiscordBroadcaster() {
 		messages.add("Started discordBroadcaster");
@@ -29,8 +29,8 @@ public class DiscordBroadcaster extends BukkitRunnable {
 	}
 	
 	public static void instantBroadcast(String message) {
-		Date dateS = new Date();
-		date = "[" + dateS.getHours() + ":" + dateS.getMinutes() + ":" + dateS.getSeconds() + "]";
+		SimpleDateFormat format = new SimpleDateFormat("'['MM/dd']' '['hh:mm:ss a']'");
+		String date = format.format(new Date());
 		DiscordMessage message1 = new DiscordMessage(title, info + date + name + message, icon);
 		temmie.sendMessage(message1);
 		message1 = null;

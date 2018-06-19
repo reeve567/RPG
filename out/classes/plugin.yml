@@ -1,7 +1,7 @@
 name: RPG
 author: ImUnsmart
 main: me.imunsmart.rpg.Main
-version: 1.0
+version: BETA
 commands:
   giveweapon:
     description: Give a weapon item.
