@@ -1,4 +1,5 @@
 me\imunsmart\rpg\mechanics\ItemNames.class
+me\imunsmart\rpg\command\admins\rpg\Warp$WarpLocation.class
 me\imunsmart\rpg\command\admins\gamemode\GMA.class
 me\imunsmart\rpg\mechanics\NPCS.class
 me\imunsmart\rpg\events\PlayerEvents$3.class
@@ -112,6 +113,7 @@ me\imunsmart\rpg\mechanics\classes\Class.class
 me\imunsmart\rpg\mechanics\gui\ItemMenu.class
 me\imunsmart\rpg\util\AutoBroadcaster$1.class
 me\imunsmart\rpg\util\Glow.class
+me\imunsmart\rpg\command\admins\rpg\Warp$1.class
 me\imunsmart\rpg\command\admins\rpg\give\GemSpawnerC.class
 me\imunsmart\rpg\mechanics\quests\questList\farmerbill\MelonTending$2.class
 me\imunsmart\rpg\mechanics\quests\QuestData.class

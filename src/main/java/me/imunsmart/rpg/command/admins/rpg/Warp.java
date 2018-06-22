@@ -10,7 +10,11 @@ import org.dynmap.markers.MarkerSet;
 
 public class Warp {
 	
-	private static WarpLocation[] warps = {new WarpLocation(getNew(819, 15, 817), "Reeve's Lake", "ReevesLake","")};
+	private static WarpLocation[] warps = {
+			new WarpLocation(getNew(819, 15, 817), "Reeve's Lake", "ReevesLake", "pearl"),
+			new WarpLocation(getNew(508, 45, 250), "Cave", "Cave", "skull"),
+			new WarpLocation(getNew(24, 15, 246), "Thief Hideaway", "ThiefsHideaway", "pearl")
+	};
 	
 	private static Location getNew(int x, int y, int z) {
 		return new Location(Util.w, x, y, z);
@@ -19,17 +23,25 @@ public class Warp {
 	public static void run(Player p, String[] args) {
 		if (args.length == 1) {
 			String name = args[0];
-			Location l = Util.getWarp(name);
-			if (l == null) {
+			
+			WarpLocation location = null;
+			
+			for ( WarpLocation wl : warps) {
+				if (wl.getLabelName().equalsIgnoreCase(name)) {
+					location = wl;
+				}
+			}
+			
+			if (location == null) {
 				p.sendMessage(ChatColor.RED + "Warp does not exist.");
 				return;
 			}
-			p.teleport(l);
-			p.sendMessage(ChatColor.GRAY + "You warped to: " + ChatColor.AQUA + name + ".");
+			location.teleport(p);
+			p.sendMessage(ChatColor.GRAY + "You warped to: " + ChatColor.AQUA + location.getDisplayName() + ".");
 		} else {
 			String all = "";
-			for (String s : Util.warpNames) {
-				all += s + ChatColor.GRAY + ", ";
+			for (WarpLocation s : warps) {
+				all += s.getDisplayName() + ChatColor.GRAY + ", ";
 			}
 			p.sendMessage(ChatColor.GRAY + "Warps: " + ChatColor.AQUA + all.substring(0, all.length() - 2).toLowerCase());
 		}
