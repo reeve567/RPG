@@ -28,8 +28,8 @@ public class Util {
     public static final int[] s_radi = {30, };
     public static final Location[] safeZones = {spawn};
 
-    public static final String[] warpNames = {"Spawn", "Credits"};
-    public static final Location[] warps = {spawn, new Location(Util.w, 10.5, 12, 182.5)};
+    public static final String[] warpNames = {"Spawn"};
+    public static final Location[] warps = {spawn};
 
     public static final String[] tpNames = {"Spawn"};
     public static final Location[] tp = {spawn};

@@ -64,6 +64,13 @@
 			<artifactId>TemmieWebhook</artifactId>
 			<version>-59de40c3b6-1</version>
 		</dependency>
+		<dependency>
+			<groupId>org.dynmap</groupId>
+			<artifactId>dynmap</artifactId>
+			<version>2.5</version>
+			<scope>system</scope>
+			<systemPath>${pom.basedir}/lib/dynmap-2.5.jar</systemPath>
+		</dependency>
 	</dependencies>
 
 </project>

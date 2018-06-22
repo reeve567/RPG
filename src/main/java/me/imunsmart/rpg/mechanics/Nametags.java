@@ -44,7 +44,7 @@ public class Nametags {
 	}
 	
 	public static void setupTesterTeam() {
-		setupTeam("testers", "§c§lTESTER §f", "TeddyBe", "flame8499", "matt2117");
+		setupTeam("testers", "§c§lTESTER §f", "Chasemantate", "flame8499", "matt2117");
 	}
 	
 	public static void init(Player p) {

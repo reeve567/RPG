@@ -16,6 +16,7 @@ public class Default implements CommandExecutor {
 	public Default(Main pl) {
 		this.pl = pl;
 		pl.getCommand("quests").setExecutor(this);
+		pl.getCommand("q").setExecutor(this);
 	}
 
 	@Override
@@ -25,7 +26,7 @@ public class Default implements CommandExecutor {
 			return true;
 		}
 		Player p = (Player) sender;
-		if (label.equalsIgnoreCase("quests")) {
+		if (label.equalsIgnoreCase("quests") || label.equalsIgnoreCase("q")) {
 			QuestLog.run(p);
 		}
 		return false;

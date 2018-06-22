@@ -2,6 +2,7 @@ name: RPG
 author: ImUnsmart
 main: me.imunsmart.rpg.Main
 version: BETA
+depend: [dynmap]
 commands:
   giveweapon:
     description: Give a weapon item.
@@ -35,11 +36,11 @@ commands:
   kick:
     description: Kick a player.
   ban:
-    description: BanManager a player.
+    description: Ban a player.
   ban-ip:
-    description: BanManager a player.
+    description: Ban an IP.
   tempban:
-    description: BanManager a player.
+    description: Ban a player temporarily.
   stats:
     description: Modify stats.
   inventory:
@@ -57,3 +58,4 @@ commands:
     description: Remove entities that shouldn't be there.
   quests:
     description: View a list of quests.
+    aliases: [q]

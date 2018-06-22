@@ -2,6 +2,7 @@ package me.imunsmart.rpg.events;
 
 import me.imunsmart.rpg.Main;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.block.BlockState;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,6 +12,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.entity.EntityInteractEvent;
 
 public class WorldEvents implements Listener {
 	private Main pl;
@@ -51,5 +53,11 @@ public class WorldEvents implements Listener {
 	public void onSpawn(CreatureSpawnEvent e) {
 		if (e.getSpawnReason() != SpawnReason.CUSTOM)
 			e.setCancelled(true);
+	}
+	
+	@EventHandler
+	public void onEntityInteract(EntityInteractEvent event) {
+		if (event.getBlock().getType() == Material.SOIL)
+			event.setCancelled(true);
 	}
 }
