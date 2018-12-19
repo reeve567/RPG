@@ -6,6 +6,7 @@ import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Sound;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -19,7 +20,7 @@ import java.util.UUID;
 
 public class Stats {
 	private static File dir;
-	
+
 	public Stats(Main pl) {
 		dir = new File(pl.getDataFolder() + "/players");
 		if (!pl.getDataFolder().exists())
@@ -28,7 +29,7 @@ public class Stats {
 			dir.mkdirs();
 	}
 
-	public static List<String> getCompletedQuests(OfflinePlayer p ) {
+	public static List<String> getCompletedQuests(OfflinePlayer p) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
 		if (!fc.contains("completed-quests")) return new ArrayList<String>();
@@ -41,7 +42,7 @@ public class Stats {
 		setStat(op, "completed-quests", cq);
 		setStat(op, "current-quest", null);
 	}
-	
+
 	public static void setStat(OfflinePlayer p, String id, Object o) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
@@ -52,6 +53,7 @@ public class Stats {
 			e.printStackTrace();
 		}
 	}
+
 	public static List<String> getList(OfflinePlayer p, String id) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
@@ -59,7 +61,7 @@ public class Stats {
 			return new ArrayList<>();
 		return fc.getStringList(id);
 	}
-	
+
 	public static void addXP(OfflinePlayer p, int xp) {
 		int x = getInt(p, "xp", 0);
 		x += xp;
@@ -73,7 +75,7 @@ public class Stats {
 			new ActionBar(ChatColor.YELLOW + "+" + xp + " XP " + ChatColor.GRAY + "[" + ChatColor.YELLOW + x + " / " + (int) (Util.neededXP(p)) + ChatColor.GRAY + "]").sendToPlayer(op);
 		}
 	}
-	
+
 	public static int getInt(OfflinePlayer p, String id, int df) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
@@ -83,7 +85,7 @@ public class Stats {
 		}
 		return fc.getInt(id);
 	}
-	
+
 	public static void levelUp(OfflinePlayer p) {
 		int l = getLevel(p) + 1;
 		addStat(p, "level", 1);
@@ -104,7 +106,7 @@ public class Stats {
 			}
 		}
 	}
-	
+
 	public static void addStat(OfflinePlayer p, String id, int i) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
@@ -115,15 +117,15 @@ public class Stats {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static int getLevel(OfflinePlayer p) {
 		return getInt(p, "level", 1);
 	}
-	
+
 	public static List<String> getQuestData(UUID id) {
 		return getList(id, "quests");
 	}
-	
+
 	public static List<String> getList(UUID p, String id) {
 		File f = new File(dir, p + ".yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
@@ -131,16 +133,16 @@ public class Stats {
 			return new ArrayList<>();
 		return fc.getStringList(id);
 	}
-	
+
 	public static boolean canWield(Player p, int tier) {
 		int level = getLevel(p);
 		return level >= Constants.LEVEL_REQ[tier - 1];
 	}
-	
+
 	public static boolean exists(OfflinePlayer p) {
 		return new File(dir, p.getUniqueId() + ".yml").exists();
 	}
-	
+
 	public static double getDouble(OfflinePlayer p, String id) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
@@ -148,7 +150,7 @@ public class Stats {
 			return 0.0;
 		return fc.getDouble(id);
 	}
-	
+
 	public static int getInt(OfflinePlayer p, String id) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
@@ -156,7 +158,7 @@ public class Stats {
 			return 0;
 		return fc.getInt(id);
 	}
-	
+
 	public static String getString(OfflinePlayer p, String id) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
@@ -164,11 +166,17 @@ public class Stats {
 			return "";
 		return fc.getString(id);
 	}
-	
+
+	public static ConfigurationSection getKey(OfflinePlayer p, String id) {
+		File f = new File(dir, p.getUniqueId() + ".yml");
+		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
+		return fc.getConfigurationSection(id);
+	}
+
 	public static void reset(OfflinePlayer p) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
 		if (f.exists())
 			f.delete();
 	}
-	
+
 }
