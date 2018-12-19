@@ -20,7 +20,10 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 public class Bank implements Listener {
     private static int[] upgradeCosts = {200, 500, 1000, 2500, 5000};
@@ -59,7 +62,7 @@ public class Bank implements Listener {
                         gems = 0;
                         break;
                     }
-                } else if (it.getType() == Material.MAP) {
+                } else if (it.getType() == Material.LEGACY_EMPTY_MAP) {
                     if (it.hasItemMeta() && it.getItemMeta().getDisplayName().contains("Bank Note")) {
                         int value = Integer.valueOf(ChatColor.stripColor(it.getItemMeta().getLore().get(0).split(" ")[1].trim()));
                         if (value > gems) {
@@ -91,7 +94,7 @@ public class Bank implements Listener {
                 ItemStack it = p.getInventory().getItem(i);
                 if (it.getType() == Material.DIAMOND) {
                     gems += p.getInventory().getItem(i).getAmount();
-                } else if (it.getType() == Material.MAP) {
+                } else if (it.getType() == Material.LEGACY_EMPTY_MAP) {
                     if (it.hasItemMeta() && it.getItemMeta().getDisplayName().contains("Bank Note")) {
                         gems += Integer.valueOf(ChatColor.stripColor(it.getItemMeta().getLore().get(0).split(" ")[1].trim())) * it.getAmount();
                     }
@@ -249,7 +252,7 @@ public class Bank implements Listener {
                 ItemStack it = p.getInventory().getItem(i);
                 if (it.getType() == Material.DIAMOND) {
                     p.getInventory().remove(it);
-                } else if (it.getType() == Material.MAP) {
+                } else if (it.getType() == Material.LEGACY_EMPTY_MAP) {
                     if (it.hasItemMeta() && it.getItemMeta().getDisplayName().contains("Bank Note")) {
                         p.getInventory().remove(it);
                     }
@@ -272,22 +275,18 @@ public class Bank implements Listener {
 
     public static void openBank(Player p) {
         int size = Stats.getInt(p, "bank.size", 1);
+        List<String> storage = Stats.getList(p.getUniqueId(), "bank.storage");
         int op = size * 9 + 9;
         if (size == 6)
             op = 54;
         Inventory inv = Bukkit.createInventory(null, op, ChatColor.GREEN + p.getName() + "'s Bank Storage");
-        int index = 0;
-        for (String s : Stats.getKey(p, "bank.storage").getKeys(false)) {
-            inv.setItem(index, Items.deserialize(Stats.getKey(p, "bank.storage." + s).getValues(true)));
-            index++;
-            if (index >= op) {
-                break;
-            }
+        for (int i = 0; i < storage.size(); i++) {
+            inv.setItem(i, Items.deserialize(storage.get(i)));
         }
         if (size < 6) {
             for (int i = 9; i > 0; i--) {
                 //TODO: CHECK COLOR
-                inv.setItem(inv.getSize() - i, Items.createItem(Material.GREEN_STAINED_GLASS_PANE, 1, ChatColor.GREEN + "Upgrade (Gems: " + upgradeCosts[size - 1] + ")", "Click to upgrade your bank."));
+                inv.setItem(inv.getSize() - i, Items.createItem(Material.GREEN_STAINED_GLASS_PANE, 1, 0, ChatColor.GREEN + "Upgrade (Gems: " + upgradeCosts[size - 1] + ")", "Click to upgrade your bank."));
             }
         }
         p.openInventory(inv);
@@ -297,9 +296,11 @@ public class Bank implements Listener {
     public void onClose(InventoryCloseEvent e) {
         Player p = (Player) e.getPlayer();
         if (e.getInventory().getTitle().equals(ChatColor.GREEN + p.getName() + "'s Bank Storage")) {
+            List<String> items = new ArrayList<>();
             for (int i = 0; i < e.getInventory().getSize() - 9; i++) {
-                Stats.setStat(p, "bank.storage." + String.valueOf(i), Items.serialize(e.getInventory().getItem(i)));
+                items.add(Items.serialize(e.getInventory().getItem(i)));
             }
+            Stats.setStat(p, "bank.storage", items);
         }
     }
 

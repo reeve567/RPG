@@ -1,5 +1,7 @@
 package me.imunsmart.rpg.mechanics;
 
+import com.mojang.datafixers.types.templates.Named;
+import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mobs.Constants;
 import me.imunsmart.rpg.util.CustomItem;
 import me.imunsmart.rpg.util.Glow;
@@ -9,6 +11,7 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -16,6 +19,8 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.*;
 
 public class Items {
@@ -151,12 +156,22 @@ public class Items {
 //        return "@i" + i.getType().name() + "@a" + i.getAmount() + "@d" + i.getDurability() + "@n" + i.getItemMeta().getDisplayName() + "@l" + lore + "@e" + enchants;
 //    }
 
-	public static Map<String, Object> serialize(ItemStack item) {
+	public static String serialize(ItemStack item) {
 		Map<String, Object> map = item.serialize();
-		return map;
+		return map.toString();
 	}
 
-	public static ItemStack deserialize(Map<String, Object> map) {
+	public static ItemStack deserialize(String item) {
+		Properties props = new Properties();
+		try {
+			props.load(new StringReader(item.substring(1, item.length() - 1).replace(", ", "\n")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		for (Map.Entry<Object, Object> e : props.entrySet()) {
+			map.put((String)e.getKey(), e.getValue());
+		}
 		return ItemStack.deserialize(map);
 	}
 
@@ -270,7 +285,7 @@ public class Items {
 		pm.setColor(Potions.colors[tier - 1]);
 		pm.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 		i.setItemMeta(pm);
-		i.addUnsafeEnchantment(new Glow(999), 1);
+		i.addUnsafeEnchantment(Enchantment.getByKey(Main.key), 1);
 		return i;
 	}
 

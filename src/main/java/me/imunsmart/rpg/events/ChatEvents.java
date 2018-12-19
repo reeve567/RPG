@@ -30,7 +30,7 @@ public class ChatEvents implements Listener {
 			String[] args = msg.split(" ");
 			if (args[0].equalsIgnoreCase("..si")) {
 				e.setCancelled(true);
-				p.sendMessage(Items.serialize(p.getInventory().getItemInMainHand()));
+				p.sendMessage(Items.serialize(p.getInventory().getItemInMainHand()).toString());
 			} else if (args[0].equalsIgnoreCase("..dsi")) {
 				e.setCancelled(true);
 				p.getInventory().addItem(Items.deserialize(Items.serialize(p.getInventory().getItemInMainHand())));
