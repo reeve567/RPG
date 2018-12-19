@@ -1,7 +1,9 @@
 package me.imunsmart.rpg.util;
 
+import me.imunsmart.rpg.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -22,7 +24,7 @@ public class CustomItem extends ItemStack {
 	
 	public CustomItem addGlow() {
 		ItemMeta meta = meta();
-		meta.addEnchant(new Glow(999), 1, true);
+		meta.addEnchant(Enchantment.getByKey(Main.key), 1, true);
 		setMeta(meta);
 		return this;
 	}
@@ -73,7 +75,7 @@ public class CustomItem extends ItemStack {
 	
 	public CustomItem removeGlow() {
 		ItemMeta meta = meta();
-		meta.removeEnchant(new Glow(999));
+		meta.removeEnchant(Enchantment.getByKey(Main.key));
 		setMeta(meta);
 		return this;
 	}

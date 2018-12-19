@@ -57,7 +57,7 @@ public class PyroTechnic extends NPCS.QuestGiver {
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        getLocation().getWorld().playEffect(getLocation(), Effect.EXPLOSION_HUGE, 0);
+                        getLocation().getWorld().playEffect(getLocation(), Effect.SMOKE, 0);
                         Sounds.play(player, Sound.ENTITY_GENERIC_EXPLODE, 0.67f);
                         Skeleton s = getLocation().getWorld().spawn(getLocation(), Skeleton.class);
                         Mob mob = EntityManager.customMob(s, ChatColor.RED + "PyroManiac", 3, "axe", 30, 90, "Fire Damage:+10,Rare",

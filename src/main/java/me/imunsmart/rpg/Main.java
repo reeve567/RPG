@@ -20,6 +20,7 @@ import me.imunsmart.rpg.util.DiscordBroadcaster;
 import me.imunsmart.rpg.util.Glow;
 import me.imunsmart.rpg.util.Util;
 import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -36,6 +37,7 @@ public class Main extends JavaPlugin {
 
 	public static Main main;
 	public MarkerAPI markerAPI;
+	public static NamespacedKey key;
 
 	@Override
 	public void onDisable() {
@@ -100,7 +102,8 @@ public class Main extends JavaPlugin {
 			e.printStackTrace();
 		}
 		try {
-			Glow glow = new Glow(999);
+			key = new NamespacedKey(this,"rpg_Glow");
+			Glow glow = new Glow(key);
 			Enchantment.registerEnchantment(glow);
 		} catch (IllegalArgumentException ignored) {
 		} catch (Exception e) {
