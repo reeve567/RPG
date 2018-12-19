@@ -24,6 +24,8 @@ import java.util.List;
 public class ItemMenu implements Listener {
     private Main pl;
 
+
+
     public ItemMenu(Main pl) {
         this.pl = pl;
         Bukkit.getPluginManager().registerEvents(this, pl);
@@ -37,7 +39,7 @@ public class ItemMenu implements Listener {
         inv.setItem(10, null);
         inv.setItem(12, null);
         inv.setItem(16, null);
-        inv.setItem(19, Items.createItem(Material.GREEN_STAINED_GLASS_PANE, 1, 13, ChatColor.GRAY + "Item to Repair"));
+        inv.setItem(19, Items.createItem(Material.GREEN_STAINED_GLASS_PANE, 1, 0, ChatColor.GRAY + "Item to Repair"));
         inv.setItem(21, Items.createItem(Material.RED_STAINED_GLASS_PANE, 1, 0, ChatColor.GRAY + "Scraps"));
         inv.setItem(25, Items.createItem(Material.LIGHT_BLUE_STAINED_GLASS_PANE, 1, 0, ChatColor.GRAY + "Modify"));
         p.openInventory(inv);
@@ -50,7 +52,7 @@ public class ItemMenu implements Listener {
         Player p = (Player) e.getWhoClicked();
         Inventory top = p.getOpenInventory().getTopInventory();
         if (top.getName().equals(ChatColor.DARK_AQUA + "Item Modification")) {
-            if (e.getCurrentItem().getType() == Material.STAINED_GLASS_PANE)
+            if (e.getCurrentItem().getType().toString().contains("STAINED_GLASS_PANE"))
                 e.setCancelled(true);
             if (e.getCurrentItem().hasItemMeta()) {
                 if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.GREEN + "Modify")) {
@@ -58,11 +60,18 @@ public class ItemMenu implements Listener {
                     ItemStack i = top.getItem(10);
                     if (i == null || top.getItem(12) == null)
                         return;
-                    if (top.getItem(12).getType() == Material.INK_SACK) {
-                        int dur = i.getDurability();
+
+
+                    //some scrap repair thing
+                    if (top.getItem(12).getItemMeta().getDisplayName().contains("scrap")) {
+
+
+                    	int dur = i.getDurability();
                         ItemStack scraps = top.getItem(12);
                         double rp = 0.03;
+
                         short data = scraps.getDurability();
+
                         if (data == 8)
                             rp = 0.04;
                         if (data == 7)
@@ -72,8 +81,8 @@ public class ItemMenu implements Listener {
                         if (data == 11)
                             rp = 0.15;
                         rp *= scraps.getAmount();
-                        if (scraps.getType() != Material.INK_SACK)
-                            rp = 0;
+
+
                         if (dur == 0) {
                             p.sendMessage(ChatColor.RED + "That item cannot be repaired.");
                             Sounds.play(p, Sound.ENTITY_ITEM_BREAK, 0.67f);
