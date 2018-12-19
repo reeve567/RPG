@@ -45,11 +45,11 @@ public class BuyMenu implements Listener {
     private void init() {
         buy = Bukkit.createInventory(null, 54, ChatColor.DARK_AQUA + "Buy");
         for (int i = 0; i < 9; i++) {
-            buy.setItem(i, Items.createItem(Material.STAINED_GLASS_PANE, 1, 15, ChatColor.GRAY + " "));
+            buy.setItem(i, Items.createItem(Material.BLACK_STAINED_GLASS_PANE, 1, 0, ChatColor.GRAY + " "));
         }
         buy.setItem(4, Items.createItem(Material.DIAMOND, 1, 0, ChatColor.AQUA + "Gem Shop", ChatColor.GRAY + "Buy items for gems.", ChatColor.GRAY + "Left click to purchase."));
         for (int i = 45; i < 54; i++) {
-            buy.setItem(i, Items.createItem(Material.STAINED_GLASS_PANE, 1, 15, ChatColor.GRAY + " "));
+            buy.setItem(i, Items.createItem(Material.BLACK_STAINED_GLASS_PANE, 1, 0, ChatColor.GRAY + " "));
         }
         ItemStack pick1 = Items.createPickaxe(1, 0, "");
         addItem(pick1, 100);
@@ -66,7 +66,7 @@ public class BuyMenu implements Listener {
 
         menu = Bukkit.createInventory(null, 27, ChatColor.DARK_GREEN + "Merchant");
         for (int i = 0; i < menu.getSize(); i++) {
-            menu.setItem(i, Items.createItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
+            menu.setItem(i, Items.createItem(Material.BLACK_STAINED_GLASS_PANE, 1, 0, " "));
         }
         menu.setItem(4, new CustomItem(new PlayerSkull("BoxMan01234")).setName(ChatColor.GREEN + "Merchant"));
         menu.setItem(12, Items.createItem(Material.EMERALD_BLOCK, 1, 0, ChatColor.GREEN + "Buy Items", "Click to purchase items."));

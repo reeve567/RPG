@@ -56,7 +56,7 @@ public class TeleportScrolls implements Listener {
                             p.teleport(Util.getTP(name));
 
                             p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20, 0));
-                            Sounds.play(p, Sound.ENTITY_ENDERMEN_TELEPORT, 0.67f);
+                            Sounds.play(p, Sound.ENTITY_ENDERMAN_TELEPORT, 0.67f);
                             cancel();
                             return;
                         }

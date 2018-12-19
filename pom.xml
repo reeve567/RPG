@@ -54,9 +54,9 @@
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot</artifactId>
-			<version>1.12.2-R0.1-SNAPSHOT</version>
+			<version>1.13.2-R0.1-SNAPSHOT</version>
 			<scope>system</scope>
-			<systemPath>${pom.basedir}/lib/spigot.jar</systemPath>
+			<systemPath>${pom.basedir}/lib/spigot-1.13.2.jar</systemPath>
 			<type>jar</type>
 		</dependency>
 		<dependency>

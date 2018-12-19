@@ -285,6 +285,7 @@ public class Bank implements Listener {
         }
         if (size < 6) {
             for (int i = 9; i > 0; i--) {
+                //TODO: CHECK COLOR
                 inv.setItem(inv.getSize() - i, Items.createItem(Material.STAINED_GLASS_PANE, 1, 13, ChatColor.GREEN + "Upgrade (Gems: " + upgradeCosts[size - 1] + ")", "Click to upgrade your bank."));
             }
         }

@@ -57,7 +57,7 @@ public class WorldEvents implements Listener {
 	
 	@EventHandler
 	public void onEntityInteract(EntityInteractEvent event) {
-		if (event.getBlock().getType() == Material.SOIL)
+		if (event.getBlock().getType() == Material.LEGACY_SOIL)
 			event.setCancelled(true);
 	}
 }

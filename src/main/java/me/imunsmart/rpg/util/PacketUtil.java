@@ -1,9 +1,9 @@
 package me.imunsmart.rpg.util;
 
-import net.minecraft.server.v1_12_R1.EntityPlayer;
-import net.minecraft.server.v1_12_R1.Packet;
-import net.minecraft.server.v1_12_R1.PacketPlayOutScoreboardTeam;
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
+import net.minecraft.server.v1_13_R2.EntityPlayer;
+import net.minecraft.server.v1_13_R2.Packet;
+import net.minecraft.server.v1_13_R2.PacketPlayOutScoreboardTeam;
+import org.bukkit.craftbukkit.v1_13_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Field;

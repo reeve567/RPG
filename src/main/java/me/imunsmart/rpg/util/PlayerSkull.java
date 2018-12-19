@@ -11,7 +11,7 @@ public class PlayerSkull extends CustomItem {
 	}
 	
 	public PlayerSkull(String s) {
-		super(Material.SKULL_ITEM);
+		super(Material.LEGACY_SKULL_ITEM);
 		setDurability(3);
 		SkullMeta meta = (SkullMeta) getItemMeta();
 		meta.setOwner(s);

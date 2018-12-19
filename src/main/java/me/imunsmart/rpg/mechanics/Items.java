@@ -6,12 +6,13 @@ import me.imunsmart.rpg.util.Glow;
 import me.imunsmart.rpg.util.StringUtility;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.v1_12_R1.NBTCompressedStreamTools;
-import net.minecraft.server.v1_12_R1.NBTTagCompound;
-import net.minecraft.server.v1_12_R1.NBTTagList;
+import net.minecraft.server.v1_13_R2.IMaterial;
+import net.minecraft.server.v1_13_R2.NBTCompressedStreamTools;
+import net.minecraft.server.v1_13_R2.NBTTagCompound;
+import net.minecraft.server.v1_13_R2.NBTTagList;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -150,7 +151,7 @@ public class Items {
         NBTTagList nbtTagListItems = new NBTTagList();
         NBTTagCompound nbtTagCompoundItem = new NBTTagCompound();
 
-        net.minecraft.server.v1_12_R1.ItemStack nmsItem = CraftItemStack.asNMSCopy(item);
+        net.minecraft.server.v1_13_R2.ItemStack nmsItem = CraftItemStack.asNMSCopy(item);
 
         nmsItem.save(nbtTagCompoundItem);
 
@@ -167,15 +168,18 @@ public class Items {
 
     public static ItemStack deserialize(String data) {
         ByteArrayInputStream inputStream = new ByteArrayInputStream(new BigInteger(data, 32).toByteArray());
-
+        //TODO: figure this shit out
         NBTTagCompound nbtTagCompoundRoot = null;
+        IMaterial m = null;
+
+
         try {
             nbtTagCompoundRoot = NBTCompressedStreamTools.a(new DataInputStream(inputStream));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        net.minecraft.server.v1_12_R1.ItemStack nmsItem = new net.minecraft.server.v1_12_R1.ItemStack(nbtTagCompoundRoot);
+        ItemStack nmsItem = new net.minecraft.server.v1_13_R2.ItemStack(nbtTagCompoundRoot);
         ItemStack item = (ItemStack) CraftItemStack.asBukkitCopy(nmsItem);
 
         return item;
@@ -278,7 +282,7 @@ public class Items {
     }
 
     public static ItemStack createGemNote(int amount) {
-        return Items.createItem(Material.EMPTY_MAP, 1, 0, ChatColor.AQUA + "Bank Note", "Value: " + amount);
+        return Items.createItem(Material.LEGACY_EMPTY_MAP, 1, 0, ChatColor.AQUA + "Bank Note", "Value: " + amount);
     }
 
     public static ItemStack createGems(int amount) {
@@ -339,16 +343,16 @@ public class Items {
     }
 
     public static ItemStack createScraps(int amount, int tier) {
-        int data = 14;
+        Material data = Material.ORANGE_DYE;
         if (tier == 2)
-            data = 8;
+            data = Material.GRAY_DYE;
         else if (tier == 3)
-            data = 7;
+            data = Material.LIGHT_GRAY_DYE;
         else if (tier == 4)
-            data = 12;
+            data = Material.LIGHT_BLUE_DYE;
         else if (tier == 5)
-            data = 11;
-        return createItem(Material.INK_SACK, amount, data, nameColor[tier - 1] + "Scrap", "Drag a stack onto armor", "to repair it.");
+            data = Material.DANDELION_YELLOW;
+        return createItem(data, amount, 0, nameColor[tier - 1] + "Scrap", "Drag a stack onto armor", "to repair it.");
     }
 
     private static String getName(String name, String[] flag, List<String> lore) {

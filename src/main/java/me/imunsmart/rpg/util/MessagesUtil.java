@@ -18,8 +18,8 @@ public class MessagesUtil {
 
     public static final String failedEnchant = prefix('c') + "§cDue to a failure during enchantment, the item has vanished.";
 
-    //just for copy-paste use
-    private static final char colorChar = '§';
+    // just for copy-paste use
+    // colorChar = '§';
 
     private static String prefix(char color) {
         return "§8(§" + color + "§li§8) §7»» ";

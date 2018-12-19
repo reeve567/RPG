@@ -69,7 +69,7 @@ public class GlobalMarket implements Listener {
 	public static void open(Player p) {
 		Inventory inv = Bukkit.createInventory(null, 27, ChatColor.DARK_GREEN + "Global Exchange");
 		for (int i = 0; i < inv.getSize(); i++) {
-			inv.setItem(i, Items.createItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
+			inv.setItem(i, Items.createItem(Material.BLACK_STAINED_GLASS_PANE, 1, 0, " "));
 		}
 		inv.setItem(4, new CustomItem(new PlayerSkull("0qt")).setName(ChatColor.DARK_GREEN + "Global Exchange"));
 		inv.setItem(12, Items.createItem(Material.EMERALD_BLOCK, 1, 0, ChatColor.GREEN + "Buy Items", "Click to purchase items", "on the market."));
@@ -88,11 +88,11 @@ public class GlobalMarket implements Listener {
 		}
 		int page = GlobalMarket.page.get(p.getName());
 		for (int i = 0; i < 9; i++) {
-			inv.setItem(i + 45, Items.createItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
+			inv.setItem(i + 45, Items.createItem(Material.BLACK_STAINED_GLASS_PANE, 1, 0, " "));
 		}
-		inv.setItem(45, Items.createItem(Material.CARPET, 1, 14, ChatColor.RED + "<- Prev"));
+		inv.setItem(45, Items.createItem(Material.RED_CARPET, 1, 0, ChatColor.RED + "<- Prev"));
 		inv.setItem(49, Items.createItem(Material.COMPASS, 1, 0, ChatColor.GRAY + "Page: " + (page + 1) + " / " + maxPages, "Click to return to page 1."));
-		inv.setItem(53, Items.createItem(Material.CARPET, 1, 13, ChatColor.DARK_GREEN + "Next ->"));
+		inv.setItem(53, Items.createItem(Material.GREEN_CARPET, 1, 0, ChatColor.DARK_GREEN + "Next ->"));
 		File f = new File(pl.getDataFolder(), "market.yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
 		List<String> items = fc.getStringList("items");

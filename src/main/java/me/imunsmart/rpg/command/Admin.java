@@ -19,32 +19,17 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Admin implements CommandExecutor {
-	private Main pl;
-	
+public class Admin extends ICommand {
+
 	public Admin(Main pl) {
-		this.pl = pl;
-		pl.getCommand("giveweapon").setExecutor(this);
-		pl.getCommand("givearmor").setExecutor(this);
-		pl.getCommand("givegems").setExecutor(this);
-		pl.getCommand("givescraps").setExecutor(this);
-		pl.getCommand("giveitem").setExecutor(this);
-		pl.getCommand("givetool").setExecutor(this);
-		pl.getCommand("spawnmob").setExecutor(this);
-		pl.getCommand("spawner").setExecutor(this);
-		pl.getCommand("gmc").setExecutor(this);
-		pl.getCommand("gms").setExecutor(this);
-		pl.getCommand("gmsp").setExecutor(this);
-		pl.getCommand("gma").setExecutor(this);
-		pl.getCommand("stats").setExecutor(this);
+		super(pl,
+				"giveweapon","givearmor","givegems","givescraps","giveitem","givetool","spawnmob","spawner","gmc",
+				"gms","gmsp","gma","stats","speed","givetools","warp","re"
+				);
 //		pl.getCommand("lootchest").setExecutor(this);
 //		pl.getCommand("lc").setExecutor(this);
-//        pl.getCommand("gemspawner").setExecutor(this);
-//        pl.getCommand("gs").setExecutor(this);
-		pl.getCommand("speed").setExecutor(this);
-		pl.getCommand("givetools").setExecutor(this);
-		pl.getCommand("warp").setExecutor(this);
-		pl.getCommand("re").setExecutor(this);
+//      pl.getCommand("gemspawner").setExecutor(this);
+//      pl.getCommand("gs").setExecutor(this);
 	}
 	
 	@Override
@@ -57,8 +42,7 @@ public class Admin implements CommandExecutor {
 			Kick.run(sender, args);
 			return true;
 		}
-		if (!(sender instanceof Player)) {
-			sender.sendMessage(ChatColor.RED + "You must be a player to do that.");
+		if (playerOnlyMessage(sender)) {
 			return true;
 		}
 		Player p = (Player) sender;

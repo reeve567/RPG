@@ -12,19 +12,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Moderator implements CommandExecutor {
-    private Main pl;
+public class Moderator extends ICommand {
 
     public Moderator(Main pl) {
-        this.pl = pl;
-        pl.getCommand("kick").setExecutor(this);
-        pl.getCommand("suicide").setExecutor(this);
-        pl.getCommand("inventory").setExecutor(this);
-        pl.getCommand("inv").setExecutor(this);
-        pl.getCommand("ban").setExecutor(this);
-        pl.getCommand("tempban").setExecutor(this);
-        pl.getCommand("ban-ip").setExecutor(this);
-        pl.getCommand("fly").setExecutor(this);
+        super(pl, "kick","suicide","inventory","ban","tempban","ban-ip","fly");
     }
 
     @Override
@@ -46,8 +37,7 @@ public class Moderator implements CommandExecutor {
             BanManager.runTempBan(sender, args);
             return false;
         }
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.RED + "You must be a player to do that.");
+        if (playerOnlyMessage(sender)) {
             return true;
         }
         Player p = (Player) sender;

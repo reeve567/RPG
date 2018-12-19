@@ -8,11 +8,10 @@ import me.imunsmart.rpg.mechanics.gui.GlobalMarket;
 import me.imunsmart.rpg.util.DiscordBroadcaster;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.v1_12_R1.PacketPlayInClientCommand;
-import net.minecraft.server.v1_12_R1.PacketPlayInClientCommand.EnumClientCommand;
+import net.minecraft.server.v1_13_R2.PacketPlayInClientCommand;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_13_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -48,7 +47,7 @@ public class PlayerEvents implements Listener {
 		Player p = e.getEntity();
 		e.setDeathMessage("");
 		e.setDroppedExp(0);
-		PacketPlayInClientCommand packet = new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN);
+		PacketPlayInClientCommand packet = new PacketPlayInClientCommand(PacketPlayInClientCommand.EnumClientCommand.PERFORM_RESPAWN);
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -161,7 +160,7 @@ public class PlayerEvents implements Listener {
 		Player p = e.getPlayer();
 		if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			if (e.getItem() != null) {
-				if (e.getItem().getType() == Material.EMPTY_MAP) {
+				if (e.getItem().getType() == Material.LEGACY_EMPTY_MAP) {
 					if (e.getItem().hasItemMeta())
 						e.setCancelled(true);
 					return;

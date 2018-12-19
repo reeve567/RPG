@@ -39,10 +39,10 @@ public class SellMenu implements Listener {
     public static void open(Player p) {
         Inventory inv = Bukkit.createInventory(null, 54, ChatColor.DARK_AQUA + "Sell");
         for (int i = 0; i < 9; i++) {
-            inv.setItem(i, Items.createItem(Material.STAINED_GLASS_PANE, 1, 15, ChatColor.GRAY + " "));
+            inv.setItem(i, Items.createItem(Material.BLACK_STAINED_GLASS_PANE, 1, 0, ChatColor.GRAY + " "));
         }
         for (int i = 45; i < 54; i++) {
-            inv.setItem(i, Items.createItem(Material.STAINED_GLASS_PANE, 1, 15, ChatColor.GRAY + " "));
+            inv.setItem(i, Items.createItem(Material.BLACK_STAINED_GLASS_PANE, 1, 0, ChatColor.GRAY + " "));
         }
         inv.setItem(49, Items.createItem(Material.DIAMOND, 1, 0, ChatColor.AQUA + "Click to Sell", ChatColor.GRAY + "Gem Value: " + ChatColor.AQUA + "0"));
         p.openInventory(inv);
@@ -64,7 +64,7 @@ public class SellMenu implements Listener {
                     else if (i.getType() == Material.REDSTONE) gems += i.getAmount() * 8;
                     else if (i.getType() == Material.GOLD_INGOT) gems += i.getAmount() * 10;
                 }
-                Material m = gems > 64 ? Material.EMPTY_MAP : Material.DIAMOND;
+                Material m = gems > 64 ? Material.LEGACY_EMPTY_MAP : Material.DIAMOND;
                 inv.setItem(49, Items.createItem(m, 1, 0, ChatColor.AQUA + "Click to Sell", ChatColor.GRAY + "Gem Value: " + ChatColor.AQUA + gems));
             }
         }.runTaskTimer(pl, 0, 1);
@@ -77,10 +77,10 @@ public class SellMenu implements Listener {
         Player p = (Player) e.getWhoClicked();
         Inventory top = p.getOpenInventory().getTopInventory();
         if (top.getName().equals(ChatColor.DARK_AQUA + "Sell")) {
-            if (e.getCurrentItem().getType() == Material.STAINED_GLASS_PANE)
+            if (e.getCurrentItem().getType() == Material.BLACK_STAINED_GLASS_PANE)
                 e.setCancelled(true);
             if (e.getCurrentItem().hasItemMeta()) {
-                if (e.getCurrentItem().getType() == Material.DIAMOND || e.getCurrentItem().getType() == Material.EMPTY_MAP) {
+                if (e.getCurrentItem().getType() == Material.DIAMOND || e.getCurrentItem().getType() == Material.LEGACY_EMPTY_MAP) {
                     if(e.getCurrentItem().getItemMeta().getDisplayName().contains("Click to Sell")) {
                         e.setCancelled(true);
                         int gems = Integer.parseInt(ChatColor.stripColor(e.getCurrentItem().getItemMeta().getLore().get(0).split(" ")[2]));

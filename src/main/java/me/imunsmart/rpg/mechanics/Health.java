@@ -58,7 +58,7 @@ public class Health {
                 if (!it.hasItemMeta()) {
                     e.getEquipment().getArmorContents()[i].setType(Material.AIR);
                 } else {
-                    if (it.getType() == Material.SKULL_ITEM)
+                    if (it.getType() == Material.LEGACY_SKULL_ITEM)
                         continue;
                     maxhp += getAttribute(it, "Health");
                 }
