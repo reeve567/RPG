@@ -25,14 +25,14 @@ public class AdminTools implements Listener {
 
     public static final ItemStack gemSpawner = new CustomItem(Material.DIAMOND_ORE).addGlow().setName("§b&lTier 1 Gem Spawner");
 
-    public static final ItemStack mobSpawner = new CustomItem(Material.MOB_SPAWNER).addGlow().setName("§b&lTier 1 Mob Spawner");
+    public static final ItemStack mobSpawner = new CustomItem(Material.SPAWNER).addGlow().setName("§b&lTier 1 Mob Spawner");
 
-    public static final ItemStack spawnerAmountTool = new CustomItem(Material.MONSTER_EGG).addGlow().setCustomAmount(1).setName("§a&lSpawner Amount Tool");
+    public static final ItemStack spawnerAmountTool = new CustomItem(Material.CREEPER_SPAWN_EGG).addGlow().setCustomAmount(1).setName("§a&lSpawner Amount Tool");
 
     public static final ItemStack[] spawnerTypeTool = {
-            new CustomItem(Material.SKULL_ITEM).addGlow().setDurability(2).setCustomAmount(1).setName("§a&lSpawner Type Tool").setLore(ChatColor.GRAY + "Type: " + ChatColor.AQUA + "Zombie"),
-            new CustomItem(Material.SKULL_ITEM).addGlow().setDurability(0).setCustomAmount(1).setName("§a&lSpawner Type Tool").setLore(ChatColor.GRAY + "Type: " + ChatColor.AQUA + "Skeleton"),
-            new CustomItem(Material.SKULL_ITEM).addGlow().setDurability(3).setCustomAmount(1).setName("§a&lSpawner Type Tool").setLore(ChatColor.GRAY + "Type: " + ChatColor.AQUA + "Spider"),
+            new CustomItem(Material.LEGACY_SKULL_ITEM).addGlow().setDurability(2).setCustomAmount(1).setName("§a&lSpawner Type Tool").setLore(ChatColor.GRAY + "Type: " + ChatColor.AQUA + "Zombie"),
+            new CustomItem(Material.LEGACY_SKULL_ITEM).addGlow().setDurability(0).setCustomAmount(1).setName("§a&lSpawner Type Tool").setLore(ChatColor.GRAY + "Type: " + ChatColor.AQUA + "Skeleton"),
+            new CustomItem(Material.LEGACY_SKULL_ITEM).addGlow().setDurability(3).setCustomAmount(1).setName("§a&lSpawner Type Tool").setLore(ChatColor.GRAY + "Type: " + ChatColor.AQUA + "Spider"),
     };
 
     @EventHandler
@@ -65,7 +65,7 @@ public class AdminTools implements Listener {
             if (e.getAction() == Action.RIGHT_CLICK_AIR)
                 a = -1;
             if (stack.hasItemMeta() && stack.getItemMeta().hasDisplayName()) {
-                if (stack.getType() == Material.MONSTER_EGG) {
+                if (stack.getType() == Material.CREEPER_SPAWN_EGG) {
                     e.setCancelled(true);
                     CustomItem item = new CustomItem(stack);
                     int amount = item.getAmount();
@@ -74,7 +74,7 @@ public class AdminTools implements Listener {
                     amount = Math.max(1, amount);
                     item.setCustomAmount(amount);
                     e.getPlayer().setItemInHand(item);
-                } else if (stack.getType() == Material.SKULL_ITEM) {
+                } else if (stack.getType() == Material.LEGACY_SKULL_ITEM) {
                     e.setCancelled(true);
                     for (int i = 0; i < spawnerTypeTool.length; i++) {
                         if (e.getItem().getItemMeta().getLore().equals(spawnerTypeTool[i].getItemMeta().getLore())) {
@@ -88,7 +88,7 @@ public class AdminTools implements Listener {
                     }
                 } else if (stack.getItemMeta().getDisplayName().startsWith("§b§lTier ")) {
                     int tier = Integer.parseInt(stack.getItemMeta().getDisplayName().substring(9, 10));
-                    if (stack.getType() == Material.MOB_SPAWNER) {
+                    if (stack.getType() == Material.SPAWNER) {
                         e.setCancelled(true);
                         tier += a;
                         tier = Math.min(5, tier);
@@ -130,9 +130,9 @@ public class AdminTools implements Listener {
                         GemSpawners.addSpawner(tier, e.getBlockPlaced().getLocation());
                         e.getPlayer().sendMessage(MessagesUtil.gemSpawnerCreated(tier));
                         break;
-                    case MOB_SPAWNER:
-                        if (e.getPlayer().getInventory().getItem(4).getType() != Material.MONSTER_EGG) return;
-                        if (e.getPlayer().getInventory().getItem(5).getType() != Material.SKULL_ITEM) return;
+                    case SPAWNER:
+                        if (e.getPlayer().getInventory().getItem(4).getType() != Material.CREEPER_SPAWN_EGG) return;
+                        if (e.getPlayer().getInventory().getItem(5).getType() != Material.LEGACY_SKULL_ITEM) return;
                         int amount = e.getPlayer().getInventory().getItem(4).getAmount();
                         String type = ChatColor.stripColor(e.getPlayer().getInventory().getItem(5).getItemMeta().getLore().get(0)).split(" ")[1].toLowerCase();
                         Spawners.setSpawn(e.getBlockPlaced().getLocation(), tier, amount, type);
