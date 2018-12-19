@@ -24,7 +24,9 @@ import java.util.List;
 public class ItemMenu implements Listener {
     private Main pl;
 
-
+    private static final int TO_REPAIR_SLOT = 10;
+	private static final int SCRAP_SLOT = 12;
+	private static final int MODIFY_SLOT = 16;
 
     public ItemMenu(Main pl) {
         this.pl = pl;
@@ -36,9 +38,9 @@ public class ItemMenu implements Listener {
         for (int i = 0; i < inv.getSize(); i++) {
             inv.setItem(i, Items.createItem(Material.BLACK_STAINED_GLASS_PANE, 1, 0, ChatColor.GRAY + " "));
         }
-        inv.setItem(10, null);
-        inv.setItem(12, null);
-        inv.setItem(16, null);
+        inv.setItem(TO_REPAIR_SLOT, null);
+        inv.setItem(SCRAP_SLOT, null);
+        inv.setItem(MODIFY_SLOT, null);
         inv.setItem(19, Items.createItem(Material.GREEN_STAINED_GLASS_PANE, 1, 0, ChatColor.GRAY + "Item to Repair"));
         inv.setItem(21, Items.createItem(Material.RED_STAINED_GLASS_PANE, 1, 0, ChatColor.GRAY + "Scraps"));
         inv.setItem(25, Items.createItem(Material.LIGHT_BLUE_STAINED_GLASS_PANE, 1, 0, ChatColor.GRAY + "Modify"));
@@ -57,17 +59,17 @@ public class ItemMenu implements Listener {
             if (e.getCurrentItem().hasItemMeta()) {
                 if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.GREEN + "Modify")) {
                     e.setCancelled(true);
-                    ItemStack i = top.getItem(10);
-                    if (i == null || top.getItem(12) == null)
+                    ItemStack i = top.getItem(TO_REPAIR_SLOT);
+                    if (i == null || top.getItem(SCRAP_SLOT) == null)
                         return;
 
 
                     //some scrap repair thing
-                    if (top.getItem(12).getItemMeta().getDisplayName().contains("scrap")) {
+                    if (top.getItem(SCRAP_SLOT).getItemMeta().getDisplayName().contains("scrap")) {
 
 
                     	int dur = i.getDurability();
-                        ItemStack scraps = top.getItem(12);
+                        ItemStack scraps = top.getItem(SCRAP_SLOT);
                         double rp = 0.03;
 
                         short data = scraps.getDurability();
@@ -94,8 +96,8 @@ public class ItemMenu implements Listener {
                         p.getInventory().addItem(i);
                         e.getInventory().clear();
                         p.closeInventory();
-                    } else if (top.getItem(12).getType() == Material.PAPER && top.getItem(12).hasItemMeta()) {
-                        if (top.getItem(12).getItemMeta().getDisplayName().contains("Tier " + Items.getTier(i) + " Enchant")) {
+                    } else if (top.getItem(SCRAP_SLOT).getType() == Material.PAPER && top.getItem(SCRAP_SLOT).hasItemMeta()) {
+                        if (top.getItem(SCRAP_SLOT).getItemMeta().getDisplayName().contains("Tier " + Items.getTier(i) + " Enchant")) {
                             ItemMeta im = i.getItemMeta();
                             String name = im.getDisplayName();
                             int tier = 0;
@@ -159,11 +161,11 @@ public class ItemMenu implements Listener {
             }
             new BukkitRunnable() {
                 public void run() {
-                    ItemStack i = top.getItem(10);
-                    if (i != null && top.getItem(12) != null) {
-                        if (top.getItem(12).getType() == Material.INK_SACK) {
+                    ItemStack i = top.getItem(TO_REPAIR_SLOT);
+                    if (i != null && top.getItem(SCRAP_SLOT) != null) {
+                        if (top.getItem(SCRAP_SLOT).getItemMeta().getDisplayName().contains("scrap")) {
                             int dur = i.getDurability();
-                            ItemStack scraps = top.getItem(12);
+                            ItemStack scraps = top.getItem(SCRAP_SLOT);
                             double rp = 0.03;
                             short data = scraps.getDurability();
                             if (data == 8)
@@ -176,13 +178,13 @@ public class ItemMenu implements Listener {
                                 rp = 0.15;
                             rp *= scraps.getAmount();
                             top.setItem(16, Items.createItem(i.getType(), 1, (short) (dur - (int) (rp * i.getType().getMaxDurability())), ChatColor.GREEN + "Modify: " + i.getItemMeta().getDisplayName(), i.getItemMeta().getLore()));
-                        } else if (top.getItem(12).getType() == Material.PAPER && top.getItem(12).hasItemMeta()) {
-                            if (top.getItem(12).getItemMeta().getDisplayName().contains("Tier " + Items.getTier(i) + " Enchant")) {
+                        } else if (top.getItem(SCRAP_SLOT).getType() == Material.PAPER && top.getItem(SCRAP_SLOT).hasItemMeta()) {
+                            if (top.getItem(SCRAP_SLOT).getItemMeta().getDisplayName().contains("Tier " + Items.getTier(i) + " Enchant")) {
                                 top.setItem(16, Items.createItem(i.getType(), 1, i.getDurability(), ChatColor.GREEN + "Modify: " + i.getItemMeta().getDisplayName(), i.getItemMeta().getLore()));
-                                if (top.getItem(12).getAmount() > 1) {
-                                    int amount = top.getItem(12).getAmount() - 1;
-                                    top.getItem(12).setAmount(1);
-                                    ItemStack n = top.getItem(12).clone();
+                                if (top.getItem(SCRAP_SLOT).getAmount() > 1) {
+                                    int amount = top.getItem(SCRAP_SLOT).getAmount() - 1;
+                                    top.getItem(SCRAP_SLOT).setAmount(1);
+                                    ItemStack n = top.getItem(SCRAP_SLOT).clone();
                                     n.setAmount(amount);
                                     p.getInventory().addItem(n);
                                 }
@@ -202,11 +204,11 @@ public class ItemMenu implements Listener {
         Player p = (Player) e.getPlayer();
         Inventory top = p.getOpenInventory().getTopInventory();
         if (top.getName().equals(ChatColor.DARK_AQUA + "Item Modification")) {
-            if (top.getItem(10) != null) {
-                p.getInventory().addItem(top.getItem(10));
+            if (top.getItem(TO_REPAIR_SLOT) != null) {
+                p.getInventory().addItem(top.getItem(TO_REPAIR_SLOT));
             }
-            if (top.getItem(12) != null) {
-                p.getInventory().addItem(top.getItem(12));
+            if (top.getItem(SCRAP_SLOT) != null) {
+                p.getInventory().addItem(top.getItem(SCRAP_SLOT));
             }
         }
     }
