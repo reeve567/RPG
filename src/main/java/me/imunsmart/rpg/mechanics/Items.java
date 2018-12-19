@@ -6,13 +6,8 @@ import me.imunsmart.rpg.util.Glow;
 import me.imunsmart.rpg.util.StringUtility;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.v1_13_R2.IMaterial;
-import net.minecraft.server.v1_13_R2.NBTCompressedStreamTools;
-import net.minecraft.server.v1_13_R2.NBTTagCompound;
-import net.minecraft.server.v1_13_R2.NBTTagList;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -21,75 +16,87 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 
-import java.io.*;
-import java.math.BigInteger;
 import java.util.*;
 
 public class Items {
 
-    public static final ItemStack gem = createItem(Material.DIAMOND, 1, 0, ChatColor.AQUA + "Gem");
-    public static ChatColor[] nameColor = {ChatColor.GOLD, ChatColor.GRAY, ChatColor.WHITE, ChatColor.AQUA, ChatColor.YELLOW};
-    public static String[] tools = {"WOOD", "STONE", "IRON", "DIAMOND", "GOLD"};
-    public static String[] picks = {"Beginner's", "Novice's", "Professional", "Masterful", "Godly"};
-    public static String[] swords = {"Shortsword", "Longsword", "Greatsword", "Mystic Sword", "Godly Sword"};
-    public static String[] axes = {"Hatchet", "Tomohawk", "Great Axe", "Mystic Axe", "Godly Axe"};
-    public static String[] armor = {"LEATHER", "CHAINMAIL", "IRON", "DIAMOND", "GOLD"};
-    public static String[] armors = {"Old", "Rusted", "Great", "Mystic", "Godly"};
-    public static String[] types = {"axe", "sword", "helmet", "chestplate", "leggings", "boots"};
+	public static final ItemStack gem = createItem(Material.DIAMOND, 1, 0, ChatColor.AQUA + "Gem");
+	public static ChatColor[] nameColor = {ChatColor.GOLD, ChatColor.GRAY, ChatColor.WHITE, ChatColor.AQUA, ChatColor.YELLOW};
+	public static String[] tools = {"WOOD", "STONE", "IRON", "DIAMOND", "GOLD"};
+	public static String[] picks = {"Beginner's", "Novice's", "Professional", "Masterful", "Godly"};
+	public static String[] swords = {"Shortsword", "Longsword", "Greatsword", "Mystic Sword", "Godly Sword"};
+	public static String[] axes = {"Hatchet", "Tomohawk", "Great Axe", "Mystic Axe", "Godly Axe"};
+	public static String[] armor = {"LEATHER", "CHAINMAIL", "IRON", "DIAMOND", "GOLD"};
+	public static String[] armors = {"Old", "Rusted", "Great", "Mystic", "Godly"};
+	public static String[] types = {"axe", "sword", "helmet", "chestplate", "leggings", "boots"};
 
-    public static ItemStack createItem(Material m, int amount, int durability, String name, String... lore) {
-        ItemStack i = new ItemStack(m, amount, (short) durability);
-        ItemMeta im = i.getItemMeta();
-        im.setDisplayName(name);
-        List<String> s = new ArrayList<>();
-        for (String l : lore) {
-            s.add(ChatColor.GRAY + l);
-        }
-        im.setLore(s);
-        im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-        i.setItemMeta(im);
-        return i;
-    }
+	public static ItemStack createItem(Material m, int amount, int durability, String name, String... lore) {
+		ItemStack i = new ItemStack(m, amount, (short) durability);
+		ItemMeta im = i.getItemMeta();
+		im.setDisplayName(name);
+		List<String> s = new ArrayList<>();
+		for (String l : lore) {
+			s.add(ChatColor.GRAY + l);
+		}
+		im.setLore(s);
+		im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+		i.setItemMeta(im);
+		return i;
+	}
 
-    public static ItemStack createItem(Material m, int amount, int durability, String name, List<String> lore) {
-        ItemStack i = new ItemStack(m, amount, (short) durability);
-        ItemMeta im = i.getItemMeta();
-        im.setDisplayName(name);
-        List<String> s = new ArrayList<>();
-        for (String l : lore) {
-            s.add(ChatColor.RED + l);
-        }
-        im.setLore(s);
-        im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-        i.setItemMeta(im);
-        return i;
-    }
+	public static ItemStack createItem(Material m, int amount, String name, String... lore) {
+		ItemStack i = new ItemStack(m, amount);
+		ItemMeta im = i.getItemMeta();
+		im.setDisplayName(name);
+		List<String> s = new ArrayList<>();
+		for (String l : lore) {
+			s.add(ChatColor.GRAY + l);
+		}
+		im.setLore(s);
+		im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+		i.setItemMeta(im);
+		return i;
+	}
 
-    public static int getTier(ItemStack i) {
-        String name = i.getType().name();
-        if (name.contains("LEATHER") || name.contains("WOOD"))
-            return 1;
-        if (name.contains("CHAINMAIL") || name.contains("STONE"))
-            return 2;
-        else if (name.contains("IRON"))
-            return 3;
-        else if (name.contains("DIAMOND"))
-            return 4;
-        else if (name.contains("GOLD"))
-            return 5;
-        return 0;
-    }
+	public static ItemStack createItem(Material m, int amount, int durability, String name, List<String> lore) {
+		ItemStack i = new ItemStack(m, amount, (short) durability);
+		ItemMeta im = i.getItemMeta();
+		im.setDisplayName(name);
+		List<String> s = new ArrayList<>();
+		for (String l : lore) {
+			s.add(ChatColor.RED + l);
+		}
+		im.setLore(s);
+		im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+		i.setItemMeta(im);
+		return i;
+	}
 
-    public static ItemStack randomEnchant(ItemStack i) {
-        for (Enchantment e : Enchantment.values()) {
-            if (e.canEnchantItem(i)) {
-                if (Math.random() < 0.25) {
-                    i.addEnchantment(e, (int) (1 + Math.random() * (e.getMaxLevel() - 1)));
-                }
-            }
-        }
-        return i;
-    }
+	public static int getTier(ItemStack i) {
+		String name = i.getType().name();
+		if (name.contains("LEATHER") || name.contains("WOOD"))
+			return 1;
+		if (name.contains("CHAINMAIL") || name.contains("STONE"))
+			return 2;
+		else if (name.contains("IRON"))
+			return 3;
+		else if (name.contains("DIAMOND"))
+			return 4;
+		else if (name.contains("GOLD"))
+			return 5;
+		return 0;
+	}
+
+	public static ItemStack randomEnchant(ItemStack i) {
+		for (Enchantment e : Enchantment.values()) {
+			if (e.canEnchantItem(i)) {
+				if (Math.random() < 0.25) {
+					i.addEnchantment(e, (int) (1 + Math.random() * (e.getMaxLevel() - 1)));
+				}
+			}
+		}
+		return i;
+	}
 
 //    public static ItemStack deserialize(String s) {
 //        String[] tokens = s.split("@");
@@ -144,246 +151,214 @@ public class Items {
 //        return "@i" + i.getType().name() + "@a" + i.getAmount() + "@d" + i.getDurability() + "@n" + i.getItemMeta().getDisplayName() + "@l" + lore + "@e" + enchants;
 //    }
 
-    public static String serialize(ItemStack item) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        DataOutputStream dataOutput = new DataOutputStream(outputStream);
+	public static Map<String, Object> serialize(ItemStack item) {
+		Map<String, Object> map = item.serialize();
+		return map;
+	}
 
-        NBTTagList nbtTagListItems = new NBTTagList();
-        NBTTagCompound nbtTagCompoundItem = new NBTTagCompound();
+	public static ItemStack deserialize(Map<String, Object> map) {
+		return ItemStack.deserialize(map);
+	}
 
-        net.minecraft.server.v1_13_R2.ItemStack nmsItem = CraftItemStack.asNMSCopy(item);
+	public static void useItem(Player p) {
+		PlayerInventory pi = p.getInventory();
+		if (p.getGameMode() != GameMode.CREATIVE) {
+			if (pi.getItemInMainHand().getAmount() > 1) {
+				pi.getItemInMainHand().setAmount(pi.getItemInMainHand().getAmount() - 1);
+			} else {
+				pi.setItemInMainHand(null);
+			}
+			p.updateInventory();
+		}
+	}
 
-        nmsItem.save(nbtTagCompoundItem);
+	public static ItemStack getRandomItem(int tier) {
+		int r = (int) (Math.random() * types.length);
+		if (r <= 1) {
+			return Items.getRandomWeapon(tier, types[r]);
+		} else {
+			return Items.getRandomArmorPiece(tier, types[r]);
+		}
+	}
 
-        nbtTagListItems.add(nbtTagCompoundItem);
+	public static ItemStack getRandomWeapon(int tier, String type) {
+		String flag = Constants.randomWeaponFlag(tier);
+		int diff = Constants.getMaxDamage(tier) - Constants.getMinDamage(tier);
+		int m = (int) (Math.random() * diff);
+		int max = Constants.getMinDamage(tier) + m;
+		int min = Constants.getMinDamage(tier) + (int) (Math.random() * m);
+		if (max < min)
+			max = min;
+		if (flag.contains("uncommon")) {
+			min *= Constants.SCALE_UNC;
+			max *= Constants.SCALE_UNC;
+		}
+		if (flag.contains("rare")) {
+			min *= Constants.SCALE_RARE;
+			max *= Constants.SCALE_RARE;
+		}
+		return Items.randomDurability(Items.createWeapon(type, tier, min, max, flag));
+	}
 
-        try {
-            NBTCompressedStreamTools.a(nbtTagCompoundItem, (DataOutput) dataOutput);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+	public static ItemStack getRandomArmorPiece(int tier, String type) {
+		String s = type.substring(0, 1).toUpperCase();
+		int m = Constants.getMaxHealth(tier, s) / 2 + (int) (Math.random() * (Constants.getMaxHealth(tier, s) / 2));
+		String flag = Constants.randomArmorFlag(m, tier);
+		if (flag.contains("uncommon")) {
+			m *= Constants.SCALE_UNC;
+		}
+		if (flag.contains("rare")) {
+			m *= Constants.SCALE_RARE;
+		}
+		return Items.randomDurability(Items.createArmor(type, tier, m, flag));
+	}
 
-        return new BigInteger(1, outputStream.toByteArray()).toString(32);
-    }
+	public static ItemStack randomDurability(ItemStack i) {
+		int max = i.getType().getMaxDurability() - 1;
+		i.setDurability((short) ((max / 4) + Math.random() * (max - (max / 4))));
+		return i;
+	}
 
-    public static ItemStack deserialize(String data) {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(new BigInteger(data, 32).toByteArray());
-        //TODO: figure this shit out
-        NBTTagCompound nbtTagCompoundRoot = null;
-        IMaterial m = null;
+	public static ItemStack createWeapon(String type, int tier, int min, int max, String flags) {
+		Material m = Material.getMaterial(tools[tier - 1] + "_" + type.toUpperCase());
+		String[] names = type.equals("sword") ? swords : axes;
+		String name = nameColor[tier - 1] + names[tier - 1];
+		String[] flag = flags.split(",");
+		List<String> lore = new ArrayList<>();
+		lore.add("Damage: " + min + "-" + max);
+		name = getName(name, flag, lore);
+		return createItem(m, 1, 0, name, lore);
+	}
 
+	public static ItemStack createArmor(String type, int tier, int maxhp, String flags) {
+		Material m = Material.getMaterial(armor[tier - 1] + "_" + type.toUpperCase());
+		String[] flag = flags.split(",");
+		String name = nameColor[tier - 1] + armors[tier - 1] + " " + StringUtility.capitalize(type);
+		List<String> lore = new ArrayList<String>();
+		if (maxhp < 1)
+			maxhp++;
+		lore.add("Health: +" + maxhp);
+		name = getName(name, flag, lore);
+		return createItem(m, 1, 0, name, lore);
+	}
 
-        try {
-            nbtTagCompoundRoot = NBTCompressedStreamTools.a(new DataInputStream(inputStream));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+	public static ItemStack createPickaxe(int level, int durability, String flags) {
+		int tier = level / 20;
+		Material m = Material.getMaterial(tools[tier] + "_PICKAXE");
+		String name = nameColor[tier] + picks[tier] + " Pickaxe";
+		String[] flag = flags.split(",");
+		List<String> lore = new ArrayList<String>();
+		lore.add(ChatColor.GRAY + "Use often to level up.");
+		lore.add(" ");
+		lore.add(ChatColor.GRAY + "Level: " + ChatColor.AQUA + level);
+		lore.add(ChatColor.GRAY + "XP: " + ChatColor.AQUA + "0 / " + Util.pickXP(level));
+		name = getName(name, flag, lore);
+		return createItem(m, 1, durability, name, lore);
+	}
 
-        ItemStack nmsItem = new net.minecraft.server.v1_13_R2.ItemStack(nbtTagCompoundRoot);
-        ItemStack item = (ItemStack) CraftItemStack.asBukkitCopy(nmsItem);
+	public static ItemStack createGemNote(int amount) {
+		return Items.createItem(Material.LEGACY_EMPTY_MAP, 1, 0, ChatColor.AQUA + "Bank Note", "Value: " + amount);
+	}
 
-        return item;
-    }
+	public static ItemStack createGems(int amount) {
+		return createItem(Material.DIAMOND, amount, 0, ChatColor.AQUA + "Gem");
+	}
 
-    public static void useItem(Player p) {
-        PlayerInventory pi = p.getInventory();
-        if (p.getGameMode() != GameMode.CREATIVE) {
-            if (pi.getItemInMainHand().getAmount() > 1) {
-                pi.getItemInMainHand().setAmount(pi.getItemInMainHand().getAmount() - 1);
-            } else {
-                pi.setItemInMainHand(null);
-            }
-            p.updateInventory();
-        }
-    }
+	public static ItemStack createPotion(int tier) {
+		ItemStack i = Items.createItem(Material.POTION, 1, 0, Items.nameColor[tier - 1] + Potions.names[tier - 1] + " Potion of Healing", Arrays.asList("Restores: " + Potions.amounts[tier - 1]));
+		PotionMeta pm = (PotionMeta) i.getItemMeta();
+		pm.setColor(Potions.colors[tier - 1]);
+		pm.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+		i.setItemMeta(pm);
+		i.addUnsafeEnchantment(new Glow(999), 1);
+		return i;
+	}
 
-    public static ItemStack getRandomItem(int tier) {
-        int r = (int) (Math.random() * types.length);
-        if (r <= 1) {
-            return Items.getRandomWeapon(tier, types[r]);
-        } else {
-            return Items.getRandomArmorPiece(tier, types[r]);
-        }
-    }
+	public static ItemStack createTeleportScroll(int amount, String location, int delay) {
+		String name = ChatColor.GREEN + "Teleport: " + location;
+		String lore = ChatColor.GRAY + "Teleport delay: " + ChatColor.YELLOW + delay + ChatColor.GRAY + " seconds";
+		ItemStack stack = Items.createItem(Material.BOOK, amount, 0, name, lore);
+		stack.addUnsafeEnchantment(Enchantment.getByName("glow"), 1);
+		return stack;
+	}
 
-    public static ItemStack getRandomWeapon(int tier, String type) {
-        String flag = Constants.randomWeaponFlag(tier);
-        int diff = Constants.getMaxDamage(tier) - Constants.getMinDamage(tier);
-        int m = (int) (Math.random() * diff);
-        int max = Constants.getMinDamage(tier) + m;
-        int min = Constants.getMinDamage(tier) + (int) (Math.random() * m);
-        if (max < min)
-            max = min;
-        if (flag.contains("uncommon")) {
-            min *= Constants.SCALE_UNC;
-            max *= Constants.SCALE_UNC;
-        }
-        if (flag.contains("rare")) {
-            min *= Constants.SCALE_RARE;
-            max *= Constants.SCALE_RARE;
-        }
-        return Items.randomDurability(Items.createWeapon(type, tier, min, max, flag));
-    }
+	public static ItemStack createEnchant(int tier) {
+		String name = ChatColor.GREEN + "Tier " + tier + " Enchant";
+		ItemStack stack = Items.createItem(Material.PAPER, 1, 0, name, "Chance of failing if enchantment level", "is above 5.");
+		stack.addUnsafeEnchantment(Enchantment.getByName("glow"), 1);
+		return stack;
+	}
 
-    public static ItemStack getRandomArmorPiece(int tier, String type) {
-        String s = type.substring(0, 1).toUpperCase();
-        int m = Constants.getMaxHealth(tier, s) / 2 + (int) (Math.random() * (Constants.getMaxHealth(tier, s) / 2));
-        String flag = Constants.randomArmorFlag(m, tier);
-        if (flag.contains("uncommon")) {
-            m *= Constants.SCALE_UNC;
-        }
-        if (flag.contains("rare")) {
-            m *= Constants.SCALE_RARE;
-        }
-        return Items.randomDurability(Items.createArmor(type, tier, m, flag));
-    }
+	public static CustomItem createQuestInfo() {
+		return new CustomItem(Material.PAPER).setName("§aQuest Info").addGlow();
+	}
 
-    public static ItemStack randomDurability(ItemStack i) {
-        int max = i.getType().getMaxDurability() - 1;
-        i.setDurability((short) ((max / 4) + Math.random() * (max - (max / 4))));
-        return i;
-    }
+	public static void convertToScraps(Player p) {
+		ItemStack i = p.getInventory().getItemInMainHand();
+		String name = i.getType().name();
+		int amount = 2;
+		if (name.contains("CHESTPLATE")) {
+			amount = 4;
+		}
+		if (name.contains("LEGGINGS") || name.contains("AXE") || name.contains("SWORD")) {
+			amount = 3;
+		}
+		int tier = 1;
+		if (name.contains("CHAINMAIL") || name.contains("STONE"))
+			tier = 2;
+		else if (name.contains("IRON"))
+			tier = 3;
+		else if (name.contains("DIAMOND"))
+			tier = 4;
+		else if (name.contains("GOLD"))
+			tier = 5;
+		p.getInventory().addItem(createScraps(amount, tier));
+		p.getInventory().setItemInMainHand(null);
+		p.updateInventory();
+	}
 
-    public static ItemStack createWeapon(String type, int tier, int min, int max, String flags) {
-        Material m = Material.getMaterial(tools[tier - 1] + "_" + type.toUpperCase());
-        String[] names = type.equals("sword") ? swords : axes;
-        String name = nameColor[tier - 1] + names[tier - 1];
-        String[] flag = flags.split(",");
-        List<String> lore = new ArrayList<>();
-        lore.add("Damage: " + min + "-" + max);
-        name = getName(name, flag, lore);
-        return createItem(m, 1, 0, name, lore);
-    }
+	public static ItemStack createScraps(int amount, int tier) {
+		Material data = Material.ORANGE_DYE;
+		if (tier == 2)
+			data = Material.GRAY_DYE;
+		else if (tier == 3)
+			data = Material.LIGHT_GRAY_DYE;
+		else if (tier == 4)
+			data = Material.LIGHT_BLUE_DYE;
+		else if (tier == 5)
+			data = Material.DANDELION_YELLOW;
+		return createItem(data, amount, 0, nameColor[tier - 1] + "Scrap", "Drag a stack onto armor", "to repair it.");
+	}
 
-    public static ItemStack createArmor(String type, int tier, int maxhp, String flags) {
-        Material m = Material.getMaterial(armor[tier - 1] + "_" + type.toUpperCase());
-        String[] flag = flags.split(",");
-        String name = nameColor[tier - 1] + armors[tier - 1] + " " + StringUtility.capitalize(type);
-        List<String> lore = new ArrayList<String>();
-        if (maxhp < 1)
-            maxhp++;
-        lore.add("Health: +" + maxhp);
-        name = getName(name, flag, lore);
-        return createItem(m, 1, 0, name, lore);
-    }
+	private static String getName(String name, String[] flag, List<String> lore) {
+		if (flag.length > 0) {
+			for (String s : flag) {
+				if (s.contains(":")) {
+					if (s.contains("name")) {
+						name = StringUtility.colorConv(s.split(":")[1]);
+					} else
+						lore.add(s.split(":")[0] + ": " + s.split(":")[1]);
+				} else {
+					if (s.contains("uncommon")) {
+						lore.add(" ");
+						lore.add(ChatColor.YELLOW + "Uncommon");
+					} else if (s.contains("rare")) {
+						lore.add(" ");
+						lore.add(ChatColor.DARK_PURPLE + "Rare");
+					} else if (s.contains("exclusive")) {
+						lore.add(" ");
+						lore.add(ChatColor.AQUA.toString() + ChatColor.BOLD + "Exclusive");
+					} else
+						lore.add(s);
+				}
+			}
+		}
+		if (lore.get(lore.size() - 1).isEmpty())
+			lore.remove(lore.size() - 1);
+		return name;
+	}
 
-    public static ItemStack createPickaxe(int level, int durability, String flags) {
-        int tier = level / 20;
-        Material m = Material.getMaterial(tools[tier] + "_PICKAXE");
-        String name = nameColor[tier] + picks[tier] + " Pickaxe";
-        String[] flag = flags.split(",");
-        List<String> lore = new ArrayList<String>();
-        lore.add(ChatColor.GRAY + "Use often to level up.");
-        lore.add(" ");
-        lore.add(ChatColor.GRAY + "Level: " + ChatColor.AQUA + level);
-        lore.add(ChatColor.GRAY + "XP: " + ChatColor.AQUA + "0 / " + Util.pickXP(level));
-        name = getName(name, flag, lore);
-        return createItem(m, 1, durability, name, lore);
-    }
-
-    public static ItemStack createGemNote(int amount) {
-        return Items.createItem(Material.LEGACY_EMPTY_MAP, 1, 0, ChatColor.AQUA + "Bank Note", "Value: " + amount);
-    }
-
-    public static ItemStack createGems(int amount) {
-        return createItem(Material.DIAMOND, amount, 0, ChatColor.AQUA + "Gem");
-    }
-
-    public static ItemStack createPotion(int tier) {
-        ItemStack i = Items.createItem(Material.POTION, 1, 0, Items.nameColor[tier - 1] + Potions.names[tier - 1] + " Potion of Healing", Arrays.asList("Restores: " + Potions.amounts[tier - 1]));
-        PotionMeta pm = (PotionMeta) i.getItemMeta();
-        pm.setColor(Potions.colors[tier - 1]);
-        pm.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
-        i.setItemMeta(pm);
-        i.addUnsafeEnchantment(new Glow(999),1);
-        return i;
-    }
-
-    public static ItemStack createTeleportScroll(int amount, String location, int delay) {
-        String name = ChatColor.GREEN + "Teleport: " + location;
-        String lore = ChatColor.GRAY + "Teleport delay: " + ChatColor.YELLOW + delay + ChatColor.GRAY + " seconds";
-        ItemStack stack = Items.createItem(Material.BOOK, amount, 0, name, lore);
-        stack.addUnsafeEnchantment(Enchantment.getByName("glow"),1);
-        return stack;
-    }
-
-    public static ItemStack createEnchant(int tier) {
-        String name = ChatColor.GREEN + "Tier " + tier + " Enchant";
-        ItemStack stack = Items.createItem(Material.PAPER, 1, 0, name, "Chance of failing if enchantment level", "is above 5.");
-        stack.addUnsafeEnchantment(Enchantment.getByName("glow"),1);
-        return stack;
-    }
-
-    public static CustomItem createQuestInfo() {
-        return new CustomItem(Material.PAPER).setName("§aQuest Info").addGlow();
-    }
-
-    public static void convertToScraps(Player p) {
-        ItemStack i = p.getInventory().getItemInMainHand();
-        String name = i.getType().name();
-        int amount = 2;
-        if (name.contains("CHESTPLATE")) {
-            amount = 4;
-        }
-        if (name.contains("LEGGINGS") || name.contains("AXE") || name.contains("SWORD")) {
-            amount = 3;
-        }
-        int tier = 1;
-        if (name.contains("CHAINMAIL") || name.contains("STONE"))
-            tier = 2;
-        else if (name.contains("IRON"))
-            tier = 3;
-        else if (name.contains("DIAMOND"))
-            tier = 4;
-        else if (name.contains("GOLD"))
-            tier = 5;
-        p.getInventory().addItem(createScraps(amount, tier));
-        p.getInventory().setItemInMainHand(null);
-        p.updateInventory();
-    }
-
-    public static ItemStack createScraps(int amount, int tier) {
-        Material data = Material.ORANGE_DYE;
-        if (tier == 2)
-            data = Material.GRAY_DYE;
-        else if (tier == 3)
-            data = Material.LIGHT_GRAY_DYE;
-        else if (tier == 4)
-            data = Material.LIGHT_BLUE_DYE;
-        else if (tier == 5)
-            data = Material.DANDELION_YELLOW;
-        return createItem(data, amount, 0, nameColor[tier - 1] + "Scrap", "Drag a stack onto armor", "to repair it.");
-    }
-
-    private static String getName(String name, String[] flag, List<String> lore) {
-        if (flag.length > 0) {
-            for (String s : flag) {
-                if (s.contains(":")) {
-                    if (s.contains("name")) {
-                        name = StringUtility.colorConv(s.split(":")[1]);
-                    } else
-                        lore.add(s.split(":")[0] + ": " + s.split(":")[1]);
-                } else {
-                    if (s.contains("uncommon")) {
-                        lore.add(" ");
-                        lore.add(ChatColor.YELLOW + "Uncommon");
-                    } else if (s.contains("rare")) {
-                        lore.add(" ");
-                        lore.add(ChatColor.DARK_PURPLE + "Rare");
-                    } else if (s.contains("exclusive")) {
-                        lore.add(" ");
-                        lore.add(ChatColor.AQUA.toString() + ChatColor.BOLD + "Exclusive");
-                    } else
-                        lore.add(s);
-                }
-            }
-        }
-        if(lore.get(lore.size() - 1).isEmpty())
-            lore.remove(lore.size() - 1);
-        return name;
-    }
-
-    public static boolean isWeapon(ItemStack i) {
-        return i.getType().name().contains("AXE") || i.getType().name().contains("SWORD");
-    }
+	public static boolean isWeapon(ItemStack i) {
+		return i.getType().name().contains("AXE") || i.getType().name().contains("SWORD");
+	}
 }
