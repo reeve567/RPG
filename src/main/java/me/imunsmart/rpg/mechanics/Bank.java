@@ -62,7 +62,7 @@ public class Bank implements Listener {
                         gems = 0;
                         break;
                     }
-                } else if (it.getType() == Material.EMPTY_MAP) {
+                } else if (it.getType() == Material.LEGACY_EMPTY_MAP) {
                     if (it.hasItemMeta() && it.getItemMeta().getDisplayName().contains("Bank Note")) {
                         int value = Integer.valueOf(ChatColor.stripColor(it.getItemMeta().getLore().get(0).split(" ")[1].trim()));
                         if (value > gems) {
@@ -94,7 +94,7 @@ public class Bank implements Listener {
                 ItemStack it = p.getInventory().getItem(i);
                 if (it.getType() == Material.DIAMOND) {
                     gems += p.getInventory().getItem(i).getAmount();
-                } else if (it.getType() == Material.EMPTY_MAP) {
+                } else if (it.getType() == Material.LEGACY_EMPTY_MAP) {
                     if (it.hasItemMeta() && it.getItemMeta().getDisplayName().contains("Bank Note")) {
                         gems += Integer.valueOf(ChatColor.stripColor(it.getItemMeta().getLore().get(0).split(" ")[1].trim())) * it.getAmount();
                     }
@@ -252,7 +252,7 @@ public class Bank implements Listener {
                 ItemStack it = p.getInventory().getItem(i);
                 if (it.getType() == Material.DIAMOND) {
                     p.getInventory().remove(it);
-                } else if (it.getType() == Material.EMPTY_MAP) {
+                } else if (it.getType() == Material.LEGACY_EMPTY_MAP) {
                     if (it.hasItemMeta() && it.getItemMeta().getDisplayName().contains("Bank Note")) {
                         p.getInventory().remove(it);
                     }
@@ -286,7 +286,7 @@ public class Bank implements Listener {
         if (size < 6) {
             for (int i = 9; i > 0; i--) {
                 //TODO: CHECK COLOR
-                inv.setItem(inv.getSize() - i, Items.createItem(Material.STAINED_GLASS_PANE, 1, 13, ChatColor.GREEN + "Upgrade (Gems: " + upgradeCosts[size - 1] + ")", "Click to upgrade your bank."));
+                inv.setItem(inv.getSize() - i, Items.createItem(Material.GREEN_STAINED_GLASS_PANE, 1, 0, ChatColor.GREEN + "Upgrade (Gems: " + upgradeCosts[size - 1] + ")", "Click to upgrade your bank."));
             }
         }
         p.openInventory(inv);

@@ -15,20 +15,15 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityInteractEvent;
 
 public class WorldEvents implements Listener {
-	private Main pl;
-	
+
 	public WorldEvents(Main pl) {
-		this.pl = pl;
 	}
-	
-	@SuppressWarnings("deprecation")
+
 	@EventHandler
 	public void onBreak(BlockBreakEvent e) {
 		if (e.getPlayer().getGameMode() != GameMode.CREATIVE) {
 			e.setCancelled(true);
-			byte data = e.getBlock().getData();
 			BlockState bs = e.getBlock().getState();
-			e.getBlock().setData(data);
 			bs.update(true);
 		}
 	}

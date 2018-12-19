@@ -32,14 +32,14 @@ public class ItemMenu implements Listener {
     public static void open(Player p) {
         Inventory inv = Bukkit.createInventory(null, 27, ChatColor.DARK_AQUA + "Item Modification");
         for (int i = 0; i < inv.getSize(); i++) {
-            inv.setItem(i, Items.createItem(Material.STAINED_GLASS_PANE, 1, 15, ChatColor.GRAY + " "));
+            inv.setItem(i, Items.createItem(Material.BLACK_STAINED_GLASS_PANE, 1, 0, ChatColor.GRAY + " "));
         }
         inv.setItem(10, null);
         inv.setItem(12, null);
         inv.setItem(16, null);
-        inv.setItem(19, Items.createItem(Material.STAINED_GLASS_PANE, 1, 13, ChatColor.GRAY + "Item to Repair"));
-        inv.setItem(21, Items.createItem(Material.STAINED_GLASS_PANE, 1, 14, ChatColor.GRAY + "Scraps"));
-        inv.setItem(25, Items.createItem(Material.STAINED_GLASS_PANE, 1, 3, ChatColor.GRAY + "Modify"));
+        inv.setItem(19, Items.createItem(Material.GREEN_STAINED_GLASS_PANE, 1, 13, ChatColor.GRAY + "Item to Repair"));
+        inv.setItem(21, Items.createItem(Material.RED_STAINED_GLASS_PANE, 1, 0, ChatColor.GRAY + "Scraps"));
+        inv.setItem(25, Items.createItem(Material.LIGHT_BLUE_STAINED_GLASS_PANE, 1, 0, ChatColor.GRAY + "Modify"));
         p.openInventory(inv);
     }
 

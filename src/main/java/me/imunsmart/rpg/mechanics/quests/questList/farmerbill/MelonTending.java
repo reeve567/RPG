@@ -42,7 +42,7 @@ public class MelonTending extends Quest {
     @EventHandler
     public void onBreak(BlockBreakEvent e) {
         Player p = e.getPlayer();
-        if(e.getBlock().getType() == Material.MELON_BLOCK) {
+        if(e.getBlock().getType() == Material.MELON) {
             if (QuestManager.doingQuest(p, this)) {
                 QuestManager.update.add(e.getBlock().getState());
                 e.getBlock().setType(Material.AIR);
