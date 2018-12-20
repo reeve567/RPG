@@ -41,6 +41,13 @@ public class CustomItem extends ItemStack {
 		setAmount(amount);
 		return this;
 	}
+
+	public CustomItem addItemFlags(ItemFlag... itemFlags) {
+		ItemMeta meta = meta();
+		meta.addItemFlags(itemFlags);
+		setMeta(meta);
+		return this;
+	}
 	
 	@Deprecated
 	@Override

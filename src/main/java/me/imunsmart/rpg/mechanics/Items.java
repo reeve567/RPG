@@ -10,6 +10,7 @@ import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -185,8 +186,20 @@ public class Items {
 			if (!e.getKey().equals("v"))
 				map.put((String) e.getKey(), e.getValue());
 		}
+
+		CustomItem stack = new CustomItem(new ItemStack(Material.getMaterial(String.valueOf(map.get("type")))));
+		Map<String, Object> met = (Map<String, Object>) map.get("meta");
+
+		for (String s : (List<String>) met.get("ItemFlags")) {
+			stack.addItemFlags(ItemFlag.valueOf(s));
+		}
+
+		stack.setName(String.valueOf(met.get("display-name")));
+		stack.setDurability((Integer) met.get("Damage"));
+		stack.setLore((List<String>) met.get("lore"));
+
 		System.out.println(map.toString());
-		return ItemStack.deserialize(map);
+		return stack;
 	}
 
 	public static void useItem(Player p) {
