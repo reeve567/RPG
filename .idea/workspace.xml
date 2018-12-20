@@ -30,7 +30,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="2246" />
+          <entry key="java" value="2252" />
           <entry key="txt" value="9" />
           <entry key="xml" value="48" />
           <entry key="yml" value="19" />
@@ -38,7 +38,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="2246" />
+          <entry key="JAVA" value="2252" />
           <entry key="PLAIN_TEXT" value="9" />
           <entry key="XML" value="48" />
           <entry key="YAML" value="19" />
@@ -47,7 +47,7 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="class" value="2" />
-          <entry key="java" value="71" />
+          <entry key="java" value="72" />
           <entry key="json" value="1" />
           <entry key="xml" value="11" />
           <entry key="yml" value="5" />
@@ -56,7 +56,7 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="2" />
-          <entry key="JAVA" value="71" />
+          <entry key="JAVA" value="72" />
           <entry key="JSON" value="1" />
           <entry key="XML" value="11" />
           <entry key="YAML" value="5" />
@@ -68,7 +68,17 @@
     <favorites_list name="RPG" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/util/json/ResourceLoader.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -243,6 +253,40 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="rpg" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="RPG" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RPG" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="rpg" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RPG" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RPG" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="rpg" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+              <item name="json" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RPG" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RPG" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RPG" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RPG" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="json" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -253,7 +297,7 @@
     <property name="SearchEverywhereHistoryKey" value="PlayerEve&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/events/PlayerEvents.java&#10;Stats&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/mechanics/Stats.java&#10;Bank&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/mechanics/Bank.java&#10;Items&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/mechanics/Items.java&#10;Admin&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/command/Admin.java&#10;GiveWeapo&#9;PSI&#9;JAVA://me.imunsmart.rpg.command.admins.rpg.give.GiveWeapon&#10;Health&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/mechanics/Health.java&#10;Main&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/Main.java&#10;ITEMNA&#9;PSI&#9;JAVA://me.imunsmart.rpg.mechanics.ItemNames&#10;Damage&#9;PSI&#9;JAVA://me.imunsmart.rpg.events.DamageEvents&#10;Boss&#9;PSI&#9;JAVA://me.imunsmart.rpg.mobs.Boss&#10;Entity&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/mobs/EntityManager.java&#10;SpawnMob&#9;PSI&#9;JAVA://me.imunsmart.rpg.command.admins.rpg.mechanics.SpawnMob&#10;EntityMan&#9;PSI&#9;JAVA://me.imunsmart.rpg.mobs.EntityManager&#10;deserialize&#9;PSI&#9;JAVA://me.imunsmart.rpg.mechanics.Items#deserialize&#10;PlayerEven&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/events/PlayerEvents.java&#10;Speed&#9;PSI&#9;JAVA://me.imunsmart.rpg.command.admins.Speed&#10;MelonTe&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/mechanics/quests/questList/farmerbill/MelonTending.java&#10;EntityMa&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/mobs/EntityManager.java&#10;Constants&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/mobs/Constants.java&#10;Potion&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/mechanics/Potions.java&#10;LootChests&#9;PSI&#9;JAVA://me.imunsmart.rpg.mechanics.loot.LootChests&#10;MelonT&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/mechanics/quests/questList/farmerbill/MelonTending.java&#10;Messages&#9;PSI&#9;JAVA://me.imunsmart.rpg.util.MessagesUtil&#10;RepairMenu&#9;PSI&#9;JAVA://me.imunsmart.rpg.mechanics.gui.RepairMenu&#10;Mob&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/mobs/Mob.java&#10;NPCS&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/mechanics/NPCS.java&#10;QuestGUI&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/mechanics/quests/QuestGUI.java&#10;FarmerBill&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/mechanics/quests/quest_npcs/FarmerBill.java&#10;QuestMana&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/mechanics/quests/QuestManager.java&#10;GiveGems&#9;PSI&#9;JAVA://me.imunsmart.rpg.command.admins.rpg.give.GiveGems&#10;Itemnames&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/mechanics/ItemNames.java&#10;Quest&#9;FILE&#9;file://C:/Users/User/Documents/GitHub/RPG/src/main/java/me/imunsmart/rpg/mechanics/quests/Quest.java" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545342994296" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545343072724" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
@@ -384,6 +428,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49565217" visible="true" weight="0.2553305" />
       <window_info id="Structure" order="1" weight="0.25" />
@@ -752,8 +797,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/imunsmart/rpg/util/json/ResourceLoader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="20" column="105" lean-forward="true" selection-start-line="20" selection-start-column="105" selection-end-line="20" selection-end-column="105" />
+        <state relative-caret-position="153">
+          <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
         </state>
       </provider>
     </entry>

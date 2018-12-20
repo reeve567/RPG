@@ -13,10 +13,13 @@ public class ResourceLoader {
 
 	public static Info npcs;
 
+	public static void main(String[] args) {
+		
+	}
+
 	public ResourceLoader() {
 		try {
 			Gson gson = new Gson();
-			URL location = ResourceLoader.class.getProtectionDomain().getCodeSource().getLocation();
 			JsonReader reader;
 			reader = new JsonReader(new FileReader(new File("json", "npcs.json")));
 			npcs = gson.fromJson(reader, Info.class);
