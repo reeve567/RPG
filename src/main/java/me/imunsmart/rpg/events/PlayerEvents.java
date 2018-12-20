@@ -195,4 +195,10 @@ public class PlayerEvents implements Listener {
 			p.sendMessage(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Entering Wilderness (PvP: NONE, Mobs: ALL)");
 		}
 	}
+
+	@EventHandler
+	public void onBreak(PlayerInteractEvent e) {
+		if(e.getAction() == Action.PHYSICAL)
+			e.setCancelled(true);
+	}
 }
