@@ -30,9 +30,9 @@ public class AdminTools implements Listener {
     public static final ItemStack spawnerAmountTool = new CustomItem(Material.CREEPER_SPAWN_EGG).addGlow().setCustomAmount(1).setName("§a&lSpawner Amount Tool");
 
     public static final ItemStack[] spawnerTypeTool = {
-            new CustomItem(Material.LEGACY_SKULL_ITEM).addGlow().setDurability(2).setCustomAmount(1).setName("§a&lSpawner Type Tool").setLore(ChatColor.GRAY + "Type: " + ChatColor.AQUA + "Zombie"),
-            new CustomItem(Material.LEGACY_SKULL_ITEM).addGlow().setDurability(0).setCustomAmount(1).setName("§a&lSpawner Type Tool").setLore(ChatColor.GRAY + "Type: " + ChatColor.AQUA + "Skeleton"),
-            new CustomItem(Material.LEGACY_SKULL_ITEM).addGlow().setDurability(3).setCustomAmount(1).setName("§a&lSpawner Type Tool").setLore(ChatColor.GRAY + "Type: " + ChatColor.AQUA + "Spider"),
+            new CustomItem(Material.ZOMBIE_HEAD).addGlow().setCustomAmount(1).setName("§a&lSpawner Type Tool").setLore(ChatColor.GRAY + "Type: " + ChatColor.AQUA + "Zombie"),
+            new CustomItem(Material.SKELETON_SKULL).addGlow().setCustomAmount(1).setName("§a&lSpawner Type Tool").setLore(ChatColor.GRAY + "Type: " + ChatColor.AQUA + "Skeleton"),
+            new CustomItem(Material.PLAYER_HEAD).addGlow().setCustomAmount(1).setName("§a&lSpawner Type Tool").setLore(ChatColor.GRAY + "Type: " + ChatColor.AQUA + "Spider"),
     };
 
     @EventHandler
@@ -74,7 +74,7 @@ public class AdminTools implements Listener {
                     amount = Math.max(1, amount);
                     item.setCustomAmount(amount);
                     e.getPlayer().setItemInHand(item);
-                } else if (stack.getType() == Material.LEGACY_SKULL_ITEM) {
+                } else if (stack.getItemMeta().getDisplayName().contains("Spawner")) {
                     e.setCancelled(true);
                     for (int i = 0; i < spawnerTypeTool.length; i++) {
                         if (e.getItem().getItemMeta().getLore().equals(spawnerTypeTool[i].getItemMeta().getLore())) {
@@ -132,7 +132,7 @@ public class AdminTools implements Listener {
                         break;
                     case SPAWNER:
                         if (e.getPlayer().getInventory().getItem(4).getType() != Material.CREEPER_SPAWN_EGG) return;
-                        if (e.getPlayer().getInventory().getItem(5).getType() != Material.LEGACY_SKULL_ITEM) return;
+                        if (!e.getPlayer().getInventory().getItem(5).getItemMeta().getDisplayName().contains("Spawner")) return;
                         int amount = e.getPlayer().getInventory().getItem(4).getAmount();
                         String type = ChatColor.stripColor(e.getPlayer().getInventory().getItem(5).getItemMeta().getLore().get(0)).split(" ")[1].toLowerCase();
                         Spawners.setSpawn(e.getBlockPlaced().getLocation(), tier, amount, type);
