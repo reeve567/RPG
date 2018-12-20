@@ -13,7 +13,7 @@
 		<directory>C:\Users\User\Desktop\Minecraft\BukkitDev\plugins</directory>
 		<directory>${pom.basedir}/out</directory>
 		-->
-		<directory>${pom.basedir}/out</directory>
+		<directory>C:\Users\User\Desktop\Games\Minecraft\BukkitDev\plugins</directory>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

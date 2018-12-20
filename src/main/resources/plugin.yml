@@ -3,6 +3,7 @@ author: ImUnsmart
 main: me.imunsmart.rpg.Main
 version: BETA
 depend: [dynmap]
+api-version: 1.13
 commands:
   giveweapon:
     description: Give a weapon item.

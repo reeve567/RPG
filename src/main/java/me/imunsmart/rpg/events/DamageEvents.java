@@ -33,6 +33,8 @@ public class DamageEvents implements Listener {
 				damage(p, (int) Math.round(real * (calculateMaxHealth(p) / 2)));
 				Health.combat.put(p.getName(), 16);
 				e.setDamage(0);
+			} else {
+				e.setCancelled(true);
 			}
 		}
 	}

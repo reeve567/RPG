@@ -127,7 +127,7 @@ public class Main extends JavaPlugin {
 		getLogger().log(Level.INFO, "Registered events.");
 		register(new WorldEvents(this), new PlayerEvents(this), new DamageEvents(this), new ChatEvents(this),
 				new ServerEvents(this), new SignEvents(this), new Repairing(this), new Potions(this), new AdminTools(),
-				new TeleportScrolls(this), new NPCS(), new ItemNames());
+				new TeleportScrolls(this), new NPCS());
 		new QuestManager(this);
 		new GemSpawners(this);
 		new EntityManager(this);

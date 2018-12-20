@@ -27,7 +27,7 @@ public class Items {
 
 	public static final ItemStack gem = createItem(Material.DIAMOND, 1, 0, ChatColor.AQUA + "Gem");
 	public static ChatColor[] nameColor = {ChatColor.GOLD, ChatColor.GRAY, ChatColor.WHITE, ChatColor.AQUA, ChatColor.YELLOW};
-	public static String[] tools = {"WOOD", "STONE", "IRON", "DIAMOND", "GOLD"};
+	public static String[] tools = {"WOODEN", "STONE", "IRON", "DIAMOND", "GOLD"};
 	public static String[] picks = {"Beginner's", "Novice's", "Professional", "Masterful", "Godly"};
 	public static String[] swords = {"Shortsword", "Longsword", "Greatsword", "Mystic Sword", "Godly Sword"};
 	public static String[] axes = {"Hatchet", "Tomohawk", "Great Axe", "Mystic Axe", "Godly Axe"};
@@ -157,21 +157,35 @@ public class Items {
 //    }
 
 	public static String serialize(ItemStack item) {
+		if (item == null) {
+			return new ItemStack(Material.AIR).serialize().toString();
+		}
 		Map<String, Object> map = item.serialize();
+		System.out.println(map.toString());
 		return map.toString();
 	}
 
 	public static ItemStack deserialize(String item) {
 		Properties props = new Properties();
 		try {
-			props.load(new StringReader(item.substring(1, item.length() - 1).replace(", ", "\n")));
+			String load = "";
+			if (item.contains("meta")) {
+				load = item.substring(1, item.indexOf("meta")).replace(", ", "\n") + item.substring(item.indexOf("meta"), item.length() - 1);
+			} else {
+				load = item.substring(1, item.length() - 1).replace(", ", "\n");
+			}
+			System.out.println("TEST:" + load);
+			props.load(new StringReader(load));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<>();
+		map.put("v", 1628);
 		for (Map.Entry<Object, Object> e : props.entrySet()) {
-			map.put((String)e.getKey(), e.getValue());
+			if (!e.getKey().equals("v"))
+				map.put((String) e.getKey(), e.getValue());
 		}
+		System.out.println(map.toString());
 		return ItemStack.deserialize(map);
 	}
 
@@ -272,7 +286,7 @@ public class Items {
 	}
 
 	public static ItemStack createGemNote(int amount) {
-		return Items.createItem(Material.LEGACY_EMPTY_MAP, 1, 0, ChatColor.AQUA + "Bank Note", "Value: " + amount);
+		return Items.createItem(Material.MAP, 1, 0, ChatColor.AQUA + "Bank Note", "Value: " + amount);
 	}
 
 	public static ItemStack createGems(int amount) {
