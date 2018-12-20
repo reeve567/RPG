@@ -235,7 +235,7 @@ public class Mob {
 				Item i = le.getWorld().dropItemNaturally(le.getLocation(), drop);
 			}
 			if (Math.random() < 0.6) {
-				int gd = (int) (Math.random() * Constants.getMaxDrops(tier));
+				int gd = (int) (Math.random() * Constants.getMaxDrops(tier) - 1) + 1;
 				le.getWorld().dropItemNaturally(le.getLocation(), Items.createGems(gd));
 			}
 			le.setHealth(0);

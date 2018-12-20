@@ -28,16 +28,6 @@ public class ChatEvents implements Listener {
 		if (p.hasPermission("rpg.admin")) {
 			String msg = ChatColor.stripColor(e.getMessage());
 			String[] args = msg.split(" ");
-			if (args[0].equalsIgnoreCase("..si")) {
-				e.setCancelled(true);
-				p.sendMessage(Items.serialize(p.getInventory().getItemInMainHand()).toString());
-			} else if (args[0].equalsIgnoreCase("..dsi")) {
-				e.setCancelled(true);
-				p.getInventory().addItem(Items.deserialize(Items.serialize(p.getInventory().getItemInMainHand())));
-			} else if (args[0].equalsIgnoreCase("..durability")) {
-				e.setCancelled(true);
-				p.getInventory().getItemInMainHand().setDurability(Short.parseShort(args[1]));
-			}
 		} else {
 			for (String s : badWords) {
 				if (e.getMessage().contains(s)) {
