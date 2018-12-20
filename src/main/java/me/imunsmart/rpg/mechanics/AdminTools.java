@@ -61,7 +61,7 @@ public class AdminTools implements Listener {
     public void onInteract(PlayerInteractEvent e) {
         ItemStack stack = e.getItem();
         if (stack != null) {
-            if (e.getAction() == Action.RIGHT_CLICK_BLOCK) return;
+            if (e.getAction() == Action.LEFT_CLICK_AIR) return;
             int a = 1;
             if (e.getAction() == Action.RIGHT_CLICK_AIR)
                 a = -1;
@@ -75,7 +75,7 @@ public class AdminTools implements Listener {
                     amount = Math.max(1, amount);
                     item.setCustomAmount(amount);
                     e.getPlayer().setItemInHand(item);
-                } else if (stack.getItemMeta().getDisplayName().contains("Spawner")) {
+                } else if (stack.getItemMeta().getDisplayName().contains("Spawner Type")) {
                     e.setCancelled(true);
                     for (int i = 0; i < spawnerTypeTool.length; i++) {
                         if (e.getItem().getItemMeta().getLore().equals(spawnerTypeTool[i].getItemMeta().getLore())) {
