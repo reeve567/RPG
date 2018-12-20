@@ -1,16 +1,16 @@
 package me.imunsmart.rpg.events;
 
 import me.imunsmart.rpg.Main;
-import me.imunsmart.rpg.mechanics.Health;
 import me.imunsmart.rpg.util.Util;
+import me.imunsmart.rpg.util.Health;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
-import static me.imunsmart.rpg.mechanics.Health.calculateMaxHealth;
-import static me.imunsmart.rpg.mechanics.Health.damage;
+import static me.imunsmart.rpg.util.Health.calculateMaxHealth;
+import static me.imunsmart.rpg.util.Health.damage;
 
 public class DamageEvents implements Listener {
 	private Main pl;

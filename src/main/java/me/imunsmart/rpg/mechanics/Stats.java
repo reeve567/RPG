@@ -1,7 +1,8 @@
 package me.imunsmart.rpg.mechanics;
 
 import me.imunsmart.rpg.Main;
-import me.imunsmart.rpg.mobs.Constants;
+import me.imunsmart.rpg.util.Constants;
+import me.imunsmart.rpg.util.ActionBar;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
@@ -16,7 +17,6 @@ import org.bukkit.inventory.ItemStack;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 

@@ -1,7 +1,6 @@
 package me.imunsmart.rpg.events;
 
 import me.imunsmart.rpg.Main;
-import me.imunsmart.rpg.mechanics.Items;
 import me.imunsmart.rpg.util.DiscordBroadcaster;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;

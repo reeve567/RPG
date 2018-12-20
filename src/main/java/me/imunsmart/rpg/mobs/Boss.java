@@ -1,6 +1,7 @@
 package me.imunsmart.rpg.mobs;
 
 import me.imunsmart.rpg.Main;
+import me.imunsmart.rpg.util.Constants;
 import me.imunsmart.rpg.util.MessagesUtil;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;

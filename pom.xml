@@ -5,7 +5,8 @@
 
 	<groupId>pw.xwy.RPG</groupId>
 	<artifactId>RPG</artifactId>
-	<version>RELEASE</version>
+    <packaging>pom</packaging>
+    <version>RELEASE</version>
 
 	<build>
 		<finalName>RPG</finalName>
@@ -42,8 +43,12 @@
 			</plugin>
 		</plugins>
 	</build>
+    <modules>
+        <module>CORE</module>
+        <module>NPC</module>
+    </modules>
 
-	<repositories>
+    <repositories>
 		<repository>
 			<id>jitpack.io</id>
 			<url>https://jitpack.io</url>
@@ -51,14 +56,14 @@
 	</repositories>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.spigotmc</groupId>
-			<artifactId>spigot</artifactId>
-			<version>1.13.2-R0.1-SNAPSHOT</version>
-			<scope>system</scope>
-			<systemPath>${pom.basedir}/lib/spigot-1.13.2.jar</systemPath>
-			<type>jar</type>
-		</dependency>
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot</artifactId>
+            <version>1.13.2-R0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/lib/spigot-1.13.2.jar</systemPath>
+            <type>jar</type>
+        </dependency>
 		<dependency>
 			<groupId>com.github.MrPowerGamerBR</groupId>
 			<artifactId>TemmieWebhook</artifactId>

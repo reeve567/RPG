@@ -3,7 +3,7 @@ package me.imunsmart.rpg.mechanics.gui;
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.Bank;
 import me.imunsmart.rpg.mechanics.Items;
-import me.imunsmart.rpg.mechanics.Sounds;
+import me.imunsmart.rpg.util.Sounds;
 import me.imunsmart.rpg.util.CustomItem;
 import me.imunsmart.rpg.util.MessagesUtil;
 import me.imunsmart.rpg.util.PlayerSkull;

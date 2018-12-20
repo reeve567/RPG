@@ -1,12 +1,11 @@
 package me.imunsmart.rpg.mechanics.quests.quest_npcs;
 
-import me.imunsmart.rpg.mechanics.NPCS;
-import me.imunsmart.rpg.mechanics.Sounds;
+import me.imunsmart.rpg.util.Sounds;
 import me.imunsmart.rpg.mechanics.Stats;
+import me.imunsmart.rpg.mechanics.NPCS;
 import me.imunsmart.rpg.mechanics.quests.Quest;
 import me.imunsmart.rpg.mechanics.quests.QuestData;
 import me.imunsmart.rpg.mechanics.quests.QuestManager;
-import me.imunsmart.rpg.mechanics.quests.questList.farmerbill.MelonTending;
 import me.imunsmart.rpg.mechanics.quests.questList.pyrotechnic.ContestingTheFlameOfTruth;
 import me.imunsmart.rpg.mobs.EntityManager;
 import me.imunsmart.rpg.mobs.Mob;

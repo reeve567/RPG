@@ -6,7 +6,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.imunsmart.rpg.Main;
-import net.md_5.bungee.api.ChatColor;
 
 public class Default extends ICommand {
 

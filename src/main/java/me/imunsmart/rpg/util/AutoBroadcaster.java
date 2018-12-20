@@ -3,7 +3,6 @@ package me.imunsmart.rpg.util;
 import me.imunsmart.rpg.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 

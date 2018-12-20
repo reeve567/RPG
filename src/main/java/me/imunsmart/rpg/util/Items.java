@@ -1,7 +1,6 @@
-package me.imunsmart.rpg.mechanics;
+package me.imunsmart.rpg.util;
 
 import me.imunsmart.rpg.Main;
-import me.imunsmart.rpg.util.*;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -13,7 +12,9 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Items {
 

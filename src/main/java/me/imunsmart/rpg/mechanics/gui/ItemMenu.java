@@ -2,7 +2,7 @@ package me.imunsmart.rpg.mechanics.gui;
 
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.Items;
-import me.imunsmart.rpg.mechanics.Sounds;
+import me.imunsmart.rpg.util.Sounds;
 import me.imunsmart.rpg.util.MessagesUtil;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;

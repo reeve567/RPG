@@ -1,10 +1,9 @@
-package me.imunsmart.rpg.mechanics;
+package me.imunsmart.rpg.util;
 
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.command.admins.playermoderation.BanManager;
-import me.imunsmart.rpg.mobs.Constants;
-import me.imunsmart.rpg.util.MessagesUtil;
-import me.imunsmart.rpg.util.Util;
+import me.imunsmart.rpg.mechanics.Items;
+import me.imunsmart.rpg.mechanics.Stats;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -181,19 +180,19 @@ public class Health {
 
     public static void resetPlayer(Player p) {
         p.teleport(Util.spawn);
-        ItemStack i = Items.createWeapon("sword", 1, 4, 8, "");
+        ItemStack i = me.imunsmart.rpg.mechanics.Items.createWeapon("sword", 1, 4, 8, "");
         i.addUnsafeEnchantment(Enchantment.VANISHING_CURSE, 1);
         p.getInventory().addItem(i);
-        i = Items.createArmor("boots", 1, Constants.MAX_HEALTH_1B / 2, "Regen:2");
+        i = me.imunsmart.rpg.mechanics.Items.createArmor("boots", 1, Constants.MAX_HEALTH_1B / 2, "Regen:2");
         i.addUnsafeEnchantment(Enchantment.VANISHING_CURSE, 1);
         p.getInventory().addItem(i);
-        i = Items.createArmor("leggings", 1, Constants.MAX_HEALTH_1L / 2, "Regen:4");
+        i = me.imunsmart.rpg.mechanics.Items.createArmor("leggings", 1, Constants.MAX_HEALTH_1L / 2, "Regen:4");
         i.addUnsafeEnchantment(Enchantment.VANISHING_CURSE, 1);
         p.getInventory().addItem(i);
-        i = Items.createArmor("chestplate", 1, Constants.MAX_HEALTH_1C / 2, "Regen:5");
+        i = me.imunsmart.rpg.mechanics.Items.createArmor("chestplate", 1, Constants.MAX_HEALTH_1C / 2, "Regen:5");
         i.addUnsafeEnchantment(Enchantment.VANISHING_CURSE, 1);
         p.getInventory().addItem(i);
-        i = Items.createArmor("helmet", 1, Constants.MAX_HEALTH_1H / 2, "Regen:3");
+        i = me.imunsmart.rpg.mechanics.Items.createArmor("helmet", 1, Constants.MAX_HEALTH_1H / 2, "Regen:3");
         i.addUnsafeEnchantment(Enchantment.VANISHING_CURSE, 1);
         p.getInventory().addItem(i);
         combat.remove(p.getName());

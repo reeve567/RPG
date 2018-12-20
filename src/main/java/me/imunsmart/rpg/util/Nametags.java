@@ -1,4 +1,4 @@
-package me.imunsmart.rpg.mechanics;
+package me.imunsmart.rpg.util;
 
 import me.imunsmart.rpg.util.DiscordBroadcaster;
 import org.bukkit.Bukkit;
