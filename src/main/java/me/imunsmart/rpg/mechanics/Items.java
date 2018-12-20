@@ -32,7 +32,7 @@ public class Items {
 	public static String[] picks = {"Beginner's", "Novice's", "Professional", "Masterful", "Godly"};
 	public static String[] swords = {"Shortsword", "Longsword", "Greatsword", "Mystic Sword", "Godly Sword"};
 	public static String[] axes = {"Hatchet", "Tomohawk", "Great Axe", "Mystic Axe", "Godly Axe"};
-	public static String[] armor = {"LEATHER", "CHAINMAIL", "IRON", "DIAMOND", "GOLD"};
+	public static String[] armor = {"LEATHER", "CHAINMAIL", "IRON", "DIAMOND", "GOLDEN"};
 	public static String[] armors = {"Old", "Rusted", "Great", "Mystic", "Godly"};
 	public static String[] types = {"axe", "sword", "helmet", "chestplate", "leggings", "boots"};
 

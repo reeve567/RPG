@@ -63,7 +63,6 @@ public class BuyMenu implements Listener {
         addItem(Items.createPotion(4), 250);
         addItem(Items.createPotion(5), 500);
         addItem(Items.createWeapon("axe", 2, 10, 20, "name:&bWar Axe,Critical:20%,exclusive"), 200);
-        addItem(Items.createGems(1), 2);
 
         menu = Bukkit.createInventory(null, 27, ChatColor.DARK_GREEN + "Merchant");
         for (int i = 0; i < menu.getSize(); i++) {
