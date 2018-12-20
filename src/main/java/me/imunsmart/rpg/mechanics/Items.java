@@ -28,7 +28,7 @@ public class Items {
 
 	public static final ItemStack gem = createItem(Material.DIAMOND, 1, 0, ChatColor.AQUA + "Gem");
 	public static ChatColor[] nameColor = {ChatColor.GOLD, ChatColor.GRAY, ChatColor.WHITE, ChatColor.AQUA, ChatColor.YELLOW};
-	public static String[] tools = {"WOODEN", "STONE", "IRON", "DIAMOND", "GOLD"};
+	public static String[] tools = {"WOODEN", "STONE", "IRON", "DIAMOND", "GOLDEN"};
 	public static String[] picks = {"Beginner's", "Novice's", "Professional", "Masterful", "Godly"};
 	public static String[] swords = {"Shortsword", "Longsword", "Greatsword", "Mystic Sword", "Godly Sword"};
 	public static String[] axes = {"Hatchet", "Tomohawk", "Great Axe", "Mystic Axe", "Godly Axe"};
@@ -37,7 +37,8 @@ public class Items {
 	public static String[] types = {"axe", "sword", "helmet", "chestplate", "leggings", "boots"};
 
 	public static ItemStack createItem(Material m, int amount, int durability, String name, String... lore) {
-		ItemStack i = new ItemStack(m, amount, (short) durability);
+		ItemStack i = new ItemStack(m, amount);
+		i.setDurability((short) durability);
 		ItemMeta im = i.getItemMeta();
 		im.setDisplayName(name);
 		List<String> s = new ArrayList<>();
@@ -65,7 +66,8 @@ public class Items {
 	}
 
 	public static ItemStack createItem(Material m, int amount, int durability, String name, List<String> lore) {
-		ItemStack i = new ItemStack(m, amount, (short) durability);
+		ItemStack i = new ItemStack(m, amount);
+		i.setDurability((short) durability);
 		ItemMeta im = i.getItemMeta();
 		im.setDisplayName(name);
 		List<String> s = new ArrayList<>();
@@ -80,7 +82,7 @@ public class Items {
 
 	public static int getTier(ItemStack i) {
 		String name = i.getType().name();
-		if (name.contains("LEATHER") || name.contains("WOOD"))
+		if (name.contains("LEATHER") || name.contains("WOODEN"))
 			return 1;
 		if (name.contains("CHAINMAIL") || name.contains("STONE"))
 			return 2;
@@ -88,7 +90,7 @@ public class Items {
 			return 3;
 		else if (name.contains("DIAMOND"))
 			return 4;
-		else if (name.contains("GOLD"))
+		else if (name.contains("GOLDEN"))
 			return 5;
 		return 0;
 	}
@@ -103,59 +105,6 @@ public class Items {
 		}
 		return i;
 	}
-
-//    public static ItemStack deserialize(String s) {
-//        String[] tokens = s.split("@");
-//        Material m = Material.valueOf(tokens[1].substring(1));
-//        int amt = Integer.valueOf(tokens[2].substring(1));
-//        int dur = Integer.valueOf(tokens[3].substring(1));
-//        if (tokens.length > 4) {
-//            String name = ChatColor.translateAlternateColorCodes('&', tokens[4].substring(1));
-//            List<String> lore = new ArrayList<>();
-//            if (tokens.length > 5)
-//                Collections.addAll(lore, tokens[5].substring(1).split(","));
-//            ItemStack i = Items.createItem(m, amt, dur, name, lore);
-//            if(tokens.length > 6) {
-//                for(String x : tokens[6].substring(1).split(",")) {
-//                    x = ChatColor.stripColor(x);
-//                    Enchantment e = Enchantment.getByName(x.split(":")[0]);
-//                    int level = Integer.parseInt(x.split(":")[1]);
-//                    i.addUnsafeEnchantment(e, level);
-//                }
-//            }
-//            return i;
-//        } else
-//            return new ItemStack(m, amt, (short) dur);
-//    }
-//
-//    public static String serialize(ItemStack i) {
-//        System.out.println(i.toString());
-//        if (i == null)
-//            return "@iAIR@a0@d-1";
-//        if (!i.hasItemMeta())
-//            return "@i" + i.getType().name() + "@a" + i.getAmount() + "@d" + i.getDurability();
-//        String lore = "";
-//        int x = 0;
-//        if (i.getItemMeta().hasLore()) {
-//            for (String s : i.getItemMeta().getLore()) {
-//                if (x != i.getItemMeta().getLore().size() - 1)
-//                    lore += s + ",";
-//                else
-//                    lore += s;
-//                x++;
-//            }
-//        }
-//        String enchants = "";
-//        int y = 0;
-//        for(Enchantment e : i.getEnchantments().keySet()) {
-//            int level = i.getEnchantments().get(e);
-//            enchants += e.getName() + ":" + level;
-//            if(y != i.getEnchantments().keySet().size() - 1)
-//                enchants += ",";
-//            y++;
-//        }
-//        return "@i" + i.getType().name() + "@a" + i.getAmount() + "@d" + i.getDurability() + "@n" + i.getItemMeta().getDisplayName() + "@l" + lore + "@e" + enchants;
-//    }
 
 	public static void useItem(Player p) {
 		PlayerInventory pi = p.getInventory();
@@ -254,11 +203,11 @@ public class Items {
 	}
 
 	public static ItemStack createGemNote(int amount) {
-		return Items.createItem(Material.MAP, 1, 0, ChatColor.AQUA + "Bank Note", "Value: " + amount);
+		return Items.createItem(Material.MAP, 1, ChatColor.AQUA + "Bank Note", "Value: " + amount);
 	}
 
 	public static ItemStack createGems(int amount) {
-		return createItem(Material.DIAMOND, amount, 0, ChatColor.AQUA + "Gem");
+		return createItem(Material.DIAMOND, amount, ChatColor.AQUA + "Gem");
 	}
 
 	public static ItemStack createPotion(int tier) {
@@ -307,7 +256,7 @@ public class Items {
 			tier = 3;
 		else if (name.contains("DIAMOND"))
 			tier = 4;
-		else if (name.contains("GOLD"))
+		else if (name.contains("GOLDEN"))
 			tier = 5;
 		p.getInventory().addItem(createScraps(amount, tier));
 		p.getInventory().setItemInMainHand(null);
@@ -359,3 +308,56 @@ public class Items {
 		return i.getType().name().contains("AXE") || i.getType().name().contains("SWORD");
 	}
 }
+
+//    public static ItemStack deserialize(String s) {
+//        String[] tokens = s.split("@");
+//        Material m = Material.valueOf(tokens[1].substring(1));
+//        int amt = Integer.valueOf(tokens[2].substring(1));
+//        int dur = Integer.valueOf(tokens[3].substring(1));
+//        if (tokens.length > 4) {
+//            String name = ChatColor.translateAlternateColorCodes('&', tokens[4].substring(1));
+//            List<String> lore = new ArrayList<>();
+//            if (tokens.length > 5)
+//                Collections.addAll(lore, tokens[5].substring(1).split(","));
+//            ItemStack i = Items.createItem(m, amt, dur, name, lore);
+//            if(tokens.length > 6) {
+//                for(String x : tokens[6].substring(1).split(",")) {
+//                    x = ChatColor.stripColor(x);
+//                    Enchantment e = Enchantment.getByName(x.split(":")[0]);
+//                    int level = Integer.parseInt(x.split(":")[1]);
+//                    i.addUnsafeEnchantment(e, level);
+//                }
+//            }
+//            return i;
+//        } else
+//            return new ItemStack(m, amt, (short) dur);
+//    }
+//
+//    public static String serialize(ItemStack i) {
+//        System.out.println(i.toString());
+//        if (i == null)
+//            return "@iAIR@a0@d-1";
+//        if (!i.hasItemMeta())
+//            return "@i" + i.getType().name() + "@a" + i.getAmount() + "@d" + i.getDurability();
+//        String lore = "";
+//        int x = 0;
+//        if (i.getItemMeta().hasLore()) {
+//            for (String s : i.getItemMeta().getLore()) {
+//                if (x != i.getItemMeta().getLore().size() - 1)
+//                    lore += s + ",";
+//                else
+//                    lore += s;
+//                x++;
+//            }
+//        }
+//        String enchants = "";
+//        int y = 0;
+//        for(Enchantment e : i.getEnchantments().keySet()) {
+//            int level = i.getEnchantments().get(e);
+//            enchants += e.getName() + ":" + level;
+//            if(y != i.getEnchantments().keySet().size() - 1)
+//                enchants += ",";
+//            y++;
+//        }
+//        return "@i" + i.getType().name() + "@a" + i.getAmount() + "@d" + i.getDurability() + "@n" + i.getItemMeta().getDisplayName() + "@l" + lore + "@e" + enchants;
+//    }

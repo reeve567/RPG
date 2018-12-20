@@ -176,7 +176,7 @@ public class Health {
         if (hp > max)
             hp = max;
         health.put(p.getName(), hp);
-//        Nametags.setScore(p, health.get(p.getName()));
+        Nametags.setScore(p, health.get(p.getName()));
     }
 
     public static void resetPlayer(Player p) {

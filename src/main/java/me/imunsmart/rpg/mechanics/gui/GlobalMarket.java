@@ -96,22 +96,22 @@ public class GlobalMarket implements Listener {
 		File f = new File(pl.getDataFolder(), "market.yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
 		List<String> items = fc.getStringList("items");
-		for (int x = (page * 45); x < (page * 45) + 45; x++) {
-			if (x >= items.size())
-				break;
-			String s = items.get(x);
-			ItemStack i = Items.deserialize(s.split(";")[0]);
-			String seller = s.split(";")[1];
-			int cost = Integer.valueOf(s.split(";")[2]);
-			ItemMeta im = i.getItemMeta();
-			List<String> lore = im.getLore() != null ? im.getLore() : new ArrayList<>();
-			lore.add(" ");
-			lore.add(ChatColor.GRAY + "Seller: " + ChatColor.AQUA + seller);
-			lore.add(ChatColor.GRAY + "Cost: " + ChatColor.AQUA + cost);
-			im.setLore(lore);
-			i.setItemMeta(im);
-			inv.setItem(x - (page * 45), i);
-		}
+//		for (int x = (page * 45); x < (page * 45) + 45; x++) {
+//			if (x >= items.size())
+//				break;
+//			String s = items.get(x);
+//			ItemStack i = Items.deserialize(s.split(";")[0]);
+//			String seller = s.split(";")[1];
+//			int cost = Integer.valueOf(s.split(";")[2]);
+//			ItemMeta im = i.getItemMeta();
+//			List<String> lore = im.getLore() != null ? im.getLore() : new ArrayList<>();
+//			lore.add(" ");
+//			lore.add(ChatColor.GRAY + "Seller: " + ChatColor.AQUA + seller);
+//			lore.add(ChatColor.GRAY + "Cost: " + ChatColor.AQUA + cost);
+//			im.setLore(lore);
+//			i.setItemMeta(im);
+//			inv.setItem(x - (page * 45), i);
+//		}
 		p.openInventory(inv);
 	}
 
@@ -302,15 +302,15 @@ public class GlobalMarket implements Listener {
 				Sounds.play(p, Sound.ENTITY_ITEM_BREAK, 0.67f);
 				return;
 			}
-			ItemStack i = sell.remove(p.getName());
-			List<String> items = fc.getStringList("items");
-			String s = Items.serialize(i) + ";" + p.getName() + ";" + cost;
-			items.add(s);
-			fc.set("items", items);
-			updateMarket();
-			p.getInventory().remove(i);
-			p.sendMessage(ChatColor.GRAY + "Successfully placed item on market for " + ChatColor.AQUA + cost + " gems.");
-			Sounds.play(p, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 2);
+//			ItemStack i = sell.remove(p.getName());
+//			List<String> items = fc.getStringList("items");
+//			String s = Items.serialize(i) + ";" + p.getName() + ";" + cost;
+//			items.add(s);
+//			fc.set("items", items);
+//			updateMarket();
+//			p.getInventory().remove(i);
+//			p.sendMessage(ChatColor.GRAY + "Successfully placed item on market for " + ChatColor.AQUA + cost + " gems.");
+//			Sounds.play(p, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 2);
 		}
 	}
 
