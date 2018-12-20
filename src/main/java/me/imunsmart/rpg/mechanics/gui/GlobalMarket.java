@@ -3,7 +3,7 @@ package me.imunsmart.rpg.mechanics.gui;
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.Bank;
 import me.imunsmart.rpg.mechanics.Items;
-import me.imunsmart.rpg.mechanics.Sounds;
+import me.imunsmart.rpg.util.Sounds;
 import me.imunsmart.rpg.mechanics.Stats;
 import me.imunsmart.rpg.util.CustomItem;
 import me.imunsmart.rpg.util.PlayerSkull;
@@ -31,7 +31,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 

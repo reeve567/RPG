@@ -1,20 +1,7 @@
 package me.imunsmart.rpg.mechanics.classes;
 
 import me.imunsmart.rpg.Main;
-import me.imunsmart.rpg.mechanics.Stats;
-import me.imunsmart.rpg.mechanics.TitleMessage;
-import me.imunsmart.rpg.util.CustomItem;
-import me.imunsmart.rpg.util.InventoryUtility;
-import me.imunsmart.rpg.util.MessagesUtil;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryAction;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 
 public class ClassSelector implements Listener {
 	

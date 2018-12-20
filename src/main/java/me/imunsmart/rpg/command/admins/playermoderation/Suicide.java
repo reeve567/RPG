@@ -2,7 +2,7 @@ package me.imunsmart.rpg.command.admins.playermoderation;
 
 import org.bukkit.entity.Player;
 
-import me.imunsmart.rpg.mechanics.Health;
+import me.imunsmart.rpg.util.Health;
 
 public class Suicide {
 	public static void run(Player p, String[] args) {

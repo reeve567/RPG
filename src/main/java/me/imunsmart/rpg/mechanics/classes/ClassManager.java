@@ -1,13 +1,7 @@
 package me.imunsmart.rpg.mechanics.classes;
 
 import me.imunsmart.rpg.Main;
-import me.imunsmart.rpg.mechanics.Stats;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class ClassManager implements Listener {
 	

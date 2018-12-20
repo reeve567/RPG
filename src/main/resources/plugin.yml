@@ -1,6 +1,6 @@
 name: RPG
 author: ImUnsmart
-main: me.imunsmart.rpg.Main
+main: Main
 version: BETA
 depend: [dynmap]
 api-version: 1.13

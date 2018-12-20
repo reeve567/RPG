@@ -2,10 +2,10 @@ package me.imunsmart.rpg.mechanics.quests;
 
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.Stats;
+import me.imunsmart.rpg.mechanics.quests.questList.pyrotechnic.ContestingTheFlameOfTruth;
 import me.imunsmart.rpg.mechanics.quests.questList.farmerbill.FarmerBillsPumpkinProblem;
 import me.imunsmart.rpg.mechanics.quests.questList.farmerbill.MelonTending;
 import me.imunsmart.rpg.mechanics.quests.questList.kingduncan.AMineFullOfMonsters;
-import me.imunsmart.rpg.mechanics.quests.questList.pyrotechnic.ContestingTheFlameOfTruth;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.BlockState;

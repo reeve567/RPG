@@ -1,9 +1,8 @@
 package me.imunsmart.rpg.mechanics.gui;
 
-import io.netty.util.internal.MathUtil;
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.Items;
-import me.imunsmart.rpg.mechanics.Sounds;
+import me.imunsmart.rpg.util.Sounds;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

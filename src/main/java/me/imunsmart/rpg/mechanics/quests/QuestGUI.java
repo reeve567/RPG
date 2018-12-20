@@ -2,7 +2,7 @@ package me.imunsmart.rpg.mechanics.quests;
 
 import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mechanics.Items;
-import me.imunsmart.rpg.mechanics.Sounds;
+import me.imunsmart.rpg.util.Sounds;
 import me.imunsmart.rpg.mechanics.Stats;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -18,7 +18,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 

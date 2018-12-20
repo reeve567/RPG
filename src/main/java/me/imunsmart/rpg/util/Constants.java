@@ -1,4 +1,4 @@
-package me.imunsmart.rpg.mobs;
+package me.imunsmart.rpg.util;
 
 import java.lang.reflect.Field;
 

@@ -1,11 +1,9 @@
 package me.imunsmart.rpg.mechanics.quests.questList.farmerbill;
 
 import me.imunsmart.rpg.Main;
-import me.imunsmart.rpg.mechanics.ActionBar;
 import me.imunsmart.rpg.mechanics.Items;
 import me.imunsmart.rpg.mechanics.Stats;
 import me.imunsmart.rpg.mechanics.quests.Quest;
-import me.imunsmart.rpg.mechanics.quests.QuestManager;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
