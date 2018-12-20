@@ -34,14 +34,14 @@ public class Stats {
 	public static List<String> getCompletedQuests(OfflinePlayer p) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
-		if (!fc.contains("completed-quests")) return new ArrayList<String>();
-		return fc.getStringList("completed-quests");
+		if (!fc.contains("completed-json")) return new ArrayList<String>();
+		return fc.getStringList("completed-json");
 	}
 
 	public static void completeQuest(OfflinePlayer op, String id) {
 		List<String> cq = getCompletedQuests(op);
 		cq.add(id);
-		setStat(op, "completed-quests", cq);
+		setStat(op, "completed-json", cq);
 		setStat(op, "current-quest", null);
 	}
 
@@ -125,7 +125,7 @@ public class Stats {
 	}
 
 	public static List<String> getQuestData(UUID id) {
-		return getList(id, "quests");
+		return getList(id, "json");
 	}
 
 	public static List<String> getList(UUID p, String id) {

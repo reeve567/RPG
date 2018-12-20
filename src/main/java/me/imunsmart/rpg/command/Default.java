@@ -10,7 +10,7 @@ import me.imunsmart.rpg.Main;
 public class Default extends ICommand {
 
 	public Default(Main pl) {
-		super(pl, "quests","q");
+		super(pl, "json","q");
 	}
 
 	@Override

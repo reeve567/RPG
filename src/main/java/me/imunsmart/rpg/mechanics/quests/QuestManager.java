@@ -6,6 +6,7 @@ import me.imunsmart.rpg.mechanics.quests.questList.pyrotechnic.ContestingTheFlam
 import me.imunsmart.rpg.mechanics.quests.questList.farmerbill.FarmerBillsPumpkinProblem;
 import me.imunsmart.rpg.mechanics.quests.questList.farmerbill.MelonTending;
 import me.imunsmart.rpg.mechanics.quests.questList.kingduncan.AMineFullOfMonsters;
+import me.imunsmart.rpg.util.MessagesUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.BlockState;
@@ -56,6 +57,11 @@ public class QuestManager {
 			}
 		}
 		return null;
+	}
+
+	public static void startQuest(Player p, QuestData q) {
+		QuestManager.playerProgress.put(p.getName(), q);
+		p.sendMessage(MessagesUtil.questStarted(q.getQuest().getName()));
 	}
 	
 	public static void disable() {

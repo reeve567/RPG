@@ -51,7 +51,7 @@ public class MelonTending extends Quest {
                     Location l = e.getBlock().getLocation();
                     Mob m = EntityManager.customMob(p.getWorld().spawn(e.getBlock().getLocation(), Zombie.class), ChatColor.AQUA + "Melon Felon", 1, "axe", 1, 3, "Critical:10%",
                             0, 0, 0, 0, "", "", "", "", "ImUnsmart");
-                    m.getMob().getEquipment().setHelmet(new ItemStack(Material.LEGACY_MELON_BLOCK));
+                    m.getMob().getEquipment().setHelmet(new ItemStack(Material.MELON));
                     ((Zombie) m.getMob()).setBaby(true);
                     m.invalidateDrop(true, true, true, true, false);
                     new BukkitRunnable() {
@@ -73,7 +73,7 @@ public class MelonTending extends Quest {
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        e.getBlock().setType(Material.LEGACY_MELON_BLOCK);
+                        e.getBlock().setType(Material.MELON);
                         QuestManager.update.remove(e.getBlock().getState());
                     }
                 }.runTaskLater(pl, 200);

@@ -25,8 +25,11 @@ public class KingDuncan extends NPCS.QuestGiver {
     private static int index = -1;
 
     public KingDuncan(Location location) {
-        super(location, Villager.Profession.PRIEST, ResourceLoader.npcs.getInfo().get("king_duncan").getName(), ResourceLoader.npcs.getInfo().get("king_duncan").getMessages());
-	    quests.addAll(Arrays.asList(ResourceLoader.npcs.getInfo().get("king_duncan").getQuests()));
+        super(location, Villager.Profession.PRIEST, "&b&lKing Duncan",
+                "Be wary of thieves.",
+                "Have fun on your adventures.",
+                "Watch out for powerful monsters.");
+	    quests.add("A Mine Full of Monsters");
     }
 
     @Override
@@ -54,7 +57,7 @@ public class KingDuncan extends NPCS.QuestGiver {
                         return;
                     } else {
                         Quest q = QuestManager.getQuest(s);
-                        QuestManager.playerProgress.put(player.getName(), new QuestData(q, 0));
+                        QuestManager.startQuest(player, new QuestData(q, 0));
                         new BukkitRunnable() {
                             int i = 0;
 
@@ -73,12 +76,5 @@ public class KingDuncan extends NPCS.QuestGiver {
             }
         }
         speak(player);
-    }
-
-    public void speak(Player player) {
-        index++;
-        if(index >= strings.length)
-            index = 0;
-        player.sendMessage(name + ChatColor.WHITE + ": " + strings[index]);
     }
 }

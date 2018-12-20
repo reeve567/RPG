@@ -52,7 +52,7 @@ public class MessagesUtil {
     }
 
     public static String questStarted(String name) {
-        return prefix('a') + "Started quest §a" + name + "§7.";
+        return prefix('a') + "You have begun the quest §a" + name + "§7.";
     }
 
     public static String questFinished(String name) {

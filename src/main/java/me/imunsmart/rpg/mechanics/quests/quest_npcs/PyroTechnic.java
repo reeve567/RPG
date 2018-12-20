@@ -22,17 +22,14 @@ public class PyroTechnic extends NPCS.QuestGiver {
 
     private static String name = ChatColor.RED.toString() + ChatColor.BOLD + "PyroTechnic";
 
-    private static final String[] strings = {
-            "Hey kid... you wanna buy some fireworks?",
-            "People say I'm a hothead but I just like fire.",
-            "How long you think the forest would take to finally burn down?"
-    };
-
     private static ArrayList<String> quests = new ArrayList<>();
     private static int index = -1;
 
     public PyroTechnic(Location location) {
-        super(location, Villager.Profession.FARMER, name, strings);
+        super(location, Villager.Profession.FARMER, name,
+                "Hey kid... you wanna buy some fireworks?",
+                "People say I'm a hothead but I just like fire.",
+                "How long you think the forest would take to finally burn down?");
         quests.add("Contesting the Flame of Truth");
     }
 
@@ -52,7 +49,7 @@ public class PyroTechnic extends NPCS.QuestGiver {
                         if (player.getInventory().getItem(i).getItemMeta().getDisplayName().equals(ContestingTheFlameOfTruth.torch.getItemMeta().getDisplayName()))
                             player.getInventory().setItem(i, null);
                 }
-                player.sendMessage(name + ChatColor.WHITE + ": Please stand back, I'm going to try an ancient ritual! Let's hope this works!");
+                say(player, "Please stand back, I'm going to try an ancient ritual! Let's hope this works!");
                 new BukkitRunnable() {
                     @Override
                     public void run() {
@@ -63,6 +60,7 @@ public class PyroTechnic extends NPCS.QuestGiver {
                                 240, 480, 400, 192, "Regen:10", "Regen:20", "Regen:15", "Regen:10", "Prestonplayz");
                         mob.addDrop(ContestingTheFlameOfTruth.firespirit, 1);
                         QuestManager.getProgress(player).incrementFlag();
+                        say(player, "AHHH, PLEASE HELP!");
                         new BukkitRunnable() {
                             @Override
                             public void run() {
@@ -92,7 +90,7 @@ public class PyroTechnic extends NPCS.QuestGiver {
                 Util.launchFirework(player.getLocation(), FireworkEffect.builder().with(FireworkEffect.Type.BALL_LARGE).withColor(Color.OLIVE).withFade(Color.GREEN).flicker(true).trail(true).build());
                 return;
             } else {
-                player.sendMessage(name + ChatColor.WHITE + ": Any information yet?");
+                say(player, "Any information yet?");
                 return;
             }
         } else {
@@ -103,7 +101,7 @@ public class PyroTechnic extends NPCS.QuestGiver {
                         return;
                     } else {
                         Quest q = QuestManager.getQuest(s);
-                        QuestManager.playerProgress.put(player.getName(), new QuestData(q, 0));
+                        QuestManager.startQuest(player, new QuestData(q, 0));
                         new BukkitRunnable() {
                             int i = 0;
 
@@ -122,12 +120,5 @@ public class PyroTechnic extends NPCS.QuestGiver {
             }
         }
         speak(player);
-    }
-
-    public void speak(Player player) {
-        index++;
-        if (index >= strings.length)
-            index = 0;
-        player.sendMessage(name + ChatColor.WHITE + ": " + strings[index]);
     }
 }

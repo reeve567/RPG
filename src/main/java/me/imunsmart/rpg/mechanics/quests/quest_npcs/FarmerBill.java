@@ -23,17 +23,14 @@ public class FarmerBill extends NPCS.QuestGiver {
 
     private static String name = ChatColor.GOLD.toString() + ChatColor.BOLD + "Farmer Bill";
 
-    private static final String[] strings = {
-            "I've got plenty of fruits and veggies!",
-            "I'd love to go on your adventures.",
-            "What all is out there?"
-    };
-
     private static ArrayList<String> quests = new ArrayList<>();
     private static int index = -1;
 
     public FarmerBill(Location location) {
-        super(location, Villager.Profession.FARMER, name, strings);
+        super(location, Villager.Profession.FARMER, name,
+                "I've got plenty of fruits and veggies!",
+                "I'd love to go on your adventures.",
+                "What all is out there?");
         quests.add("Melon Tending");
         quests.add("Farmer Bill's Pumpkin Problem");
     }
@@ -59,7 +56,7 @@ public class FarmerBill extends NPCS.QuestGiver {
                 Util.launchFirework(player.getLocation(), FireworkEffect.builder().with(FireworkEffect.Type.BALL_LARGE).withColor(Color.OLIVE).withFade(Color.GREEN).flicker(true).trail(true).build());
                 return;
             } else {
-                player.sendMessage(name + ChatColor.WHITE + ": " + q.getDialogs()[q.getDialogs().length - 2]);
+                say(player, q.getDialogs()[q.getDialogs().length - 2]);
                 return;
             }
         } else if (QuestManager.playerProgress.containsKey(player.getName()) && QuestManager.getProgress(player).getQuest().getName().equalsIgnoreCase(quests.get(1))) {
@@ -70,23 +67,23 @@ public class FarmerBill extends NPCS.QuestGiver {
                         if (player.getInventory().getItem(i).getItemMeta().getDisplayName().equals(FarmerBillsPumpkinProblem.pumpkin.getItemMeta().getDisplayName()))
                             player.getInventory().setItem(i, null);
                 }
-                player.sendMessage(name + ChatColor.WHITE + ": " + q.getDialogs()[q.getDialogs().length - 1]);
+                say(player, q.getDialogs()[q.getDialogs().length - 1]);
                 q.rewardPlayer(player);
                 Util.launchFirework(player.getLocation(), FireworkEffect.builder().with(FireworkEffect.Type.BALL_LARGE).withColor(Color.OLIVE).withFade(Color.GREEN).flicker(true).trail(true).build());
                 return;
             } else {
-                player.sendMessage(name + ChatColor.WHITE + ": " + q.getDialogs()[q.getDialogs().length - 2]);
+                say(player, q.getDialogs()[q.getDialogs().length - 2]);
                 return;
             }
         } else {
             for (String s : quests) {
                 if (!Stats.getCompletedQuests(player).contains(s)) {
                     if (QuestManager.playerProgress.containsKey(player.getName())) {
-                        player.sendMessage(name + ChatColor.WHITE + ": Sorry! You seem too busy to help me!");
+                        say(player, "Sorry! You seem too busy to help me!");
                         return;
                     } else {
                         Quest q = QuestManager.getQuest(s);
-                        QuestManager.playerProgress.put(player.getName(), new QuestData(q, 0));
+                        QuestManager.startQuest(player, new QuestData(q, 0));
                         new BukkitRunnable() {
                             int i = 0;
 
@@ -105,12 +102,5 @@ public class FarmerBill extends NPCS.QuestGiver {
             }
         }
         speak(player);
-    }
-
-    public void speak(Player player) {
-        index++;
-        if (index >= strings.length)
-            index = 0;
-        player.sendMessage(name + ChatColor.WHITE + ": " + strings[index]);
     }
 }

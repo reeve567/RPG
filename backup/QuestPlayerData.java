@@ -39,7 +39,7 @@ public class QuestPlayerData {
 	}
 	
 	private void save() {
-		Stats.setStat(Bukkit.getOfflinePlayer(id), "quests", toStringList());
+		Stats.setStat(Bukkit.getOfflinePlayer(id), "json", toStringList());
 	}
 	
 	private ArrayList<String> toStringList() {

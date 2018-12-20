@@ -86,7 +86,7 @@ public class KingDuncan extends NPCS.QuestGiver {
 				player.sendMessage("a");
 			} else {
 				player.sendMessage("8");
-				//no available quests
+				//no available json
 				index++;
 				if (index >= strings.length)
 					index = 0;

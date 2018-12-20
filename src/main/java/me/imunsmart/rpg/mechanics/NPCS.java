@@ -214,6 +214,7 @@ public class NPCS implements Listener {
 	public abstract static class QuestGiver extends NPC {
 		
 		protected String[] strings;
+		protected int index;
 		protected ArrayList<String> quests = new ArrayList<>();
 		
 		public QuestGiver(Location location, EntityType type, String name, String... strings) {
@@ -235,6 +236,17 @@ public class NPCS implements Listener {
 		
 		public void onClick(Player player) {
 		
+		}
+
+		public void say(Player p, String s) {
+			p.sendMessage(name + ChatColor.WHITE + ": " + s);
+		}
+
+		public void speak(Player player) {
+			index++;
+			if (index >= strings.length)
+				index = 0;
+			player.sendMessage(name + ChatColor.WHITE + ": " + strings[index]);
 		}
 	}
 	
