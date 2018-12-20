@@ -21,18 +21,18 @@ public class AdminTools implements Listener {
 
     public static final ItemStack delete = Items.createItem(Material.BARRIER, 1, 0, ChatColor.RED + "Deleter", ChatColor.GRAY + "Left click to remove.");
 
-    public static final ItemStack lootChest = new CustomItem(Material.CHEST).addGlow().setName("§b&lTier 1 Lootchest");
+    public static final ItemStack lootChest = new CustomItem(Material.CHEST).addGlow().setName("§b§lTier 1 Lootchest");
 
-    public static final ItemStack gemSpawner = new CustomItem(Material.DIAMOND_ORE).addGlow().setName("§b&lTier 1 Gem Spawner");
+    public static final ItemStack gemSpawner = new CustomItem(Material.DIAMOND_ORE).addGlow().setName("§b§lTier 1 Gem Spawner");
 
-    public static final ItemStack mobSpawner = new CustomItem(Material.SPAWNER).addGlow().setName("§b&lTier 1 Mob Spawner");
+    public static final ItemStack mobSpawner = new CustomItem(Material.SPAWNER).addGlow().setName("§b§lTier 1 Mob Spawner");
 
-    public static final ItemStack spawnerAmountTool = new CustomItem(Material.CREEPER_SPAWN_EGG).addGlow().setCustomAmount(1).setName("§a&lSpawner Amount Tool");
+    public static final ItemStack spawnerAmountTool = new CustomItem(Material.CREEPER_SPAWN_EGG).addGlow().setCustomAmount(1).setName("§a§lSpawner Amount Tool");
 
     public static final ItemStack[] spawnerTypeTool = {
-            new CustomItem(Material.ZOMBIE_HEAD).addGlow().setCustomAmount(1).setName("§a&lSpawner Type Tool").setLore(ChatColor.GRAY + "Type: " + ChatColor.AQUA + "Zombie"),
-            new CustomItem(Material.SKELETON_SKULL).addGlow().setCustomAmount(1).setName("§a&lSpawner Type Tool").setLore(ChatColor.GRAY + "Type: " + ChatColor.AQUA + "Skeleton"),
-            new CustomItem(Material.PLAYER_HEAD).addGlow().setCustomAmount(1).setName("§a&lSpawner Type Tool").setLore(ChatColor.GRAY + "Type: " + ChatColor.AQUA + "Spider"),
+            new CustomItem(Material.ZOMBIE_HEAD).addGlow().setCustomAmount(1).setName("§a§lSpawner Type Tool").setLore(ChatColor.GRAY + "Type: " + ChatColor.AQUA + "Zombie"),
+            new CustomItem(Material.SKELETON_SKULL).addGlow().setCustomAmount(1).setName("§a§lSpawner Type Tool").setLore(ChatColor.GRAY + "Type: " + ChatColor.AQUA + "Skeleton"),
+            new CustomItem(Material.PLAYER_HEAD).addGlow().setCustomAmount(1).setName("§a§lSpawner Type Tool").setLore(ChatColor.GRAY + "Type: " + ChatColor.AQUA + "Spider"),
 
     };
 
@@ -61,8 +61,9 @@ public class AdminTools implements Listener {
     public void onInteract(PlayerInteractEvent e) {
         ItemStack stack = e.getItem();
         if (stack != null) {
-            if (e.getAction() == Action.LEFT_CLICK_AIR) return;
-            int a = 1;
+        	int a = 0;
+            if (e.getAction() == Action.LEFT_CLICK_AIR)
+                a = 1;
             if (e.getAction() == Action.RIGHT_CLICK_AIR)
                 a = -1;
             if (stack.hasItemMeta() && stack.getItemMeta().hasDisplayName()) {
@@ -75,10 +76,10 @@ public class AdminTools implements Listener {
                     amount = Math.max(1, amount);
                     item.setCustomAmount(amount);
                     e.getPlayer().setItemInHand(item);
-                } else if (stack.getItemMeta().getDisplayName().contains("Spawner Type")) {
+                } else if (stack.getItemMeta().getDisplayName().contains("§a§l")) {
                     e.setCancelled(true);
                     for (int i = 0; i < spawnerTypeTool.length; i++) {
-                        if (e.getItem().getItemMeta().getLore().equals(spawnerTypeTool[i].getItemMeta().getLore())) {
+                        if (stack.getItemMeta().getLore().equals(spawnerTypeTool[i].getItemMeta().getLore())) {
                             i += a;
                             i = Math.min(spawnerTypeTool.length - 1, i);
                             i = Math.max(0, i);
@@ -92,21 +93,21 @@ public class AdminTools implements Listener {
                     if (stack.getType() == Material.SPAWNER) {
                         e.setCancelled(true);
                         tier += a;
-                        tier = Math.max(5, tier);
-                        tier = Math.min(1, tier);
-                        e.getPlayer().setItemInHand(new CustomItem(stack).setName("§b&lTier " + tier + " Mob Spawner"));
+                        tier = Math.min(5, tier);
+                        tier = Math.max(1, tier);
+                        e.getPlayer().setItemInHand(new CustomItem(stack).setName("§b§lTier " + tier + " Mob Spawner"));
                     } else if (stack.getType() == Material.DIAMOND_ORE) {
                         e.setCancelled(true);
                         tier += a;
-                        tier = Math.max(5, tier);
-                        tier = Math.min(1, tier);
-                        e.getPlayer().setItemInHand(new CustomItem(stack).setName("§b&lTier " + tier + " Gem Spawner"));
+                        tier = Math.min(5, tier);
+                        tier = Math.max(1, tier);
+                        e.getPlayer().setItemInHand(new CustomItem(stack).setName("§b§lTier " + tier + " Gem Spawner"));
                     } else if (stack.getType() == Material.CHEST) {
                         e.setCancelled(true);
                         tier += a;
-                        tier = Math.max(5, tier);
-                        tier = Math.min(1, tier);
-                        e.getPlayer().setItemInHand(new CustomItem(stack).setName("§b&lTier " + tier + " Lootchest"));
+                        tier = Math.min(5, tier);
+                        tier = Math.max(1, tier);
+                        e.getPlayer().setItemInHand(new CustomItem(stack).setName("§b§lTier " + tier + " Lootchest"));
                     }
                 }
             }
