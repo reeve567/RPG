@@ -160,7 +160,7 @@ public class PlayerEvents implements Listener {
 		Player p = e.getPlayer();
 		if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			if (e.getItem() != null) {
-				if (e.getItem().getType() == Material.LEGACY_EMPTY_MAP) {
+				if (e.getItem().getType() == Material.MAP) {
 					if (e.getItem().hasItemMeta())
 						e.setCancelled(true);
 					return;

@@ -157,51 +157,6 @@ public class Items {
 //        return "@i" + i.getType().name() + "@a" + i.getAmount() + "@d" + i.getDurability() + "@n" + i.getItemMeta().getDisplayName() + "@l" + lore + "@e" + enchants;
 //    }
 
-	public static String serialize(ItemStack item) {
-		if (item == null) {
-			return new ItemStack(Material.AIR).serialize().toString();
-		}
-		Map<String, Object> map = item.serialize();
-		System.out.println(map.toString());
-		return map.toString();
-	}
-
-	public static ItemStack deserialize(String item) {
-		Properties props = new Properties();
-		try {
-			String load = "";
-			if (item.contains("meta")) {
-				load = item.substring(1, item.indexOf("meta")).replace(", ", "\n") + item.substring(item.indexOf("meta"), item.length() - 1);
-			} else {
-				load = item.substring(1, item.length() - 1).replace(", ", "\n");
-			}
-			System.out.println("TEST:" + load);
-			props.load(new StringReader(load));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		Map<String, Object> map = new HashMap<>();
-		map.put("v", 1628);
-		for (Map.Entry<Object, Object> e : props.entrySet()) {
-			if (!e.getKey().equals("v"))
-				map.put((String) e.getKey(), e.getValue());
-		}
-
-		CustomItem stack = new CustomItem(new ItemStack(Material.getMaterial(String.valueOf(map.get("type")))));
-		Map<String, Object> met = (Map<String, Object>) map.get("meta");
-
-		for (String s : (List<String>) met.get("ItemFlags")) {
-			stack.addItemFlags(ItemFlag.valueOf(s));
-		}
-
-		stack.setName(String.valueOf(met.get("display-name")));
-		stack.setDurability((Integer) met.get("Damage"));
-		stack.setLore((List<String>) met.get("lore"));
-
-		System.out.println(map.toString());
-		return stack;
-	}
-
 	public static void useItem(Player p) {
 		PlayerInventory pi = p.getInventory();
 		if (p.getGameMode() != GameMode.CREATIVE) {

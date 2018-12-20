@@ -4,12 +4,14 @@ import me.imunsmart.rpg.Main;
 import me.imunsmart.rpg.mobs.Constants;
 import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
 import java.io.IOException;
@@ -170,7 +172,16 @@ public class Stats {
 	public static ConfigurationSection getKey(OfflinePlayer p, String id) {
 		File f = new File(dir, p.getUniqueId() + ".yml");
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
-		return fc.getConfigurationSection(id);
+		if (fc.contains(id))
+			return fc.getConfigurationSection(id);
+		else
+			return fc.createSection(id);
+	}
+
+	public static ItemStack getItem(OfflinePlayer p, String id) {
+		File f = new File(dir, p.getUniqueId() + ".yml");
+		FileConfiguration fc = YamlConfiguration.loadConfiguration(f);
+		return fc.getItemStack(id, new ItemStack(Material.AIR));
 	}
 
 	public static void reset(OfflinePlayer p) {

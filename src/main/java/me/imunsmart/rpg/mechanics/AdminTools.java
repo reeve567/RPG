@@ -33,6 +33,7 @@ public class AdminTools implements Listener {
             new CustomItem(Material.ZOMBIE_HEAD).addGlow().setCustomAmount(1).setName("§a&lSpawner Type Tool").setLore(ChatColor.GRAY + "Type: " + ChatColor.AQUA + "Zombie"),
             new CustomItem(Material.SKELETON_SKULL).addGlow().setCustomAmount(1).setName("§a&lSpawner Type Tool").setLore(ChatColor.GRAY + "Type: " + ChatColor.AQUA + "Skeleton"),
             new CustomItem(Material.PLAYER_HEAD).addGlow().setCustomAmount(1).setName("§a&lSpawner Type Tool").setLore(ChatColor.GRAY + "Type: " + ChatColor.AQUA + "Spider"),
+
     };
 
     @EventHandler
