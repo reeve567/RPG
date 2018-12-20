@@ -18,7 +18,7 @@ public class ResourceLoader {
 			Gson gson = new Gson();
 			URL location = ResourceLoader.class.getProtectionDomain().getCodeSource().getLocation();
 			JsonReader reader;
-			reader = new JsonReader(new FileReader(new File(location.getFile() + "json", "npcs.json")));
+			reader = new JsonReader(new FileReader(new File("json", "npcs.json")));
 			npcs = gson.fromJson(reader, Info.class);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
