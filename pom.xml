@@ -5,7 +5,6 @@
 
 	<groupId>pw.xwy.RPG</groupId>
 	<artifactId>RPG</artifactId>
-    <packaging>pom</packaging>
     <version>RELEASE</version>
 
 	<build>
@@ -64,13 +63,6 @@
 			<groupId>com.github.MrPowerGamerBR</groupId>
 			<artifactId>TemmieWebhook</artifactId>
 			<version>-59de40c3b6-1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.dynmap</groupId>
-			<artifactId>dynmap</artifactId>
-			<version>3.0</version>
-			<scope>system</scope>
-			<systemPath>${pom.basedir}/lib/Dynmap-3.0-beta-3-spigot.jar</systemPath>
 		</dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>

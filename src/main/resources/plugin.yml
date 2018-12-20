@@ -1,8 +1,7 @@
 name: RPG
-author: ImUnsmart
-main: Main
+author: Xwy
+main: me.imunsmart.rpg.Main
 version: BETA
-depend: [dynmap]
 api-version: 1.13
 commands:
   giveweapon:

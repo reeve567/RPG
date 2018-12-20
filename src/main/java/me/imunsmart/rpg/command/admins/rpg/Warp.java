@@ -5,8 +5,6 @@ import me.imunsmart.rpg.util.Util;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.dynmap.markers.Marker;
-import org.dynmap.markers.MarkerSet;
 
 public class Warp {
 	
@@ -47,25 +45,25 @@ public class Warp {
 		}
 	}
 	
-	public static void createMarker(String setName, String displayName, String labelName, Location location, String iconName) {
-		if (Main.main.markerAPI != null) {
-			MarkerSet set = Main.main.markerAPI.getMarkerSet(setName);
-			if (set != null) {
-				boolean found = false;
-				for (Marker m : set.getMarkers()) {
-					if (!found) if (m.getMarkerID().equalsIgnoreCase(labelName)) found = true;
-				}
-				if (!found)
-					set.createMarker(labelName, displayName, "world", location.getX(), location.getY(), location.getZ(), Main.main.markerAPI.getMarkerIcon(iconName), false);
-				
-			} else {
-				set = Main.main.markerAPI.createMarkerSet(setName, setName, Main.main.markerAPI.getMarkerIcons(), false);
-				set.createMarker(labelName, displayName, "world", location.getX(), location.getY(), location.getZ(), Main.main.markerAPI.getMarkerIcon(iconName), false);
-			}
-		} else {
-			System.out.println("error 73");
-		}
-	}
+//	public static void createMarker(String setName, String displayName, String labelName, Location location, String iconName) {
+//		if (Main.main.markerAPI != null) {
+//			MarkerSet set = Main.main.markerAPI.getMarkerSet(setName);
+//			if (set != null) {
+//				boolean found = false;
+//				for (Marker m : set.getMarkers()) {
+//					if (!found) if (m.getMarkerID().equalsIgnoreCase(labelName)) found = true;
+//				}
+//				if (!found)
+//					set.createMarker(labelName, displayName, "world", location.getX(), location.getY(), location.getZ(), Main.main.markerAPI.getMarkerIcon(iconName), false);
+//
+//			} else {
+//				set = Main.main.markerAPI.createMarkerSet(setName, setName, Main.main.markerAPI.getMarkerIcons(), false);
+//				set.createMarker(labelName, displayName, "world", location.getX(), location.getY(), location.getZ(), Main.main.markerAPI.getMarkerIcon(iconName), false);
+//			}
+//		} else {
+//			System.out.println("error 73");
+//		}
+//	}
 	
 	private static class WarpLocation {
 		
@@ -77,8 +75,8 @@ public class Warp {
 			this.location = location;
 			this.displayName = displayName;
 			this.labelName = labelName;
-			createMarker("Areas", displayName, "area_" + labelName, location, icon);
-			
+//			createMarker("Areas", displayName, "area_" + labelName, location, icon);
+
 			
 		}
 		

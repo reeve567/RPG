@@ -45,13 +45,6 @@
       <scope>system</scope>
       <systemPath>${pom.basedir}/lib/spigot-1.13.2.jar</systemPath>
     </dependency>
-    <dependency>
-      <groupId>org.dynmap</groupId>
-      <artifactId>dynmap</artifactId>
-      <version>3.0</version>
-      <scope>system</scope>
-      <systemPath>${pom.basedir}/lib/Dynmap-3.0-beta-3-spigot.jar</systemPath>
-    </dependency>
   </dependencies>
 </project>
 

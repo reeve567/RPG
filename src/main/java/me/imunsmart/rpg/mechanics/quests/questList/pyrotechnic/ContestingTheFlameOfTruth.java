@@ -23,9 +23,9 @@ public class ContestingTheFlameOfTruth extends Quest {
                         "I swear it wasn't me though!", "If you could just prove who it was I'd be willing to give you something in return.", "Thank you, thank you, thank you!"},
                 ChatColor.GRAY + "Rewards:,-" + ChatColor.YELLOW + " 1000 Experience" + ChatColor.GRAY + ",-" + ChatColor.GRAY + " 4 Standard Potions of Healing," + ChatColor.GRAY +
                         "-" + ChatColor.AQUA + "250 gems (noted)", Quest.MISC);
-        torch = Items.createItem(Material.LEGACY_REDSTONE_TORCH_ON, 1, 0, ChatColor.RED + "Red Hot Stick", "A mysterious fiery stick...", "The Pyrotechnic might be interested in this item.", "", ChatColor.YELLOW + getName() + " Quest Item");
+        torch = Items.createItem(Material.REDSTONE_TORCH, 1, 0, ChatColor.RED + "Red Hot Stick", "A mysterious fiery stick...", "The Pyrotechnic might be interested in this item.", "", ChatColor.YELLOW + getName() + " Quest Item");
         torch.addUnsafeEnchantment(Enchantment.getByName("glow"), 1);
-        firespirit = Items.createItem(Material.LEGACY_TOTEM, 1, 0, ChatColor.RED + "Spirit of Fire", "A poor, cursed flame soul.", "The Pyrotechnic would be interested in this item.", "", ChatColor.YELLOW + getName() + " Quest Item");
+        firespirit = Items.createItem(Material.TOTEM_OF_UNDYING, 1, 0, ChatColor.RED + "Spirit of Fire", "A poor, cursed flame soul.", "The Pyrotechnic would be interested in this item.", "", ChatColor.YELLOW + getName() + " Quest Item");
         firespirit.addUnsafeEnchantment(Enchantment.getByName("glow"), 1);
     }
 
@@ -41,7 +41,7 @@ public class ContestingTheFlameOfTruth extends Quest {
     @EventHandler
     public void onBreak(BlockBreakEvent e) {
         Player p = e.getPlayer();
-        if (e.getBlock().getType() == Material.LEGACY_REDSTONE_TORCH_ON) {
+        if (e.getBlock().getType() == Material.REDSTONE_TORCH) {
             if (QuestManager.doingQuest(p, this)) {
                 if(!p.getInventory().contains(torch)) {
                     p.getInventory().addItem(torch);
