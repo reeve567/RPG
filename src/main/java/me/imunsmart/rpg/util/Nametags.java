@@ -1,22 +1,21 @@
 package me.imunsmart.rpg.util;
 
-import me.imunsmart.rpg.util.DiscordBroadcaster;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
 
 public class Nametags {
-	
+
 	public static void init() {
 		setupTesterTeam();
 		setupDevTeam();
 	}
-	
+
 	public static void setupDevTeam() {
 		setupTeam("devs", "§b§lDEV §f", "Xwy", "ImUnsmart");
 	}
-	
+
 	public static void setupTeam(String name, String prefix, String... members) {
 		ScoreboardManager manager = Bukkit.getScoreboardManager();
 		Scoreboard scoreboard = manager.getMainScoreboard();
@@ -36,17 +35,17 @@ public class Nametags {
 		}
 		DiscordBroadcaster.messages.add("Setup team " + name);
 	}
-	
+
 	private static void setScoreboard(Scoreboard scoreboard) {
 		for (Player pl : Bukkit.getOnlinePlayers()) {
 			pl.setScoreboard(scoreboard);
 		}
 	}
-	
+
 	public static void setupTesterTeam() {
 		setupTeam("testers", "§c§lTESTER §f", "Chasemantate", "flame8499", "matt2117");
 	}
-	
+
 	public static void init(Player p) {
 		ScoreboardManager manager = Bukkit.getScoreboardManager();
 		Scoreboard scoreboard = manager.getMainScoreboard();
@@ -62,7 +61,7 @@ public class Nametags {
 		objective.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&c&lHP"));
 		p.setScoreboard(scoreboard);
 	}
-	
+
 	static void setScore(Player p, int i) {
 		Scoreboard scoreboard = p.getScoreboard();
 		Objective objective = scoreboard.getObjective("health");
@@ -70,5 +69,5 @@ public class Nametags {
 		score.setScore(i);
 		p.setScoreboard(scoreboard);
 	}
-	
+
 }
