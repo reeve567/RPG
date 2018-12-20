@@ -163,7 +163,7 @@ public class ItemMenu implements Listener {
                 public void run() {
                     ItemStack i = top.getItem(TO_REPAIR_SLOT);
                     if (i != null && top.getItem(SCRAP_SLOT) != null) {
-                        if (top.getItem(SCRAP_SLOT).getItemMeta().getDisplayName().contains("scrap")) {
+                        if (top.getItem(SCRAP_SLOT).getItemMeta().getDisplayName().contains("Scrap")) {
                             int dur = i.getDurability();
                             ItemStack scraps = top.getItem(SCRAP_SLOT);
                             double rp = 0.03;
