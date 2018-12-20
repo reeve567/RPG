@@ -16,6 +16,7 @@ import me.imunsmart.rpg.mechanics.quests.QuestGUI;
 import me.imunsmart.rpg.mechanics.quests.QuestManager;
 import me.imunsmart.rpg.mobs.EntityManager;
 import me.imunsmart.rpg.util.*;
+import me.imunsmart.rpg.util.json.ResourceLoader;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
@@ -67,6 +68,9 @@ public class Main extends JavaPlugin {
 		new DiscordBroadcaster().runTaskTimer(this, 1, 5);
 		this.saveDefaultConfig();
 		this.reloadConfig();
+
+		new ResourceLoader();
+
 		DiscordBroadcaster.messages.add("Loaded config.yml");
 		registerGlow();
 		DiscordBroadcaster.messages.add("Registered Glow");

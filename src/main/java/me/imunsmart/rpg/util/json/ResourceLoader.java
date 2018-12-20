@@ -11,24 +11,19 @@ import java.net.URL;
 
 public class ResourceLoader {
 
-	private Info npcs = new Info();
+	public static Info npcs;
 
 	public ResourceLoader() {
 		try {
 			Gson gson = new Gson();
 			URL location = ResourceLoader.class.getProtectionDomain().getCodeSource().getLocation();
 			JsonReader reader;
-			reader = new JsonReader(new FileReader(new File(location.getFile() + "json", "test.json")));
+			reader = new JsonReader(new FileReader(new File(location.getFile() + "json", "npcs.json")));
 			npcs = gson.fromJson(reader, Info.class);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 
 	}
-
-	public Info getNpcsInfo() {
-		return npcs;
-	}
-
 
 }

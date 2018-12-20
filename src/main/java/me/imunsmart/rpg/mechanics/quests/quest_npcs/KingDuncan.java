@@ -7,6 +7,7 @@ import me.imunsmart.rpg.mechanics.quests.QuestData;
 import me.imunsmart.rpg.mechanics.quests.QuestManager;
 import me.imunsmart.rpg.util.Util;
 import me.imunsmart.rpg.mobs.EntityManager;
+import me.imunsmart.rpg.util.json.ResourceLoader;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
@@ -16,22 +17,16 @@ import org.bukkit.entity.Villager;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class KingDuncan extends NPCS.QuestGiver {
 
-    public static String name = ChatColor.GREEN.toString() + ChatColor.BOLD + "King Duncan";
-
-    private static final String[] strings = {
-            "Be wary of thieves.",
-            "Have fun on your adventures.",
-            "Watch out for powerful monsters."
-    };
     private static ArrayList<String> quests = new ArrayList<>();
     private static int index = -1;
 
     public KingDuncan(Location location) {
-        super(location, Villager.Profession.PRIEST, name, strings);
-        quests.add("A Mine Full of Monsters");
+        super(location, Villager.Profession.PRIEST, ResourceLoader.npcs.getInfo().get("king_duncan").getName(), ResourceLoader.npcs.getInfo().get("king_duncan").getMessages());
+	    quests.addAll(Arrays.asList(ResourceLoader.npcs.getInfo().get("king_duncan").getQuests()));
     }
 
     @Override
