@@ -1,0 +1,20 @@
+{
+  "info": {
+    "king_duncan": {
+      "name": "§a§lKing Duncan",
+      "messages": [
+        "Be wary of thieves.",
+        "Have fun on your adventures.",
+        "Watch out for powerful monsters."
+      ],
+      "quests": [
+        "A Mine Full of Monsters"
+      ]
+    },
+    "test2": {
+      "name": "ddd",
+      "messages": [],
+      "quests": []
+    }
+  }
+}
