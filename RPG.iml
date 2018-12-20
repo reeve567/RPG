@@ -20,7 +20,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="Maven: com.github.MrPowerGamerBR:TemmieWebhook:-59de40c3b6-1" level="project" />
-    <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.0" level="project" />
     <orderEntry type="library" name="Maven: com.github.kevinsawicki:http-request:6.0" level="project" />
     <orderEntry type="module-library">
       <library name="Maven: org.dynmap:dynmap:3.0">
@@ -31,5 +30,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.5" level="project" />
   </component>
 </module>

@@ -30,7 +30,7 @@ public class AdminTools implements Listener {
     public static final ItemStack spawnerAmountTool = new CustomItem(Material.CREEPER_SPAWN_EGG).addGlow().setCustomAmount(1).setName("§a&lSpawner Amount Tool");
 
     public static final ItemStack[] spawnerTypeTool = {
-            new CustomItem(Material.LEGACY_SKULL_ITEM).addGlow().setDurability(2).setCustomAmount(1).setName("§a&lSpawner Type Tool").setLore(ChatColor.GRAY + "Type: " + ChatColor.AQUA + "Zombie"),
+            new CustomItem(Material.).addGlow().setDurability(2).setCustomAmount(1).setName("§a&lSpawner Type Tool").setLore(ChatColor.GRAY + "Type: " + ChatColor.AQUA + "Zombie"),
             new CustomItem(Material.LEGACY_SKULL_ITEM).addGlow().setDurability(0).setCustomAmount(1).setName("§a&lSpawner Type Tool").setLore(ChatColor.GRAY + "Type: " + ChatColor.AQUA + "Skeleton"),
             new CustomItem(Material.LEGACY_SKULL_ITEM).addGlow().setDurability(3).setCustomAmount(1).setName("§a&lSpawner Type Tool").setLore(ChatColor.GRAY + "Type: " + ChatColor.AQUA + "Spider"),
     };

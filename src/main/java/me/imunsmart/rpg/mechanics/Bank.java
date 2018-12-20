@@ -275,13 +275,12 @@ public class Bank implements Listener {
 
     public static void openBank(Player p) {
         int size = Stats.getInt(p, "bank.size", 1);
-        List<String> storage = Stats.getList(p.getUniqueId(), "bank.storage");
         int op = size * 9 + 9;
         if (size == 6)
             op = 54;
         Inventory inv = Bukkit.createInventory(null, op, ChatColor.GREEN + p.getName() + "'s Bank Storage");
-        for (int i = 0; i < storage.size(); i++) {
-            inv.setItem(i, Items.deserialize(storage.get(i)));
+        for (String s : Stats.getKey(p, "bank.storage").getKeys(false)) {
+            inv.setItem(Integer.valueOf(s), Stats.getItem(p, "bank.storage." + s));
         }
         if (size < 6) {
             for (int i = 9; i > 0; i--) {
@@ -296,11 +295,9 @@ public class Bank implements Listener {
     public void onClose(InventoryCloseEvent e) {
         Player p = (Player) e.getPlayer();
         if (e.getInventory().getTitle().equals(ChatColor.GREEN + p.getName() + "'s Bank Storage")) {
-            List<String> items = new ArrayList<>();
-            for (int i = 0; i < e.getInventory().getSize() - 9; i++) {
-                items.add(Items.serialize(e.getInventory().getItem(i)));
+            for(int i = 0; i < e.getInventory().getSize() - 9; i++) {
+                Stats.setStat(p, "bank.storage." + i, e.getInventory().getItem(i));
             }
-            Stats.setStat(p, "bank.storage", items);
         }
     }
 
