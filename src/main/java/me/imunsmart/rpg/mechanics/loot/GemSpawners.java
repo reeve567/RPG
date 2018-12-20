@@ -143,7 +143,7 @@ public class GemSpawners implements Listener {
     public void onInteract(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         if (GemSpawnerC.gsp.containsKey(p.getName())) {
-            if (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK) {
+            if (e.getAction() == Action.LEFT_CLICK_BLOCK) {
                 p.sendMessage(ChatColor.RED + "Cancelled placement of gem spawner.");
                 GemSpawnerC.gsp.remove(p.getName());
                 return;

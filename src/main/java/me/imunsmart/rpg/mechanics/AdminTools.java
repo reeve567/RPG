@@ -92,20 +92,20 @@ public class AdminTools implements Listener {
                     if (stack.getType() == Material.SPAWNER) {
                         e.setCancelled(true);
                         tier += a;
-                        tier = Math.min(5, tier);
-                        tier = Math.max(1, tier);
+                        tier = Math.max(5, tier);
+                        tier = Math.min(1, tier);
                         e.getPlayer().setItemInHand(new CustomItem(stack).setName("§b&lTier " + tier + " Mob Spawner"));
                     } else if (stack.getType() == Material.DIAMOND_ORE) {
                         e.setCancelled(true);
                         tier += a;
-                        tier = Math.min(5, tier);
-                        tier = Math.max(1, tier);
+                        tier = Math.max(5, tier);
+                        tier = Math.min(1, tier);
                         e.getPlayer().setItemInHand(new CustomItem(stack).setName("§b&lTier " + tier + " Gem Spawner"));
                     } else if (stack.getType() == Material.CHEST) {
                         e.setCancelled(true);
                         tier += a;
-                        tier = Math.min(5, tier);
-                        tier = Math.max(1, tier);
+                        tier = Math.max(5, tier);
+                        tier = Math.min(1, tier);
                         e.getPlayer().setItemInHand(new CustomItem(stack).setName("§b&lTier " + tier + " Lootchest"));
                     }
                 }
