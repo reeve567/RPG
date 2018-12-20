@@ -66,7 +66,7 @@ public class AdminTools implements Listener {
                 a = 1;
             if (e.getAction() == Action.RIGHT_CLICK_AIR)
                 a = -1;
-            if (stack.hasItemMeta() && stack.getItemMeta().hasDisplayName()) {
+            if (a != 0 && stack.hasItemMeta() && stack.getItemMeta().hasDisplayName()) {
                 if (stack.getType() == Material.CREEPER_SPAWN_EGG) {
                     e.setCancelled(true);
                     CustomItem item = new CustomItem(stack);
@@ -76,7 +76,7 @@ public class AdminTools implements Listener {
                     amount = Math.max(1, amount);
                     item.setCustomAmount(amount);
                     e.getPlayer().setItemInHand(item);
-                } else if (stack.getItemMeta().getDisplayName().contains("§a§l")) {
+                } else if (stack.getItemMeta().getDisplayName().contains("§a§lSpawner Type ")) {
                     e.setCancelled(true);
                     for (int i = 0; i < spawnerTypeTool.length; i++) {
                         if (stack.getItemMeta().getLore().equals(spawnerTypeTool[i].getItemMeta().getLore())) {
