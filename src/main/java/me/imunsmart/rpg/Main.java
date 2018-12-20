@@ -24,8 +24,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.dynmap.bukkit.DynmapPlugin;
-import org.dynmap.markers.MarkerAPI;
 
 import java.lang.reflect.Field;
 import java.util.logging.Level;
@@ -33,7 +31,7 @@ import java.util.logging.Level;
 public class Main extends JavaPlugin {
 
 	public static Main main;
-	public MarkerAPI markerAPI;
+//	public MarkerAPI markerAPI;
 	public static NamespacedKey key;
 
 	@Override
@@ -72,7 +70,7 @@ public class Main extends JavaPlugin {
 		DiscordBroadcaster.messages.add("Loaded config.yml");
 		registerGlow();
 		DiscordBroadcaster.messages.add("Registered Glow");
-		setDynmapAPI();
+//		setDynmapAPI();
 		registerEvents();
 		DiscordBroadcaster.messages.add("Registered listeners");
 		registerCommands();
@@ -108,17 +106,17 @@ public class Main extends JavaPlugin {
 		}
 	}
 
-	private void setDynmapAPI() {
-		try {
-			DynmapPlugin core = (DynmapPlugin) getServer().getPluginManager().getPlugin("dynmap");
-			markerAPI = core.getMarkerAPI();
-			DiscordBroadcaster.messages.add("Setup DynMap Hook");
-		} catch (Exception e) {
-			e.printStackTrace();
-			DiscordBroadcaster.messages.add("Could not get dynmapAPI");
-		}
-
-	}
+//	private void setDynmapAPI() {
+//		try {
+//			DynmapPlugin core = (DynmapPlugin) getServer().getPluginManager().getPlugin("dynmap");
+//			markerAPI = core.getMarkerAPI();
+//			DiscordBroadcaster.messages.add("Setup DynMap Hook");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			DiscordBroadcaster.messages.add("Could not get dynmapAPI");
+//		}
+//
+//	}
 
 	private void registerEvents() {
 		getLogger().log(Level.INFO, "Registered events.");
